@@ -34,7 +34,7 @@
 #define PIN_NUM_CLK  19
 #define PIN_NUM_CS   22
 
-#define PIN_NUM_DC   21
+#define PIN_NUM_DC   16
 #define PIN_NUM_RST  18
 
 //Send a command to the LCD. Uses spi_device_transmit, which waits until the transfer is complete.
