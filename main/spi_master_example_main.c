@@ -7,6 +7,10 @@
 #include "driver/spi_master.h"
 #include "soc/gpio_struct.h"
 #include "driver/gpio.h"
+#include <driver/adc.h>
+#include <esp_adc_cal.h>
+
+
 
 #include "ssd1306_consts.h"
 
@@ -64,7 +68,7 @@ void lcd_init(spi_device_handle_t spi)
 
     //Reset the display
     gpio_set_level(PIN_NUM_RST, 1);
-    vTaskDelay(1);
+    vTaskDelay(1 / portTICK_PERIOD_MS);
     gpio_set_level(PIN_NUM_RST, 0);
     vTaskDelay(1);
     gpio_set_level(PIN_NUM_RST, 1);
@@ -175,6 +179,12 @@ void app_main()
     int y = 0;
     int z = 0;
 
+    adc1_config_width(ADC_WIDTH_12Bit);
+    adc1_config_channel_atten(ADC1_CHANNEL_6, ADC_ATTEN_11db);
+
+    /* // Calculate ADC characteristics i.e. gain and offset factors */
+    /* esp_adc_cal_characteristics_t characteristics; */
+    /* esp_adc_cal_get_characteristics(V_REF, ADC_ATTEN_11db, ADC_WIDTH_12Bit, &characteristics); */
 
     while(1)
     {
@@ -190,5 +200,9 @@ void app_main()
       lcd_cmd(spi, cmd2, sizeof(cmd2));
       lcd_data(spi, frame, sizeof(frame));
       gpio_set_level(PIN_NUM_DC, 0);
+      // Read ADC and obtain result in mV
+      int voltage = adc1_get_raw(ADC1_CHANNEL_6);
+      printf("%d mV\n",voltage);
+      //vTaskDelay(10);
     }
 }
