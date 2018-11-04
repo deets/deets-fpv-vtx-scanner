@@ -24,6 +24,43 @@
 #define STAR_DISTANCE 8192
 #define STAR_COUNT 300
 
+typedef struct {
+  int xpos;
+  int adc_value;
+} channel_reading_t;
+
+static channel_reading_t channels[40];
+#define CHANNELS_HEIGHT (64 - 10)
+#define CHANNELS_BOTTOM (CHANNELS_HEIGHT + 3)
+
+void init_channels()
+{
+  // we have 40 channels, and 128
+  // pixels. Each channel gets 3
+  // pixels, so we start at column
+  // 4. As the xpos should be the middle,
+  // it's actually 5
+
+  for(int i=0; i < 40; ++i)
+  {
+    channels[i].xpos = 5 + 3 * i;
+  }
+}
+
+void draw_channels(ssd1306_display_t* display)
+{
+  for(int i=0; i < 40; ++i)
+  {
+    int height = CHANNELS_HEIGHT * channels[i].adc_value / 4095;
+    ssd1306_draw_vertical_line(
+      display,
+      channels[i].xpos,
+      CHANNELS_BOTTOM,
+      CHANNELS_BOTTOM - height
+      );
+  }
+}
+
 
 void app_main()
 {
@@ -50,6 +87,9 @@ void app_main()
   adc1_config_width(ADC_WIDTH_12Bit);
   adc1_config_channel_atten(ADC1_CHANNEL_6, ADC_ATTEN_11db);
 
+  init_channels();
+  int channel_pos = 0;
+
   while(1)
   {
     ssd1306_clear(&display);
@@ -60,13 +100,10 @@ void app_main()
       ssd1306_draw_pixel(&display, stars->projections[i].x, stars->projections[i].y);
     }
 
+    channels[channel_pos].adc_value = adc1_get_raw(ADC1_CHANNEL_6);
+    channel_pos = (channel_pos + 1) % 40;
+
+    draw_channels(&display);
     ssd1306_update(&display);
-    // Read ADC and obtain result in mV
-    int voltage = adc1_get_raw(ADC1_CHANNEL_6);
-    printf("%d mV\n",voltage);
-    //vTaskDelay(10);
-    for(int i=0; i < STAR_COUNT; ++i)
-    {
-    }
   }
 }

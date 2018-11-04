@@ -7,6 +7,17 @@
 #include "freertos/task.h"
 
 #include <string.h>
+#include <math.h>
+
+#define max(a, b) ({\
+		typeof(a) _a = a;\
+		typeof(b) _b = b;\
+		_a > _b ? _a : _b; })
+
+#define min(a, b) ({\
+		typeof(a) _a = a;\
+		typeof(b) _b = b;\
+		_a < _b ? _a : _b; })
 
 //Send a command to the LCD. Uses spi_device_transmit, which waits until the transfer is complete.
 static void ssd1306_cmd(ssd1306_display_t *display, const uint8_t* cmd, int len)
@@ -159,4 +170,27 @@ void ssd1306_update(ssd1306_display_t *display)
 void ssd1306_clear(ssd1306_display_t *display)
 {
   memset(display->frame, 0, display->frame_byte_size);
+}
+
+
+void ssd1306_draw_vertical_line(ssd1306_display_t* display, int x, int y, int y2)
+{
+  // normalise y-coordinates
+  if(y > y2)
+  {
+    int h = y;
+    y = y2;
+    y2 = h;
+  }
+  // don't show invisible lines
+  if(x < 0 || x > display->width - 1 || y == y2 || y > display->height - 1 || y2 < 0)
+  {
+    return;
+  }
+  y = max(y, 0); // clip to top
+  y2 = min(y2, display->height - 1); // clip to bottom
+  for(int yrun = y; yrun <= y2; ++yrun)
+  {
+    ssd1306_draw_pixel(display, x, yrun);
+  }
 }

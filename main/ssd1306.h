@@ -20,8 +20,10 @@ int ssd1306_init_static(
   int dc, int rst
   );
 
-void ssd1306_update(ssd1306_display_t *display);
+void ssd1306_update(ssd1306_display_t* display);
 
-void ssd1306_clear(ssd1306_display_t *display);
+void ssd1306_clear(ssd1306_display_t* display);
 
-void ssd1306_draw_pixel(ssd1306_display_t *display, int x, int y);
+void ssd1306_draw_pixel(ssd1306_display_t* display, int x, int y);
+
+void ssd1306_draw_vertical_line(ssd1306_display_t* display, int x, int y, int y2);
