@@ -24,14 +24,47 @@
 #define STAR_DISTANCE 8192
 #define STAR_COUNT 300
 
+#define READER_TASK_STACK_SIZE 2000
+#define READS_PER_SECOND 20
+
 typedef struct {
   int xpos;
   int adc_value;
 } channel_reading_t;
 
-static channel_reading_t channels[40];
+typedef struct {
+  int current_channel;
+  channel_reading_t channels[40];
+
+  TaskHandle_t reader_task_handle;
+  StaticTask_t reader_task_buffer;
+  StackType_t  reader_task_stack[READER_TASK_STACK_SIZE];
+} vtx_scanner_t;
+
+
+static vtx_scanner_t vtx_scanner;
+
+
 #define CHANNELS_HEIGHT (64 - 10)
 #define CHANNELS_BOTTOM (CHANNELS_HEIGHT + 3)
+
+void reader_task(void* data)
+{
+  TickType_t last_wake_time;
+  const TickType_t frequency =  pdMS_TO_TICKS(1000 / READS_PER_SECOND);
+  last_wake_time = xTaskGetTickCount ();
+
+  adc1_config_width(ADC_WIDTH_12Bit);
+  adc1_config_channel_atten(ADC1_CHANNEL_6, ADC_ATTEN_11db);
+
+  for( ;; )
+  {
+    vTaskDelayUntil( &last_wake_time, frequency );
+    vtx_scanner.channels[vtx_scanner.current_channel].adc_value = adc1_get_raw(ADC1_CHANNEL_6);
+    vtx_scanner.current_channel = (vtx_scanner.current_channel + 1) % 40;
+  }
+}
+
 
 void init_channels()
 {
@@ -43,18 +76,29 @@ void init_channels()
 
   for(int i=0; i < 40; ++i)
   {
-    channels[i].xpos = 5 + 3 * i;
+    vtx_scanner.channels[i].xpos = 5 + 3 * i;
+    vtx_scanner.channels[i].adc_value = i * 20;
   }
+  vtx_scanner.current_channel = 0;
+  vtx_scanner.reader_task_handle = xTaskCreateStatic(
+                  reader_task,       // Function that implements the task.
+                  "RTC",          // Text name for the task.
+                  READER_TASK_STACK_SIZE,      // Stack size in bytes, not words.
+                  &vtx_scanner,
+                  tskIDLE_PRIORITY,// Priority at which the task is created.
+                  vtx_scanner.reader_task_stack,          // Array to use as the task's stack.
+                  &vtx_scanner.reader_task_buffer // Variable to hold the task's data structure.
+    );
 }
 
 void draw_channels(ssd1306_display_t* display)
 {
   for(int i=0; i < 40; ++i)
   {
-    int height = CHANNELS_HEIGHT * channels[i].adc_value / 4095;
+    int height = CHANNELS_HEIGHT * vtx_scanner.channels[i].adc_value / 4095;
     ssd1306_draw_vertical_line(
       display,
-      channels[i].xpos,
+      vtx_scanner.channels[i].xpos,
       CHANNELS_BOTTOM,
       CHANNELS_BOTTOM - height
       );
@@ -75,34 +119,11 @@ void app_main()
     PIN_NUM_RST
     );
 
-  starscroller_handle_t* stars = starscroller_create(
-    STAR_COUNT,
-    STAR_DISTANCE,
-    STAR_SPEED,
-    STAR_FACTOR,
-    128,
-    64
-    );
-
-  adc1_config_width(ADC_WIDTH_12Bit);
-  adc1_config_channel_atten(ADC1_CHANNEL_6, ADC_ATTEN_11db);
-
   init_channels();
-  int channel_pos = 0;
 
   while(1)
   {
     ssd1306_clear(&display);
-    starscroller_step(stars);
-
-    for(int i=0; i < STAR_COUNT; ++i)
-    {
-      ssd1306_draw_pixel(&display, stars->projections[i].x, stars->projections[i].y);
-    }
-
-    channels[channel_pos].adc_value = adc1_get_raw(ADC1_CHANNEL_6);
-    channel_pos = (channel_pos + 1) % 40;
-
     draw_channels(&display);
     ssd1306_update(&display);
   }
