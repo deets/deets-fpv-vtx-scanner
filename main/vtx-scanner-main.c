@@ -26,6 +26,7 @@
 
 #define READER_TASK_STACK_SIZE 2000
 #define READS_PER_SECOND 20
+#define READER_TASK_WAKUP_FLAG 1
 
 typedef struct {
   int xpos;
@@ -36,6 +37,7 @@ typedef struct {
   int current_channel;
   channel_reading_t channels[40];
 
+  TaskHandle_t display_task;
   TaskHandle_t reader_task_handle;
   StaticTask_t reader_task_buffer;
   StackType_t  reader_task_stack[READER_TASK_STACK_SIZE];
@@ -62,18 +64,23 @@ void reader_task(void* data)
     vTaskDelayUntil( &last_wake_time, frequency );
     vtx_scanner.channels[vtx_scanner.current_channel].adc_value = adc1_get_raw(ADC1_CHANNEL_6);
     vtx_scanner.current_channel = (vtx_scanner.current_channel + 1) % 40;
+    xTaskNotify(
+      vtx_scanner.display_task,
+      READER_TASK_WAKUP_FLAG,
+      eSetBits
+      );
   }
 }
 
 
 void init_channels()
 {
+  vtx_scanner.display_task = xTaskGetCurrentTaskHandle();
   // we have 40 channels, and 128
   // pixels. Each channel gets 3
   // pixels, so we start at column
   // 4. As the xpos should be the middle,
   // it's actually 5
-
   for(int i=0; i < 40; ++i)
   {
     vtx_scanner.channels[i].xpos = 5 + 3 * i;
@@ -106,6 +113,17 @@ void draw_channels(ssd1306_display_t* display)
 }
 
 
+void wait_for_notification()
+{
+  xTaskNotifyWait(
+    pdFALSE,
+    ULONG_MAX,
+    NULL,
+    portMAX_DELAY
+    );
+}
+
+
 void app_main()
 {
   ssd1306_display_t display;
@@ -123,6 +141,7 @@ void app_main()
 
   while(1)
   {
+    wait_for_notification();
     ssd1306_clear(&display);
     draw_channels(&display);
     ssd1306_update(&display);
