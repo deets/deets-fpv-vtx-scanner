@@ -137,6 +137,24 @@ void wait_for_notification()
 }
 
 
+uint32_t thing[] = {
+  0b00100,
+  0b01010,
+  0b10001,
+  0b01010,
+  0b00100
+};
+
+
+uint32_t thing_mask[] = {
+  0b00100,
+  0b01110,
+  0b11111,
+  0b01110,
+  0b00100
+};
+
+
 void app_main()
 {
   ssd1306_display_t display;
@@ -152,11 +170,22 @@ void app_main()
 
   init_channels();
 
+  ssd1306_sprite_t sprite = {
+    .height=5,
+    .image=thing,
+    .mask=thing_mask,
+    .hotspot_x=2,
+    .hotspot_y=2
+  };
+
+  int xpos = 0;
+  int ypos = 0;
   while(1)
   {
     wait_for_notification();
     ssd1306_clear(&display);
     draw_channels(&display);
+    ssd1306_blit(&display, &sprite, xpos, ypos);
     ssd1306_update(&display);
   }
 }
