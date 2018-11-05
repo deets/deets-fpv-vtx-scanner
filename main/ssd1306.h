@@ -4,7 +4,8 @@
 #include <stdint.h>
 
 typedef struct {
-  uint8_t* frame;
+  uint32_t* frame;
+  uint8_t*  raw_frame;
   int dc_pin;
   int rst_pin;
   int dc_level;

@@ -97,14 +97,16 @@ static void ssd1306_setup(ssd1306_display_t *display)
     ssd1306_cmd(display, cmdD, sizeof(cmdD));
 }
 
+
 void ssd1306_draw_pixel(ssd1306_display_t *display, int x, int y)
 {
   if(x < 0 || x >= SSD1306_LCDWIDTH || y < 0 || y >=SSD1306_LCDHEIGHT)
   {
     return;
   }
-  display->frame[x+ (y/8)*SSD1306_LCDWIDTH] |= (1 << (y&7));
+  display->frame[(x >> 5) + y * (SSD1306_LCDWIDTH / 32)] |= 1 << (x & 0x1f);
 }
+
 
 int ssd1306_init_static(
   ssd1306_display_t *display,
@@ -151,8 +153,29 @@ int ssd1306_init_static(
     ssd1306_setup(display);
 
     display->frame = malloc(display->frame_byte_size);
+    display->raw_frame = malloc(display->frame_byte_size);
 
     return 0;
+}
+
+
+void ssd1306_pixels_to_raw(uint32_t* frame, uint8_t* raw_frame)
+{
+  for(size_t y=0; y < SSD1306_LCDHEIGHT; ++y)
+  {
+    for(size_t xword = 0; xword < (SSD1306_LCDWIDTH / 32); ++xword)
+    {
+      uint32_t word = *frame++;
+      for(size_t xbit=0; xbit < 32; ++xbit)
+      {
+        if(word & 1)
+        {
+          raw_frame[(xword << 5) + xbit + (y/8)*SSD1306_LCDWIDTH] |= (1 << (y&7));
+        }
+        word >>= 1;
+      }
+    }
+  }
 }
 
 
@@ -162,7 +185,9 @@ void ssd1306_update(ssd1306_display_t *display)
     uint8_t cmd2[] = {SSD1306_PAGEADDR, 0, 7};
     ssd1306_cmd(display, cmd1, sizeof(cmd1));
     ssd1306_cmd(display, cmd2, sizeof(cmd2));
-    ssd1306_data(display, display->frame, display->frame_byte_size);
+    memset(display->raw_frame, 0, display->frame_byte_size);
+    ssd1306_pixels_to_raw(display->frame, display->raw_frame);
+    ssd1306_data(display, display->raw_frame, display->frame_byte_size);
     gpio_set_level(display->dc_pin, 0);
 }
 
