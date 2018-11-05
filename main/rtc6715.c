@@ -6,14 +6,26 @@
 
 #include <stdint.h>
 
+/*
+ * These are all the known frequencies.
+ */
 static uint32_t frequency_table[] = {
-  0x2817, 0x281d, 0x2881, 0x288b, 0x2890, 0x2895,
-  0x289f, 0x2902, 0x2903, 0x2906, 0x2909, 0x290c,
-  0x2910, 0x2913, 0x2915, 0x2916, 0x291a, 0x291d,
-  0x291f, 0x2984, 0x2987, 0x2987, 0x2989, 0x298e,
-  0x2991, 0x2992, 0x2998, 0x299a, 0x299b, 0x299c,
-  0x2a02, 0x2a05, 0x2a05, 0x2a0c, 0x2a0c, 0x2a0f,
-  0x2a19, 0x2a1f, 0x2a83, 0x2a8d };
+  5645, 5658, 5665, 5685, 5695, 5705, 5725, 5732, 5733, 5740,
+  5745, 5752, 5760, 5765, 5769, 5771, 5780, 5785, 5790, 5800,
+  5805, 5806, 5809, 5820, 5825, 5828, 5840, 5843, 5845, 5847,
+  5860, 5865, 5866, 5880, 5880, 5885, 5905, 5917, 5925, 5945
+};
+
+static uint32_t calc_register(uint32_t channel)
+{
+  uint32_t freq = frequency_table[channel];
+  // calculatute F_LO
+  freq = freq - 479;
+  uint32_t n = freq >> 6;
+  uint32_t a = (freq%64) >> 1;
+  return a | (n << 7);
+}
+
 
 int rtc6715_setup(rtc6715_t* rtc, int adc_channel, int cs, int clk, int mosi)
 {
@@ -64,8 +76,10 @@ void rtc6715_select_channel(rtc6715_t* rtc, int channel)
   {
     return;
   }
+
+  uint32_t register_value = calc_register(channel);
   spi_transaction_t t;
-  uint32_t cmd = (0x1 | 0x10) | (frequency_table[channel] << 5);
+  uint32_t cmd = (0x1 | 0x10) | (register_value << 5);
   t.length = 25;
   t.tx_buffer = (void*)cmd;
   t.flags = SPI_TRANS_USE_TXDATA;
