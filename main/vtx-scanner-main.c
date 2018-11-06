@@ -11,6 +11,7 @@
 #include "ssd1306.h"
 #include "rtc6715.h"
 #include "starscroller.h"
+#include "p2font.h"
 
 #define PIN_NUM_MISO 25
 #define PIN_NUM_MOSI 23
@@ -138,20 +139,24 @@ void wait_for_notification()
 
 
 uint32_t thing[] = {
-  0b00100,
-  0b01010,
-  0b10001,
-  0b01010,
-  0b00100
+  0b0000000, 0,
+  0b0001000, 0,
+  0b0010100, 0,
+  0b0100010, 0,
+  0b0010100, 0,
+  0b0001000, 0,
+  0b0000000, 0,
 };
 
 
 uint32_t thing_mask[] = {
-  0b00100,
-  0b01110,
-  0b11111,
-  0b01110,
-  0b00100
+  0b0011000,
+  0b0111100,
+  0b0111110,
+  0b1111111,
+  0b0111110,
+  0b0011100,
+  0b0011000
 };
 
 
@@ -170,12 +175,14 @@ void app_main()
 
   init_channels();
 
-  ssd1306_sprite_t sprite = {
-    .height=5,
+  sprite_t sprite = {
+    .height=7,
     .image=thing,
     .mask=thing_mask,
     .hotspot_x=2,
-    .hotspot_y=2
+    .hotspot_y=2,
+    .image_modulo=1,
+    .mask_modulo=0
   };
 
   int xpos = 0;
@@ -185,7 +192,12 @@ void app_main()
     wait_for_notification();
     ssd1306_clear(&display);
     draw_channels(&display);
-    ssd1306_blit(&display, &sprite, xpos, ypos);
+    ssd1306_blit(&display, &p2font.glyphs[65], xpos, ypos);
+    ssd1306_blit(&display, &p2font.glyphs[78], xpos + 8, ypos);
+    ssd1306_blit(&display, &p2font.glyphs[78], xpos + 16, ypos);
+    ssd1306_blit(&display, &p2font.glyphs[69], xpos + 24, ypos);
+    xpos = (xpos + 1) % display.width;
+    ypos = (ypos + 1) % display.height;
     ssd1306_update(&display);
   }
 }

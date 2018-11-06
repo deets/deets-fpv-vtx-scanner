@@ -225,7 +225,7 @@ static uint32_t rotl32a (uint32_t x, uint32_t n)
   return (x<<n) | (x>>(32-n));
 }
 
-void ssd1306_blit(ssd1306_display_t* display, ssd1306_sprite_t* sprite, int xpos, int ypos)
+void ssd1306_blit(ssd1306_display_t* display, const sprite_t* const sprite, int xpos, int ypos)
 {
   xpos -= sprite->hotspot_x;
   ypos -= sprite->hotspot_y;
@@ -270,21 +270,21 @@ void ssd1306_blit(ssd1306_display_t* display, ssd1306_sprite_t* sprite, int xpos
   uint32_t right_rotmask = ~left_rotmask;
   for(;ycount < height; ++ycount)
   {
-    uint32_t rotated_mask = rotl32a(sprite->mask[ycount], rot);
-    uint32_t rotated_pixels = rotl32a(sprite->image[ycount], rot);
+    uint32_t rotated_mask = rotl32a(sprite->mask[(sprite->mask_modulo + 1) * ycount], rot);
+    uint32_t rotated_pixels = rotl32a(sprite->image[(sprite->image_modulo + 1) * ycount], rot);
     if(blit_left)
     {
       uint32_t left_mask = rotated_mask & left_rotmask;
       uint32_t left_pixels = rotated_pixels & left_rotmask;
       display->frame[start_word] &= ~(left_mask);
-      display->frame[start_word] |= left_pixels;
+      display->frame[start_word] |= left_pixels & left_mask;
     }
     if(rot && blit_right)
     {
       uint32_t right_mask = rotated_mask & right_rotmask;
       uint32_t right_pixels = rotated_pixels & right_rotmask;
       display->frame[start_word + 1] &= ~(right_mask);
-      display->frame[start_word + 1] |= right_pixels;
+      display->frame[start_word + 1] |= right_pixels & right_mask;
     }
     start_word += modulo;
   }
