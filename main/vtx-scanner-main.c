@@ -32,7 +32,7 @@
 
 #define READER_TASK_STACK_SIZE 2000
 #define READS_PER_SECOND 20
-#define READER_TASK_WAKUP_FLAG 1
+#define READER_TASK_WAKEUP_FLAG 1
 
 typedef struct {
   int xpos;
@@ -78,7 +78,7 @@ void reader_task(void* data)
     vtx_scanner.channels[vtx_scanner.current_channel].adc_value = rtc6715_read_rssi(&rtc);
     xTaskNotify(
       vtx_scanner.display_task,
-      READER_TASK_WAKUP_FLAG,
+      READER_TASK_WAKEUP_FLAG,
       eSetBits
       );
     // switch channel
