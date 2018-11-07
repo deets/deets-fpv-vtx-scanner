@@ -12,6 +12,7 @@
 #include "rtc6715.h"
 #include "starscroller.h"
 #include "p2font.h"
+#include "diezface.h"
 
 #define PIN_NUM_MISO 25
 #define PIN_NUM_MOSI 23
@@ -185,19 +186,26 @@ void app_main()
     .mask_modulo=0
   };
 
+  int ypos = (64 - diezface.height) / 2;
+  int xstop = display.width - 32;
+  int xstep = 1;
   int xpos = 0;
-  int ypos = 0;
+
   while(1)
   {
     wait_for_notification();
     ssd1306_clear(&display);
     draw_channels(&display);
-    ssd1306_blit(&display, &p2font.glyphs[65], xpos, ypos);
-    ssd1306_blit(&display, &p2font.glyphs[78], xpos + 8, ypos);
-    ssd1306_blit(&display, &p2font.glyphs[78], xpos + 16, ypos);
-    ssd1306_blit(&display, &p2font.glyphs[69], xpos + 24, ypos);
-    xpos = (xpos + 1) % display.width;
-    ypos = (ypos + 1) % display.height;
+    ssd1306_blit(&display, &diezface, xpos, ypos);
+    xpos += xstep;
+    if(xpos >= xstop)
+    {
+      xstep = -1;
+    }
+    if(xpos <= 0)
+    {
+      xstep = 1;
+    }
     ssd1306_update(&display);
   }
 }
