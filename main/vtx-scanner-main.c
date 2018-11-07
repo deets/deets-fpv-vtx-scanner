@@ -7,6 +7,7 @@
 #include "soc/gpio_struct.h"
 #include "driver/gpio.h"
 #include <driver/adc.h>
+#include <esp_intr_alloc.h>
 
 #include "ssd1306.h"
 #include "rtc6715.h"
@@ -33,6 +34,7 @@
 #define READER_TASK_STACK_SIZE 2000
 #define READS_PER_SECOND 20
 #define READER_TASK_WAKEUP_FLAG 1
+#define RIGHT_PIN_ISR_FLAG 2
 
 typedef struct {
   int xpos;
@@ -52,6 +54,7 @@ typedef struct {
 
 static vtx_scanner_t vtx_scanner;
 
+uint32_t isr_count = 0;
 
 #define CHANNELS_HEIGHT (64 - 10)
 #define CHANNELS_BOTTOM (CHANNELS_HEIGHT + 3)
@@ -127,6 +130,22 @@ void draw_channels(ssd1306_display_t* display)
   }
 }
 
+static void IRAM_ATTR gpio_isr_handler(void* arg)
+{
+  BaseType_t higher_prio_has_woken;
+  isr_count++;
+  xTaskNotifyFromISR(
+    vtx_scanner.display_task,
+    RIGHT_PIN_ISR_FLAG,
+    eSetBits,
+    &higher_prio_has_woken
+    );
+  if(higher_prio_has_woken)
+  {
+    portYIELD_FROM_ISR();
+  }
+}
+
 
 void wait_for_notification()
 {
@@ -163,6 +182,20 @@ uint32_t thing_mask[] = {
 
 void app_main()
 {
+  gpio_config_t io_conf;
+  //interrupt of rising edge
+  io_conf.intr_type = GPIO_PIN_INTR_NEGEDGE;
+  //bit mask of the pins, use GPIO4/5 here
+  io_conf.pin_bit_mask = (1ULL<< GPIO_NUM_0);
+  //set as input mode
+  io_conf.mode = GPIO_MODE_INPUT;
+  //enable pull-up mode
+  io_conf.pull_up_en = 1;
+  gpio_config(&io_conf);
+
+  gpio_install_isr_service(0);
+  gpio_isr_handler_add(GPIO_NUM_0, gpio_isr_handler, NULL);
+
   ssd1306_display_t display;
   ssd1306_init_static(
     &display,
@@ -207,5 +240,6 @@ void app_main()
       xstep = 1;
     }
     ssd1306_update(&display);
+    printf("%i\n", isr_count);
   }
 }
