@@ -5,6 +5,22 @@
 #define CHANNELS_HEIGHT (64 - 10)
 #define CHANNELS_BOTTOM (CHANNELS_HEIGHT + 3)
 
+static uint32_t cursor_image[] = {
+  0b111,
+  0b010,
+};
+
+static sprite_t cursor = {
+  .height=2,
+  .hotspot_x=1,
+  .hotspot_y=0,
+  .image_modulo=0,
+  .mask_modulo=0,
+  cursor_image,
+  cursor_image
+};
+
+
 void channel_display_init(channel_display_t* channel_display)
 {
   // we have 40 channels, and 128
@@ -19,7 +35,9 @@ void channel_display_init(channel_display_t* channel_display)
   }
   channel_display->min = 4095;
   channel_display->max = 0;
+  channel_display->cursor_pos = 20;
 }
+
 
 void channel_display_update_channel(int channel, int value, channel_display_t* channel_display)
 {
@@ -49,4 +67,11 @@ void channel_display_draw(ssd1306_display_t* display, channel_display_t* channel
       CHANNELS_BOTTOM - height
       );
   }
+  ssd1306_blit(display, &cursor, 5 + 3 * channel_display->cursor_pos, 0);
+}
+
+
+void channel_display_step_cursor(channel_display_t* channel_display)
+{
+  channel_display->cursor_pos = (channel_display->cursor_pos + 1) % CHANNEL_NUM;
 }

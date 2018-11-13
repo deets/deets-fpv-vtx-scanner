@@ -34,8 +34,8 @@
 
 #define READER_TASK_STACK_SIZE 2000
 #define READS_PER_SECOND 20
-#define READER_TASK_WAKEUP_FLAG 1
-#define RIGHT_PIN_ISR_FLAG 2
+#define READER_TASK_WAKEUP_FLAG (1 << 0)
+#define RIGHT_PIN_ISR_FLAG (1 << 1)
 
 typedef struct {
   int current_channel;
@@ -123,37 +123,17 @@ static void IRAM_ATTR gpio_isr_handler(void* arg)
 }
 
 
-void wait_for_notification()
+uint32_t wait_for_notification()
 {
+  uint32_t status_bits;
   xTaskNotifyWait(
     pdFALSE,
     ULONG_MAX,
-    NULL,
+    &status_bits,
     portMAX_DELAY
     );
+  return status_bits;
 }
-
-
-uint32_t thing[] = {
-  0b0000000, 0,
-  0b0001000, 0,
-  0b0010100, 0,
-  0b0100010, 0,
-  0b0010100, 0,
-  0b0001000, 0,
-  0b0000000, 0,
-};
-
-
-uint32_t thing_mask[] = {
-  0b0011000,
-  0b0111100,
-  0b0111110,
-  0b1111111,
-  0b0111110,
-  0b0011100,
-  0b0011000
-};
 
 
 void app_main()
@@ -186,7 +166,12 @@ void app_main()
 
   while(1)
   {
-    wait_for_notification();
+    uint32_t status_bits = wait_for_notification();
+    if(status_bits & RIGHT_PIN_ISR_FLAG)
+    {
+      channel_display_step_cursor(&vtx_scanner.channels);
+    }
+
     ssd1306_clear(&display);
     channel_display_draw(&display, &vtx_scanner.channels);
     ssd1306_update(&display);
