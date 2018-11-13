@@ -1,0 +1,23 @@
+// Copyright: 2018, Diez B. Roggisch, Berlin, all rights reserved
+
+#pragma once
+
+#include "ssd1306.h"
+
+#define CHANNEL_NUM 40
+
+typedef struct {
+  int xpos;
+  int adc_value;
+} channel_reading_t;
+
+typedef struct {
+  channel_reading_t channels[40];
+  int min;
+  int max;
+} channel_display_t;
+
+
+void channel_display_init(channel_display_t* channel_display);
+void channel_display_update_channel(int channel, int value, channel_display_t* channel_display);
+void channel_display_draw(ssd1306_display_t* display, channel_display_t* channels_display);

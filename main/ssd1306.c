@@ -2,6 +2,7 @@
 
 #include "ssd1306.h"
 #include "ssd1306_consts.h"
+#include "common.h"
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
@@ -9,15 +10,6 @@
 #include <string.h>
 #include <math.h>
 
-#define max(a, b) ({\
-		typeof(a) _a = a;\
-		typeof(b) _b = b;\
-		_a > _b ? _a : _b; })
-
-#define min(a, b) ({\
-		typeof(a) _a = a;\
-		typeof(b) _b = b;\
-		_a < _b ? _a : _b; })
 
 //Send a command to the LCD. Uses spi_device_transmit, which waits until the transfer is complete.
 static void ssd1306_cmd(ssd1306_display_t *display, const uint8_t* cmd, int len)

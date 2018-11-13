@@ -13,7 +13,8 @@
 #include "rtc6715.h"
 #include "starscroller.h"
 #include "p2font.h"
-#include "diezface.h"
+#include "channel_display.h"
+
 
 #define PIN_NUM_MISO 25
 #define PIN_NUM_MOSI 23
@@ -37,14 +38,8 @@
 #define RIGHT_PIN_ISR_FLAG 2
 
 typedef struct {
-  int xpos;
-  int adc_value;
-} channel_reading_t;
-
-typedef struct {
   int current_channel;
-  channel_reading_t channels[40];
-
+  channel_display_t channels;
   TaskHandle_t display_task;
   TaskHandle_t reader_task_handle;
   StaticTask_t reader_task_buffer;
@@ -56,8 +51,6 @@ static vtx_scanner_t vtx_scanner;
 
 uint32_t isr_count = 0;
 
-#define CHANNELS_HEIGHT (64 - 10)
-#define CHANNELS_BOTTOM (CHANNELS_HEIGHT + 3)
 
 
 void reader_task(void* data)
@@ -78,14 +71,19 @@ void reader_task(void* data)
   for( ;; )
   {
     vTaskDelayUntil( &last_wake_time, frequency );
-    vtx_scanner.channels[vtx_scanner.current_channel].adc_value = rtc6715_read_rssi(&rtc);
+    channel_display_update_channel(
+      vtx_scanner.current_channel,
+      rtc6715_read_rssi(&rtc),
+      &vtx_scanner.channels
+      );
     xTaskNotify(
       vtx_scanner.display_task,
       READER_TASK_WAKEUP_FLAG,
       eSetBits
       );
-    // switch channel
-    vtx_scanner.current_channel = (vtx_scanner.current_channel + 1) % 40;
+    // switch channel to the next one after reading
+    // so we get the maximum of stabilisation time.
+    vtx_scanner.current_channel = (vtx_scanner.current_channel + 1) % CHANNEL_NUM;
     rtc6715_select_channel(&rtc, vtx_scanner.current_channel);
   }
 }
@@ -94,16 +92,7 @@ void reader_task(void* data)
 void init_channels()
 {
   vtx_scanner.display_task = xTaskGetCurrentTaskHandle();
-  // we have 40 channels, and 128
-  // pixels. Each channel gets 3
-  // pixels, so we start at column
-  // 4. As the xpos should be the middle,
-  // it's actually 5
-  for(int i=0; i < 40; ++i)
-  {
-    vtx_scanner.channels[i].xpos = 5 + 3 * i;
-    vtx_scanner.channels[i].adc_value = i * 20;
-  }
+  channel_display_init(&vtx_scanner.channels);
   vtx_scanner.current_channel = 0;
   vtx_scanner.reader_task_handle = xTaskCreateStatic(
                   reader_task,       // Function that implements the task.
@@ -116,19 +105,6 @@ void init_channels()
     );
 }
 
-void draw_channels(ssd1306_display_t* display)
-{
-  for(int i=0; i < 40; ++i)
-  {
-    int height = CHANNELS_HEIGHT * vtx_scanner.channels[i].adc_value / 4095;
-    ssd1306_draw_vertical_line(
-      display,
-      vtx_scanner.channels[i].xpos,
-      CHANNELS_BOTTOM,
-      CHANNELS_BOTTOM - height
-      );
-  }
-}
 
 static void IRAM_ATTR gpio_isr_handler(void* arg)
 {
@@ -199,8 +175,7 @@ void app_main()
   ssd1306_display_t display;
   ssd1306_init_static(
     &display,
-    PIN_NUM_CS,
-    PIN_NUM_CLK,
+    PIN_NUM_CS,    PIN_NUM_CLK,
     PIN_NUM_MOSI,
     PIN_NUM_MISO,
     PIN_NUM_DC,
@@ -209,36 +184,11 @@ void app_main()
 
   init_channels();
 
-  sprite_t sprite = {
-    .height=7,
-    .image=thing,
-    .mask=thing_mask,
-    .hotspot_x=2,
-    .hotspot_y=2,
-    .image_modulo=1,
-    .mask_modulo=0
-  };
-
-  int ypos = (64 - diezface.height) / 2;
-  int xstop = display.width - 32;
-  int xstep = 1;
-  int xpos = 0;
-
   while(1)
   {
     wait_for_notification();
     ssd1306_clear(&display);
-    draw_channels(&display);
-    ssd1306_blit(&display, &diezface, xpos, ypos);
-    xpos += xstep;
-    if(xpos >= xstop)
-    {
-      xstep = -1;
-    }
-    if(xpos <= 0)
-    {
-      xstep = 1;
-    }
+    channel_display_draw(&display, &vtx_scanner.channels);
     ssd1306_update(&display);
     printf("%i\n", isr_count);
   }
