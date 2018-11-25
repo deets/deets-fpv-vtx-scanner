@@ -6,14 +6,14 @@
 #define CHANNELS_BOTTOM (CHANNELS_HEIGHT + 3)
 
 static uint32_t cursor_image[] = {
-  0b111,
   0b010,
+  0b111,
 };
 
 static sprite_t cursor = {
   .height=2,
   .hotspot_x=1,
-  .hotspot_y=0,
+  .hotspot_y=-2,
   .image_modulo=0,
   .mask_modulo=0,
   cursor_image,
@@ -67,7 +67,7 @@ void channel_display_draw(ssd1306_display_t* display, channel_display_t* channel
       CHANNELS_BOTTOM - height
       );
   }
-  ssd1306_blit(display, &cursor, 5 + 3 * channel_display->cursor_pos, 0);
+  ssd1306_blit(display, &cursor, 5 + 3 * channel_display->cursor_pos, CHANNELS_BOTTOM);
 }
 
 
