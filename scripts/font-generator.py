@@ -81,12 +81,15 @@ extern font_t {name};""".format(name=opts.name))
         outf.write("""#include "{name}.h"
 static uint32_t font_data[] = {{ {image_words} }};
 static uint32_t font_masks[] = {{ {masks} }};
-font_t {name} = {{ .glyphs={{ {glyph_string} }} }};""".format(
-    name=opts.name,
-    image_words=", ".join(image_words),
-    masks=", ".join(masks),
-    glyph_string=glyph_string)
-    )
+font_t {name} = {{ .width={charwidth}, .glyphs={{ {glyph_string} }} }};""".
+                   format(
+                       name=opts.name,
+                       charwidth=charwidth,
+                       image_words=", ".join(image_words),
+                       masks=", ".join(masks),
+                       glyph_string=glyph_string
+                   ))
+
 
 if __name__ == '__main__':
     main()

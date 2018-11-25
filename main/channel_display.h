@@ -5,10 +5,14 @@
 #include "ssd1306.h"
 
 #define CHANNEL_NUM 40
+#define CHANNELS_HEIGHT (64 - 13)
+#define CHANNELS_BOTTOM (CHANNELS_HEIGHT)
+#define CHANNEL_LEFT 4
 
 typedef struct {
   int xpos;
   int adc_value;
+  int legal;
 } channel_reading_t;
 
 typedef struct {

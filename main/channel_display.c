@@ -2,9 +2,6 @@
 #include "channel_display.h"
 #include "common.h"
 
-#define CHANNELS_HEIGHT (64 - 10)
-#define CHANNELS_BOTTOM (CHANNELS_HEIGHT)
-
 static uint32_t cursor_image[] = {
   0b010,
   0b111,
@@ -60,8 +57,9 @@ void channel_display_init(channel_display_t* channel_display)
   // it's actually 5
   for(int i=0; i < CHANNEL_NUM; ++i)
   {
-    channel_display->channels[i].xpos = 5 + 3 * i;
+    channel_display->channels[i].xpos = CHANNEL_LEFT + 1 + 3 * i;
     channel_display->channels[i].adc_value = 1;
+    channel_display->channels[i].legal = i % 2;
   }
   channel_display->min = 4095;
   channel_display->max = 0;
@@ -101,6 +99,19 @@ void channel_display_draw(ssd1306_display_t* display, channel_display_t* channel
       channel_display->channels[i].xpos,
       CHANNELS_BOTTOM - height
       );
+    if(!channel_display->channels[i].legal && height > 2)
+    {
+      // nasty trick - by modifying the
+      // sprite height, we blit the full
+      // height of the column
+      hollow_row.height = height - 2;
+      ssd1306_blit(
+        display,
+        &hollow_row,
+        channel_display->channels[i].xpos,
+        CHANNELS_BOTTOM - height + 1
+      );
+    }
   }
   ssd1306_blit(display, &cursor, 5 + 3 * channel_display->cursor_pos, CHANNELS_BOTTOM);
 }

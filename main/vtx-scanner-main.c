@@ -14,6 +14,7 @@
 #include "starscroller.h"
 #include "p2font.h"
 #include "channel_display.h"
+#include "vtx-info.h"
 
 
 #define PIN_NUM_MISO 25
@@ -38,8 +39,10 @@
 #define RIGHT_PIN_ISR_FLAG (1 << 1)
 
 typedef struct {
-  int current_channel;
+  int current_channel; // The channel currently tuned
   channel_display_t channels;
+  vtx_info_t* selected_vtx;
+  int has_ham; // are we ham-licensed?
   TaskHandle_t display_task;
   TaskHandle_t reader_task_handle;
   StaticTask_t reader_task_buffer;
@@ -50,7 +53,6 @@ typedef struct {
 static vtx_scanner_t vtx_scanner;
 
 uint32_t isr_count = 0;
-
 
 
 void reader_task(void* data)
@@ -88,11 +90,28 @@ void reader_task(void* data)
   }
 }
 
+static void copy_legal_channel_info(vtx_info_t* vtx, channel_display_t* channels, int has_ham)
+{
+  for(size_t i=0; i < CHANNEL_NUM; ++i)
+  {
+    channels->channels[i].legal = vtx->channel_legal[i] == LEGAL ||
+       (vtx->channel_legal[i] == HAM && has_ham);
+  }
+}
+
 
 void init_channels()
 {
+  vtx_scanner.selected_vtx = &tbs_unify_info;
+  vtx_scanner.has_ham = 0;
   vtx_scanner.display_task = xTaskGetCurrentTaskHandle();
   channel_display_init(&vtx_scanner.channels);
+  copy_legal_channel_info(
+    vtx_scanner.selected_vtx,
+    &vtx_scanner.channels,
+    vtx_scanner.has_ham
+    );
+
   vtx_scanner.current_channel = 0;
   vtx_scanner.reader_task_handle = xTaskCreateStatic(
                   reader_task,       // Function that implements the task.
@@ -174,7 +193,7 @@ void app_main()
 
     ssd1306_clear(&display);
     channel_display_draw(&display, &vtx_scanner.channels);
+    vtx_display_draw(&display, vtx_scanner.selected_vtx, vtx_scanner.channels.cursor_pos);
     ssd1306_update(&display);
-    printf("%i\n", isr_count);
   }
 }
