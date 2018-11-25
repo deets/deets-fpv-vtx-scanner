@@ -3,7 +3,7 @@
 #include "common.h"
 
 #define CHANNELS_HEIGHT (64 - 10)
-#define CHANNELS_BOTTOM (CHANNELS_HEIGHT + 3)
+#define CHANNELS_BOTTOM (CHANNELS_HEIGHT)
 
 static uint32_t cursor_image[] = {
   0b010,
@@ -16,8 +16,38 @@ static sprite_t cursor = {
   .hotspot_y=-2,
   .image_modulo=0,
   .mask_modulo=0,
-  cursor_image,
-  cursor_image
+  .image=cursor_image,
+  .mask=cursor_image
+};
+
+
+static uint32_t filled_row_image[] = {
+  0b111,
+};
+
+static uint32_t hollow_row_image[] = {
+  0b101,
+};
+
+static sprite_t filled_row = {
+  .height=1,
+  .hotspot_x=1,
+  .hotspot_y=0,
+  .image_modulo=-1,
+  .mask_modulo=-1,
+  .image=filled_row_image,
+  .mask=filled_row_image
+};
+
+
+static sprite_t hollow_row = {
+  .height=1,
+  .hotspot_x=1,
+  .hotspot_y=0,
+  .image_modulo=-1,
+  .mask_modulo=-1,
+  .image=hollow_row_image,
+  .mask=filled_row_image
 };
 
 
@@ -60,10 +90,15 @@ void channel_display_draw(ssd1306_display_t* display, channel_display_t* channel
        / (channel_display->max - channel_display->min);
 
     height = max(height, 1); // at least one pixel height
-    ssd1306_draw_vertical_line(
+
+    // nasty trick - by modifying the
+    // sprite height, we blit the full
+    // height of the column
+    filled_row.height = height;
+    ssd1306_blit(
       display,
+      &filled_row,
       channel_display->channels[i].xpos,
-      CHANNELS_BOTTOM,
       CHANNELS_BOTTOM - height
       );
   }
