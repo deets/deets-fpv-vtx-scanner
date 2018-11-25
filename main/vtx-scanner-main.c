@@ -15,6 +15,7 @@
 #include "p2font.h"
 #include "channel_display.h"
 #include "vtx-info.h"
+#include "goggle_info.h"
 
 
 #define PIN_NUM_MISO 25
@@ -42,6 +43,7 @@ typedef struct {
   int current_channel; // The channel currently tuned
   channel_display_t channels;
   vtx_info_t* selected_vtx;
+  goggle_info_t* selected_goggle;
   int has_ham; // are we ham-licensed?
   TaskHandle_t display_task;
   TaskHandle_t reader_task_handle;
@@ -103,6 +105,7 @@ static void copy_legal_channel_info(vtx_info_t* vtx, channel_display_t* channels
 void init_channels()
 {
   vtx_scanner.selected_vtx = &tbs_unify_info;
+  vtx_scanner.selected_goggle = &aomway_commander_v1_info;
   vtx_scanner.has_ham = 0;
   vtx_scanner.display_task = xTaskGetCurrentTaskHandle();
   channel_display_init(&vtx_scanner.channels);
@@ -194,6 +197,7 @@ void app_main()
     ssd1306_clear(&display);
     channel_display_draw(&display, &vtx_scanner.channels);
     vtx_display_draw(&display, vtx_scanner.selected_vtx, vtx_scanner.channels.cursor_pos);
+    goggle_display_draw(&display, vtx_scanner.selected_goggle, vtx_scanner.channels.cursor_pos);
     ssd1306_update(&display);
   }
 }
