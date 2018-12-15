@@ -8,6 +8,7 @@
 #include "driver/gpio.h"
 #include <driver/adc.h>
 #include <esp_intr_alloc.h>
+#include <esp_timer.h>
 
 #include "ssd1306.h"
 #include "rtc6715.h"
@@ -128,13 +129,22 @@ void init_channels()
     );
 }
 
+#define DEBOUNCE (20 * 1000)
 
 static void IRAM_ATTR gpio_isr_handler(void* arg)
 {
   BaseType_t higher_prio_has_woken;
+  static int64_t last = 0;
   isr_count++;
   int pin = (int)arg;
   int bit = 0;
+  int64_t ts = esp_timer_get_time();
+  if(last + DEBOUNCE > ts)
+  {
+    return;
+  }
+  last = ts;
+
   switch(pin)
   {
   case GPIO_NUM_0:
@@ -184,7 +194,9 @@ void app_main()
   io_conf.pull_up_en = 1;
   gpio_config(&io_conf);
 
+  // install global GPIO ISR handler
   gpio_install_isr_service(0);
+  // install individual interrupts
   gpio_isr_handler_add(GPIO_NUM_0, gpio_isr_handler, (void*)0);
   gpio_isr_handler_add(GPIO_NUM_17, gpio_isr_handler, (void*)17);
 
