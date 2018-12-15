@@ -13,7 +13,6 @@
 #include "ssd1306.h"
 #include "rtc6715.h"
 #include "starscroller.h"
-#include "p2font.h"
 #include "channel_display.h"
 #include "vtx-info.h"
 #include "goggle_info.h"

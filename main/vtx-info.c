@@ -2,8 +2,9 @@
 #include "vtx-info.h"
 #include "channel_display.h"
 #include "font.h"
-#include "p2font.h"
+#include "pc_senior.h"
 
+#define FONT &pc_senior
 
 vtx_info_t tbs_unify_info = {
   .name = "TBS",
@@ -24,7 +25,7 @@ void vtx_display_draw(ssd1306_display_t *display, vtx_info_t* vtx, int cursor_po
 {
     int y = CHANNELS_BOTTOM + 5;
     int x = CHANNEL_LEFT;
-    x = font_render(display, &p2font, vtx->name, x, y);
-    x = font_render(display, &p2font, ":", x, y);
-    x = font_render(display, &p2font, vtx->channel_names[cursor_pos], x, y);
+    x = font_render(display, FONT, vtx->name, x, y);
+    x = font_render(display, FONT, ":", x, y);
+    x = font_render(display, FONT, vtx->channel_names[cursor_pos], x, y);
 }
