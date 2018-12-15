@@ -117,7 +117,12 @@ void channel_display_draw(ssd1306_display_t* display, channel_display_t* channel
 }
 
 
-void channel_display_step_cursor(channel_display_t* channel_display)
+void channel_display_step_cursor(channel_display_t* channel_display, int direction)
 {
-  channel_display->cursor_pos = (channel_display->cursor_pos + 1) % CHANNEL_NUM;
+  channel_display->cursor_pos = (
+    // the '+ CHANNEL_NUM' is a trick to prevent
+    // modulo from not doing it's job in case of
+    // negative directions
+    channel_display->cursor_pos + direction + CHANNEL_NUM
+    ) % CHANNEL_NUM;
 }

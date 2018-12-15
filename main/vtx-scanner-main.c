@@ -38,6 +38,7 @@
 #define READS_PER_SECOND 20
 #define READER_TASK_WAKEUP_FLAG (1 << 0)
 #define RIGHT_PIN_ISR_FLAG (1 << 1)
+#define LEFT_PIN_ISR_FLAG (1 << 2)
 
 typedef struct {
   int current_channel; // The channel currently tuned
@@ -132,9 +133,21 @@ static void IRAM_ATTR gpio_isr_handler(void* arg)
 {
   BaseType_t higher_prio_has_woken;
   isr_count++;
+  int pin = (int)arg;
+  int bit = 0;
+  switch(pin)
+  {
+  case GPIO_NUM_0:
+    bit = RIGHT_PIN_ISR_FLAG;
+    break;
+  case GPIO_NUM_17:
+    bit = LEFT_PIN_ISR_FLAG;
+    break;
+  }
+
   xTaskNotifyFromISR(
     vtx_scanner.display_task,
-    RIGHT_PIN_ISR_FLAG,
+    bit,
     eSetBits,
     &higher_prio_has_woken
     );
@@ -164,7 +177,7 @@ void app_main()
   //interrupt of rising edge
   io_conf.intr_type = GPIO_PIN_INTR_NEGEDGE;
   //bit mask of the pins, use GPIO4/5 here
-  io_conf.pin_bit_mask = (1ULL<< GPIO_NUM_0);
+  io_conf.pin_bit_mask = (1ULL<< GPIO_NUM_0) | (1ULL<< GPIO_NUM_17);
   //set as input mode
   io_conf.mode = GPIO_MODE_INPUT;
   //enable pull-up mode
@@ -172,12 +185,14 @@ void app_main()
   gpio_config(&io_conf);
 
   gpio_install_isr_service(0);
-  gpio_isr_handler_add(GPIO_NUM_0, gpio_isr_handler, NULL);
+  gpio_isr_handler_add(GPIO_NUM_0, gpio_isr_handler, (void*)0);
+  gpio_isr_handler_add(GPIO_NUM_17, gpio_isr_handler, (void*)17);
 
   ssd1306_display_t display;
   ssd1306_init_static(
     &display,
-    PIN_NUM_CS,    PIN_NUM_CLK,
+    PIN_NUM_CS,
+    PIN_NUM_CLK,
     PIN_NUM_MOSI,
     PIN_NUM_MISO,
     PIN_NUM_DC,
@@ -191,7 +206,11 @@ void app_main()
     uint32_t status_bits = wait_for_notification();
     if(status_bits & RIGHT_PIN_ISR_FLAG)
     {
-      channel_display_step_cursor(&vtx_scanner.channels);
+      channel_display_step_cursor(&vtx_scanner.channels, 1);
+    }
+    if(status_bits & LEFT_PIN_ISR_FLAG)
+    {
+      channel_display_step_cursor(&vtx_scanner.channels, -1);
     }
 
     ssd1306_clear(&display);
