@@ -1,7 +1,7 @@
 #include "appstate.h"
 #include "ssd1306.h"
 #include "rtc6715.h"
-
+#include "ble.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -34,6 +34,7 @@
 #define STAR_COUNT 300
 
 #define READER_TASK_STACK_SIZE 2000
+#define DISPLAY_TASK_STACK_SIZE 2000
 #define READS_PER_SECOND 20
 #define READER_TASK_WAKEUP_FLAG (1 << 0)
 #define RIGHT_PIN_ISR_FLAG (1 << 1)
@@ -43,7 +44,10 @@
 static app_state_t app_state;
 
 typedef struct {
-  TaskHandle_t display_task;
+  TaskHandle_t display_task_handle;
+  StaticTask_t display_task_buffer;
+  StackType_t  display_task_stack[DISPLAY_TASK_STACK_SIZE];
+
   TaskHandle_t reader_task_handle;
   StaticTask_t reader_task_buffer;
   StackType_t  reader_task_stack[READER_TASK_STACK_SIZE];
@@ -53,6 +57,7 @@ task_state_t task_state;
 
 uint32_t isr_count = 0;
 
+#define __BTSTACK_FILE__ "vtx-scanner-main.c"
 
 void reader_task()
 {
@@ -78,7 +83,7 @@ void reader_task()
       &app_state.scanner_state.channels
       );
     xTaskNotify(
-      task_state.display_task,
+      task_state.display_task_handle,
       READER_TASK_WAKEUP_FLAG,
       eSetBits
       );
@@ -104,7 +109,6 @@ void init_channels()
   app_state.scanner_state.selected_vtx = &tbs_unify_info;
   app_state.scanner_state.selected_goggle = &aomway_commander_v1_info;
   app_state.scanner_state.has_ham = 0;
-  task_state.display_task = xTaskGetCurrentTaskHandle();
   channel_display_init(&app_state.scanner_state.channels);
   copy_legal_channel_info(
     app_state.scanner_state.selected_vtx,
@@ -151,7 +155,7 @@ static void IRAM_ATTR gpio_isr_handler(void* arg)
   }
 
   xTaskNotifyFromISR(
-    task_state.display_task,
+    task_state.display_task_handle,
     bit,
     eSetBits,
     &higher_prio_has_woken
@@ -176,7 +180,7 @@ uint32_t wait_for_notification()
 }
 
 
-void app_main()
+void display_task()
 {
   gpio_config_t io_conf;
   //interrupt of rising edge
@@ -207,7 +211,6 @@ void app_main()
     );
 
   init_channels();
-
   while(1)
   {
     uint32_t status_bits = wait_for_notification();
@@ -226,4 +229,18 @@ void app_main()
     goggle_display_draw(&display, app_state.scanner_state.selected_goggle, app_state.scanner_state.channels.cursor_pos);
     ssd1306_update(&display);
   }
+}
+void btstack_main()
+{
+  ble_init();
+  task_state.display_task_handle = xTaskCreateStatic(
+    display_task,       // Function that implements the task.
+    "DSP",          // Text name for the task.
+    DISPLAY_TASK_STACK_SIZE,      // Stack size in bytes, not words.
+    0,
+    tskIDLE_PRIORITY,// Priority at which the task is created.
+    task_state.display_task_stack,          // Array to use as the task's stack.
+    &task_state.display_task_buffer // Variable to hold the task's data structure.
+    );
+
 }

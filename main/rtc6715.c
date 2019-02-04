@@ -6,6 +6,7 @@
 
 #include <stdint.h>
 
+
 /*
  * These are all the known frequencies.
  */
@@ -42,7 +43,7 @@ int rtc6715_setup(rtc6715_t* rtc, int adc_channel, int cs, int clk, int mosi)
     .sclk_io_num=clk,
     .quadwp_io_num=-1,
     .quadhd_io_num=-1,
-    .max_transfer_sz=4
+    .max_transfer_sz=0
   };
 
   spi_device_interface_config_t devcfg={
@@ -81,7 +82,9 @@ void rtc6715_select_channel(rtc6715_t* rtc, int channel)
   spi_transaction_t t;
   uint32_t cmd = (0x1 | 0x10) | (register_value << 5);
   t.length = 25;
+  t.rxlength = 25;
   t.tx_buffer = (void*)cmd;
+  t.rx_buffer = 0;
   t.flags = SPI_TRANS_USE_TXDATA;
   ret = spi_device_transmit(rtc->spi, &t);  //Transmit!
   ESP_ERROR_CHECK(ret);
