@@ -27,6 +27,7 @@
 #define RTC_CS 14
 #define RTC_CLK 13
 #define RTC_MOSI 12
+#define RTC_ADC_CHANNEL ADC1_CHANNEL_6 // GPIO 34
 
 #define STAR_SPEED 50
 #define STAR_FACTOR 1024
@@ -68,7 +69,7 @@ void reader_task()
   rtc6715_t rtc;
   rtc6715_setup(
     &rtc,
-    ADC1_CHANNEL_6,
+    RTC_ADC_CHANNEL,
     RTC_CS,
     RTC_CLK,
     RTC_MOSI
