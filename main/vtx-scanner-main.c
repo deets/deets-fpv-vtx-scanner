@@ -220,14 +220,16 @@ void display_task()
     if(status_bits & RIGHT_PIN_ISR_FLAG)
     {
       channel_display_step_cursor(&app_state.scanner_state.channels, 1);
+      ble_update(NOTIFY_CURRENT_CHANNEL);
     }
     if(status_bits & LEFT_PIN_ISR_FLAG)
     {
       channel_display_step_cursor(&app_state.scanner_state.channels, -1);
+      ble_update(NOTIFY_CURRENT_CHANNEL);
     }
     if(status_bits & READER_TASK_WAKEUP_FLAG)
     {
-      ble_update();
+      ble_update(NOTIFY_LAST_RSSI);
     }
 
     ssd1306_clear(&display);
