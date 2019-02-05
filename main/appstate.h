@@ -5,5 +5,7 @@
 
 typedef struct {
   int current_channel; // The channel currently tuned
+  uint16_t last_read_channel;
+  uint16_t last_rssi_reading;
   scanner_state_t scanner_state;
 } app_state_t;

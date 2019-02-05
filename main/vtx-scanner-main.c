@@ -78,9 +78,11 @@ void reader_task()
   for( ;; )
   {
     vTaskDelayUntil( &last_wake_time, frequency );
+    app_state.last_rssi_reading = rtc6715_read_rssi(&rtc);
+    app_state.last_read_channel = app_state.current_channel;
     channel_display_update_channel(
       app_state.current_channel,
-      rtc6715_read_rssi(&rtc),
+      app_state.last_rssi_reading,
       &app_state.scanner_state.channels
       );
     xTaskNotify(
@@ -183,22 +185,22 @@ uint32_t wait_for_notification()
 
 void display_task()
 {
-  gpio_config_t io_conf;
-  //interrupt of rising edge
-  io_conf.intr_type = GPIO_PIN_INTR_NEGEDGE;
-  //bit mask of the pins, use GPIO4/5 here
-  io_conf.pin_bit_mask = (1ULL<< GPIO_NUM_0) | (1ULL<< GPIO_NUM_17);
-  //set as input mode
-  io_conf.mode = GPIO_MODE_INPUT;
-  //enable pull-up mode
-  io_conf.pull_up_en = 1;
-  gpio_config(&io_conf);
+  /* gpio_config_t io_conf; */
+  /* //interrupt of rising edge */
+  /* io_conf.intr_type = GPIO_PIN_INTR_NEGEDGE; */
+  /* //bit mask of the pins, use GPIO4/5 here */
+  /* io_conf.pin_bit_mask = (1ULL<< GPIO_NUM_0) | (1ULL<< GPIO_NUM_17); */
+  /* //set as input mode */
+  /* io_conf.mode = GPIO_MODE_INPUT; */
+  /* //enable pull-up mode */
+  /* io_conf.pull_up_en = 1; */
+  /* gpio_config(&io_conf); */
 
-  // install global GPIO ISR handler
-  gpio_install_isr_service(0);
-  // install individual interrupts
-  gpio_isr_handler_add(GPIO_NUM_0, gpio_isr_handler, (void*)0);
-  gpio_isr_handler_add(GPIO_NUM_17, gpio_isr_handler, (void*)17);
+  /* // install global GPIO ISR handler */
+  /* gpio_install_isr_service(0); */
+  /* // install individual interrupts */
+  /* gpio_isr_handler_add(GPIO_NUM_0, gpio_isr_handler, (void*)0); */
+  /* gpio_isr_handler_add(GPIO_NUM_17, gpio_isr_handler, (void*)17); */
 
   ssd1306_display_t display;
   ssd1306_init_static(
@@ -223,6 +225,10 @@ void display_task()
     {
       channel_display_step_cursor(&app_state.scanner_state.channels, -1);
     }
+    if(status_bits & READER_TASK_WAKEUP_FLAG)
+    {
+      ble_update();
+    }
 
     ssd1306_clear(&display);
     channel_display_draw(&display, &app_state.scanner_state.channels);
@@ -233,7 +239,7 @@ void display_task()
 }
 void btstack_main()
 {
-  ble_init();
+  ble_init(&app_state);
   task_state.display_task_handle = xTaskCreateStatic(
     display_task,       // Function that implements the task.
     "DSP",          // Text name for the task.
