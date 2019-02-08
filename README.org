@@ -47,3 +47,20 @@ bands usually used (not the low L-band).
 |      5917 | E8     | R8        |
 |      5925 | A7     | E7        |
 |      5945 | A8     | E8        |
+
+** RX5808 Connections
+
+|-----+----------|
+| Pin | Function |
+|-----+----------|
+|   1 | CH1/MOSI |
+|   2 | CH2/CS   |
+|   3 | CH3/CLK  |
+|   4 | GND      |
+|   5 | 5V       |
+|   6 | RSSI     |
+|   7 | Audio    |
+|   8 | Video    |
+|   9 | GND      |
+|-----+----------|
+
