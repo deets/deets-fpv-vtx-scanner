@@ -2,6 +2,8 @@
 #include "vtx_scanner_ble.h"
 #include "btstack.h"
 
+#include <esp_log.h>
+
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -91,10 +93,18 @@ int att_write_callback(hci_con_handle_t connection_handle, uint16_t att_handle, 
     UNUSED(offset);
     UNUSED(buffer_size);
 
-    if (att_handle == CURRENT_CHANNEL_CLIENT_CONFIGURATION_HANDLE || att_handle == LAST_RSSI_CLIENT_CONFIGURATION_HANDLE)
+    switch(att_handle)
     {
+    case CURRENT_CHANNEL_CLIENT_CONFIGURATION_HANDLE:
+    case LAST_RSSI_CLIENT_CONFIGURATION_HANDLE:
       le_notification_enabled |= little_endian_read_16(buffer, 0) == GATT_CLIENT_CHARACTERISTICS_CONFIGURATION_NOTIFICATION;
       con_handle = connection_handle;
+      break;
+    case CURRENT_CHANNEL_VALUE_HANDLE:
+      ESP_LOGI("ble", "Write current channel");
+      assert(buffer_size == sizeof(int));
+      app_state->scanner_state.channels.cursor_pos = *(int*)buffer;
+      break;
     }
     return 0;
 }

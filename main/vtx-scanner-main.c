@@ -153,7 +153,7 @@ static void IRAM_ATTR gpio_isr_handler(void* arg)
     bit = RIGHT_PIN_ISR_FLAG;
     break;
   case GPIO_NUM_17:
-    bit = LEFT_PIN_ISR_FLAG;
+    /* bit = LEFT_PIN_ISR_FLAG; */
     break;
   }
 
@@ -185,22 +185,22 @@ uint32_t wait_for_notification()
 
 void display_task()
 {
-  /* gpio_config_t io_conf; */
-  /* //interrupt of rising edge */
-  /* io_conf.intr_type = GPIO_PIN_INTR_NEGEDGE; */
-  /* //bit mask of the pins, use GPIO4/5 here */
-  /* io_conf.pin_bit_mask = (1ULL<< GPIO_NUM_0) | (1ULL<< GPIO_NUM_17); */
-  /* //set as input mode */
-  /* io_conf.mode = GPIO_MODE_INPUT; */
-  /* //enable pull-up mode */
-  /* io_conf.pull_up_en = 1; */
-  /* gpio_config(&io_conf); */
+  gpio_config_t io_conf;
+  //interrupt of rising edge
+  io_conf.intr_type = GPIO_PIN_INTR_NEGEDGE;
+  //bit mask of the pins, use GPIO4/5 here
+  io_conf.pin_bit_mask = (1ULL<< GPIO_NUM_0) | (1ULL<< GPIO_NUM_17);
+  //set as input mode
+  io_conf.mode = GPIO_MODE_INPUT;
+  //enable pull-up mode
+  io_conf.pull_up_en = 1;
+  gpio_config(&io_conf);
 
-  /* // install global GPIO ISR handler */
-  /* gpio_install_isr_service(0); */
-  /* // install individual interrupts */
-  /* gpio_isr_handler_add(GPIO_NUM_0, gpio_isr_handler, (void*)0); */
-  /* gpio_isr_handler_add(GPIO_NUM_17, gpio_isr_handler, (void*)17); */
+  // install global GPIO ISR handler
+  gpio_install_isr_service(0);
+  // install individual interrupts
+  gpio_isr_handler_add(GPIO_NUM_0, gpio_isr_handler, (void*)0);
+  gpio_isr_handler_add(GPIO_NUM_17, gpio_isr_handler, (void*)17);
 
   ssd1306_display_t display;
   ssd1306_init_static(
