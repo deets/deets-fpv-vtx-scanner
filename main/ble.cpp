@@ -55,7 +55,8 @@ void packet_handler (uint8_t packet_type, uint16_t channel, uint8_t *packet, uin
                     att_server_notify(
                       con_handle,
                       CURRENT_CHANNEL_VALUE_HANDLE,
-                      (uint8_t*)&app_state->current_channel, sizeof(int)
+                      (uint8_t*)&app_state->scanner_state.channels.cursor_pos, sizeof(int)
+
                       );
                   }
                   if(next_notification & NOTIFY_LAST_RSSI)
