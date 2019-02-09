@@ -7,6 +7,10 @@
 
 #include <stdint.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef struct {
   uint32_t* frame;
   uint8_t*  raw_frame;
@@ -34,3 +38,7 @@ void ssd1306_draw_pixel(ssd1306_display_t* display, int x, int y);
 void ssd1306_draw_vertical_line(ssd1306_display_t* display, int x, int y, int y2);
 
 void ssd1306_blit(ssd1306_display_t* display, const sprite_t* const sprite, int x, int y);
+
+#ifdef __cplusplus
+}
+#endif

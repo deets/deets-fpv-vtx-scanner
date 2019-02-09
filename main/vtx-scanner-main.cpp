@@ -60,7 +60,7 @@ uint32_t isr_count = 0;
 
 #define __BTSTACK_FILE__ "vtx-scanner-main.c"
 
-void reader_task()
+void reader_task(void*)
 {
   TickType_t last_wake_time;
   const TickType_t frequency =  pdMS_TO_TICKS(1000 / READS_PER_SECOND);
@@ -183,17 +183,17 @@ uint32_t wait_for_notification()
 }
 
 
-void display_task()
+void display_task(void*)
 {
   gpio_config_t io_conf;
   //interrupt of rising edge
-  io_conf.intr_type = GPIO_PIN_INTR_NEGEDGE;
+  io_conf.intr_type = (gpio_int_type_t)GPIO_PIN_INTR_NEGEDGE;
   //bit mask of the pins, use GPIO4/5 here
   io_conf.pin_bit_mask = (1ULL<< GPIO_NUM_0) | (1ULL<< GPIO_NUM_17);
   //set as input mode
   io_conf.mode = GPIO_MODE_INPUT;
   //enable pull-up mode
-  io_conf.pull_up_en = 1;
+  io_conf.pull_up_en = GPIO_PULLUP_ENABLE;
   gpio_config(&io_conf);
 
   // install global GPIO ISR handler
@@ -239,7 +239,9 @@ void display_task()
     ssd1306_update(&display);
   }
 }
-void btstack_main()
+
+
+extern "C" void btstack_main()
 {
   ble_init(&app_state);
   task_state.display_task_handle = xTaskCreateStatic(
