@@ -1,10 +1,8 @@
-#!/usr/bin/python2.7
+#!/usr/bin/python3.7
 import os
-import sys
 import pygame
-import string
 import argparse
-from collections import namedtuple
+
 
 def main():
     parser = argparse.ArgumentParser()
@@ -19,15 +17,15 @@ def main():
     image = pygame.image.load(opts.image)
     height, width = image.get_height(), image.get_width()
     if width != 32:
-        print "Can't use image, needs to be 32 pixels wide"
+        print("Can't use image, needs to be 32 pixels wide")
 
     image_words = []
     mask_words = []
 
-    for row in xrange(height):
+    for row in range(height):
         data = 0
         mask = 0
-        for column in xrange(32):
+        for column in range(32):
             coord = column, row
             r, g, b, a = image.get_at(coord)
             data |= (1 if r else 0) << column
