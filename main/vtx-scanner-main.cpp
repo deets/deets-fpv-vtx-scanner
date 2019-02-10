@@ -147,7 +147,8 @@ void display_task(void*)
 
   SplashScreen splash_screen(app_state);
   Scanner scanner(app_state, rtc);
-  Mode* active_mode = &scanner;
+  Mode* active_mode = &splash_screen;
+  app_state.current_mode = SPLASH_SCREEN;
   active_mode->setup();
 
   while(1)
@@ -155,11 +156,11 @@ void display_task(void*)
     uint32_t status_bits = wait_for_notification();
     if(status_bits & RIGHT_PIN_ISR_FLAG)
     {
-      active_mode->input(Input::RIGHT_BUTTON);
+      active_mode->input(input_t::RIGHT_BUTTON);
     }
     if(status_bits & LEFT_PIN_ISR_FLAG)
     {
-      active_mode->input(Input::LEFT_BUTTON);
+      active_mode->input(input_t::LEFT_BUTTON);
     }
     if(status_bits & READER_TASK_WAKEUP_FLAG)
     {
@@ -167,7 +168,22 @@ void display_task(void*)
     }
 
     ssd1306_clear(&display);
-    active_mode->update(&display);
+    auto next_mode = active_mode->update(&display);
+    if(next_mode != app_state.current_mode)
+    {
+      active_mode->teardown();
+      switch(next_mode)
+      {
+      case SPLASH_SCREEN:
+        active_mode = &splash_screen;
+        break;
+      case SCANNER:
+        active_mode = &scanner;
+        break;
+      }
+      active_mode->setup();
+      app_state.current_mode = next_mode;
+    }
     ssd1306_update(&display);
   }
 }

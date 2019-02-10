@@ -51,11 +51,12 @@ void Scanner::setup()
 }
 
 
-void Scanner::update(ssd1306_display_t* display)
+app_mode_t Scanner::update(ssd1306_display_t* display)
 {
   channel_display_draw(display, &_channels);
   vtx_display_draw(display, _selected_vtx, _app_state.selected_channel);
   goggle_display_draw(display, _selected_goggle, _app_state.selected_channel);
+  return SCANNER;
 }
 
 
@@ -97,15 +98,15 @@ void Scanner::scanner_task()
 }
 
 
-void Scanner::input(Input button)
+void Scanner::input(input_t button)
 {
   switch(button)
   {
-  case Input::RIGHT_BUTTON:
+  case input_t::RIGHT_BUTTON:
     channel_display_step_cursor(&_channels, 1);
     ble_update(NOTIFY_CURRENT_CHANNEL);
     break;
-  case Input::LEFT_BUTTON:
+  case input_t::LEFT_BUTTON:
     channel_display_step_cursor(&_channels, -1);
     ble_update(NOTIFY_CURRENT_CHANNEL);
     break;

@@ -13,7 +13,7 @@
 #define PERIODIC_TASK_WAKEUP_FLAG (1 << 3)
 
 
-enum class Input
+enum class input_t
 {
   RIGHT_BUTTON,
   LEFT_BUTTON,
@@ -26,9 +26,9 @@ class Mode
 public:
   Mode(app_state_t&);
   virtual void setup()=0;
-  virtual void update(ssd1306_display_t*)=0;
+  virtual app_mode_t update(ssd1306_display_t*)=0;
   virtual void teardown()=0;
-  virtual void input(Input) {};
+  virtual void input(input_t) {};
 
   // Ensures peridodic wakeup
   // Compute argument like this:

@@ -17,9 +17,9 @@ class Scanner : public Mode
 public:
   Scanner(app_state_t&, rtc6715_t&);
   void setup() override;
-  void update(ssd1306_display_t*) override;
+  app_mode_t update(ssd1306_display_t*) override;
   void teardown() override;
-  void input(Input) override;
+  void input(input_t) override;
 
 private:
   static void s_scanner_task(void*);

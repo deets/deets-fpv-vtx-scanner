@@ -8,7 +8,7 @@ class SplashScreen : public Mode
 public:
   using Mode::Mode;
   void setup() override;
-  void update(ssd1306_display_t*) override;
+  app_mode_t update(ssd1306_display_t*) override;
   void teardown() override;
 private:
   int _x;

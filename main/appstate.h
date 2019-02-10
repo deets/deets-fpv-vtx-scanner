@@ -3,8 +3,14 @@
 
 #include <stdint.h>
 
+typedef enum {
+    SPLASH_SCREEN,
+    SCANNER
+} app_mode_t;
+
 typedef struct {
   int selected_channel;
   uint16_t last_read_channel;
   uint16_t last_rssi_reading;
+  app_mode_t current_mode;
 } app_state_t;

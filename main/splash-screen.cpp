@@ -14,7 +14,7 @@ void SplashScreen::setup()
 }
 
 
-void SplashScreen::update(ssd1306_display_t* display)
+app_mode_t SplashScreen::update(ssd1306_display_t* display)
 {
   if(_x > 24)
   {
@@ -44,6 +44,11 @@ void SplashScreen::update(ssd1306_display_t* display)
       64 - 8 - 10
       );
   }
+  if(total_elapsed_ms() > 3000)
+  {
+    return SCANNER;
+  }
+  return SPLASH_SCREEN;
 }
 
 
