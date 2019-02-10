@@ -148,8 +148,40 @@ void display_task(void*)
   SplashScreen splash_screen(app_state);
   Scanner scanner(app_state, rtc);
   Mode* active_mode = &splash_screen;
-  app_state.current_mode = SPLASH_SCREEN;
+  app_mode_t next_mode = app_state.current_mode = SPLASH_SCREEN;
+
   active_mode->setup();
+  ble_update(NOTIFY_CURRENT_MODE);
+
+  ble_set_mode_change_callback(
+    [&active_mode, &splash_screen, &scanner](int mode) {
+      app_mode_t next_mode;
+      switch(mode)
+      {
+      case SPLASH_SCREEN:
+      case SCANNER:
+        next_mode = (app_mode_t)mode;
+        break;
+      default:
+        return;
+      }
+      if(next_mode != app_state.current_mode)
+      {
+        active_mode->teardown();
+        switch(next_mode)
+        {
+        case SPLASH_SCREEN:
+          active_mode = &splash_screen;
+          break;
+        case SCANNER:
+          active_mode = &scanner;
+          break;
+        }
+        active_mode->setup();
+        app_state.current_mode = next_mode;
+        ble_update(NOTIFY_CURRENT_MODE);
+      }
+    });
 
   while(1)
   {
@@ -168,7 +200,7 @@ void display_task(void*)
     }
 
     ssd1306_clear(&display);
-    auto next_mode = active_mode->update(&display);
+    next_mode = active_mode->update(&display);
     if(next_mode != app_state.current_mode)
     {
       active_mode->teardown();
@@ -183,13 +215,15 @@ void display_task(void*)
       }
       active_mode->setup();
       app_state.current_mode = next_mode;
+      ble_update(NOTIFY_CURRENT_MODE);
     }
     ssd1306_update(&display);
   }
 }
 
 
-extern "C" void btstack_main()
+extern "C" void btstack_main();
+void btstack_main()
 {
   ble_init(&app_state);
   task_state.display_task_handle = xTaskCreateStatic(

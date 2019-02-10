@@ -14,12 +14,16 @@ namespace {
 
 app_state_t* app_state = 0;
 int next_notification = 0;
+std::function<void(int)> change_current_mode_callback = 0;
 
 #define CURRENT_CHANNEL_VALUE_HANDLE ATT_CHARACTERISTIC_93E9A984_40CD_4B57_A31A_3D3857D80A09_01_VALUE_HANDLE
 #define CURRENT_CHANNEL_CLIENT_CONFIGURATION_HANDLE ATT_CHARACTERISTIC_93E9A984_40CD_4B57_A31A_3D3857D80A09_01_CLIENT_CONFIGURATION_HANDLE
 
 #define LAST_RSSI_VALUE_HANDLE ATT_CHARACTERISTIC_FBD47252_6210_4692_A247_1DB3007CF668_01_VALUE_HANDLE
 #define LAST_RSSI_CLIENT_CONFIGURATION_HANDLE ATT_CHARACTERISTIC_FBD47252_6210_4692_A247_1DB3007CF668_01_CLIENT_CONFIGURATION_HANDLE
+
+#define CURRENT_MODE_VALUE_HANDLE ATT_CHARACTERISTIC_903BB704_5ADC_48D3_B0D4_0628BDB35250_01_VALUE_HANDLE
+#define CURRENT_MODE_CLIENT_CONFIGURATION_HANDLE ATT_CHARACTERISTIC_903BB704_5ADC_48D3_B0D4_0628BDB35250_01_CLIENT_CONFIGURATION_HANDLE
 
 int  le_notification_enabled;
 btstack_packet_callback_registration_t hci_event_callback_registration;
@@ -69,6 +73,14 @@ void packet_handler (uint8_t packet_type, uint16_t channel, uint8_t *packet, uin
                       (uint8_t*)&app_state->last_read_channel, sizeof(uint32_t)
                       );
                   }
+                  if(next_notification & NOTIFY_CURRENT_MODE)
+                  {
+                    att_server_notify(
+                      con_handle,
+                      CURRENT_MODE_VALUE_HANDLE,
+                      (uint8_t*)&app_state->current_mode, sizeof(int)
+                      );
+                  }
                   next_notification = 0;
                   break;
             }
@@ -85,6 +97,9 @@ uint16_t att_read_callback(hci_con_handle_t connection_handle, uint16_t att_hand
     if (att_handle == LAST_RSSI_VALUE_HANDLE){
         return att_read_callback_handle_blob((uint8_t*)&app_state->last_read_channel, buffer_size, offset, buffer, buffer_size);
     }
+    if (att_handle == CURRENT_MODE_VALUE_HANDLE){
+        return att_read_callback_handle_blob((uint8_t*)&app_state->current_mode, buffer_size, offset, buffer, buffer_size);
+    }
     return 0;
 }
 
@@ -97,6 +112,7 @@ int att_write_callback(hci_con_handle_t connection_handle, uint16_t att_handle, 
     {
     case CURRENT_CHANNEL_CLIENT_CONFIGURATION_HANDLE:
     case LAST_RSSI_CLIENT_CONFIGURATION_HANDLE:
+    case CURRENT_MODE_CLIENT_CONFIGURATION_HANDLE:
       le_notification_enabled |= little_endian_read_16(buffer, 0) == GATT_CLIENT_CHARACTERISTICS_CONFIGURATION_NOTIFICATION;
       con_handle = connection_handle;
       break;
@@ -105,12 +121,25 @@ int att_write_callback(hci_con_handle_t connection_handle, uint16_t att_handle, 
       assert(buffer_size == sizeof(int));
       app_state->selected_channel = *(int*)buffer;
       break;
+    case CURRENT_MODE_VALUE_HANDLE:
+      ESP_LOGI("ble", "Write current mode");
+      assert(buffer_size == sizeof(int));
+      if(change_current_mode_callback)
+      {
+        change_current_mode_callback(*(int*)buffer);
+      }
+      break;
     }
     return 0;
 }
 
 } // end ns anonymous
 
+
+void ble_set_mode_change_callback(std::function<void(int)> cmcb)
+{
+  change_current_mode_callback = cmcb;
+}
 
 void ble_init(app_state_t* app_state_p)
 {
