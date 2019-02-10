@@ -2,6 +2,7 @@
 #include "ssd1306.h"
 #include "rtc6715.h"
 #include "ble.h"
+#include "splash-screen.hh"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -35,11 +36,8 @@
 #define STAR_COUNT 300
 
 #define READER_TASK_STACK_SIZE 2000
-#define DISPLAY_TASK_STACK_SIZE 2000
+#define DISPLAY_TASK_STACK_SIZE 4096
 #define READS_PER_SECOND 20
-#define READER_TASK_WAKEUP_FLAG (1 << 0)
-#define RIGHT_PIN_ISR_FLAG (1 << 1)
-#define LEFT_PIN_ISR_FLAG (1 << 2)
 
 
 static app_state_t app_state;
@@ -185,6 +183,7 @@ uint32_t wait_for_notification()
 
 void display_task(void*)
 {
+
   gpio_config_t io_conf;
   //interrupt of rising edge
   io_conf.intr_type = (gpio_int_type_t)GPIO_PIN_INTR_NEGEDGE;
@@ -214,6 +213,11 @@ void display_task(void*)
     );
 
   init_channels();
+
+  SplashScreen splash_screen;
+  Mode* active_mode = &splash_screen;
+  active_mode->setup();
+
   while(1)
   {
     uint32_t status_bits = wait_for_notification();
@@ -233,9 +237,10 @@ void display_task(void*)
     }
 
     ssd1306_clear(&display);
-    channel_display_draw(&display, &app_state.scanner_state.channels);
-    vtx_display_draw(&display, app_state.scanner_state.selected_vtx, app_state.scanner_state.channels.cursor_pos);
-    goggle_display_draw(&display, app_state.scanner_state.selected_goggle, app_state.scanner_state.channels.cursor_pos);
+    active_mode->update(&display);
+    // channel_display_draw(&display, &app_state.scanner_state.channels);
+    // vtx_display_draw(&display, app_state.scanner_state.selected_vtx, app_state.scanner_state.channels.cursor_pos);
+    // goggle_display_draw(&display, app_state.scanner_state.selected_goggle, app_state.scanner_state.channels.cursor_pos);
     ssd1306_update(&display);
   }
 }
