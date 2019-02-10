@@ -6,7 +6,8 @@ void Mode::s_periodic_task_callback(void* data)
 }
 
 
-Mode::Mode()
+Mode::Mode(app_state_t& app_state)
+  : _app_state(app_state)
 {
   _main_task_handle = xTaskGetCurrentTaskHandle();
   _periodic_task_handle = xTaskCreateStatic(
@@ -53,4 +54,14 @@ void Mode::periodic_task_callback()
 int Mode::total_elapsed_ms() const
 {
   return (_last_wake_time - _periodic_start) * 1000 / configTICK_RATE_HZ;
+}
+
+
+void Mode::notifyMainTask(uint32_t flags)
+{
+  xTaskNotify(
+    _main_task_handle,
+    flags,
+    eSetBits
+    );
 }

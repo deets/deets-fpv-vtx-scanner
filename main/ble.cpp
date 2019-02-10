@@ -57,7 +57,7 @@ void packet_handler (uint8_t packet_type, uint16_t channel, uint8_t *packet, uin
                     att_server_notify(
                       con_handle,
                       CURRENT_CHANNEL_VALUE_HANDLE,
-                      (uint8_t*)&app_state->scanner_state.channels.cursor_pos, sizeof(int)
+                      (uint8_t*)&app_state->selected_channel, sizeof(int)
 
                       );
                   }
@@ -80,7 +80,7 @@ uint16_t att_read_callback(hci_con_handle_t connection_handle, uint16_t att_hand
     UNUSED(connection_handle);
 
     if (att_handle == CURRENT_CHANNEL_VALUE_HANDLE){
-        return att_read_callback_handle_blob((uint8_t*)&app_state->current_channel, buffer_size, offset, buffer, buffer_size);
+        return att_read_callback_handle_blob((uint8_t*)&app_state->selected_channel, buffer_size, offset, buffer, buffer_size);
     }
     if (att_handle == LAST_RSSI_VALUE_HANDLE){
         return att_read_callback_handle_blob((uint8_t*)&app_state->last_read_channel, buffer_size, offset, buffer, buffer_size);
@@ -103,7 +103,7 @@ int att_write_callback(hci_con_handle_t connection_handle, uint16_t att_handle, 
     case CURRENT_CHANNEL_VALUE_HANDLE:
       ESP_LOGI("ble", "Write current channel");
       assert(buffer_size == sizeof(int));
-      app_state->scanner_state.channels.cursor_pos = *(int*)buffer;
+      app_state->selected_channel = *(int*)buffer;
       break;
     }
     return 0;

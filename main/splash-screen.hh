@@ -1,4 +1,5 @@
 // Copyright: 2019, Diez B. Roggisch, Berlin, all rights reserved
+#pragma once
 
 #include "mode.hh"
 

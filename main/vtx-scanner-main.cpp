@@ -1,8 +1,8 @@
 #include "appstate.h"
 #include "ssd1306.h"
-#include "rtc6715.h"
 #include "ble.h"
 #include "splash-screen.hh"
+#include "scanner.hh"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -35,10 +35,7 @@
 #define STAR_DISTANCE 8192
 #define STAR_COUNT 300
 
-#define READER_TASK_STACK_SIZE 2000
-#define DISPLAY_TASK_STACK_SIZE 4096
-#define READS_PER_SECOND 20
-
+#define DISPLAY_TASK_STACK_SIZE 8192
 
 static app_state_t app_state;
 
@@ -46,10 +43,6 @@ typedef struct {
   TaskHandle_t display_task_handle;
   StaticTask_t display_task_buffer;
   StackType_t  display_task_stack[DISPLAY_TASK_STACK_SIZE];
-
-  TaskHandle_t reader_task_handle;
-  StaticTask_t reader_task_buffer;
-  StackType_t  reader_task_stack[READER_TASK_STACK_SIZE];
 } task_state_t;
 
 task_state_t task_state;
@@ -58,76 +51,7 @@ uint32_t isr_count = 0;
 
 #define __BTSTACK_FILE__ "vtx-scanner-main.c"
 
-void reader_task(void*)
-{
-  TickType_t last_wake_time;
-  const TickType_t frequency =  pdMS_TO_TICKS(1000 / READS_PER_SECOND);
-  last_wake_time = xTaskGetTickCount ();
 
-  rtc6715_t rtc;
-  rtc6715_setup(
-    &rtc,
-    RTC_ADC_CHANNEL,
-    RTC_CS,
-    RTC_CLK,
-    RTC_MOSI
-    );
-
-  for( ;; )
-  {
-    vTaskDelayUntil( &last_wake_time, frequency );
-    app_state.last_rssi_reading = rtc6715_read_rssi(&rtc);
-    app_state.last_read_channel = app_state.current_channel;
-    channel_display_update_channel(
-      app_state.current_channel,
-      app_state.last_rssi_reading,
-      &app_state.scanner_state.channels
-      );
-    xTaskNotify(
-      task_state.display_task_handle,
-      READER_TASK_WAKEUP_FLAG,
-      eSetBits
-      );
-    // switch channel to the next one after reading
-    // so we get the maximum of stabilisation time.
-    app_state.current_channel = (app_state.current_channel + 1) % CHANNEL_NUM;
-    rtc6715_select_channel(&rtc, app_state.current_channel);
-  }
-}
-
-static void copy_legal_channel_info(vtx_info_t* vtx, channel_display_t* channels, int has_ham)
-{
-  for(size_t i=0; i < CHANNEL_NUM; ++i)
-  {
-    channels->channels[i].legal = vtx->channel_legal[i] == LEGAL ||
-       (vtx->channel_legal[i] == HAM && has_ham);
-  }
-}
-
-
-void init_channels()
-{
-  app_state.scanner_state.selected_vtx = &tbs_unify_info;
-  app_state.scanner_state.selected_goggle = &aomway_commander_v1_info;
-  app_state.scanner_state.has_ham = 0;
-  channel_display_init(&app_state.scanner_state.channels);
-  copy_legal_channel_info(
-    app_state.scanner_state.selected_vtx,
-    &app_state.scanner_state.channels,
-    app_state.scanner_state.has_ham
-    );
-
-  app_state.current_channel = 0;
-  task_state.reader_task_handle = xTaskCreateStatic(
-                  reader_task,       // Function that implements the task.
-                  "RTC",          // Text name for the task.
-                  READER_TASK_STACK_SIZE,      // Stack size in bytes, not words.
-                  0,
-                  tskIDLE_PRIORITY,// Priority at which the task is created.
-                  task_state.reader_task_stack,          // Array to use as the task's stack.
-                  &task_state.reader_task_buffer // Variable to hold the task's data structure.
-    );
-}
 
 #define DEBOUNCE (20 * 1000)
 
@@ -212,10 +136,18 @@ void display_task(void*)
     PIN_NUM_RST
     );
 
-  init_channels();
+  rtc6715_t rtc;
+  rtc6715_setup(
+    &rtc,
+    RTC_ADC_CHANNEL,
+    RTC_CS,
+    RTC_CLK,
+    RTC_MOSI
+    );
 
-  SplashScreen splash_screen;
-  Mode* active_mode = &splash_screen;
+  SplashScreen splash_screen(app_state);
+  Scanner scanner(app_state, rtc);
+  Mode* active_mode = &scanner;
   active_mode->setup();
 
   while(1)
@@ -223,13 +155,13 @@ void display_task(void*)
     uint32_t status_bits = wait_for_notification();
     if(status_bits & RIGHT_PIN_ISR_FLAG)
     {
-      channel_display_step_cursor(&app_state.scanner_state.channels, 1);
-      ble_update(NOTIFY_CURRENT_CHANNEL);
+      //channel_display_step_cursor(&app_state.scanner_state.channels, 1);
+      //ble_update(NOTIFY_CURRENT_CHANNEL);
     }
     if(status_bits & LEFT_PIN_ISR_FLAG)
     {
-      channel_display_step_cursor(&app_state.scanner_state.channels, -1);
-      ble_update(NOTIFY_CURRENT_CHANNEL);
+      //channel_display_step_cursor(&app_state.scanner_state.channels, -1);
+      //ble_update(NOTIFY_CURRENT_CHANNEL);
     }
     if(status_bits & READER_TASK_WAKEUP_FLAG)
     {
@@ -238,9 +170,6 @@ void display_task(void*)
 
     ssd1306_clear(&display);
     active_mode->update(&display);
-    // channel_display_draw(&display, &app_state.scanner_state.channels);
-    // vtx_display_draw(&display, app_state.scanner_state.selected_vtx, app_state.scanner_state.channels.cursor_pos);
-    // goggle_display_draw(&display, app_state.scanner_state.selected_goggle, app_state.scanner_state.channels.cursor_pos);
     ssd1306_update(&display);
   }
 }

@@ -1,5 +1,7 @@
 // Copyright: 2019, Diez B. Roggisch, Berlin, all rights reserved
+#pragma once
 
+#include "appstate.h"
 #include "ssd1306.h"
 
 #include <freertos/task.h>
@@ -13,7 +15,7 @@
 class Mode
 {
 public:
-  Mode();
+  Mode(app_state_t&);
   virtual void setup()=0;
   virtual void update(ssd1306_display_t*)=0;
   virtual void teardown()=0;
@@ -23,6 +25,12 @@ public:
   // pdMS_TO_TICKS(1000 / <FREQUENCY>)
   void periodic(TickType_t);
   int total_elapsed_ms() const;
+
+protected:
+
+  void notifyMainTask(uint32_t flags);
+
+  app_state_t& _app_state;
 
 private:
 
