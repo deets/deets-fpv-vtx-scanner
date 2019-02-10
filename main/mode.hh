@@ -12,6 +12,15 @@
 #define LEFT_PIN_ISR_FLAG (1 << 2)
 #define PERIODIC_TASK_WAKEUP_FLAG (1 << 3)
 
+
+enum class Input
+{
+  RIGHT_BUTTON,
+  LEFT_BUTTON,
+  MODE_BUTTON,
+  SETTINGS_BUTTON
+};
+
 class Mode
 {
 public:
@@ -19,6 +28,7 @@ public:
   virtual void setup()=0;
   virtual void update(ssd1306_display_t*)=0;
   virtual void teardown()=0;
+  virtual void input(Input) {};
 
   // Ensures peridodic wakeup
   // Compute argument like this:

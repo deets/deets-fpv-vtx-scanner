@@ -19,6 +19,7 @@ public:
   void setup() override;
   void update(ssd1306_display_t*) override;
   void teardown() override;
+  void input(Input) override;
 
 private:
   static void s_scanner_task(void*);

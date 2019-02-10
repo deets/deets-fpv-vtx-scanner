@@ -48,7 +48,7 @@ static sprite_t hollow_row = {
 };
 
 
-void channel_display_init(channel_display_t* channel_display)
+void channel_display_init(channel_display_t* channel_display, app_state_t* app_state)
 {
   // we have 40 channels, and 128
   // pixels. Each channel gets 3
@@ -63,7 +63,8 @@ void channel_display_init(channel_display_t* channel_display)
   }
   channel_display->min = 4095;
   channel_display->max = 0;
-  channel_display->cursor_pos = 20;
+  channel_display->app_state = app_state;
+  channel_display->app_state->selected_channel = 20;
 }
 
 
@@ -113,16 +114,16 @@ void channel_display_draw(ssd1306_display_t* display, channel_display_t* channel
       );
     }
   }
-  ssd1306_blit(display, &cursor, 5 + 3 * channel_display->cursor_pos, CHANNELS_BOTTOM);
+  ssd1306_blit(display, &cursor, 5 + 3 * channel_display->app_state->selected_channel, CHANNELS_BOTTOM);
 }
 
 
 void channel_display_step_cursor(channel_display_t* channel_display, int direction)
 {
-  channel_display->cursor_pos = (
+  channel_display->app_state->selected_channel = (
     // the '+ CHANNEL_NUM' is a trick to prevent
     // modulo from not doing it's job in case of
     // negative directions
-    channel_display->cursor_pos + direction + CHANNEL_NUM
+    channel_display->app_state->selected_channel + direction + CHANNEL_NUM
     ) % CHANNEL_NUM;
 }

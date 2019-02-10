@@ -155,13 +155,11 @@ void display_task(void*)
     uint32_t status_bits = wait_for_notification();
     if(status_bits & RIGHT_PIN_ISR_FLAG)
     {
-      //channel_display_step_cursor(&app_state.scanner_state.channels, 1);
-      //ble_update(NOTIFY_CURRENT_CHANNEL);
+      active_mode->input(Input::RIGHT_BUTTON);
     }
     if(status_bits & LEFT_PIN_ISR_FLAG)
     {
-      //channel_display_step_cursor(&app_state.scanner_state.channels, -1);
-      //ble_update(NOTIFY_CURRENT_CHANNEL);
+      active_mode->input(Input::LEFT_BUTTON);
     }
     if(status_bits & READER_TASK_WAKEUP_FLAG)
     {

@@ -1,4 +1,5 @@
 #include "scanner.hh"
+#include "ble.h"
 
 #include <freertos/task.h>
 
@@ -22,7 +23,7 @@ Scanner::Scanner(app_state_t& app_state, rtc6715_t& rtc)
 {
   _selected_vtx = &tbs_unify_info;
   _selected_goggle = &aomway_commander_v1_info;
-  channel_display_init(&_channels);
+  channel_display_init(&_channels, &_app_state);
 
   copy_legal_channel_info(
     _selected_vtx,
@@ -92,5 +93,23 @@ void Scanner::scanner_task()
     // so we get the maximum of stabilisation time.
     current_channel = (current_channel + 1) % CHANNEL_NUM;
     rtc6715_select_channel(&_rtc, current_channel);
+  }
+}
+
+
+void Scanner::input(Input button)
+{
+  switch(button)
+  {
+  case Input::RIGHT_BUTTON:
+    channel_display_step_cursor(&_channels, 1);
+    ble_update(NOTIFY_CURRENT_CHANNEL);
+    break;
+  case Input::LEFT_BUTTON:
+    channel_display_step_cursor(&_channels, -1);
+    ble_update(NOTIFY_CURRENT_CHANNEL);
+    break;
+  default:
+    break;
   }
 }
