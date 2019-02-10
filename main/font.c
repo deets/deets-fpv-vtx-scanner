@@ -13,3 +13,14 @@ int font_render(ssd1306_display_t *display, font_t* font, const char* text, int 
   }
   return x;
 }
+
+int font_text_width(font_t* font, const char* text)
+{
+  int width = 0;
+  size_t len = strlen(text);
+  for(int i=0; i < len; ++i)
+  {
+    width += font->width;
+  }
+  return width;
+}

@@ -2,7 +2,10 @@
 
 #include "deets_fpv_logo_bw_left.h"
 #include "deets_fpv_logo_bw_right.h"
+#include "font.h"
+#include "pc_senior.h"
 
+#define FONT &pc_senior
 
 void SplashScreen::setup()
 {
@@ -19,6 +22,28 @@ void SplashScreen::update(ssd1306_display_t* display)
   }
   ssd1306_blit(display, &deets_fpv_logo_bw_left, _x, 32);
   ssd1306_blit(display, &deets_fpv_logo_bw_right, _x, 32);
+
+  if(total_elapsed_ms() > 1800)
+  {
+    font_render(
+      display,
+      FONT,
+      "deets FPV",
+      128 - font_text_width(FONT, "deets FPV"),
+      10
+      );
+  }
+
+  if(total_elapsed_ms() > 2000)
+  {
+    font_render(
+      display,
+      FONT,
+      "scanner",
+      128 - font_text_width(FONT, "scanner"),
+      64 - 8 - 10
+      );
+  }
 }
 
 

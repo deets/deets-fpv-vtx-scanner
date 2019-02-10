@@ -27,7 +27,7 @@ void Mode::periodic(TickType_t period)
   if(period)
   {
     _wake_period = period;
-    _last_wake_time = xTaskGetTickCount();
+    _periodic_start = _last_wake_time = xTaskGetTickCount();
     vTaskResume(_periodic_task_handle);
   }
   else
@@ -47,4 +47,10 @@ void Mode::periodic_task_callback()
       eSetBits
       );
   }
+}
+
+
+int Mode::total_elapsed_ms() const
+{
+  return (_last_wake_time - _periodic_start) * 1000 / configTICK_RATE_HZ;
 }

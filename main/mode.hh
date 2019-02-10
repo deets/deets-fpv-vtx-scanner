@@ -4,7 +4,7 @@
 
 #include <freertos/task.h>
 
-#define PERIODIC_TASK_STACK_SIZE 500
+#define PERIODIC_TASK_STACK_SIZE 1024
 #define READER_TASK_WAKEUP_FLAG (1 << 0)
 #define RIGHT_PIN_ISR_FLAG (1 << 1)
 #define LEFT_PIN_ISR_FLAG (1 << 2)
@@ -22,6 +22,7 @@ public:
   // Compute argument like this:
   // pdMS_TO_TICKS(1000 / <FREQUENCY>)
   void periodic(TickType_t);
+  int total_elapsed_ms() const;
 
 private:
 
@@ -29,6 +30,7 @@ private:
 
   TickType_t _last_wake_time;
   TickType_t _wake_period;
+  TickType_t _periodic_start;
 
   TaskHandle_t _periodic_task_handle;
   StaticTask_t _periodic_task_buffer;
