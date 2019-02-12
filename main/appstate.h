@@ -12,5 +12,6 @@ typedef struct {
   uint32_t selected_channel;
   uint16_t last_read_channel;
   uint16_t last_rssi_reading;
+  uint16_t max_rssi_reading;
   app_mode_t current_mode;
 } app_state_t;

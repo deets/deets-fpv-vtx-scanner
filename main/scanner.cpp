@@ -2,6 +2,7 @@
 #include "ble.h"
 
 #include <freertos/task.h>
+#include <sys/param.h>
 
 namespace {
 
@@ -30,6 +31,8 @@ Scanner::Scanner(app_state_t& app_state, rtc6715_t& rtc)
     &_channels,
     _has_ham
     );
+
+  _app_state.max_rssi_reading = 0;
 
   _scanner_task_handle = xTaskCreateStatic(
     s_scanner_task,       // Function that implements the task.
@@ -83,6 +86,7 @@ void Scanner::scanner_task()
     vTaskDelayUntil( &last_wake_time, frequency );
     _app_state.last_rssi_reading = rtc6715_read_rssi(&_rtc);
     _app_state.last_read_channel = current_channel;
+    _app_state.max_rssi_reading = MAX(_app_state.last_rssi_reading, _app_state.max_rssi_reading);
     channel_display_update_channel(
       current_channel,
       _app_state.last_rssi_reading,

@@ -16,7 +16,7 @@
 #include <driver/adc.h>
 #include <esp_intr_alloc.h>
 #include <esp_timer.h>
-
+#include <esp_log.h>
 
 
 #define PIN_NUM_MISO 25
@@ -187,6 +187,7 @@ void display_task(void*)
       }
     });
 
+  uint16_t max_rssi = 0;
   while(1)
   {
     uint32_t status_bits = wait_for_notification();
@@ -201,6 +202,20 @@ void display_task(void*)
     if(status_bits & READER_TASK_WAKEUP_FLAG)
     {
       ble_update(NOTIFY_LAST_RSSI);
+    }
+
+    // This is a bit ugly, but for the time
+    // being I notify here because the display
+    // loop will always update, and the
+    // laptimer acquires data from a different
+    // core, so marshaling and managing max
+    // rssi reading not only becomes more cumbersome,
+    // it also would crash the BTStack
+    if(max_rssi < app_state.max_rssi_reading)
+    {
+      max_rssi = app_state.max_rssi_reading;
+      ESP_LOGI("main", "max rssi changed: %i", app_state.max_rssi_reading);
+      ble_update(NOTIFY_MAX_RSSI);
     }
 
     ssd1306_clear(&display);
