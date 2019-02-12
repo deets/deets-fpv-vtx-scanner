@@ -61,7 +61,7 @@ void packet_handler (uint8_t packet_type, uint16_t channel, uint8_t *packet, uin
                     att_server_notify(
                       con_handle,
                       CURRENT_CHANNEL_VALUE_HANDLE,
-                      (uint8_t*)&app_state->selected_channel, sizeof(int)
+                      (uint8_t*)&app_state->selected_channel, sizeof(uint32_t)
 
                       );
                   }
@@ -119,7 +119,7 @@ int att_write_callback(hci_con_handle_t connection_handle, uint16_t att_handle, 
     case CURRENT_CHANNEL_VALUE_HANDLE:
       ESP_LOGI("ble", "Write current channel");
       assert(buffer_size == sizeof(int));
-      app_state->selected_channel = *(int*)buffer;
+      app_state->selected_channel = *(uint32_t*)buffer;
       break;
     case CURRENT_MODE_VALUE_HANDLE:
       ESP_LOGI("ble", "Write current mode");

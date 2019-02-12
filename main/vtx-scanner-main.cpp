@@ -3,6 +3,7 @@
 #include "ble.h"
 #include "splash-screen.hh"
 #include "scanner.hh"
+#include "storage.hh"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -145,16 +146,19 @@ void display_task(void*)
     RTC_MOSI
     );
 
-  SplashScreen splash_screen(app_state);
-  Scanner scanner(app_state, rtc);
-  Mode* active_mode = &splash_screen;
+  app_state.selected_channel = 20;
+  Storage storage(app_state);
+
+  SplashScreen* splash_screen = new SplashScreen(app_state);
+  Scanner* scanner = new Scanner(app_state, rtc);
+  Mode* active_mode = splash_screen;
   app_mode_t next_mode = app_state.current_mode = SPLASH_SCREEN;
 
   active_mode->setup();
   ble_update(NOTIFY_CURRENT_MODE);
 
   ble_set_mode_change_callback(
-    [&active_mode, &splash_screen, &scanner](int mode) {
+    [&active_mode, splash_screen, scanner](int mode) {
       app_mode_t next_mode;
       switch(mode)
       {
@@ -171,10 +175,10 @@ void display_task(void*)
         switch(next_mode)
         {
         case SPLASH_SCREEN:
-          active_mode = &splash_screen;
+          active_mode = splash_screen;
           break;
         case SCANNER:
-          active_mode = &scanner;
+          active_mode = scanner;
           break;
         }
         active_mode->setup();
@@ -188,7 +192,7 @@ void display_task(void*)
     uint32_t status_bits = wait_for_notification();
     if(status_bits & RIGHT_PIN_ISR_FLAG)
     {
-      active_mode->input(input_t::RIGHT_BUTTON);
+//      active_mode->input(input_t::RIGHT_BUTTON);
     }
     if(status_bits & LEFT_PIN_ISR_FLAG)
     {
@@ -207,10 +211,10 @@ void display_task(void*)
       switch(next_mode)
       {
       case SPLASH_SCREEN:
-        active_mode = &splash_screen;
+        active_mode = splash_screen;
         break;
       case SCANNER:
-        active_mode = &scanner;
+        active_mode = scanner;
         break;
       }
       active_mode->setup();
@@ -218,6 +222,7 @@ void display_task(void*)
       ble_update(NOTIFY_CURRENT_MODE);
     }
     ssd1306_update(&display);
+    storage.store();
   }
 }
 

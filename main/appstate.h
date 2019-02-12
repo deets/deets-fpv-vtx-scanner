@@ -9,7 +9,7 @@ typedef enum {
 } app_mode_t;
 
 typedef struct {
-  int selected_channel;
+  uint32_t selected_channel;
   uint16_t last_read_channel;
   uint16_t last_rssi_reading;
   app_mode_t current_mode;

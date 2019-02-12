@@ -64,7 +64,6 @@ void channel_display_init(channel_display_t* channel_display, app_state_t* app_s
   channel_display->min = 4095;
   channel_display->max = 0;
   channel_display->app_state = app_state;
-  channel_display->app_state->selected_channel = 20;
 }
 
 

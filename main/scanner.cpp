@@ -31,7 +31,6 @@ Scanner::Scanner(app_state_t& app_state, rtc6715_t& rtc)
     _has_ham
     );
 
-  app_state.selected_channel = 0;
   _scanner_task_handle = xTaskCreateStatic(
     s_scanner_task,       // Function that implements the task.
     "SCR",          // Text name for the task.
