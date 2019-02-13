@@ -1,16 +1,33 @@
 #include "laptimer.hh"
 
+#include <esp_log.h>
+#include <sys/param.h>
+
 
 LapTimer::LapTimer(app_state_t& app_state, rtc6715_t& rtc)
   : Mode(app_state)
   , _rtc(rtc)
 {
 
+  _laptimer_task_handle = xTaskCreateStaticPinnedToCore(
+    s_laptimer_task,       // Function that implements the task.
+    "LPT",          // Text name for the task.
+    LAPTIMER_TASK_STACK_SIZE,      // Stack size in bytes, not words.
+    this,
+    tskIDLE_PRIORITY,// Priority at which the task is created.
+    _laptimer_task_stack,          // Array to use as the task's stack.
+    &_laptimer_task_buffer, // Variable to hold the task's data structure.
+    1 // Core 1
+    );
+  vTaskSuspend(_laptimer_task_handle);
+
 }
 
 void LapTimer::setup()
 {
   periodic(pdMS_TO_TICKS(1000 / 60));
+  rtc6715_select_channel(&_rtc, _app_state.selected_channel);
+  vTaskResume(_laptimer_task_handle);
 }
 
 
@@ -18,7 +35,7 @@ app_mode_t LapTimer::update(ssd1306_display_t* display)
 {
   for(int i=0; i < 128; ++i)
   {
-    ssd1306_draw_pixel(display, i, i % 3);
+    ssd1306_draw_pixel(display, i, 32 - (_rssi_readings[i] >> 7));
   }
   return LAPTIMER;
 }
@@ -26,5 +43,28 @@ app_mode_t LapTimer::update(ssd1306_display_t* display)
 
 void LapTimer::teardown()
 {
+  vTaskSuspend(_laptimer_task_handle);
   periodic(0);
+}
+
+void LapTimer::s_laptimer_task(void* data)
+{
+  ((LapTimer*)data)->laptimer_task();
+}
+
+
+void LapTimer::laptimer_task()
+ {
+  TickType_t last_wake_time;
+  const TickType_t frequency =  pdMS_TO_TICKS(1);
+  ESP_LOGI("laptimer", "Frequency: %i", frequency);
+  last_wake_time = xTaskGetTickCount ();
+  size_t pos = 0;
+  for( ;; )
+  {
+    vTaskDelayUntil( &last_wake_time, frequency );
+    _rssi_readings[pos] = rtc6715_read_rssi(&_rtc);
+    _app_state.max_rssi_reading = MAX(_rssi_readings[pos], _app_state.max_rssi_reading);
+    pos = (pos + 1) % 128;
+  }
 }
