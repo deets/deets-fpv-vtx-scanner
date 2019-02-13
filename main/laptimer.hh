@@ -31,4 +31,5 @@ private:
   uint16_t _rssi_readings[128];
 
   int64_t _last_laptime;
+  bool _laptime_acquired;
 };

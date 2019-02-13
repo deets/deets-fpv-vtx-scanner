@@ -14,6 +14,8 @@ enum TriggerState
 LapTimer::LapTimer(app_state_t& app_state, rtc6715_t& rtc)
   : Mode(app_state)
   , _rtc(rtc)
+  , _last_laptime(0)
+  , _laptime_acquired(false)
 {
 
   _laptimer_task_handle = xTaskCreateStaticPinnedToCore(
@@ -42,9 +44,14 @@ app_mode_t LapTimer::update(ssd1306_display_t* display)
 {
   for(int i=0; i < 128; ++i)
   {
-    ssd1306_draw_pixel(display, i, 32 - (_rssi_readings[i] >> 7));
+    // FIXME: strictly speaking this must be 7, because we read 12 bit
+    ssd1306_draw_pixel(display, i, 32 - (_rssi_readings[i] >> 6));
   }
-//  ESP_LOGI("laptimer", "laptime: %i", (int)(_last_laptime / 1000));
+  if(_laptime_acquired)
+  {
+    ESP_LOGI("laptimer", "laptime: %i", (int)(_last_laptime / 1000));
+    _laptime_acquired = false;
+  }
   return LAPTIMER;
 }
 
@@ -102,6 +109,7 @@ void LapTimer::laptimer_task()
         if(now - trigger_time > _app_state.trigger_max_latency)
         {
           _last_laptime = trigger_time;
+          _laptime_acquired = true;
           state = TRIGGERED;
         }
       }
@@ -113,6 +121,5 @@ void LapTimer::laptimer_task()
       }
       break;
     }
-    ESP_LOGI("laptimer", "trigge state: %i", state);
   }
 }

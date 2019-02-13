@@ -195,7 +195,7 @@ void display_task(void*)
 
   // TODO: REMOVE, hard-coded for laptimer experiments
   app_state.selected_channel = 27;
-  app_state.trigger_arm_threshold = 1900;
+  app_state.trigger_arm_threshold = 1850;
   app_state.trigger_disarm_threshold = 1100;
   app_state.trigger_max_latency = 100000;
 
