@@ -3,6 +3,13 @@
 #include <esp_log.h>
 #include <sys/param.h>
 
+enum TriggerState
+{
+  DISARMED,
+  ARMED,
+  TRIGGERED
+};
+
 
 LapTimer::LapTimer(app_state_t& app_state, rtc6715_t& rtc)
   : Mode(app_state)
@@ -37,6 +44,7 @@ app_mode_t LapTimer::update(ssd1306_display_t* display)
   {
     ssd1306_draw_pixel(display, i, 32 - (_rssi_readings[i] >> 7));
   }
+//  ESP_LOGI("laptimer", "laptime: %i", (int)(_last_laptime / 1000));
   return LAPTIMER;
 }
 
@@ -59,12 +67,52 @@ void LapTimer::laptimer_task()
   const TickType_t frequency =  pdMS_TO_TICKS(1);
   ESP_LOGI("laptimer", "Frequency: %i", frequency);
   last_wake_time = xTaskGetTickCount ();
+
+  uint16_t trigger_reading;
+  int64_t trigger_time;
+  TriggerState state = DISARMED;
+
   size_t pos = 0;
   for( ;; )
   {
     vTaskDelayUntil( &last_wake_time, frequency );
-    _rssi_readings[pos] = rtc6715_read_rssi(&_rtc);
+    uint16_t reading = _rssi_readings[pos] = rtc6715_read_rssi(&_rtc);
     _app_state.max_rssi_reading = MAX(_rssi_readings[pos], _app_state.max_rssi_reading);
     pos = (pos + 1) % 128;
+
+    auto now = esp_timer_get_time();
+    switch(state)
+    {
+    case DISARMED:
+      if(reading > _app_state.trigger_arm_threshold)
+      {
+        state = ARMED;
+        trigger_time = now;
+        trigger_reading = reading;
+      }
+      break;
+    case ARMED:
+      if(reading > trigger_reading)
+      {
+        trigger_time = now;
+        trigger_reading = reading;
+      }
+      else
+      {
+        if(now - trigger_time > _app_state.trigger_max_latency)
+        {
+          _last_laptime = trigger_time;
+          state = TRIGGERED;
+        }
+      }
+      break;
+    case TRIGGERED:
+      if(reading < _app_state.trigger_disarm_threshold)
+      {
+        state = DISARMED;
+      }
+      break;
+    }
+    ESP_LOGI("laptimer", "trigge state: %i", state);
   }
 }

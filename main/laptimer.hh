@@ -5,7 +5,6 @@
 
 #include "mode.hh"
 #include "rtc6715.h"
-#include "ringbuffer.hh"
 
 #define LAPTIMER_TASK_STACK_SIZE 2000
 
@@ -29,7 +28,7 @@ private:
   StaticTask_t _laptimer_task_buffer;
   StackType_t  _laptimer_task_stack[LAPTIMER_TASK_STACK_SIZE];
 
-  //RingBuffer<uint16_t, 256> _rssi_readings;
   uint16_t _rssi_readings[128];
 
+  int64_t _last_laptime;
 };

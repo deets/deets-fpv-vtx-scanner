@@ -15,4 +15,8 @@ typedef struct {
   uint16_t last_rssi_reading;
   uint16_t max_rssi_reading;
   app_mode_t current_mode;
+  uint16_t trigger_arm_threshold;
+  uint16_t trigger_disarm_threshold;
+  int64_t trigger_max_latency;
+
 } app_state_t;
