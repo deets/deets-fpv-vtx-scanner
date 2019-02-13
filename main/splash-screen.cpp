@@ -7,6 +7,13 @@
 
 #define FONT &pc_senior
 
+SplashScreen::SplashScreen(app_state_t& app_state, app_mode_t follow_mode)
+  : Mode(app_state)
+  , _follow_mode(follow_mode)
+{
+}
+
+
 void SplashScreen::setup()
 {
   periodic(pdMS_TO_TICKS(1000 / 60));
@@ -46,7 +53,7 @@ app_mode_t SplashScreen::update(ssd1306_display_t* display)
   }
   if(total_elapsed_ms() > 3000)
   {
-    return SCANNER;
+    return _follow_mode;
   }
   return SPLASH_SCREEN;
 }

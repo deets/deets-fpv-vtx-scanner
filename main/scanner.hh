@@ -25,7 +25,7 @@ private:
   static void s_scanner_task(void*);
   void scanner_task();
 
-  rtc6715_t _rtc;
+  rtc6715_t& _rtc;
 
   channel_display_t _channels;
   vtx_info_t* _selected_vtx;

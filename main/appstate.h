@@ -5,7 +5,8 @@
 
 typedef enum {
     SPLASH_SCREEN,
-    SCANNER
+    SCANNER,
+    LAPTIMER
 } app_mode_t;
 
 typedef struct {

@@ -4,6 +4,7 @@
 #include "splash-screen.hh"
 #include "scanner.hh"
 #include "storage.hh"
+#include "laptimer.hh"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -149,8 +150,9 @@ void display_task(void*)
   app_state.selected_channel = 20;
   Storage storage(app_state);
 
-  SplashScreen* splash_screen = new SplashScreen(app_state);
+  SplashScreen* splash_screen = new SplashScreen(app_state, LAPTIMER);
   Scanner* scanner = new Scanner(app_state, rtc);
+  LapTimer* lap_timer = new LapTimer(app_state, rtc);
   Mode* active_mode = splash_screen;
   app_mode_t next_mode = app_state.current_mode = SPLASH_SCREEN;
 
@@ -158,12 +160,13 @@ void display_task(void*)
   ble_update(NOTIFY_CURRENT_MODE);
 
   ble_set_mode_change_callback(
-    [&active_mode, splash_screen, scanner](int mode) {
+    [&active_mode, splash_screen, scanner, lap_timer](int mode) {
       app_mode_t next_mode;
       switch(mode)
       {
       case SPLASH_SCREEN:
       case SCANNER:
+      case LAPTIMER:
         next_mode = (app_mode_t)mode;
         break;
       default:
@@ -180,12 +183,18 @@ void display_task(void*)
         case SCANNER:
           active_mode = scanner;
           break;
+        case LAPTIMER:
+          active_mode = lap_timer;
+          break;
         }
         active_mode->setup();
         app_state.current_mode = next_mode;
         ble_update(NOTIFY_CURRENT_MODE);
       }
     });
+
+  // TODO: REMOVE, hard-coded for laptimer experiments
+  app_state.selected_channel = 27;
 
   uint16_t max_rssi = 0;
   while(1)
@@ -230,6 +239,9 @@ void display_task(void*)
         break;
       case SCANNER:
         active_mode = scanner;
+        break;
+      case LAPTIMER:
+        active_mode = lap_timer;
         break;
       }
       active_mode->setup();
