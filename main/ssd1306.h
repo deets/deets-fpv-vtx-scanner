@@ -36,6 +36,7 @@ void ssd1306_clear(ssd1306_display_t* display);
 void ssd1306_draw_pixel(ssd1306_display_t* display, int x, int y);
 
 void ssd1306_draw_vertical_line(ssd1306_display_t* display, int x, int y, int y2);
+void ssd1306_draw_horizontal_line(ssd1306_display_t* display, int x, int x2, int y);
 
 void ssd1306_blit(ssd1306_display_t* display, const sprite_t* const sprite, int x, int y);
 

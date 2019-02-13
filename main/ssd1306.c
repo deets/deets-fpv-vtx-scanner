@@ -9,6 +9,7 @@
 
 #include <string.h>
 #include <math.h>
+#include <sys/param.h>
 
 
 //Send a command to the LCD. Uses spi_device_transmit, which waits until the transfer is complete.
@@ -279,5 +280,27 @@ void ssd1306_blit(ssd1306_display_t* display, const sprite_t* const sprite, int 
       display->frame[start_word + 1] |= right_pixels & right_mask;
     }
     start_word += modulo;
+  }
+}
+
+
+void ssd1306_draw_horizontal_line(ssd1306_display_t* display, int x, int x2, int y)
+{
+  if(y < 0 || y >= SSD1306_LCDHEIGHT)
+  {
+    return;
+  }
+
+  if(x > x2)
+  {
+    int h = x;
+    x = x2;
+    x2 = h;
+  }
+  x = MAX(0, x);
+  x2 = MIN(SSD1306_LCDWIDTH - 1, x2);
+  for(int i=x; i <= x2; ++i)
+  {
+    ssd1306_draw_pixel(display, i, y);
   }
 }

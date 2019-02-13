@@ -11,6 +11,13 @@
 
 class LapTimer : public Mode
 {
+  enum TriggerState
+  {
+    DISARMED,
+    ARMED,
+    TRIGGERED
+  };
+
 public:
 
   LapTimer(app_state_t&, rtc6715_t&);
@@ -32,4 +39,5 @@ private:
 
   int64_t _last_laptime;
   bool _laptime_acquired;
+  TriggerState _state;
 };
