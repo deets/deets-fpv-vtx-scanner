@@ -87,6 +87,7 @@ void Scanner::scanner_task()
     _app_state.last_rssi_reading = rtc6715_read_rssi(&_rtc);
     _app_state.last_read_channel = current_channel;
     _app_state.max_rssi_reading = MAX(_app_state.last_rssi_reading, _app_state.max_rssi_reading);
+    _app_state.min_rssi_reading = MIN(_app_state.last_rssi_reading, _app_state.min_rssi_reading);
     channel_display_update_channel(
       current_channel,
       _app_state.last_rssi_reading,

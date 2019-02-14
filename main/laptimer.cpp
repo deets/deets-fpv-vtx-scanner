@@ -3,6 +3,7 @@
 #include "pc_senior.h"
 #include "ssd1306_consts.h"
 #include "sprite.h"
+#include "buzzer.hh"
 
 #include <esp_log.h>
 #include <sys/param.h>
@@ -57,14 +58,21 @@ void LapTimer::setup()
 
 app_mode_t LapTimer::update(ssd1306_display_t* display)
 {
-  int divider = MAX(_app_state.max_rssi_reading, _app_state.trigger_arm_threshold);
+  int max = MAX(_app_state.max_rssi_reading, _app_state.trigger_arm_threshold);
+  int min = _app_state.min_rssi_reading;
+  int divider = max - min;
+  // We don't have enough data yet
+  if(divider <= 0)
+  {
+    return LAPTIMER;
+  }
+
   for(int i=0; i < 128; ++i)
   {
-    // FIXME: strictly speaking this must be 7, because we read 12 bit
-    ssd1306_draw_pixel(display, i, DISPLAY_SPLIT - (DISPLAY_SPLIT * _rssi_readings[i] / divider));
+    ssd1306_draw_pixel(display, i, DISPLAY_SPLIT - (DISPLAY_SPLIT * (_rssi_readings[i] - min) / divider));
   }
-  int trigger_arm_pos = DISPLAY_SPLIT - (DISPLAY_SPLIT * _app_state.trigger_arm_threshold / divider);
-  int trigger_disarm_pos = DISPLAY_SPLIT - (DISPLAY_SPLIT * _app_state.trigger_disarm_threshold / divider);
+  int trigger_arm_pos = DISPLAY_SPLIT - (DISPLAY_SPLIT * (_app_state.trigger_arm_threshold - min) / divider);
+  int trigger_disarm_pos = DISPLAY_SPLIT - (DISPLAY_SPLIT * (_app_state.trigger_disarm_threshold - min) / divider);
 
   ssd1306_draw_horizontal_line(
     display,
@@ -75,6 +83,11 @@ app_mode_t LapTimer::update(ssd1306_display_t* display)
     display,
     SSD1306_LCDWIDTH - 12, SSD1306_LCDWIDTH - 1,
     trigger_disarm_pos
+    );
+  ssd1306_draw_horizontal_line(
+    display,
+    0, 127,
+    DISPLAY_SPLIT + 1
     );
 
   switch(_state)
@@ -94,6 +107,7 @@ app_mode_t LapTimer::update(ssd1306_display_t* display)
   {
     ESP_LOGI("laptimer", "laptime: %i", (int)(_last_laptime / 1000));
     _laptime_acquired = false;
+    buzzer_buzz(150, 1);
   }
   char buffer[256];
   sprintf(buffer, "%i", (int)(_last_laptime / 1000));
@@ -138,6 +152,7 @@ void LapTimer::laptimer_task()
     vTaskDelayUntil( &last_wake_time, frequency );
     uint16_t reading = _rssi_readings[pos] = rtc6715_read_rssi(&_rtc);
     _app_state.max_rssi_reading = MAX(_rssi_readings[pos], _app_state.max_rssi_reading);
+    _app_state.min_rssi_reading = MIN(_rssi_readings[pos], _app_state.min_rssi_reading);
     pos = (pos + 1) % 128;
 
     auto now = esp_timer_get_time();

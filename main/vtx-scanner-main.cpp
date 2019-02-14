@@ -5,6 +5,7 @@
 #include "scanner.hh"
 #include "storage.hh"
 #include "laptimer.hh"
+#include "buzzer.hh"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -147,7 +148,9 @@ void display_task(void*)
     RTC_MOSI
     );
 
-  app_state.selected_channel = 20;
+  buzzer_setup();
+  buzzer_buzz(100, 3);
+
   Storage storage(app_state);
 
   SplashScreen* splash_screen = new SplashScreen(app_state, LAPTIMER);
@@ -195,10 +198,10 @@ void display_task(void*)
 
   // TODO: REMOVE, hard-coded for laptimer experiments
   app_state.selected_channel = 27;
-  app_state.trigger_arm_threshold = 1850;
-  app_state.trigger_disarm_threshold = 1100;
+  app_state.trigger_arm_threshold = 1750;
+  app_state.trigger_disarm_threshold = 1200;
   app_state.trigger_max_latency = 100000;
-
+  app_state.min_rssi_reading = 8129; // bigger than anything we can ever read
 
   uint16_t max_rssi = 0;
   while(1)
