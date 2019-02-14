@@ -15,7 +15,8 @@ class LapTimer : public Mode
   {
     DISARMED,
     ARMED,
-    TRIGGERED
+    TRIGGERED,
+    COOLDOWN
   };
 
 public:

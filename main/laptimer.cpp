@@ -178,8 +178,14 @@ void LapTimer::laptimer_task()
         {
           _last_laptime = trigger_time;
           _laptime_acquired = true;
-          _state = TRIGGERED;
+          _state = COOLDOWN;
         }
+      }
+      break;
+    case COOLDOWN:
+      if(now - trigger_time >= _app_state.trigger_cooldown)
+      {
+        _state = TRIGGERED;
       }
       break;
     case TRIGGERED:

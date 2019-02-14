@@ -19,5 +19,6 @@ typedef struct {
   uint16_t trigger_arm_threshold;
   uint16_t trigger_disarm_threshold;
   int64_t trigger_max_latency;
+  int64_t trigger_cooldown;
 
 } app_state_t;

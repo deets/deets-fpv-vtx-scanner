@@ -201,6 +201,7 @@ void display_task(void*)
   app_state.trigger_arm_threshold = 1750;
   app_state.trigger_disarm_threshold = 1200;
   app_state.trigger_max_latency = 100000;
+  app_state.trigger_cooldown = 3000000;
   app_state.min_rssi_reading = 8129; // bigger than anything we can ever read
 
   uint16_t max_rssi = 0;
