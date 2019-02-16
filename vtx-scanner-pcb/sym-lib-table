@@ -1,0 +1,3 @@
+(sym_lib_table
+  (lib (name deets)(type Legacy)(uri ${KIPRJMOD}/modules/kicad-lib/deets.lib)(options "")(descr ""))
+)

@@ -1,0 +1,3 @@
+[submodule "vtx-scanner-pcb/modules/kicad-lib"]
+	path = vtx-scanner-pcb/modules/kicad-lib
+	url = git@github.com:deets/kicad-lib.git
