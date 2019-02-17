@@ -25,7 +25,7 @@
 #define PIN_NUM_MOSI 23
 #define PIN_NUM_CLK  19
 #define PIN_NUM_CS   22
-#define PIN_NUM_DC   16
+#define PIN_NUM_DC   16 // TODO: needs to become 15 for WROVER-2 module!
 #define PIN_NUM_RST  18
 
 #define RTC_CS 14
