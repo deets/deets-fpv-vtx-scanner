@@ -10,7 +10,9 @@
 #define READER_TASK_WAKEUP_FLAG (1 << 0)
 #define RIGHT_PIN_ISR_FLAG (1 << 1)
 #define LEFT_PIN_ISR_FLAG (1 << 2)
-#define PERIODIC_TASK_WAKEUP_FLAG (1 << 3)
+#define UP_PIN_ISR_FLAG (1 << 3)
+#define DOWN_PIN_ISR_FLAG (1 << 4)
+#define PERIODIC_TASK_WAKEUP_FLAG (1 << 5)
 
 
 enum class input_t

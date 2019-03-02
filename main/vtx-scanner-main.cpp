@@ -6,6 +6,7 @@
 #include "storage.hh"
 #include "laptimer.hh"
 #include "buzzer.hh"
+#include "io-buttons.hh"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -13,8 +14,6 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "esp_system.h"
-#include "soc/gpio_struct.h"
-#include "driver/gpio.h"
 #include <driver/adc.h>
 #include <esp_intr_alloc.h>
 #include <esp_timer.h>
@@ -50,50 +49,7 @@ typedef struct {
 
 task_state_t task_state;
 
-uint32_t isr_count = 0;
-
 #define __BTSTACK_FILE__ "vtx-scanner-main.c"
-
-
-
-#define DEBOUNCE (20 * 1000)
-
-static void IRAM_ATTR gpio_isr_handler(void* arg)
-{
-  BaseType_t higher_prio_has_woken;
-  static int64_t last = 0;
-  isr_count++;
-  int pin = (int)arg;
-  int bit = 0;
-  int64_t ts = esp_timer_get_time();
-  if(last + DEBOUNCE > ts)
-  {
-    return;
-  }
-  last = ts;
-
-  switch(pin)
-  {
-  case GPIO_NUM_0:
-    bit = RIGHT_PIN_ISR_FLAG;
-    break;
-  case GPIO_NUM_17:
-    /* bit = LEFT_PIN_ISR_FLAG; */
-    break;
-  }
-
-  xTaskNotifyFromISR(
-    task_state.display_task_handle,
-    bit,
-    eSetBits,
-    &higher_prio_has_woken
-    );
-  if(higher_prio_has_woken)
-  {
-    portYIELD_FROM_ISR();
-  }
-}
-
 
 uint32_t wait_for_notification()
 {
@@ -110,23 +66,7 @@ uint32_t wait_for_notification()
 
 void display_task(void*)
 {
-
-  gpio_config_t io_conf;
-  //interrupt of rising edge
-  io_conf.intr_type = (gpio_int_type_t)GPIO_PIN_INTR_NEGEDGE;
-  //bit mask of the pins, use GPIO4/5 here
-  io_conf.pin_bit_mask = (1ULL<< GPIO_NUM_0) | (1ULL<< GPIO_NUM_17);
-  //set as input mode
-  io_conf.mode = GPIO_MODE_INPUT;
-  //enable pull-up mode
-  io_conf.pull_up_en = GPIO_PULLUP_ENABLE;
-  gpio_config(&io_conf);
-
-  // install global GPIO ISR handler
-  gpio_install_isr_service(0);
-  // install individual interrupts
-  gpio_isr_handler_add(GPIO_NUM_0, gpio_isr_handler, (void*)0);
-  gpio_isr_handler_add(GPIO_NUM_17, gpio_isr_handler, (void*)17);
+  iobuttons_setup(xTaskGetCurrentTaskHandle());
 
   ssd1306_display_t display;
   ssd1306_init_static(
@@ -153,7 +93,7 @@ void display_task(void*)
 
   Storage storage(app_state);
 
-  SplashScreen* splash_screen = new SplashScreen(app_state, LAPTIMER);
+  SplashScreen* splash_screen = new SplashScreen(app_state, SCANNER);
   Scanner* scanner = new Scanner(app_state, rtc);
   LapTimer* lap_timer = new LapTimer(app_state, rtc);
   Mode* active_mode = splash_screen;
@@ -199,7 +139,7 @@ void display_task(void*)
   // TODO: REMOVE, hard-coded for laptimer experiments
   app_state.selected_channel = 27;
   app_state.trigger_arm_threshold = 1750;
-  app_state.trigger_disarm_threshold = 1200;
+  app_state.trigger_disarm_threshold = 1500;
   app_state.trigger_max_latency = 100000;
   app_state.trigger_cooldown = 3000000;
   app_state.min_rssi_reading = 8129; // bigger than anything we can ever read
@@ -210,11 +150,13 @@ void display_task(void*)
     uint32_t status_bits = wait_for_notification();
     if(status_bits & RIGHT_PIN_ISR_FLAG)
     {
-//      active_mode->input(input_t::RIGHT_BUTTON);
+      active_mode->input(input_t::RIGHT_BUTTON);
+      iobuttons_info();
     }
     if(status_bits & LEFT_PIN_ISR_FLAG)
     {
       active_mode->input(input_t::LEFT_BUTTON);
+      iobuttons_info();
     }
     if(status_bits & READER_TASK_WAKEUP_FLAG)
     {
