@@ -29,15 +29,15 @@ Mode::Mode(app_state_t& app_state)
 
 void Mode::periodic(TickType_t period)
 {
+  // always suspend to allow for
+  // several periodic-calls with period > 0 in a row
+  vTaskSuspend(_periodic_task_handle );
   if(period)
   {
+    ESP_LOGD("mode", "periodic task period: %ims", period);
     _wake_period = period;
     _periodic_start = _last_wake_time = xTaskGetTickCount();
     vTaskResume(_periodic_task_handle);
-  }
-  else
-  {
-    vTaskSuspend(_periodic_task_handle );
   }
 }
 
@@ -138,7 +138,28 @@ void ModeManager::change_active_mode(app_mode_t next_mode)
 
 void ModeManager::input(input_t inp)
 {
-  active().input(inp);
+  switch(inp)
+  {
+  case RIGHT_BUTTON:
+  case LEFT_BUTTON:
+    active().input(inp);
+    break;
+  case MODE_BUTTON:
+    // this defenis the implicit model cycling order
+    switch(_app_state.current_mode)
+    {
+    case SCANNER:
+      change_active_mode(LAPTIMER);
+      break;
+    case LAPTIMER:
+      change_active_mode(SCANNER);
+      break;
+    case SPLASH_SCREEN:
+      break;
+    }
+  case SETTINGS_BUTTON:
+    break;
+  }
 }
 
 

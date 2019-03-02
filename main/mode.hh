@@ -18,7 +18,7 @@
 #define PERIODIC_TASK_WAKEUP_FLAG (1 << 5)
 
 
-enum class input_t
+enum input_t
 {
   RIGHT_BUTTON,
   LEFT_BUTTON,

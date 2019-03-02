@@ -16,7 +16,7 @@
 namespace
 {
 
-const int DEBOUNCE = (50 * 1000);
+const int DEBOUNCE = (200 * 1000);
 
 TaskHandle_t s_main_task_handle;
 

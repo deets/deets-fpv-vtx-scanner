@@ -134,6 +134,14 @@ void display_task(void*)
     {
       modes.input(input_t::LEFT_BUTTON);
     }
+    if(status_bits & UP_PIN_ISR_FLAG)
+    {
+      modes.input(input_t::MODE_BUTTON);
+    }
+    if(status_bits & DOWN_PIN_ISR_FLAG)
+    {
+      modes.input(input_t::SETTINGS_BUTTON);
+    }
     if(status_bits & READER_TASK_WAKEUP_FLAG)
     {
       ble_update(NOTIFY_LAST_RSSI);

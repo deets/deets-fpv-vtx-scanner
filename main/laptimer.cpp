@@ -50,11 +50,11 @@ LapTimer::LapTimer(app_state_t& app_state, rtc6715_t& rtc)
 
 void LapTimer::setup()
 {
-  periodic(pdMS_TO_TICKS(1000 / 60));
+  auto screen_period = pdMS_TO_TICKS(1000 / 60);
+  periodic(screen_period);
   rtc6715_select_channel(&_rtc, _app_state.selected_channel);
   vTaskResume(_laptimer_task_handle);
 }
-
 
 app_mode_t LapTimer::update(ssd1306_display_t* display)
 {
@@ -102,7 +102,6 @@ app_mode_t LapTimer::update(ssd1306_display_t* display)
     break;
   }
 
-
   if(_laptime_acquired)
   {
     ESP_LOGI("laptimer", "laptime: %i", (int)(_last_laptime / 1000));
@@ -118,7 +117,6 @@ app_mode_t LapTimer::update(ssd1306_display_t* display)
     24,
     64 - 8 - 8
     );
-
   return LAPTIMER;
 }
 
@@ -138,8 +136,8 @@ void LapTimer::s_laptimer_task(void* data)
 void LapTimer::laptimer_task()
  {
   TickType_t last_wake_time;
-  const TickType_t frequency =  pdMS_TO_TICKS(1);
-  ESP_LOGI("laptimer", "Frequency: %i", frequency);
+  const TickType_t period =  pdMS_TO_TICKS(1);
+  ESP_LOGI("laptimer", "laptimer task period: %ims", period);
   last_wake_time = xTaskGetTickCount ();
 
   uint16_t trigger_reading = 0;
@@ -149,7 +147,7 @@ void LapTimer::laptimer_task()
   size_t pos = 0;
   for( ;; )
   {
-    vTaskDelayUntil( &last_wake_time, frequency );
+    vTaskDelayUntil( &last_wake_time, period );
     uint16_t reading = _rssi_readings[pos] = rtc6715_read_rssi(&_rtc);
     _app_state.max_rssi_reading = MAX(_rssi_readings[pos], _app_state.max_rssi_reading);
     _app_state.min_rssi_reading = MIN(_rssi_readings[pos], _app_state.min_rssi_reading);
