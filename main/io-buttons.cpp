@@ -7,6 +7,7 @@
 #include <esp_log.h>
 
 #include <stdint.h>
+#include <map>
 
 #define GPIO_DOWN GPIO_NUM_21
 #define GPIO_UP GPIO_NUM_15
@@ -20,37 +21,39 @@ const int DEBOUNCE = (200 * 1000);
 
 TaskHandle_t s_main_task_handle;
 
-int counts[] = { 0, 0, 0, 0 };
+std::map<int, uint64_t> s_last;
+
+std::map<int, uint64_t> s_debounces = {
+  { GPIO_DOWN, 200 * 1000},
+  { GPIO_UP, 200 * 1000},
+  { GPIO_LEFT, 20 * 1000},
+  { GPIO_RIGHT, 20 * 1000},
+};
 
 void IRAM_ATTR gpio_isr_handler(void* arg)
 {
   BaseType_t higher_prio_has_woken;
-  static int64_t last = 0;
   int pin = (int)arg;
   int bit = 0;
   int64_t ts = esp_timer_get_time();
-  if(last + DEBOUNCE > ts)
+  if(s_last.count(pin) && s_last[pin] + s_debounces[pin] > ts)
   {
     return;
   }
-  last = ts;
+  s_last[pin] = ts;
 
   switch(pin)
   {
   case GPIO_RIGHT:
     bit = RIGHT_PIN_ISR_FLAG;
-    ++counts[0];
     break;
   case GPIO_LEFT:
     bit = LEFT_PIN_ISR_FLAG;
-    ++counts[1];
     break;
   case GPIO_DOWN:
     bit = DOWN_PIN_ISR_FLAG;
-    ++counts[2];
     break;
   case GPIO_UP:
-    ++counts[3];
     bit = UP_PIN_ISR_FLAG;
     break;
   }
@@ -74,7 +77,7 @@ void iobuttons_setup(TaskHandle_t main_task_handle)
 
   gpio_config_t io_conf;
   //interrupt of rising edge
-  io_conf.intr_type = (gpio_int_type_t)GPIO_PIN_INTR_NEGEDGE;
+  io_conf.intr_type = (gpio_int_type_t)GPIO_PIN_INTR_POSEDGE;
   io_conf.pin_bit_mask = \
   (1ULL<< GPIO_DOWN) |
   (1ULL<< GPIO_RIGHT) |
@@ -94,12 +97,4 @@ void iobuttons_setup(TaskHandle_t main_task_handle)
   gpio_isr_handler_add(GPIO_RIGHT, gpio_isr_handler, (void*)GPIO_RIGHT);
   gpio_isr_handler_add(GPIO_UP, gpio_isr_handler, (void*)GPIO_UP);
   gpio_isr_handler_add(GPIO_LEFT, gpio_isr_handler, (void*)GPIO_LEFT);
-}
-
-void iobuttons_info()
-{
-  ESP_LOGI(
-    "iobuttons", "%i %i %i %i",
-    counts[0], counts[1], counts[2], counts[3]
-    );
 }

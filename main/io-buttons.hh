@@ -5,4 +5,3 @@
 #include <freertos/task.h>
 
 void iobuttons_setup(TaskHandle_t main_task_handle);
-void iobuttons_info();
