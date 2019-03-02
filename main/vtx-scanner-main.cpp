@@ -18,6 +18,7 @@
 #include <esp_intr_alloc.h>
 #include <esp_timer.h>
 #include <esp_log.h>
+#include <memory>
 
 
 #define PIN_NUM_MISO 25
@@ -93,48 +94,25 @@ void display_task(void*)
 
   Storage storage(app_state);
 
-  SplashScreen* splash_screen = new SplashScreen(app_state, SCANNER);
-  Scanner* scanner = new Scanner(app_state, rtc);
-  LapTimer* lap_timer = new LapTimer(app_state, rtc);
-  Mode* active_mode = splash_screen;
-  app_mode_t next_mode = app_state.current_mode = SPLASH_SCREEN;
-
-  active_mode->setup();
-  ble_update(NOTIFY_CURRENT_MODE);
+  ModeManager modes(
+    app_state,
+    SPLASH_SCREEN,
+    std::unique_ptr<Mode>(new SplashScreen(app_state, SCANNER))
+    );
+  modes.add_mode(
+    SCANNER,
+    std::unique_ptr<Mode>(new Scanner(app_state, rtc))
+    );
+  modes.add_mode(
+    LAPTIMER,
+    std::unique_ptr<Mode>(new LapTimer(app_state, rtc))
+    );
 
   ble_set_mode_change_callback(
-    [&active_mode, splash_screen, scanner, lap_timer](int mode) {
-      app_mode_t next_mode;
-      switch(mode)
-      {
-      case SPLASH_SCREEN:
-      case SCANNER:
-      case LAPTIMER:
-        next_mode = (app_mode_t)mode;
-        break;
-      default:
-        return;
-      }
-      if(next_mode != app_state.current_mode)
-      {
-        active_mode->teardown();
-        switch(next_mode)
-        {
-        case SPLASH_SCREEN:
-          active_mode = splash_screen;
-          break;
-        case SCANNER:
-          active_mode = scanner;
-          break;
-        case LAPTIMER:
-          active_mode = lap_timer;
-          break;
-        }
-        active_mode->setup();
-        app_state.current_mode = next_mode;
-        ble_update(NOTIFY_CURRENT_MODE);
-      }
+    [&modes](int mode) {
+      modes.change_active_mode(mode);
     });
+
 
   // TODO: REMOVE, hard-coded for laptimer experiments
   app_state.selected_channel = 27;
@@ -150,13 +128,11 @@ void display_task(void*)
     uint32_t status_bits = wait_for_notification();
     if(status_bits & RIGHT_PIN_ISR_FLAG)
     {
-      active_mode->input(input_t::RIGHT_BUTTON);
-      iobuttons_info();
+      modes.input(input_t::RIGHT_BUTTON);
     }
     if(status_bits & LEFT_PIN_ISR_FLAG)
     {
-      active_mode->input(input_t::LEFT_BUTTON);
-      iobuttons_info();
+      modes.input(input_t::LEFT_BUTTON);
     }
     if(status_bits & READER_TASK_WAKEUP_FLAG)
     {
@@ -178,26 +154,7 @@ void display_task(void*)
     }
 
     ssd1306_clear(&display);
-    next_mode = active_mode->update(&display);
-    if(next_mode != app_state.current_mode)
-    {
-      active_mode->teardown();
-      switch(next_mode)
-      {
-      case SPLASH_SCREEN:
-        active_mode = splash_screen;
-        break;
-      case SCANNER:
-        active_mode = scanner;
-        break;
-      case LAPTIMER:
-        active_mode = lap_timer;
-        break;
-      }
-      active_mode->setup();
-      app_state.current_mode = next_mode;
-      ble_update(NOTIFY_CURRENT_MODE);
-    }
+    modes.update(&display);
     ssd1306_update(&display);
     storage.store();
   }

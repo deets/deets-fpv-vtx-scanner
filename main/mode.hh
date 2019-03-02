@@ -6,6 +6,9 @@
 
 #include <freertos/task.h>
 
+#include <memory>
+#include <map>
+
 #define PERIODIC_TASK_STACK_SIZE 1024
 #define READER_TASK_WAKEUP_FLAG (1 << 0)
 #define RIGHT_PIN_ISR_FLAG (1 << 1)
@@ -59,4 +62,25 @@ private:
   void periodic_task_callback();
 
   static void s_periodic_task_callback(void*);
+};
+
+
+class ModeManager
+{
+public:
+  ModeManager(app_state_t& app_state, app_mode_t start, std::unique_ptr<Mode>);
+  void add_mode(app_mode_t, std::unique_ptr<Mode>);
+
+  Mode& active();
+  const Mode& active() const;
+
+  void change_active_mode(int);
+  void change_active_mode(app_mode_t);
+
+  void input(input_t);
+  void update(ssd1306_display_t* display);
+
+private:
+  app_state_t& _app_state;
+  std::map<app_mode_t, std::unique_ptr<Mode>> _modes;
 };

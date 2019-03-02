@@ -1,5 +1,9 @@
 #include "mode.hh"
 
+#include "ble.h"
+
+#include <esp_log.h>
+
 void Mode::s_periodic_task_callback(void* data)
 {
   ((Mode*)data)->periodic_task_callback();
@@ -64,4 +68,81 @@ void Mode::notifyMainTask(uint32_t flags)
     flags,
     eSetBits
     );
+}
+
+
+ModeManager::ModeManager(app_state_t& app_state, app_mode_t start, std::unique_ptr<Mode> mode)
+  : _app_state(app_state)
+{
+  add_mode(start, std::move(mode));
+  active().setup();
+  ble_update(NOTIFY_CURRENT_MODE);
+}
+
+
+Mode& ModeManager::active()
+{
+  return *_modes.at(_app_state.current_mode);
+}
+
+
+const Mode& ModeManager::active() const
+{
+   return *_modes.at(_app_state.current_mode);
+}
+
+
+void  ModeManager::add_mode(app_mode_t mode, std::unique_ptr<Mode> mode_object)
+{
+  if(_modes.count(mode))
+  {
+    ESP_LOGE("mode", "Tried to register mode %i several times!", mode);
+    abort();
+  }
+  _modes.insert(std::make_pair(mode, std::move(mode_object)));
+}
+
+
+void ModeManager::change_active_mode(int mode)
+{
+  // cleaning the mode by explicit
+  // checking the allowed range
+  bool valid = false;
+  switch(mode)
+      {
+      case SPLASH_SCREEN:
+      case SCANNER:
+      case LAPTIMER:
+        valid = true;
+        break;
+      }
+  if(!valid)
+  {
+    return;
+  }
+  change_active_mode((app_mode_t)mode);
+}
+
+
+void ModeManager::change_active_mode(app_mode_t next_mode)
+{
+  if(next_mode != _app_state.current_mode)
+  {
+    active().teardown();
+    _app_state.current_mode = next_mode;
+    active().setup();
+    ble_update(NOTIFY_CURRENT_MODE);
+  }
+}
+
+
+void ModeManager::input(input_t inp)
+{
+  active().input(inp);
+}
+
+
+void ModeManager::update(ssd1306_display_t* display)
+{
+  change_active_mode(active().update(display));
 }
