@@ -1,0 +1,591 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3BFE8731222AFE18006C947F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFE8730222AFE18006C947F /* AppDelegate.swift */; };
+		3BFE8733222AFE18006C947F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFE8732222AFE18006C947F /* ViewController.swift */; };
+		3BFE8736222AFE18006C947F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BFE8734222AFE18006C947F /* Main.storyboard */; };
+		3BFE8738222AFE1A006C947F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3BFE8737222AFE1A006C947F /* Assets.xcassets */; };
+		3BFE873B222AFE1A006C947F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BFE8739222AFE1A006C947F /* LaunchScreen.storyboard */; };
+		3BFE8746222AFE1A006C947F /* VTX_ScannerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFE8745222AFE1A006C947F /* VTX_ScannerTests.swift */; };
+		3BFE8751222AFE1A006C947F /* VTX_ScannerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFE8750222AFE1A006C947F /* VTX_ScannerUITests.swift */; };
+		3BFE875F222B049B006C947F /* BTManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFE875E222B049B006C947F /* BTManager.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		3BFE8742222AFE1A006C947F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3BFE8725222AFE18006C947F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3BFE872C222AFE18006C947F;
+			remoteInfo = "VTX Scanner";
+		};
+		3BFE874D222AFE1A006C947F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3BFE8725222AFE18006C947F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3BFE872C222AFE18006C947F;
+			remoteInfo = "VTX Scanner";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		3BFE872D222AFE18006C947F /* VTX Scanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VTX Scanner.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3BFE8730222AFE18006C947F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		3BFE8732222AFE18006C947F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3BFE8735222AFE18006C947F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		3BFE8737222AFE1A006C947F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3BFE873A222AFE1A006C947F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		3BFE873C222AFE1A006C947F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3BFE8741222AFE1A006C947F /* VTX ScannerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "VTX ScannerTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3BFE8745222AFE1A006C947F /* VTX_ScannerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VTX_ScannerTests.swift; sourceTree = "<group>"; };
+		3BFE8747222AFE1A006C947F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3BFE874C222AFE1A006C947F /* VTX ScannerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "VTX ScannerUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3BFE8750222AFE1A006C947F /* VTX_ScannerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VTX_ScannerUITests.swift; sourceTree = "<group>"; };
+		3BFE8752222AFE1A006C947F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3BFE875E222B049B006C947F /* BTManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTManager.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3BFE872A222AFE18006C947F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3BFE873E222AFE1A006C947F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3BFE8749222AFE1A006C947F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3BFE8724222AFE18006C947F = {
+			isa = PBXGroup;
+			children = (
+				3BFE872F222AFE18006C947F /* VTX Scanner */,
+				3BFE8744222AFE1A006C947F /* VTX ScannerTests */,
+				3BFE874F222AFE1A006C947F /* VTX ScannerUITests */,
+				3BFE872E222AFE18006C947F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		3BFE872E222AFE18006C947F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3BFE872D222AFE18006C947F /* VTX Scanner.app */,
+				3BFE8741222AFE1A006C947F /* VTX ScannerTests.xctest */,
+				3BFE874C222AFE1A006C947F /* VTX ScannerUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3BFE872F222AFE18006C947F /* VTX Scanner */ = {
+			isa = PBXGroup;
+			children = (
+				3BFE8730222AFE18006C947F /* AppDelegate.swift */,
+				3BFE8732222AFE18006C947F /* ViewController.swift */,
+				3BFE8734222AFE18006C947F /* Main.storyboard */,
+				3BFE8737222AFE1A006C947F /* Assets.xcassets */,
+				3BFE8739222AFE1A006C947F /* LaunchScreen.storyboard */,
+				3BFE873C222AFE1A006C947F /* Info.plist */,
+				3BFE875E222B049B006C947F /* BTManager.swift */,
+			);
+			path = "VTX Scanner";
+			sourceTree = "<group>";
+		};
+		3BFE8744222AFE1A006C947F /* VTX ScannerTests */ = {
+			isa = PBXGroup;
+			children = (
+				3BFE8745222AFE1A006C947F /* VTX_ScannerTests.swift */,
+				3BFE8747222AFE1A006C947F /* Info.plist */,
+			);
+			path = "VTX ScannerTests";
+			sourceTree = "<group>";
+		};
+		3BFE874F222AFE1A006C947F /* VTX ScannerUITests */ = {
+			isa = PBXGroup;
+			children = (
+				3BFE8750222AFE1A006C947F /* VTX_ScannerUITests.swift */,
+				3BFE8752222AFE1A006C947F /* Info.plist */,
+			);
+			path = "VTX ScannerUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3BFE872C222AFE18006C947F /* VTX Scanner */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3BFE8755222AFE1A006C947F /* Build configuration list for PBXNativeTarget "VTX Scanner" */;
+			buildPhases = (
+				3BFE8729222AFE18006C947F /* Sources */,
+				3BFE872A222AFE18006C947F /* Frameworks */,
+				3BFE872B222AFE18006C947F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "VTX Scanner";
+			productName = "VTX Scanner";
+			productReference = 3BFE872D222AFE18006C947F /* VTX Scanner.app */;
+			productType = "com.apple.product-type.application";
+		};
+		3BFE8740222AFE1A006C947F /* VTX ScannerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3BFE8758222AFE1A006C947F /* Build configuration list for PBXNativeTarget "VTX ScannerTests" */;
+			buildPhases = (
+				3BFE873D222AFE1A006C947F /* Sources */,
+				3BFE873E222AFE1A006C947F /* Frameworks */,
+				3BFE873F222AFE1A006C947F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3BFE8743222AFE1A006C947F /* PBXTargetDependency */,
+			);
+			name = "VTX ScannerTests";
+			productName = "VTX ScannerTests";
+			productReference = 3BFE8741222AFE1A006C947F /* VTX ScannerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		3BFE874B222AFE1A006C947F /* VTX ScannerUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3BFE875B222AFE1A006C947F /* Build configuration list for PBXNativeTarget "VTX ScannerUITests" */;
+			buildPhases = (
+				3BFE8748222AFE1A006C947F /* Sources */,
+				3BFE8749222AFE1A006C947F /* Frameworks */,
+				3BFE874A222AFE1A006C947F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3BFE874E222AFE1A006C947F /* PBXTargetDependency */,
+			);
+			name = "VTX ScannerUITests";
+			productName = "VTX ScannerUITests";
+			productReference = 3BFE874C222AFE1A006C947F /* VTX ScannerUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		3BFE8725222AFE18006C947F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1010;
+				LastUpgradeCheck = 1010;
+				ORGANIZATIONNAME = "Diez B. Roggisch";
+				TargetAttributes = {
+					3BFE872C222AFE18006C947F = {
+						CreatedOnToolsVersion = 10.1;
+					};
+					3BFE8740222AFE1A006C947F = {
+						CreatedOnToolsVersion = 10.1;
+						TestTargetID = 3BFE872C222AFE18006C947F;
+					};
+					3BFE874B222AFE1A006C947F = {
+						CreatedOnToolsVersion = 10.1;
+						TestTargetID = 3BFE872C222AFE18006C947F;
+					};
+				};
+			};
+			buildConfigurationList = 3BFE8728222AFE18006C947F /* Build configuration list for PBXProject "VTX Scanner" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 3BFE8724222AFE18006C947F;
+			productRefGroup = 3BFE872E222AFE18006C947F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				3BFE872C222AFE18006C947F /* VTX Scanner */,
+				3BFE8740222AFE1A006C947F /* VTX ScannerTests */,
+				3BFE874B222AFE1A006C947F /* VTX ScannerUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		3BFE872B222AFE18006C947F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3BFE873B222AFE1A006C947F /* LaunchScreen.storyboard in Resources */,
+				3BFE8738222AFE1A006C947F /* Assets.xcassets in Resources */,
+				3BFE8736222AFE18006C947F /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3BFE873F222AFE1A006C947F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3BFE874A222AFE1A006C947F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3BFE8729222AFE18006C947F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3BFE8733222AFE18006C947F /* ViewController.swift in Sources */,
+				3BFE8731222AFE18006C947F /* AppDelegate.swift in Sources */,
+				3BFE875F222B049B006C947F /* BTManager.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3BFE873D222AFE1A006C947F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3BFE8746222AFE1A006C947F /* VTX_ScannerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3BFE8748222AFE1A006C947F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3BFE8751222AFE1A006C947F /* VTX_ScannerUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3BFE8743222AFE1A006C947F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3BFE872C222AFE18006C947F /* VTX Scanner */;
+			targetProxy = 3BFE8742222AFE1A006C947F /* PBXContainerItemProxy */;
+		};
+		3BFE874E222AFE1A006C947F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3BFE872C222AFE18006C947F /* VTX Scanner */;
+			targetProxy = 3BFE874D222AFE1A006C947F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		3BFE8734222AFE18006C947F /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3BFE8735222AFE18006C947F /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		3BFE8739222AFE1A006C947F /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3BFE873A222AFE1A006C947F /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		3BFE8753222AFE1A006C947F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		3BFE8754222AFE1A006C947F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		3BFE8756222AFE1A006C947F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2V8EJ8P68A;
+				INFOPLIST_FILE = "VTX Scanner/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "de.roggisch.VTX-Scanner";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		3BFE8757222AFE1A006C947F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2V8EJ8P68A;
+				INFOPLIST_FILE = "VTX Scanner/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "de.roggisch.VTX-Scanner";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		3BFE8759222AFE1A006C947F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "VTX ScannerTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "de.roggisch.VTX-ScannerTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VTX Scanner.app/VTX Scanner";
+			};
+			name = Debug;
+		};
+		3BFE875A222AFE1A006C947F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "VTX ScannerTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "de.roggisch.VTX-ScannerTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VTX Scanner.app/VTX Scanner";
+			};
+			name = Release;
+		};
+		3BFE875C222AFE1A006C947F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "VTX ScannerUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "de.roggisch.VTX-ScannerUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "VTX Scanner";
+			};
+			name = Debug;
+		};
+		3BFE875D222AFE1A006C947F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "VTX ScannerUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "de.roggisch.VTX-ScannerUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "VTX Scanner";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3BFE8728222AFE18006C947F /* Build configuration list for PBXProject "VTX Scanner" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3BFE8753222AFE1A006C947F /* Debug */,
+				3BFE8754222AFE1A006C947F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3BFE8755222AFE1A006C947F /* Build configuration list for PBXNativeTarget "VTX Scanner" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3BFE8756222AFE1A006C947F /* Debug */,
+				3BFE8757222AFE1A006C947F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3BFE8758222AFE1A006C947F /* Build configuration list for PBXNativeTarget "VTX ScannerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3BFE8759222AFE1A006C947F /* Debug */,
+				3BFE875A222AFE1A006C947F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3BFE875B222AFE1A006C947F /* Build configuration list for PBXNativeTarget "VTX ScannerUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3BFE875C222AFE1A006C947F /* Debug */,
+				3BFE875D222AFE1A006C947F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 3BFE8725222AFE18006C947F /* Project object */;
+}
