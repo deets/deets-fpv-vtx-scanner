@@ -1,6 +1,7 @@
 #include "ble.h"
 #include "vtx_scanner_ble.h"
-#include "btstack.h"
+
+#include <btstack.h>
 
 #include <esp_log.h>
 
@@ -41,9 +42,8 @@ const uint8_t adv_data[] = {
     // Flags general discoverable, BR/EDR not supported
     0x02, BLUETOOTH_DATA_TYPE_FLAGS, 0x06,
     // Name
-    0x0a, BLUETOOTH_DATA_TYPE_COMPLETE_LOCAL_NAME, 'V', 'T', 'X', ' ', 'G', 'i', 'z', 'm', 'o',
-    // Incomplete List of 16-bit Service Class UUIDs -- FF10 - only valid for testing!
-    0x03, BLUETOOTH_DATA_TYPE_INCOMPLETE_LIST_OF_16_BIT_SERVICE_CLASS_UUIDS, 0x10, 0xff,
+    0x09, BLUETOOTH_DATA_TYPE_COMPLETE_LOCAL_NAME, 'V', 'T', 'X', 'G', 'i', 'z', 'm', 'o',
+    0x11, BLUETOOTH_DATA_TYPE_COMPLETE_LIST_OF_128_BIT_SERVICE_CLASS_UUIDS, 0x01, 0xdd, 0xfd, 0x1e, 0x30, 0x09, 0xb6, 0xa8, 0x03, 0x41, 0xbd, 0x4d, 0xb4, 0x29, 0x7e, 0xd2
 };
 const uint8_t adv_data_len = sizeof(adv_data);
 
