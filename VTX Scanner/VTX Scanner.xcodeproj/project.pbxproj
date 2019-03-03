@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3BE3B08C222C1A7C0064A84E /* LaptimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE3B08B222C1A7C0064A84E /* LaptimerView.swift */; };
 		3BE3B08E222C27B90064A84E /* ScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE3B08D222C27B80064A84E /* ScannerView.swift */; };
+		3BE3B090222C6FF00064A84E /* BTVTXScannerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE3B08F222C6FF00064A84E /* BTVTXScannerDelegate.swift */; };
 		3BFE8731222AFE18006C947F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFE8730222AFE18006C947F /* AppDelegate.swift */; };
 		3BFE8733222AFE18006C947F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFE8732222AFE18006C947F /* ViewController.swift */; };
 		3BFE8736222AFE18006C947F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BFE8734222AFE18006C947F /* Main.storyboard */; };
@@ -39,6 +40,7 @@
 /* Begin PBXFileReference section */
 		3BE3B08B222C1A7C0064A84E /* LaptimerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaptimerView.swift; sourceTree = "<group>"; };
 		3BE3B08D222C27B80064A84E /* ScannerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannerView.swift; sourceTree = "<group>"; };
+		3BE3B08F222C6FF00064A84E /* BTVTXScannerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTVTXScannerDelegate.swift; sourceTree = "<group>"; };
 		3BFE872D222AFE18006C947F /* VTX Scanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VTX Scanner.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BFE8730222AFE18006C947F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3BFE8732222AFE18006C947F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -80,6 +82,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3BE3B091222C70080064A84E /* Bluetooth */ = {
+			isa = PBXGroup;
+			children = (
+				3BE3B08F222C6FF00064A84E /* BTVTXScannerDelegate.swift */,
+				3BFE875E222B049B006C947F /* BTManager.swift */,
+			);
+			path = Bluetooth;
+			sourceTree = "<group>";
+		};
 		3BFE8724222AFE18006C947F = {
 			isa = PBXGroup;
 			children = (
@@ -103,6 +114,7 @@
 		3BFE872F222AFE18006C947F /* VTX Scanner */ = {
 			isa = PBXGroup;
 			children = (
+				3BE3B091222C70080064A84E /* Bluetooth */,
 				3BE3B08D222C27B80064A84E /* ScannerView.swift */,
 				3BE3B08B222C1A7C0064A84E /* LaptimerView.swift */,
 				3BFE8730222AFE18006C947F /* AppDelegate.swift */,
@@ -111,7 +123,6 @@
 				3BFE8737222AFE1A006C947F /* Assets.xcassets */,
 				3BFE8739222AFE1A006C947F /* LaunchScreen.storyboard */,
 				3BFE873C222AFE1A006C947F /* Info.plist */,
-				3BFE875E222B049B006C947F /* BTManager.swift */,
 			);
 			path = "VTX Scanner";
 			sourceTree = "<group>";
@@ -267,6 +278,7 @@
 			files = (
 				3BFE8733222AFE18006C947F /* ViewController.swift in Sources */,
 				3BFE8731222AFE18006C947F /* AppDelegate.swift in Sources */,
+				3BE3B090222C6FF00064A84E /* BTVTXScannerDelegate.swift in Sources */,
 				3BE3B08C222C1A7C0064A84E /* LaptimerView.swift in Sources */,
 				3BFE875F222B049B006C947F /* BTManager.swift in Sources */,
 				3BE3B08E222C27B90064A84E /* ScannerView.swift in Sources */,
