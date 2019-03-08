@@ -24,12 +24,12 @@ class BTVTXScannerDelegate : NSObject, CBPeripheralDelegate
     var peripheral: CBPeripheral
     var manager: CBCentralManager
 
-    struct RSSIReading {
+    struct LatestRSSIReading {
         let channel: UInt16
         let value: UInt16
     }
     
-    let (latestRSSIReading, latestRSSIReadingObserver) = Signal<RSSIReading, NoError>.pipe()
+    let (latestRSSIReading, latestRSSIReadingObserver) = Signal<LatestRSSIReading, NoError>.pipe()
     
     init(withPeripheral thePeripheral: CBPeripheral, manager theManager: CBCentralManager) {
         peripheral = thePeripheral
@@ -106,7 +106,7 @@ class BTVTXScannerDelegate : NSObject, CBPeripheralDelegate
     {
         do {
             let a = try unpack("<HH", data)
-            let reading = RSSIReading(channel: UInt16((a[0] as? Int)!), value: UInt16((a[1] as? Int)!))
+            let reading = LatestRSSIReading(channel: UInt16((a[0] as? Int)!), value: UInt16((a[1] as? Int)!))
             NSLog("lastRSSIReading %i, %i", reading.channel, reading.value)
             latestRSSIReadingObserver.send(value: reading)
         } catch {

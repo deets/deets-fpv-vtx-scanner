@@ -26,7 +26,7 @@ class ViewController: UIViewController, BTDelegate  {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let subscriber = scannerView?.subscriber {
+        if let subscriber = scannerView?.scannerObserver {
             NSLog("connectedScanner.observe")
             connectedScanner.observe(subscriber)
         }
