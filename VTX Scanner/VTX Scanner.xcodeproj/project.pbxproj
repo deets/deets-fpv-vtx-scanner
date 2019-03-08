@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3B0A8E4B2232D01400067EE5 /* BinUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B76565D2232CF3A00CE5B8F /* BinUtils.framework */; };
+		3B0A8E4C2232D01400067EE5 /* BinUtils.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3B76565D2232CF3A00CE5B8F /* BinUtils.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3BE3B08C222C1A7C0064A84E /* LaptimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE3B08B222C1A7C0064A84E /* LaptimerView.swift */; };
 		3BE3B08E222C27B90064A84E /* ScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE3B08D222C27B80064A84E /* ScannerView.swift */; };
 		3BE3B090222C6FF00064A84E /* BTVTXScannerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE3B08F222C6FF00064A84E /* BTVTXScannerDelegate.swift */; };
@@ -21,6 +23,41 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		3B0A8E4D2232D01400067EE5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3B7656442232CF0800CE5B8F /* Dependencies.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = "BinUtils::BinUtils";
+			remoteInfo = BinUtils;
+		};
+		3B7656502232CF0900CE5B8F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3B7656442232CF0800CE5B8F /* Dependencies.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = "Dependencies::Dependencies::Product";
+			remoteInfo = Dependencies;
+		};
+		3B7656522232CF0900CE5B8F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3B7656442232CF0800CE5B8F /* Dependencies.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = "ReactiveSwift::ReactiveSwift::Product";
+			remoteInfo = ReactiveSwift;
+		};
+		3B7656542232CF0900CE5B8F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3B7656442232CF0800CE5B8F /* Dependencies.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = "Result::Result::Product";
+			remoteInfo = Result;
+		};
+		3B76565C2232CF3A00CE5B8F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3B7656442232CF0800CE5B8F /* Dependencies.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = "BinUtils::BinUtils::Product";
+			remoteInfo = BinUtils;
+		};
 		3BFE8742222AFE1A006C947F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3BFE8725222AFE18006C947F /* Project object */;
@@ -37,7 +74,22 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		3B0A8E4F2232D01400067EE5 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				3B0A8E4C2232D01400067EE5 /* BinUtils.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		3B7656442232CF0800CE5B8F /* Dependencies.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Dependencies.xcodeproj; path = Dependencies/Dependencies.xcodeproj; sourceTree = "<group>"; };
 		3BE3B08B222C1A7C0064A84E /* LaptimerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaptimerView.swift; sourceTree = "<group>"; };
 		3BE3B08D222C27B80064A84E /* ScannerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannerView.swift; sourceTree = "<group>"; };
 		3BE3B08F222C6FF00064A84E /* BTVTXScannerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTVTXScannerDelegate.swift; sourceTree = "<group>"; };
@@ -62,6 +114,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B0A8E4B2232D01400067EE5 /* BinUtils.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,6 +135,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3B76562E2232C61100CE5B8F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3B7656442232CF0800CE5B8F /* Dependencies.xcodeproj */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3B7656452232CF0800CE5B8F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3B76565D2232CF3A00CE5B8F /* BinUtils.framework */,
+				3B7656512232CF0900CE5B8F /* Dependencies.framework */,
+				3B7656532232CF0900CE5B8F /* ReactiveSwift.framework */,
+				3B7656552232CF0900CE5B8F /* Result.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		3BE3B091222C70080064A84E /* Bluetooth */ = {
 			isa = PBXGroup;
 			children = (
@@ -98,6 +170,7 @@
 				3BFE8744222AFE1A006C947F /* VTX ScannerTests */,
 				3BFE874F222AFE1A006C947F /* VTX ScannerUITests */,
 				3BFE872E222AFE18006C947F /* Products */,
+				3B76562E2232C61100CE5B8F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -155,10 +228,12 @@
 				3BFE8729222AFE18006C947F /* Sources */,
 				3BFE872A222AFE18006C947F /* Frameworks */,
 				3BFE872B222AFE18006C947F /* Resources */,
+				3B0A8E4F2232D01400067EE5 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				3B0A8E4E2232D01400067EE5 /* PBXTargetDependency */,
 			);
 			name = "VTX Scanner";
 			productName = "VTX Scanner";
@@ -235,6 +310,12 @@
 			mainGroup = 3BFE8724222AFE18006C947F;
 			productRefGroup = 3BFE872E222AFE18006C947F /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 3B7656452232CF0800CE5B8F /* Products */;
+					ProjectRef = 3B7656442232CF0800CE5B8F /* Dependencies.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				3BFE872C222AFE18006C947F /* VTX Scanner */,
@@ -243,6 +324,37 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		3B7656512232CF0900CE5B8F /* Dependencies.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Dependencies.framework;
+			remoteRef = 3B7656502232CF0900CE5B8F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3B7656532232CF0900CE5B8F /* ReactiveSwift.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = ReactiveSwift.framework;
+			remoteRef = 3B7656522232CF0900CE5B8F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3B7656552232CF0900CE5B8F /* Result.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Result.framework;
+			remoteRef = 3B7656542232CF0900CE5B8F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3B76565D2232CF3A00CE5B8F /* BinUtils.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = BinUtils.framework;
+			remoteRef = 3B76565C2232CF3A00CE5B8F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		3BFE872B222AFE18006C947F /* Resources */ = {
@@ -304,6 +416,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		3B0A8E4E2232D01400067EE5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = BinUtils;
+			targetProxy = 3B0A8E4D2232D01400067EE5 /* PBXContainerItemProxy */;
+		};
 		3BFE8743222AFE1A006C947F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 3BFE872C222AFE18006C947F /* VTX Scanner */;
@@ -455,6 +572,7 @@
 		3BFE8756222AFE1A006C947F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2V8EJ8P68A;
@@ -473,6 +591,7 @@
 		3BFE8757222AFE1A006C947F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2V8EJ8P68A;

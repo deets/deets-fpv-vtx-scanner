@@ -1,5 +1,6 @@
 import Foundation
 import CoreBluetooth
+import BinUtils
 
 class BTVTXScannerDelegate : NSObject, CBPeripheralDelegate
 {
@@ -21,6 +22,10 @@ class BTVTXScannerDelegate : NSObject, CBPeripheralDelegate
     var peripheral: CBPeripheral
     var manager: CBCentralManager
 
+    struct RSSIReading {
+        let channel: UInt16
+        let value: UInt16
+    }
     
     init(withPeripheral thePeripheral: CBPeripheral, manager theManager: CBCentralManager) {
         peripheral = thePeripheral
@@ -83,10 +88,23 @@ class BTVTXScannerDelegate : NSObject, CBPeripheralDelegate
             let nsdata = characteristic.value!
             var data = [UInt8](repeating: 0, count: nsdata.count)
             (nsdata as NSData).getBytes(&data, length:nsdata.count)
+            // This is ugly, but maybe one day I know enough swift
+            if characteristic.uuid.uuidString == BTVTXScannerDelegate.VTX_SCANNER_LAST_RSSI_READING {
+                processLastRSSIReading(data: characteristic.value!)
+            }
             
-            NSLog("Read %@", beautifyData(data))
         } else {
             NSLog("Error updating value for characteristic: %@", error?.localizedDescription ?? "unspecified error")
+        }
+    }
+    
+    func processLastRSSIReading(data:Data)
+    {
+        do {
+            let a = try unpack("<HH", data)
+            let reading = RSSIReading(channel: UInt16((a[0] as? Int)!), value: UInt16((a[1] as? Int)!))
+            NSLog("lastRSSIReading %i, %i", reading.channel, reading.value)
+        } catch {
         }
     }
     
