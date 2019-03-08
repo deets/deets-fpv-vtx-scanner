@@ -1,0 +1,52 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "BinUtils",
+        "repositoryURL": "https://github.com/nst/BinUtils.git",
+        "state": {
+          "branch": null,
+          "revision": "512d3801fedd91feb8593fc13938bacb6fb7317e",
+          "version": "0.1.0"
+        }
+      },
+      {
+        "package": "Nimble",
+        "repositoryURL": "https://github.com/Quick/Nimble.git",
+        "state": {
+          "branch": null,
+          "revision": "e9d769113660769a4d9dd3afb855562c0b7ae7b0",
+          "version": "7.3.4"
+        }
+      },
+      {
+        "package": "Quick",
+        "repositoryURL": "https://github.com/Quick/Quick.git",
+        "state": {
+          "branch": null,
+          "revision": "f2b5a06440ea87eba1a167cab37bf6496646c52e",
+          "version": "1.3.4"
+        }
+      },
+      {
+        "package": "ReactiveSwift",
+        "repositoryURL": "https://github.com/ReactiveCocoa/ReactiveSwift.git",
+        "state": {
+          "branch": null,
+          "revision": "46fb4d4a8285286e54929add1d12f384675895c6",
+          "version": "3.1.0"
+        }
+      },
+      {
+        "package": "Result",
+        "repositoryURL": "https://github.com/antitypical/Result.git",
+        "state": {
+          "branch": null,
+          "revision": "7477584259bfce2560a19e06ad9f71db441fff11",
+          "version": "3.2.4"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

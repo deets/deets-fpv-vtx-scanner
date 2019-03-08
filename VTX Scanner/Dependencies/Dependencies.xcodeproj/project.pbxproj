@@ -1,0 +1,891 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		OBJ_100 /* ResultExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_31 /* ResultExtensions.swift */; };
+		OBJ_101 /* Scheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_32 /* Scheduler.swift */; };
+		OBJ_102 /* Signal.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_33 /* Signal.swift */; };
+		OBJ_103 /* SignalProducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_34 /* SignalProducer.swift */; };
+		OBJ_104 /* UnidirectionalBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_35 /* UnidirectionalBinding.swift */; };
+		OBJ_105 /* UninhabitedTypeGuards.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_36 /* UninhabitedTypeGuards.swift */; };
+		OBJ_106 /* ValidatingProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_37 /* ValidatingProperty.swift */; };
+		OBJ_108 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = Result::Result::Product /* Result.framework */; };
+		OBJ_115 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_16 /* Package.swift */; };
+		OBJ_120 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_40 /* Result.swift */; };
+		OBJ_121 /* ResultProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_41 /* ResultProtocol.swift */; };
+		OBJ_128 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_42 /* Package.swift */; };
+		OBJ_53 /* BinUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_14 /* BinUtils.swift */; };
+		OBJ_60 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_13 /* Package.swift */; };
+		OBJ_66 /* Dependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* Dependencies.swift */; };
+		OBJ_68 /* BinUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BinUtils::BinUtils::Product /* BinUtils.framework */; };
+		OBJ_69 /* ReactiveSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ReactiveSwift::ReactiveSwift::Product /* ReactiveSwift.framework */; };
+		OBJ_70 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = Result::Result::Product /* Result.framework */; };
+		OBJ_81 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_6 /* Package.swift */; };
+		OBJ_86 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_17 /* Action.swift */; };
+		OBJ_87 /* Atomic.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_18 /* Atomic.swift */; };
+		OBJ_88 /* Bag.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_19 /* Bag.swift */; };
+		OBJ_89 /* Deprecations+Removals.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_20 /* Deprecations+Removals.swift */; };
+		OBJ_90 /* Disposable.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_21 /* Disposable.swift */; };
+		OBJ_91 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_22 /* Event.swift */; };
+		OBJ_92 /* EventLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_23 /* EventLogger.swift */; };
+		OBJ_93 /* Flatten.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_24 /* Flatten.swift */; };
+		OBJ_94 /* FoundationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_25 /* FoundationExtensions.swift */; };
+		OBJ_95 /* Lifetime.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_26 /* Lifetime.swift */; };
+		OBJ_96 /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_27 /* Observer.swift */; };
+		OBJ_97 /* Optional.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_28 /* Optional.swift */; };
+		OBJ_98 /* Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_29 /* Property.swift */; };
+		OBJ_99 /* Reactive.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_30 /* Reactive.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		BinUtils::BinUtils::Product /* BinUtils.framework */ = {isa = PBXFileReference; path = BinUtils.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		Dependencies::Dependencies::Product /* Dependencies.framework */ = {isa = PBXFileReference; path = Dependencies.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		OBJ_13 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Package.swift; path = "/Users/deets/Dropbox/projects/deets-fpv-vtx-scanner/VTX Scanner/Dependencies/.build/checkouts/BinUtils.git--3359733250235755293/Package.swift"; sourceTree = "<group>"; };
+		OBJ_14 /* BinUtils.swift */ = {isa = PBXFileReference; path = BinUtils.swift; sourceTree = "<group>"; };
+		OBJ_16 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Package.swift; path = "/Users/deets/Dropbox/projects/deets-fpv-vtx-scanner/VTX Scanner/Dependencies/.build/checkouts/ReactiveSwift.git-8808320464710018186/Package.swift"; sourceTree = "<group>"; };
+		OBJ_17 /* Action.swift */ = {isa = PBXFileReference; path = Action.swift; sourceTree = "<group>"; };
+		OBJ_18 /* Atomic.swift */ = {isa = PBXFileReference; path = Atomic.swift; sourceTree = "<group>"; };
+		OBJ_19 /* Bag.swift */ = {isa = PBXFileReference; path = Bag.swift; sourceTree = "<group>"; };
+		OBJ_20 /* Deprecations+Removals.swift */ = {isa = PBXFileReference; path = "Deprecations+Removals.swift"; sourceTree = "<group>"; };
+		OBJ_21 /* Disposable.swift */ = {isa = PBXFileReference; path = Disposable.swift; sourceTree = "<group>"; };
+		OBJ_22 /* Event.swift */ = {isa = PBXFileReference; path = Event.swift; sourceTree = "<group>"; };
+		OBJ_23 /* EventLogger.swift */ = {isa = PBXFileReference; path = EventLogger.swift; sourceTree = "<group>"; };
+		OBJ_24 /* Flatten.swift */ = {isa = PBXFileReference; path = Flatten.swift; sourceTree = "<group>"; };
+		OBJ_25 /* FoundationExtensions.swift */ = {isa = PBXFileReference; path = FoundationExtensions.swift; sourceTree = "<group>"; };
+		OBJ_26 /* Lifetime.swift */ = {isa = PBXFileReference; path = Lifetime.swift; sourceTree = "<group>"; };
+		OBJ_27 /* Observer.swift */ = {isa = PBXFileReference; path = Observer.swift; sourceTree = "<group>"; };
+		OBJ_28 /* Optional.swift */ = {isa = PBXFileReference; path = Optional.swift; sourceTree = "<group>"; };
+		OBJ_29 /* Property.swift */ = {isa = PBXFileReference; path = Property.swift; sourceTree = "<group>"; };
+		OBJ_30 /* Reactive.swift */ = {isa = PBXFileReference; path = Reactive.swift; sourceTree = "<group>"; };
+		OBJ_31 /* ResultExtensions.swift */ = {isa = PBXFileReference; path = ResultExtensions.swift; sourceTree = "<group>"; };
+		OBJ_32 /* Scheduler.swift */ = {isa = PBXFileReference; path = Scheduler.swift; sourceTree = "<group>"; };
+		OBJ_33 /* Signal.swift */ = {isa = PBXFileReference; path = Signal.swift; sourceTree = "<group>"; };
+		OBJ_34 /* SignalProducer.swift */ = {isa = PBXFileReference; path = SignalProducer.swift; sourceTree = "<group>"; };
+		OBJ_35 /* UnidirectionalBinding.swift */ = {isa = PBXFileReference; path = UnidirectionalBinding.swift; sourceTree = "<group>"; };
+		OBJ_36 /* UninhabitedTypeGuards.swift */ = {isa = PBXFileReference; path = UninhabitedTypeGuards.swift; sourceTree = "<group>"; };
+		OBJ_37 /* ValidatingProperty.swift */ = {isa = PBXFileReference; path = ValidatingProperty.swift; sourceTree = "<group>"; };
+		OBJ_40 /* Result.swift */ = {isa = PBXFileReference; path = Result.swift; sourceTree = "<group>"; };
+		OBJ_41 /* ResultProtocol.swift */ = {isa = PBXFileReference; path = ResultProtocol.swift; sourceTree = "<group>"; };
+		OBJ_42 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Package.swift; path = "/Users/deets/Dropbox/projects/deets-fpv-vtx-scanner/VTX Scanner/Dependencies/.build/checkouts/Result.git-8845691824835048763/Package.swift"; sourceTree = "<group>"; };
+		OBJ_6 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
+		OBJ_9 /* Dependencies.swift */ = {isa = PBXFileReference; path = Dependencies.swift; sourceTree = "<group>"; };
+		ReactiveSwift::ReactiveSwift::Product /* ReactiveSwift.framework */ = {isa = PBXFileReference; path = ReactiveSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		Result::Result::Product /* Result.framework */ = {isa = PBXFileReference; path = Result.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		OBJ_107 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+				OBJ_108 /* Result.framework in Frameworks */,
+			);
+		};
+		OBJ_122 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+			);
+		};
+		OBJ_54 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+			);
+		};
+		OBJ_67 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+				OBJ_68 /* BinUtils.framework in Frameworks */,
+				OBJ_69 /* ReactiveSwift.framework in Frameworks */,
+				OBJ_70 /* Result.framework in Frameworks */,
+			);
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		OBJ_10 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Tests;
+			path = "";
+			sourceTree = SOURCE_ROOT;
+		};
+		OBJ_11 /* Dependencies */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_12 /* BinUtils 0.1.0 */,
+				OBJ_15 /* ReactiveSwift 3.1.0 */,
+				OBJ_38 /* Result 3.2.4 */,
+			);
+			name = Dependencies;
+			path = "";
+			sourceTree = "<group>";
+		};
+		OBJ_12 /* BinUtils 0.1.0 */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_13 /* Package.swift */,
+				OBJ_14 /* BinUtils.swift */,
+			);
+			name = "BinUtils 0.1.0";
+			path = ".build/checkouts/BinUtils.git--3359733250235755293/Sources";
+			sourceTree = SOURCE_ROOT;
+		};
+		OBJ_15 /* ReactiveSwift 3.1.0 */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_16 /* Package.swift */,
+				OBJ_17 /* Action.swift */,
+				OBJ_18 /* Atomic.swift */,
+				OBJ_19 /* Bag.swift */,
+				OBJ_20 /* Deprecations+Removals.swift */,
+				OBJ_21 /* Disposable.swift */,
+				OBJ_22 /* Event.swift */,
+				OBJ_23 /* EventLogger.swift */,
+				OBJ_24 /* Flatten.swift */,
+				OBJ_25 /* FoundationExtensions.swift */,
+				OBJ_26 /* Lifetime.swift */,
+				OBJ_27 /* Observer.swift */,
+				OBJ_28 /* Optional.swift */,
+				OBJ_29 /* Property.swift */,
+				OBJ_30 /* Reactive.swift */,
+				OBJ_31 /* ResultExtensions.swift */,
+				OBJ_32 /* Scheduler.swift */,
+				OBJ_33 /* Signal.swift */,
+				OBJ_34 /* SignalProducer.swift */,
+				OBJ_35 /* UnidirectionalBinding.swift */,
+				OBJ_36 /* UninhabitedTypeGuards.swift */,
+				OBJ_37 /* ValidatingProperty.swift */,
+			);
+			name = "ReactiveSwift 3.1.0";
+			path = ".build/checkouts/ReactiveSwift.git-8808320464710018186/Sources";
+			sourceTree = SOURCE_ROOT;
+		};
+		OBJ_38 /* Result 3.2.4 */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_39 /* Result */,
+				OBJ_42 /* Package.swift */,
+			);
+			name = "Result 3.2.4";
+			path = "";
+			sourceTree = SOURCE_ROOT;
+		};
+		OBJ_39 /* Result */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_40 /* Result.swift */,
+				OBJ_41 /* ResultProtocol.swift */,
+			);
+			name = Result;
+			path = ".build/checkouts/Result.git-8845691824835048763/Result";
+			sourceTree = SOURCE_ROOT;
+		};
+		OBJ_43 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				ReactiveSwift::ReactiveSwift::Product /* ReactiveSwift.framework */,
+				Dependencies::Dependencies::Product /* Dependencies.framework */,
+				Result::Result::Product /* Result.framework */,
+				BinUtils::BinUtils::Product /* BinUtils.framework */,
+			);
+			name = Products;
+			path = "";
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		OBJ_5 = {
+			isa = PBXGroup;
+			children = (
+				OBJ_6 /* Package.swift */,
+				OBJ_7 /* Sources */,
+				OBJ_10 /* Tests */,
+				OBJ_11 /* Dependencies */,
+				OBJ_43 /* Products */,
+			);
+			path = "";
+			sourceTree = "<group>";
+		};
+		OBJ_7 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_8 /* Dependencies */,
+			);
+			name = Sources;
+			path = "";
+			sourceTree = SOURCE_ROOT;
+		};
+		OBJ_8 /* Dependencies */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_9 /* Dependencies.swift */,
+			);
+			name = Dependencies;
+			path = "";
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BinUtils::BinUtils /* BinUtils */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = OBJ_49 /* Build configuration list for PBXNativeTarget "BinUtils" */;
+			buildPhases = (
+				OBJ_52 /* Sources */,
+				OBJ_54 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BinUtils;
+			productName = BinUtils;
+			productReference = BinUtils::BinUtils::Product /* BinUtils.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		BinUtils::SwiftPMPackageDescription /* BinUtilsPackageDescription */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = OBJ_56 /* Build configuration list for PBXNativeTarget "BinUtilsPackageDescription" */;
+			buildPhases = (
+				OBJ_59 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BinUtilsPackageDescription;
+			productName = BinUtilsPackageDescription;
+			productType = "com.apple.product-type.framework";
+		};
+		Dependencies::Dependencies /* Dependencies */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = OBJ_62 /* Build configuration list for PBXNativeTarget "Dependencies" */;
+			buildPhases = (
+				OBJ_65 /* Sources */,
+				OBJ_67 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				OBJ_71 /* PBXTargetDependency */,
+				OBJ_72 /* PBXTargetDependency */,
+				OBJ_74 /* PBXTargetDependency */,
+			);
+			name = Dependencies;
+			productName = Dependencies;
+			productReference = Dependencies::Dependencies::Product /* Dependencies.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		Dependencies::SwiftPMPackageDescription /* DependenciesPackageDescription */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = OBJ_77 /* Build configuration list for PBXNativeTarget "DependenciesPackageDescription" */;
+			buildPhases = (
+				OBJ_80 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DependenciesPackageDescription;
+			productName = DependenciesPackageDescription;
+			productType = "com.apple.product-type.framework";
+		};
+		ReactiveSwift::ReactiveSwift /* ReactiveSwift */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = OBJ_82 /* Build configuration list for PBXNativeTarget "ReactiveSwift" */;
+			buildPhases = (
+				OBJ_85 /* Sources */,
+				OBJ_107 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				OBJ_109 /* PBXTargetDependency */,
+			);
+			name = ReactiveSwift;
+			productName = ReactiveSwift;
+			productReference = ReactiveSwift::ReactiveSwift::Product /* ReactiveSwift.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		ReactiveSwift::SwiftPMPackageDescription /* ReactiveSwiftPackageDescription */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = OBJ_111 /* Build configuration list for PBXNativeTarget "ReactiveSwiftPackageDescription" */;
+			buildPhases = (
+				OBJ_114 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ReactiveSwiftPackageDescription;
+			productName = ReactiveSwiftPackageDescription;
+			productType = "com.apple.product-type.framework";
+		};
+		Result::Result /* Result */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = OBJ_116 /* Build configuration list for PBXNativeTarget "Result" */;
+			buildPhases = (
+				OBJ_119 /* Sources */,
+				OBJ_122 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Result;
+			productName = Result;
+			productReference = Result::Result::Product /* Result.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		Result::SwiftPMPackageDescription /* ResultPackageDescription */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = OBJ_124 /* Build configuration list for PBXNativeTarget "ResultPackageDescription" */;
+			buildPhases = (
+				OBJ_127 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ResultPackageDescription;
+			productName = ResultPackageDescription;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		OBJ_1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 9999;
+			};
+			buildConfigurationList = OBJ_2 /* Build configuration list for PBXProject "Dependencies" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = OBJ_5;
+			productRefGroup = OBJ_43 /* Products */;
+			projectDirPath = .;
+			targets = (
+				BinUtils::BinUtils /* BinUtils */,
+				BinUtils::SwiftPMPackageDescription /* BinUtilsPackageDescription */,
+				Dependencies::Dependencies /* Dependencies */,
+				Dependencies::SwiftPMPackageDescription /* DependenciesPackageDescription */,
+				ReactiveSwift::ReactiveSwift /* ReactiveSwift */,
+				ReactiveSwift::SwiftPMPackageDescription /* ReactiveSwiftPackageDescription */,
+				Result::Result /* Result */,
+				Result::SwiftPMPackageDescription /* ResultPackageDescription */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		OBJ_114 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+				OBJ_115 /* Package.swift in Sources */,
+			);
+		};
+		OBJ_119 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+				OBJ_120 /* Result.swift in Sources */,
+				OBJ_121 /* ResultProtocol.swift in Sources */,
+			);
+		};
+		OBJ_127 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+				OBJ_128 /* Package.swift in Sources */,
+			);
+		};
+		OBJ_52 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+				OBJ_53 /* BinUtils.swift in Sources */,
+			);
+		};
+		OBJ_59 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+				OBJ_60 /* Package.swift in Sources */,
+			);
+		};
+		OBJ_65 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+				OBJ_66 /* Dependencies.swift in Sources */,
+			);
+		};
+		OBJ_80 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+				OBJ_81 /* Package.swift in Sources */,
+			);
+		};
+		OBJ_85 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+				OBJ_86 /* Action.swift in Sources */,
+				OBJ_87 /* Atomic.swift in Sources */,
+				OBJ_88 /* Bag.swift in Sources */,
+				OBJ_89 /* Deprecations+Removals.swift in Sources */,
+				OBJ_90 /* Disposable.swift in Sources */,
+				OBJ_91 /* Event.swift in Sources */,
+				OBJ_92 /* EventLogger.swift in Sources */,
+				OBJ_93 /* Flatten.swift in Sources */,
+				OBJ_94 /* FoundationExtensions.swift in Sources */,
+				OBJ_95 /* Lifetime.swift in Sources */,
+				OBJ_96 /* Observer.swift in Sources */,
+				OBJ_97 /* Optional.swift in Sources */,
+				OBJ_98 /* Property.swift in Sources */,
+				OBJ_99 /* Reactive.swift in Sources */,
+				OBJ_100 /* ResultExtensions.swift in Sources */,
+				OBJ_101 /* Scheduler.swift in Sources */,
+				OBJ_102 /* Signal.swift in Sources */,
+				OBJ_103 /* SignalProducer.swift in Sources */,
+				OBJ_104 /* UnidirectionalBinding.swift in Sources */,
+				OBJ_105 /* UninhabitedTypeGuards.swift in Sources */,
+				OBJ_106 /* ValidatingProperty.swift in Sources */,
+			);
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		OBJ_109 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = Result::Result /* Result */;
+		};
+		OBJ_71 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BinUtils::BinUtils /* BinUtils */;
+		};
+		OBJ_72 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = ReactiveSwift::ReactiveSwift /* ReactiveSwift */;
+		};
+		OBJ_74 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = Result::Result /* Result */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		OBJ_112 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				LD = /usr/bin/true;
+				OTHER_SWIFT_FLAGS = "-swift-version 4 -I $(TOOLCHAIN_DIR)/usr/lib/swift/pm/4 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		OBJ_113 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				LD = /usr/bin/true;
+				OTHER_SWIFT_FLAGS = "-swift-version 4 -I $(TOOLCHAIN_DIR)/usr/lib/swift/pm/4 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Release;
+		};
+		OBJ_117 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = Dependencies.xcodeproj/Result_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = Result;
+				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
+				SWIFT_VERSION = 3.0;
+				TARGET_NAME = Result;
+			};
+			name = Debug;
+		};
+		OBJ_118 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = Dependencies.xcodeproj/Result_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = Result;
+				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
+				SWIFT_VERSION = 3.0;
+				TARGET_NAME = Result;
+			};
+			name = Release;
+		};
+		OBJ_125 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				LD = /usr/bin/true;
+				OTHER_SWIFT_FLAGS = "-swift-version 3 -I $(TOOLCHAIN_DIR)/usr/lib/swift/pm/3 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		OBJ_126 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				LD = /usr/bin/true;
+				OTHER_SWIFT_FLAGS = "-swift-version 3 -I $(TOOLCHAIN_DIR)/usr/lib/swift/pm/3 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		OBJ_3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_NS_ASSERTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_SWIFT_FLAGS = "-DXcode";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "SWIFT_PACKAGE DEBUG";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				USE_HEADERMAP = NO;
+			};
+			name = Debug;
+		};
+		OBJ_4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_OPTIMIZATION_LEVEL = s;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				OTHER_SWIFT_FLAGS = "-DXcode";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = SWIFT_PACKAGE;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				USE_HEADERMAP = NO;
+			};
+			name = Release;
+		};
+		OBJ_50 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = Dependencies.xcodeproj/BinUtils_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = BinUtils;
+				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
+				SWIFT_VERSION = 3.0;
+				TARGET_NAME = BinUtils;
+			};
+			name = Debug;
+		};
+		OBJ_51 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = Dependencies.xcodeproj/BinUtils_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = BinUtils;
+				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
+				SWIFT_VERSION = 3.0;
+				TARGET_NAME = BinUtils;
+			};
+			name = Release;
+		};
+		OBJ_57 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				LD = /usr/bin/true;
+				OTHER_SWIFT_FLAGS = "-swift-version 3 -I $(TOOLCHAIN_DIR)/usr/lib/swift/pm/3 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		OBJ_58 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				LD = /usr/bin/true;
+				OTHER_SWIFT_FLAGS = "-swift-version 3 -I $(TOOLCHAIN_DIR)/usr/lib/swift/pm/3 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		OBJ_63 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = Dependencies.xcodeproj/Dependencies_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = Dependencies;
+				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
+				SWIFT_VERSION = 4.0;
+				TARGET_NAME = Dependencies;
+			};
+			name = Debug;
+		};
+		OBJ_64 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = Dependencies.xcodeproj/Dependencies_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = Dependencies;
+				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
+				SWIFT_VERSION = 4.0;
+				TARGET_NAME = Dependencies;
+			};
+			name = Release;
+		};
+		OBJ_78 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				LD = /usr/bin/true;
+				OTHER_SWIFT_FLAGS = "-swift-version 4 -I $(TOOLCHAIN_DIR)/usr/lib/swift/pm/4 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		OBJ_79 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				LD = /usr/bin/true;
+				OTHER_SWIFT_FLAGS = "-swift-version 4 -I $(TOOLCHAIN_DIR)/usr/lib/swift/pm/4 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Release;
+		};
+		OBJ_83 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = Dependencies.xcodeproj/ReactiveSwift_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = ReactiveSwift;
+				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
+				SWIFT_VERSION = 4.0;
+				TARGET_NAME = ReactiveSwift;
+			};
+			name = Debug;
+		};
+		OBJ_84 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = Dependencies.xcodeproj/ReactiveSwift_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = ReactiveSwift;
+				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
+				SWIFT_VERSION = 4.0;
+				TARGET_NAME = ReactiveSwift;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		OBJ_111 /* Build configuration list for PBXNativeTarget "ReactiveSwiftPackageDescription" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				OBJ_112 /* Debug */,
+				OBJ_113 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		OBJ_116 /* Build configuration list for PBXNativeTarget "Result" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				OBJ_117 /* Debug */,
+				OBJ_118 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		OBJ_124 /* Build configuration list for PBXNativeTarget "ResultPackageDescription" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				OBJ_125 /* Debug */,
+				OBJ_126 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		OBJ_2 /* Build configuration list for PBXProject "Dependencies" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				OBJ_3 /* Debug */,
+				OBJ_4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		OBJ_49 /* Build configuration list for PBXNativeTarget "BinUtils" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				OBJ_50 /* Debug */,
+				OBJ_51 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		OBJ_56 /* Build configuration list for PBXNativeTarget "BinUtilsPackageDescription" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				OBJ_57 /* Debug */,
+				OBJ_58 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		OBJ_62 /* Build configuration list for PBXNativeTarget "Dependencies" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				OBJ_63 /* Debug */,
+				OBJ_64 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		OBJ_77 /* Build configuration list for PBXNativeTarget "DependenciesPackageDescription" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				OBJ_78 /* Debug */,
+				OBJ_79 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		OBJ_82 /* Build configuration list for PBXNativeTarget "ReactiveSwift" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				OBJ_83 /* Debug */,
+				OBJ_84 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = OBJ_1 /* Project object */;
+}
