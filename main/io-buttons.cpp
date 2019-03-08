@@ -6,8 +6,8 @@
 #include <driver/gpio.h>
 #include <esp_log.h>
 
+#include <unordered_map>
 #include <stdint.h>
-#include <map>
 
 #define GPIO_DOWN GPIO_NUM_21
 #define GPIO_UP GPIO_NUM_15
@@ -21,14 +21,14 @@ const int DEBOUNCE = (200 * 1000);
 
 TaskHandle_t s_main_task_handle;
 
-std::map<int, uint64_t> s_last;
-
-std::map<int, uint64_t> s_debounces = {
+std::unordered_map<int, uint64_t> s_debounces = {
   { GPIO_DOWN, 200 * 1000},
   { GPIO_UP, 200 * 1000},
   { GPIO_LEFT, 20 * 1000},
   { GPIO_RIGHT, 20 * 1000},
 };
+
+std::unordered_map<int, uint64_t> s_last;
 
 void IRAM_ATTR gpio_isr_handler(void* arg)
 {
