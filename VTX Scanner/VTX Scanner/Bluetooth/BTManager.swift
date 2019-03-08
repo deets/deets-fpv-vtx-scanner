@@ -19,6 +19,12 @@ struct BluetoothPeripheral {
     }
 }
 
+protocol BTDelegate : class {
+    func didConnectScanner(_ scanner: BTVTXScannerDelegate)
+}
+
+
+
 class BTManager : NSObject, CBCentralManagerDelegate {
     
     let btQueue: DispatchQueue
@@ -27,6 +33,8 @@ class BTManager : NSObject, CBCentralManagerDelegate {
 
     var scanningRequested = true
     var scanningDuration = 15.0
+    
+    var delegate: BTDelegate?
     
     override init() {
         btQueue = DispatchQueue(label: "bluetoothQueue", attributes: [])
@@ -72,12 +80,14 @@ class BTManager : NSObject, CBCentralManagerDelegate {
         NSLog("Found device")
         if let _ = vtxScanners[peripheral.identifier] {            
         } else {
-            vtxScanners[peripheral.identifier] = BTVTXScannerDelegate(
+            let d = BTVTXScannerDelegate(
                 withPeripheral: peripheral,
                 manager: manager
             )
+            vtxScanners[peripheral.identifier] = d
+            delegate?.didConnectScanner(d)
         }
-        // We do this here because this allows to re-connect disconnected
+        // We do this here because this allows to re-connect a disconnected
         // delegate
         manager.connect(peripheral)
     }
@@ -96,90 +106,6 @@ class BTManager : NSObject, CBCentralManagerDelegate {
          NSLog("Connection to device %@ failed: %@", peripheral.name!, error?.localizedDescription ?? "unspecified error")
         vtxScanners.removeValue(forKey: peripheral.identifier)
      }
-    
-    // // MARK:
-    
-    // func connect(_ peripheral: BluetoothPeripheral) {
-    //     for p in peripherals {
-    //         if peripheral.uuid == p.identifier.uuidString && p.state != .connected && p.state != .connecting {
-    //             manager.connect(p, options: nil)
-    //             return
-    //         }
-    //     }
-    //     delegate?.failedToConnectToPeripheral(peripheral, error: NSError(domain: "com.flyinghead", code: 1, userInfo: [NSLocalizedDescriptionKey : "Device cannot be found"]))
-    // }
-    
-    // func disconnect(_ peripheral: BluetoothPeripheral) {
-    //     for p in peripherals {
-    //         if peripheral.uuid == p.identifier.uuidString && (p.state == .connected || p.state == .connecting) {
-    //             manager.cancelPeripheralConnection(p)
-    //             return
-    //         }
-    //     }
-    //     delegate?.disconnectedPeripheral(peripheral)
-    // }
-    
-    // func writeData(_ peripheral: BluetoothPeripheral, data: [UInt8]) {
-    //     if peripheral.uuid != activePeripheral?.identifier.uuidString {
-    //         return
-    //     }
-    //     guard let services = activePeripheral!.services, !services.isEmpty else {
-    //         return
-    //     }
-    //     let service = services[0]
-    //     if service.characteristics == nil || service.characteristics!.isEmpty {
-    //         return
-    //     }
-    //     var characteristic: CBCharacteristic!
-    //     if service.uuid.uuidString == BTManager.RBLServiceUUID {
-    //         for char in service.characteristics! {
-    //             if char.uuid.uuidString == BTManager.RBLCharRxUUID {
-    //                 characteristic = char
-    //                 break
-    //             }
-    //         }
-    //     } else {
-    //         characteristic = service.characteristics![0]
-    //     }
-    //     if characteristic == nil {
-    //         return
-    //     }
-        
-    //     //NSLog("Writing %@", beautifyData(data))
-    //     let nsdata = Data(bytes: UnsafePointer<UInt8>(data), count: data.count)
-    //     var i = 0
-    //     while i < nsdata.count {
-    //         let datarange = nsdata.subdata(in: i ..< i + min(nsdata.count - i, 20))
-    //         if characteristic.properties.contains(.writeWithoutResponse) {
-    //             activePeripheral!.writeValue(datarange, for: characteristic, type: .withoutResponse)
-    //         } else {
-    //             activePeripheral!.writeValue(datarange, for: characteristic, type: .withResponse)
-    //         }
-    //         i += 20
-    //     }
-    // }
-    
-    // fileprivate func beautifyData(_ data: [UInt8]) -> String {
-    //     var string = ""
-    //     for var c in data {
-    //         if c >= 32 && c < 128 {
-    //             string += NSString(bytes: &c, length: 1, encoding: String.Encoding.ascii.rawValue)! as String
-    //         } else {
-    //             string += String(format: "'%d'", c)
-    //         }
-    //         string += " "
-    //     }
-    //     return string
-    // }
-    
-    // func readRssi(_ peripheral: BluetoothPeripheral) {
-    //     for p in peripherals {
-    //         if peripheral.uuid == p.identifier.uuidString {
-    //             p.readRSSI()
-    //             return
-    //         }
-    //     }
-    // }
 }
 
 extension CBCentralManager {

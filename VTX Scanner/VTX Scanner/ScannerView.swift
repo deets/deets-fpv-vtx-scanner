@@ -1,10 +1,14 @@
 // Copyright: 2018, Ableton AG, Berlin. All rights reserved.
 
 import UIKit
+import ReactiveSwift
+import Result
 
 class ScannerView: UIView {
 
     let channelCount = CGFloat(40.0)
+    
+    let subscriber = Signal<BTVTXScannerDelegate, NoError>.Observer(value: { print("Subscriber 2 received \($0)") } )
     
     struct RSSIReading {
         let value : Int

@@ -1,6 +1,8 @@
 import Foundation
 import CoreBluetooth
 import BinUtils
+import ReactiveSwift
+import Result
 
 class BTVTXScannerDelegate : NSObject, CBPeripheralDelegate
 {
@@ -26,6 +28,8 @@ class BTVTXScannerDelegate : NSObject, CBPeripheralDelegate
         let channel: UInt16
         let value: UInt16
     }
+    
+    let (latestRSSIReading, latestRSSIReadingObserver) = Signal<RSSIReading, NoError>.pipe()
     
     init(withPeripheral thePeripheral: CBPeripheral, manager theManager: CBCentralManager) {
         peripheral = thePeripheral
@@ -104,6 +108,7 @@ class BTVTXScannerDelegate : NSObject, CBPeripheralDelegate
             let a = try unpack("<HH", data)
             let reading = RSSIReading(channel: UInt16((a[0] as? Int)!), value: UInt16((a[1] as? Int)!))
             NSLog("lastRSSIReading %i, %i", reading.channel, reading.value)
+            latestRSSIReadingObserver.send(value: reading)
         } catch {
         }
     }

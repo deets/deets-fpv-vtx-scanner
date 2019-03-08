@@ -7,12 +7,31 @@
 //
 
 import UIKit
+import ReactiveSwift
+import Result
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, BTDelegate  {
 
+    @IBOutlet var scannerView : ScannerView?
+    
+    let (connectedScanner, connectedScannerObserver) = Signal<BTVTXScannerDelegate, NoError>.pipe()
+    
+    func didConnectScanner(_ scanner: BTVTXScannerDelegate) {
+        NSLog("connectedScanner: new scanner")
+        connectedScannerObserver.send(value: scanner)
+    }
+    
+    
+    var btManager: BTManager?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        if let subscriber = scannerView?.subscriber {
+            NSLog("connectedScanner.observe")
+            connectedScanner.observe(subscriber)
+        }
+        btManager = BTManager()
+        btManager!.delegate = self
     }
 
 
