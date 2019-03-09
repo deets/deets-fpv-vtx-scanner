@@ -14,7 +14,7 @@ class ScannerView: UIView {
         var value : Int
     }
 
-    var maxRSSI = 0.0 {
+    var maxRSSI = 0 {
         didSet {
             setNeedsDisplay()
         }
@@ -46,7 +46,7 @@ class ScannerView: UIView {
 
     private func initialize() {
         readings = Array(
-            repeating: RSSIReading(value: 1000),
+            repeating: RSSIReading(value: 1),
             count: 40 // we always have 40 channels
         )
         scannerObserver = Signal<BTVTXScannerDelegate, NoError>.Observer(value: {
@@ -56,6 +56,12 @@ class ScannerView: UIView {
                     self.setNeedsDisplay()
                 })
             )
+            self.maxRSSI = Int($0.maxRSSI.value)
+            $0.maxRSSI.signal.observe(
+                Signal<UInt16, NoError>.Observer(value: { (v : UInt16) -> Void in
+                    self.maxRSSI = Int(v)
+                })
+            );
         } )
     }
 
@@ -68,7 +74,7 @@ class ScannerView: UIView {
         )
         let barWidth = (drawArea.width - drawArea.width * barSpacing) / channelCount
         let barStep = drawArea.width * barSpacing / (channelCount - 1.0)
-        let heightFactor = drawArea.height / CGFloat(readings.map{$0.value}.max()!)
+        let heightFactor = drawArea.height / CGFloat(max(1, maxRSSI, readings.map{$0.value}.max()!))
         for (n, reading) in readings.enumerated() {
             let h = CGFloat(reading.value) * heightFactor
             let r = CGRect(
