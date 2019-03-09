@@ -53,9 +53,7 @@ class ScannerView: UIView {
             $0.latestRSSIReading.observe(
                 Signal<BTVTXScannerDelegate.LatestRSSIReading, NoError>.Observer(value: {
                     self.readings[Int($0.channel)].value = Int($0.value)
-                    DispatchQueue.main.async { // Correct
-                        self.setNeedsDisplay()
-                    }
+                    self.setNeedsDisplay()
                 })
             )
         } )

@@ -90,19 +90,24 @@ class BTVTXScannerDelegate : NSObject, CBPeripheralDelegate
         if error == nil {
             NSLog("didUpdateValueForCharacteristic %@", characteristic.uuid)
             let nsdata = characteristic.value!
-            var data = [UInt8](repeating: 0, count: nsdata.count)
-            (nsdata as NSData).getBytes(&data, length:nsdata.count)
-            // This is ugly, but maybe one day I know enough swift
-            if characteristic.uuid.uuidString == BTVTXScannerDelegate.VTX_SCANNER_LAST_RSSI_READING {
-                processLastRSSIReading(data: characteristic.value!)
+            // Lift data into main thread for further processing
+            DispatchQueue.main.async { // Correct
+                self.dispatchCharacteristic(characteristic: characteristic)
             }
-            
         } else {
             NSLog("Error updating value for characteristic: %@", error?.localizedDescription ?? "unspecified error")
         }
     }
     
-    func processLastRSSIReading(data:Data)
+    private func dispatchCharacteristic(characteristic: CBCharacteristic)
+    {
+        // This is ugly, but maybe one day I know enough swift
+        if characteristic.uuid.uuidString == BTVTXScannerDelegate.VTX_SCANNER_LAST_RSSI_READING {
+            processLastRSSIReading(data: characteristic.value!)
+        }
+    }
+    
+    private func processLastRSSIReading(data:Data)
     {
         do {
             let a = try unpack("<HH", data)
