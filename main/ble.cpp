@@ -102,6 +102,22 @@ void packet_handler (uint8_t packet_type, uint16_t channel, uint8_t *packet, uin
 uint16_t att_read_callback(hci_con_handle_t connection_handle, uint16_t att_handle, uint16_t offset, uint8_t * buffer, uint16_t buffer_size){
     UNUSED(connection_handle);
 
+    // if buffer is NULL, we need to deliver the size of the data
+    if(!buffer)
+    {
+      switch(att_handle)
+      {
+      case CURRENT_CHANNEL_VALUE_HANDLE:
+        return sizeof(app_state->selected_channel);
+      case LAST_RSSI_VALUE_HANDLE:
+        return sizeof(app_state->last_read_channel);
+      case CURRENT_MODE_VALUE_HANDLE:
+        return sizeof(app_state->current_mode);
+      case MAX_RSSI_VALUE_HANDLE:
+        return sizeof(app_state->max_rssi_reading);
+      }
+    }
+
     if (att_handle == CURRENT_CHANNEL_VALUE_HANDLE){
         return att_read_callback_handle_blob((uint8_t*)&app_state->selected_channel, buffer_size, offset, buffer, buffer_size);
     }
