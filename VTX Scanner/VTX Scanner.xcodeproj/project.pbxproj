@@ -17,7 +17,7 @@
 		3B0A8E592232D36800067EE5 /* Result.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3B7656552232CF0900CE5B8F /* Result.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3B6AFFBE22353F2100992EA2 /* SwiftSVG.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B6AFFBD22353F2100992EA2 /* SwiftSVG.framework */; };
 		3B6AFFBF22353F2100992EA2 /* SwiftSVG.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3B6AFFBD22353F2100992EA2 /* SwiftSVG.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		3B6AFFC42235488B00992EA2 /* left-alignment.svg in Resources */ = {isa = PBXBuildFile; fileRef = 3B6AFFC32235488B00992EA2 /* left-alignment.svg */; };
+		3B6AFFC6223550FC00992EA2 /* scanner-icon.svg in Resources */ = {isa = PBXBuildFile; fileRef = 3B6AFFC5223550FC00992EA2 /* scanner-icon.svg */; };
 		3BE3B08C222C1A7C0064A84E /* LaptimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE3B08B222C1A7C0064A84E /* LaptimerView.swift */; };
 		3BE3B08E222C27B90064A84E /* ScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE3B08D222C27B80064A84E /* ScannerView.swift */; };
 		3BE3B090222C6FF00064A84E /* BTVTXScannerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE3B08F222C6FF00064A84E /* BTVTXScannerDelegate.swift */; };
@@ -137,7 +137,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		3B6AFFC32235488B00992EA2 /* left-alignment.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "left-alignment.svg"; path = "External-Resources/181501-interface/svg/left-alignment.svg"; sourceTree = SOURCE_ROOT; };
+		3B6AFFC5223550FC00992EA2 /* scanner-icon.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "scanner-icon.svg"; sourceTree = "<group>"; };
 		3B7656442232CF0800CE5B8F /* Dependencies.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Dependencies.xcodeproj; path = Dependencies/Dependencies.xcodeproj; sourceTree = "<group>"; };
 		3BE3B08B222C1A7C0064A84E /* LaptimerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaptimerView.swift; sourceTree = "<group>"; };
 		3BE3B08D222C27B80064A84E /* ScannerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannerView.swift; sourceTree = "<group>"; };
@@ -191,7 +191,7 @@
 		3B6AFFC22235482E00992EA2 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				3B6AFFC32235488B00992EA2 /* left-alignment.svg */,
+				3B6AFFC5223550FC00992EA2 /* scanner-icon.svg */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
@@ -437,8 +437,8 @@
 			files = (
 				3BFE873B222AFE1A006C947F /* LaunchScreen.storyboard in Resources */,
 				3BFE8738222AFE1A006C947F /* Assets.xcassets in Resources */,
+				3B6AFFC6223550FC00992EA2 /* scanner-icon.svg in Resources */,
 				3BFE8736222AFE18006C947F /* Main.storyboard in Resources */,
-				3B6AFFC42235488B00992EA2 /* left-alignment.svg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

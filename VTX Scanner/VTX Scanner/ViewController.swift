@@ -9,11 +9,13 @@
 import UIKit
 import ReactiveSwift
 import Result
+import SwiftSVG
 
 class ViewController: UIViewController, BTDelegate  {
 
     @IBOutlet var scannerView : ScannerView?
-    
+    @IBOutlet var scannerModeButton : UIView?
+
     let (connectedScanner, connectedScannerObserver) = Signal<BTVTXScannerDelegate, NoError>.pipe()
     
     func didConnectScanner(_ scanner: BTVTXScannerDelegate) {
@@ -32,6 +34,12 @@ class ViewController: UIViewController, BTDelegate  {
         }
         btManager = BTManager()
         btManager!.delegate = self
+        
+        if let v = scannerModeButton {
+            let svgView = UIView(SVGNamed: "scanner-icon") { (svgLayer) in svgLayer.resizeToFit(v.bounds) }
+            svgView.backgroundColor = UIColor.blue
+            v.addSubview(svgView)
+        }
     }
 
 

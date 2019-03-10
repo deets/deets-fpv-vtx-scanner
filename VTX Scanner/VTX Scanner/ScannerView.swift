@@ -3,7 +3,6 @@
 import UIKit
 import ReactiveSwift
 import Result
-import SwiftSVG
 
 class ScannerView: UIView {
 
@@ -64,8 +63,6 @@ class ScannerView: UIView {
                 })
             );
         } )
-        let fistBump = UIView(SVGNamed: "left-alignment")     // In the main bundle
-        self.addSubview(fistBump)
     }
 
     override func draw(_ rect: CGRect) {
