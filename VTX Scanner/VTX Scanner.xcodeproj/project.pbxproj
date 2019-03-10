@@ -18,6 +18,7 @@
 		3B6AFFBE22353F2100992EA2 /* SwiftSVG.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B6AFFBD22353F2100992EA2 /* SwiftSVG.framework */; };
 		3B6AFFBF22353F2100992EA2 /* SwiftSVG.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3B6AFFBD22353F2100992EA2 /* SwiftSVG.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3B6AFFC6223550FC00992EA2 /* scanner-icon.svg in Resources */ = {isa = PBXBuildFile; fileRef = 3B6AFFC5223550FC00992EA2 /* scanner-icon.svg */; };
+		3B6AFFC822359BCA00992EA2 /* VTXTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6AFFC722359BCA00992EA2 /* VTXTypes.swift */; };
 		3BE3B08C222C1A7C0064A84E /* LaptimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE3B08B222C1A7C0064A84E /* LaptimerView.swift */; };
 		3BE3B08E222C27B90064A84E /* ScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE3B08D222C27B80064A84E /* ScannerView.swift */; };
 		3BE3B090222C6FF00064A84E /* BTVTXScannerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE3B08F222C6FF00064A84E /* BTVTXScannerDelegate.swift */; };
@@ -138,6 +139,7 @@
 
 /* Begin PBXFileReference section */
 		3B6AFFC5223550FC00992EA2 /* scanner-icon.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "scanner-icon.svg"; sourceTree = "<group>"; };
+		3B6AFFC722359BCA00992EA2 /* VTXTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VTXTypes.swift; sourceTree = "<group>"; };
 		3B7656442232CF0800CE5B8F /* Dependencies.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Dependencies.xcodeproj; path = Dependencies/Dependencies.xcodeproj; sourceTree = "<group>"; };
 		3BE3B08B222C1A7C0064A84E /* LaptimerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaptimerView.swift; sourceTree = "<group>"; };
 		3BE3B08D222C27B80064A84E /* ScannerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannerView.swift; sourceTree = "<group>"; };
@@ -259,6 +261,7 @@
 				3BFE8737222AFE1A006C947F /* Assets.xcassets */,
 				3BFE8739222AFE1A006C947F /* LaunchScreen.storyboard */,
 				3BFE873C222AFE1A006C947F /* Info.plist */,
+				3B6AFFC722359BCA00992EA2 /* VTXTypes.swift */,
 			);
 			path = "VTX Scanner";
 			sourceTree = "<group>";
@@ -469,6 +472,7 @@
 				3BE3B08C222C1A7C0064A84E /* LaptimerView.swift in Sources */,
 				3BFE875F222B049B006C947F /* BTManager.swift in Sources */,
 				3BE3B08E222C27B90064A84E /* ScannerView.swift in Sources */,
+				3B6AFFC822359BCA00992EA2 /* VTXTypes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

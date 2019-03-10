@@ -66,6 +66,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="laptimerView" destination="SLE-AC-9py" id="Eyg-ob-0Tx"/>
                         <outlet property="scannerModeButton" destination="iaW-9m-Omi" id="Gxe-hc-bdQ"/>
                         <outlet property="scannerView" destination="12R-ql-cT4" id="iqh-yi-CvV"/>
                     </connections>

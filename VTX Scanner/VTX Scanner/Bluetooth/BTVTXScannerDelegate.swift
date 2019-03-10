@@ -21,7 +21,7 @@ class BTVTXScannerDelegate : NSObject, CBPeripheralDelegate
     }
 
     let maxRSSI = MutableProperty<UInt16>(UInt16(0))
-    let mode = MutableProperty<Int>(0)
+    let mode = MutableProperty<app_mode_t>(app_mode_t.SPLASH_SCREEN)
 
     // VTX scanner
     static let VTX_SCANNER_SERVICE = "D27E29B4-4DBD-4103-A8B6-09301EFDDD01"
@@ -116,6 +116,12 @@ class BTVTXScannerDelegate : NSObject, CBPeripheralDelegate
             NSLog("Error updating value for characteristic: %@", error?.localizedDescription ?? "unspecified error")
         }
     }
+    
+    func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
+        if error != nil {
+            NSLog("Error writing value for characteristic: %@", error?.localizedDescription ?? "unspecified error")
+        }
+    }
 
     private func dispatchCharacteristic(uuid: CBUUID, data: Data)
     {
@@ -140,7 +146,7 @@ class BTVTXScannerDelegate : NSObject, CBPeripheralDelegate
     {
         let a = try unpack("<HH", data)
         let reading = LatestRSSIReading(channel: UInt16((a[0] as? Int)!), value: UInt16((a[1] as? Int)!))
-        NSLog("lastRSSIReading %i, %i", reading.channel, reading.value)
+//        NSLog("lastRSSIReading %i, %i", reading.channel, reading.value)
         latestRSSIReadingObserver.send(value: reading)
     }
 
@@ -155,12 +161,17 @@ class BTVTXScannerDelegate : NSObject, CBPeripheralDelegate
     {
         let a = try unpack("<i", data)
         let v = Int((a[0] as? Int)!)
-        mode.value = v
-    }
-    
-    func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
-        if error != nil {
-            NSLog("Error writing value for characteristic: %@", error?.localizedDescription ?? "unspecified error")
+        NSLog("mode %i", v)
+        switch v {
+        case 0:
+            mode.value = app_mode_t.SPLASH_SCREEN
+        case 1:
+            mode.value = app_mode_t.SCANNER
+        case 2:
+            mode.value = app_mode_t.LAPTIMER
+        default:
+            mode.value = app_mode_t.SPLASH_SCREEN
         }
     }
+   
 }
