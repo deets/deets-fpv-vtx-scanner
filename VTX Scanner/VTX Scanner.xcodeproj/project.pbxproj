@@ -15,6 +15,9 @@
 		3B0A8E552232D36800067EE5 /* Dependencies.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3B7656512232CF0900CE5B8F /* Dependencies.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3B0A8E582232D36800067EE5 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B7656552232CF0900CE5B8F /* Result.framework */; };
 		3B0A8E592232D36800067EE5 /* Result.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3B7656552232CF0900CE5B8F /* Result.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3B6AFFBE22353F2100992EA2 /* SwiftSVG.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B6AFFBD22353F2100992EA2 /* SwiftSVG.framework */; };
+		3B6AFFBF22353F2100992EA2 /* SwiftSVG.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3B6AFFBD22353F2100992EA2 /* SwiftSVG.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3B6AFFC42235488B00992EA2 /* left-alignment.svg in Resources */ = {isa = PBXBuildFile; fileRef = 3B6AFFC32235488B00992EA2 /* left-alignment.svg */; };
 		3BE3B08C222C1A7C0064A84E /* LaptimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE3B08B222C1A7C0064A84E /* LaptimerView.swift */; };
 		3BE3B08E222C27B90064A84E /* ScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE3B08D222C27B80064A84E /* ScannerView.swift */; };
 		3BE3B090222C6FF00064A84E /* BTVTXScannerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE3B08F222C6FF00064A84E /* BTVTXScannerDelegate.swift */; };
@@ -56,6 +59,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = "Result::Result";
 			remoteInfo = Result;
+		};
+		3B6AFFBC22353F2100992EA2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3B7656442232CF0800CE5B8F /* Dependencies.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = "SwiftSVG::SwiftSVG::Product";
+			remoteInfo = SwiftSVG;
+		};
+		3B6AFFC022353F2100992EA2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3B7656442232CF0800CE5B8F /* Dependencies.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = "SwiftSVG::SwiftSVG";
+			remoteInfo = SwiftSVG;
 		};
 		3B7656502232CF0900CE5B8F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -111,6 +128,7 @@
 				3B0A8E4C2232D01400067EE5 /* BinUtils.framework in Embed Frameworks */,
 				3B0A8E512232D36800067EE5 /* ReactiveSwift.framework in Embed Frameworks */,
 				3B0A8E552232D36800067EE5 /* Dependencies.framework in Embed Frameworks */,
+				3B6AFFBF22353F2100992EA2 /* SwiftSVG.framework in Embed Frameworks */,
 				3B0A8E592232D36800067EE5 /* Result.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -119,6 +137,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3B6AFFC32235488B00992EA2 /* left-alignment.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "left-alignment.svg"; path = "External-Resources/181501-interface/svg/left-alignment.svg"; sourceTree = SOURCE_ROOT; };
 		3B7656442232CF0800CE5B8F /* Dependencies.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Dependencies.xcodeproj; path = Dependencies/Dependencies.xcodeproj; sourceTree = "<group>"; };
 		3BE3B08B222C1A7C0064A84E /* LaptimerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaptimerView.swift; sourceTree = "<group>"; };
 		3BE3B08D222C27B80064A84E /* ScannerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannerView.swift; sourceTree = "<group>"; };
@@ -147,6 +166,7 @@
 				3B0A8E4B2232D01400067EE5 /* BinUtils.framework in Frameworks */,
 				3B0A8E502232D36800067EE5 /* ReactiveSwift.framework in Frameworks */,
 				3B0A8E542232D36800067EE5 /* Dependencies.framework in Frameworks */,
+				3B6AFFBE22353F2100992EA2 /* SwiftSVG.framework in Frameworks */,
 				3B0A8E582232D36800067EE5 /* Result.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -168,6 +188,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3B6AFFC22235482E00992EA2 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				3B6AFFC32235488B00992EA2 /* left-alignment.svg */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
 		3B76562E2232C61100CE5B8F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -183,6 +211,7 @@
 				3B7656512232CF0900CE5B8F /* Dependencies.framework */,
 				3B7656532232CF0900CE5B8F /* ReactiveSwift.framework */,
 				3B7656552232CF0900CE5B8F /* Result.framework */,
+				3B6AFFBD22353F2100992EA2 /* SwiftSVG.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -199,6 +228,7 @@
 		3BFE8724222AFE18006C947F = {
 			isa = PBXGroup;
 			children = (
+				3B6AFFC22235482E00992EA2 /* Assets */,
 				3BFE872F222AFE18006C947F /* VTX Scanner */,
 				3BFE8744222AFE1A006C947F /* VTX ScannerTests */,
 				3BFE874F222AFE1A006C947F /* VTX ScannerUITests */,
@@ -270,6 +300,7 @@
 				3B0A8E532232D36800067EE5 /* PBXTargetDependency */,
 				3B0A8E572232D36800067EE5 /* PBXTargetDependency */,
 				3B0A8E5B2232D36800067EE5 /* PBXTargetDependency */,
+				3B6AFFC122353F2100992EA2 /* PBXTargetDependency */,
 			);
 			name = "VTX Scanner";
 			productName = "VTX Scanner";
@@ -362,6 +393,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		3B6AFFBD22353F2100992EA2 /* SwiftSVG.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SwiftSVG.framework;
+			remoteRef = 3B6AFFBC22353F2100992EA2 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		3B7656512232CF0900CE5B8F /* Dependencies.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -400,6 +438,7 @@
 				3BFE873B222AFE1A006C947F /* LaunchScreen.storyboard in Resources */,
 				3BFE8738222AFE1A006C947F /* Assets.xcassets in Resources */,
 				3BFE8736222AFE18006C947F /* Main.storyboard in Resources */,
+				3B6AFFC42235488B00992EA2 /* left-alignment.svg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -471,6 +510,11 @@
 			isa = PBXTargetDependency;
 			name = Result;
 			targetProxy = 3B0A8E5A2232D36800067EE5 /* PBXContainerItemProxy */;
+		};
+		3B6AFFC122353F2100992EA2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SwiftSVG;
+			targetProxy = 3B6AFFC022353F2100992EA2 /* PBXContainerItemProxy */;
 		};
 		3BFE8743222AFE1A006C947F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

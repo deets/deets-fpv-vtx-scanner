@@ -45,6 +45,15 @@
           "revision": "7477584259bfce2560a19e06ad9f71db441fff11",
           "version": "3.2.4"
         }
+      },
+      {
+        "package": "SwiftSVG",
+        "repositoryURL": "https://github.com/deets/SwiftSVG.git",
+        "state": {
+          "branch": null,
+          "revision": "12e90453186dc9d164528c66f6ad571f5c60e1a9",
+          "version": "2.1.7"
+        }
       }
     ]
   },

@@ -66,3 +66,28 @@ bands usually used (not the low L-band).
 |   9 | GND      |
 |-----+----------|
 
+** Developing on iOS
+
+*** Dependencies
+
+They are tracked in =Dependencies/Package.swift=.
+
+Add a new =.package=-Declaration, refer it in
+=.target(name="Dependencies")= and then run
+
+#+begin_src bash
+$ swift package update
+$ rake xcodeproj
+#+end_src
+
+Then drag the new dependencies into Xcode.
+
+[[https://github.com/apple/swift-package-manager/blob/master/Documentation/PackageDescriptionV4.md][Some explanation about Package.swift]]
+
+*** Core Bluetooth Notes
+
+ - [[https://stackoverflow.com/questions/13286487/how-can-i-reconnect-to-device-after-disconnecting-in-core-bluetooth][Reconnecting BT peripheral.]]
+
+** Credits and Acknowledegements
+
+ - Icons made by [[https://www.flaticon.com/packs/interface/2][Chanut]] from [[https://www.flaticon.com/][Flaticon]] is licensed by [[http://creativecommons.org/licenses/by/3.0/http://creativecommons.org/licenses/by/3.0/][CC 3.0 BY]]

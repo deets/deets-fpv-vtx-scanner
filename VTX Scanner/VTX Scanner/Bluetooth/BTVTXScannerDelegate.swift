@@ -21,6 +21,7 @@ class BTVTXScannerDelegate : NSObject, CBPeripheralDelegate
     }
 
     let maxRSSI = MutableProperty<UInt16>(UInt16(0))
+    let mode = MutableProperty<Int>(0)
 
     // VTX scanner
     static let VTX_SCANNER_SERVICE = "D27E29B4-4DBD-4103-A8B6-09301EFDDD01"
@@ -118,37 +119,45 @@ class BTVTXScannerDelegate : NSObject, CBPeripheralDelegate
 
     private func dispatchCharacteristic(uuid: CBUUID, data: Data)
     {
-        // This is ugly, but maybe one day I know enough swift
-        if uuid.uuidString == BTVTXScannerDelegate.VTX_SCANNER_LAST_RSSI_READING {
-            processLastRSSIReading(data: data)
-        }
-        if uuid.uuidString ==
-            BTVTXScannerDelegate.VTX_SCANNER_MAX_RSSI {
-            processMaxRSSI(data: data)
-        }
-    }
-
-    private func processLastRSSIReading(data:Data)
-    {
         do {
-            let a = try unpack("<HH", data)
-            let reading = LatestRSSIReading(channel: UInt16((a[0] as? Int)!), value: UInt16((a[1] as? Int)!))
-            NSLog("lastRSSIReading %i, %i", reading.channel, reading.value)
-            latestRSSIReadingObserver.send(value: reading)
+            // This is ugly, but maybe one day I know enough swift
+            if uuid.uuidString == BTVTXScannerDelegate.VTX_SCANNER_LAST_RSSI_READING {
+                try processLastRSSIReading(data: data)
+            }
+            if uuid.uuidString ==
+                BTVTXScannerDelegate.VTX_SCANNER_MAX_RSSI {
+                try processMaxRSSI(data: data)
+            }
+            if uuid.uuidString ==
+                BTVTXScannerDelegate.VTX_SCANNER_CURRENT_MODE {
+                try processMode(data: data)
+            }
         } catch {
         }
     }
 
-    private func processMaxRSSI(data:Data)
+    private func processLastRSSIReading(data:Data) throws
     {
-        do {
-            let a = try unpack("<H", data)
-            let v = UInt16((a[0] as? Int)!)
-            maxRSSI.value = v
-        } catch {
-        }
+        let a = try unpack("<HH", data)
+        let reading = LatestRSSIReading(channel: UInt16((a[0] as? Int)!), value: UInt16((a[1] as? Int)!))
+        NSLog("lastRSSIReading %i, %i", reading.channel, reading.value)
+        latestRSSIReadingObserver.send(value: reading)
     }
 
+    private func processMaxRSSI(data:Data) throws
+    {
+        let a = try unpack("<H", data)
+        let v = UInt16((a[0] as? Int)!)
+        maxRSSI.value = v
+    }
+
+    private func processMode(data:Data) throws
+    {
+        let a = try unpack("<i", data)
+        let v = Int((a[0] as? Int)!)
+        mode.value = v
+    }
+    
     func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
         if error != nil {
             NSLog("Error writing value for characteristic: %@", error?.localizedDescription ?? "unspecified error")

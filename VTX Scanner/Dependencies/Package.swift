@@ -9,9 +9,18 @@ let package = Package(
     ],
     dependencies: [
       .package(url: "https://github.com/ReactiveCocoa/ReactiveSwift.git", from: "3.0.0"),
-      .package(url: "https://github.com/nst/BinUtils.git", from: "0.1.0")
+      .package(url: "https://github.com/nst/BinUtils.git", from: "0.1.0"),
+      .package(url: "https://github.com/deets/SwiftSVG.git", .exact("2.1.7")),
     ],
     targets: [
-        .target(name: "Dependencies", dependencies: ["ReactiveSwift", "BinUtils"], path: "." )
+      .target(
+        name: "Dependencies",
+        dependencies: [
+          "ReactiveSwift",
+          "BinUtils",
+          "SwiftSVG",
+        ],
+        path: "."
+      )
     ]
 )
