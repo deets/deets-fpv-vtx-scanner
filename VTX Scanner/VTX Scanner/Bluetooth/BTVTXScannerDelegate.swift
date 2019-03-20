@@ -33,12 +33,17 @@ class BTVTXScannerDelegate : NSObject, CBPeripheralDelegate
     private static let VTX_SCANNER_LAST_RSSI_READING = "FBD47252-6210-4692-A247-1DB3007CF668"
     // max rssi
     private static let VTX_SCANNER_MAX_RSSI = "538D01D2-662F-4C0E-A808-1F23F159DF1A"
+    // laptimer data
+    private static let VTX_SCANNER_LAPTIMER_DATA = "135BFFE1-E787-4A27-9402-D76493424B53"
 
     private let characteristicUUIDs = [
       CBUUID(string: VTX_SCANNER_CURRENT_MODE),
       CBUUID(string: VTX_SCANNER_LAST_RSSI_READING),
       CBUUID(string: VTX_SCANNER_MAX_RSSI),
+      CBUUID(string: VTX_SCANNER_LAPTIMER_DATA)
       ]
+    
+    private var laptimerDataCharacteristic : CBCharacteristic?
 
     private var peripheral: CBPeripheral
     private var manager: CBCentralManager
@@ -79,9 +84,14 @@ class BTVTXScannerDelegate : NSObject, CBPeripheralDelegate
                 return
             }
             for c in characteristics {
+                NSLog("Characeristic %@", c.uuid.uuidString)
+
                 if characteristicUUIDs.contains(c.uuid) {
                     peripheral.setNotifyValue(true, for: c)
                     peripheral.readValue(for: c)
+                }
+                if c.uuid.uuidString ==  BTVTXScannerDelegate.VTX_SCANNER_LAPTIMER_DATA {
+                    laptimerDataCharacteristic = c
                 }
             }
         } else {
@@ -138,6 +148,10 @@ class BTVTXScannerDelegate : NSObject, CBPeripheralDelegate
                 BTVTXScannerDelegate.VTX_SCANNER_CURRENT_MODE {
                 try processMode(data: data)
             }
+            if uuid.uuidString ==
+                BTVTXScannerDelegate.VTX_SCANNER_LAPTIMER_DATA {
+                try processLaptimerData(data: data)
+            }
         } catch {
         }
     }
@@ -169,8 +183,25 @@ class BTVTXScannerDelegate : NSObject, CBPeripheralDelegate
             mode.value = app_mode_t.SCANNER
         case 2:
             mode.value = app_mode_t.LAPTIMER
+            acquireLaptimerData()
         default:
             mode.value = app_mode_t.SPLASH_SCREEN
+        }
+    }
+    
+    private func processLaptimerData(data:Data) throws
+    {
+        let a = try unpack("<H", data.subdata(in: 0..<2))
+        let v = UInt16((a[0] as? Int)!)
+        print("pos:", v)
+        acquireLaptimerData()
+    }
+    
+    private func acquireLaptimerData() {
+        if mode.value == .LAPTIMER {
+            if let c = laptimerDataCharacteristic {
+                peripheral.readValue(for: c)
+            }
         }
     }
    
