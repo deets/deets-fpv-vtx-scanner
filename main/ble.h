@@ -12,7 +12,8 @@ typedef enum {
   NOTIFY_CURRENT_CHANNEL=1 << 0,
   NOTIFY_LAST_RSSI=1 << 1,
   NOTIFY_CURRENT_MODE=1 << 2,
-  NOTIFY_MAX_RSSI=1 << 3
+  NOTIFY_MAX_RSSI=1 << 3,
+  NOTIFY_LAPTIME_RSSI_VALUE=1 << 4
 } characeristic_notify_t;
 
 void ble_init(app_state_t* app_state);

@@ -9,13 +9,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include <vector>
 
 namespace {
-
-app_state_t* app_state = 0;
-int next_notification = 0;
-std::function<void(int)> change_current_mode_callback = 0;
 
 #define CURRENT_CHANNEL_VALUE_HANDLE ATT_CHARACTERISTIC_93E9A984_40CD_4B57_A31A_3D3857D80A09_01_VALUE_HANDLE
 #define CURRENT_CHANNEL_CLIENT_CONFIGURATION_HANDLE ATT_CHARACTERISTIC_93E9A984_40CD_4B57_A31A_3D3857D80A09_01_CLIENT_CONFIGURATION_HANDLE
@@ -29,7 +25,17 @@ std::function<void(int)> change_current_mode_callback = 0;
 #define MAX_RSSI_VALUE_HANDLE ATT_CHARACTERISTIC_538D01D2_662F_4C0E_A808_1F23F159DF1A_01_VALUE_HANDLE
 #define MAX_RSSI_CLIENT_CONFIGURATION_HANDLE ATT_CHARACTERISTIC_538D01D2_662F_4C0E_A808_1F23F159DF1A_01_CLIENT_CONFIGURATION_HANDLE
 
+#define LAPTIME_RSSI_VALUE_HANDLE ATT_CHARACTERISTIC_135BFFE1_E787_4A27_9402_D76493424B53_01_VALUE_HANDLE
+#define LAPTIME_RSSI_CLIENT_CONFIGURATION_HANDLE ATT_CHARACTERISTIC_135BFFE1_E787_4A27_9402_D76493424B53_01_CLIENT_CONFIGURATION_HANDLE
+
+#define MESSAGE_OVERHEAD 3 // this is from the streamer example.
+
+app_state_t* app_state = 0;
+int next_notification = 0;
+std::function<void(int)> change_current_mode_callback = 0;
 int  le_notification_enabled;
+int mtu;
+std::vector<uint8_t> laptimer_data;
 btstack_packet_callback_registration_t hci_event_callback_registration;
 hci_con_handle_t con_handle;
 
@@ -55,8 +61,14 @@ void packet_handler (uint8_t packet_type, uint16_t channel, uint8_t *packet, uin
     switch (packet_type) {
         case HCI_EVENT_PACKET:
             switch (hci_event_packet_get_type(packet)) {
+                case ATT_EVENT_MTU_EXCHANGE_COMPLETE:
+                  mtu = att_event_mtu_exchange_complete_get_MTU(packet) - 3;
+                  ESP_LOGI("ble", "MTU: %i", mtu);
+                  laptimer_data.resize(mtu, 0);
+                  break;
                 case HCI_EVENT_DISCONNECTION_COMPLETE:
                     le_notification_enabled = 0;
+                    mtu = -1;
                     break;
                 case ATT_EVENT_CAN_SEND_NOW:
                   if(next_notification & NOTIFY_CURRENT_CHANNEL)
@@ -115,20 +127,28 @@ uint16_t att_read_callback(hci_con_handle_t connection_handle, uint16_t att_hand
         return sizeof(app_state->current_mode);
       case MAX_RSSI_VALUE_HANDLE:
         return sizeof(app_state->max_rssi_reading);
+      case LAPTIME_RSSI_VALUE_HANDLE:
+        return mtu - MESSAGE_OVERHEAD;
       }
     }
 
-    if (att_handle == CURRENT_CHANNEL_VALUE_HANDLE){
+    if (att_handle == CURRENT_CHANNEL_VALUE_HANDLE) {
         return att_read_callback_handle_blob((uint8_t*)&app_state->selected_channel, buffer_size, offset, buffer, buffer_size);
     }
-    if (att_handle == LAST_RSSI_VALUE_HANDLE){
+    if (att_handle == LAST_RSSI_VALUE_HANDLE) {
         return att_read_callback_handle_blob((uint8_t*)&app_state->last_read_channel, buffer_size, offset, buffer, buffer_size);
     }
-    if (att_handle == CURRENT_MODE_VALUE_HANDLE){
+    if (att_handle == CURRENT_MODE_VALUE_HANDLE) {
         return att_read_callback_handle_blob((uint8_t*)&app_state->current_mode, buffer_size, offset, buffer, buffer_size);
     }
-    if (att_handle == MAX_RSSI_VALUE_HANDLE){
+    if (att_handle == MAX_RSSI_VALUE_HANDLE) {
         return att_read_callback_handle_blob((uint8_t*)&app_state->max_rssi_reading, buffer_size, offset, buffer, buffer_size);
+    }
+    if (att_handle == LAPTIME_RSSI_VALUE_HANDLE) {
+      auto p = laptimer_data.data();
+      auto buffer_pos = reinterpret_cast<decltype(&app_state->laptime_buffer_pos)>(p);
+      *buffer_pos = app_state->laptime_buffer_pos;
+      return att_read_callback_handle_blob((uint8_t*)laptimer_data.data(), buffer_size, offset, buffer, buffer_size);
     }
     return 0;
 }
@@ -140,10 +160,12 @@ int att_write_callback(hci_con_handle_t connection_handle, uint16_t att_handle, 
 
     switch(att_handle)
     {
+      // Any chracteristic establishs the connection
     case CURRENT_CHANNEL_CLIENT_CONFIGURATION_HANDLE:
     case LAST_RSSI_CLIENT_CONFIGURATION_HANDLE:
     case CURRENT_MODE_CLIENT_CONFIGURATION_HANDLE:
     case MAX_RSSI_CLIENT_CONFIGURATION_HANDLE:
+    case LAPTIME_RSSI_CLIENT_CONFIGURATION_HANDLE:
       le_notification_enabled |= little_endian_read_16(buffer, 0) == GATT_CLIENT_CHARACTERISTICS_CONFIGURATION_NOTIFICATION;
       con_handle = connection_handle;
       break;

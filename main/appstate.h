@@ -20,5 +20,6 @@ typedef struct {
   uint16_t trigger_disarm_threshold;
   int64_t trigger_max_latency;
   int64_t trigger_cooldown;
-
+  // laptimer data
+  uint16_t laptime_buffer_pos;
 } app_state_t;

@@ -33,7 +33,7 @@ LapTimer::LapTimer(app_state_t& app_state, rtc6715_t& rtc)
   , _last_laptime(0)
   , _laptime_acquired(false)
 {
-
+  app_state.laptime_buffer_pos = 0;
   _laptimer_task_handle = xTaskCreateStaticPinnedToCore(
     s_laptimer_task,       // Function that implements the task.
     "LPT",          // Text name for the task.
@@ -46,6 +46,7 @@ LapTimer::LapTimer(app_state_t& app_state, rtc6715_t& rtc)
     );
   vTaskSuspend(_laptimer_task_handle);
 
+  std::fill(_rssi_buffer.begin(), _rssi_buffer.end(), 0);
 }
 
 void LapTimer::setup()
@@ -149,6 +150,9 @@ void LapTimer::laptimer_task()
   {
     vTaskDelayUntil( &last_wake_time, period );
     uint16_t reading = _rssi_readings[pos] = rtc6715_read_rssi(&_rtc);
+    _rssi_buffer[_app_state.laptime_buffer_pos] = uint8_t(reading >> 4); // we read 12 bit, limit down to one byte
+    _app_state.laptime_buffer_pos = (_app_state.laptime_buffer_pos + 1) % _rssi_buffer.size();
+
     _app_state.max_rssi_reading = MAX(_rssi_readings[pos], _app_state.max_rssi_reading);
     _app_state.min_rssi_reading = MIN(_rssi_readings[pos], _app_state.min_rssi_reading);
     pos = (pos + 1) % 128;

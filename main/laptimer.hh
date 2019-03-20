@@ -6,6 +6,8 @@
 #include "mode.hh"
 #include "rtc6715.h"
 
+#include <array>
+
 #define LAPTIMER_TASK_STACK_SIZE 2000
 
 
@@ -41,4 +43,6 @@ private:
   int64_t _last_laptime;
   bool _laptime_acquired;
   TriggerState _state;
+
+  std::array<uint8_t, 8192> _rssi_buffer;
 };
