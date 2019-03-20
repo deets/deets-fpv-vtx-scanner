@@ -125,29 +125,6 @@ X VI 3 -300 0 100 R 50 50 1 1 W
 ENDDRAW
 ENDDEF
 #
-# Transistor_BJT:S8050
-#
-DEF Transistor_BJT:S8050 Q 0 0 Y N 1 F N
-F0 "Q" 200 75 50 H V L CNN
-F1 "Transistor_BJT:S8050" 200 0 50 H V L CNN
-F2 "Package_TO_SOT_THT:TO-92_Inline" 200 -75 50 H I L CIN
-F3 "" 0 0 50 H I L CNN
-$FPLIST
- TO?92*
-$ENDFPLIST
-DRAW
-C 50 0 111 0 1 10 N
-P 2 0 1 0 0 0 25 0 N
-P 2 0 1 0 25 25 100 100 N
-P 3 0 1 0 25 -25 100 -100 100 -100 N
-P 3 0 1 20 25 75 25 -75 25 -75 N
-P 5 0 1 0 50 -70 70 -50 90 -90 50 -70 50 -70 F
-X E 1 100 -200 100 U 50 50 1 1 P
-X B 2 -200 0 200 R 50 50 1 1 I
-X C 3 100 200 100 D 50 50 1 1 P
-ENDDRAW
-ENDDEF
-#
 # deets:AI-1027-TWT
 #
 DEF deets:AI-1027-TWT U 0 40 Y Y 1 F N
@@ -242,6 +219,51 @@ X RSSI 9 500 100 100 L 50 50 1 1 O
 ENDDRAW
 ENDDEF
 #
+# deets:SMA-J-P-H-RA-TH1
+#
+DEF deets:SMA-J-P-H-RA-TH1 J 0 40 Y N 1 L N
+F0 "J" -210 241 50 H V L BNN
+F1 "deets:SMA-J-P-H-RA-TH1" -210 -291 50 H V L BNN
+F2 "deets:SAMTEC_SMA-J-P-H-RA-TH1" 0 0 50 H I L BNN
+F3 "SMA-J-P-H-RA-TH1" 0 0 50 H I L BNN
+F4 "None" 0 0 50 H I L BNN
+F5 "Samtec" 0 0 50 H I L BNN
+F6 "None" 0 0 50 H I L BNN
+F7 "Conn SMA F 0Hz to 6GHz 50Ohm Solder RA Thru-Hole Gold Tray" 0 0 50 H I L BNN
+F8 "Unavailable" 0 0 50 H I L BNN
+DRAW
+C 0 0 12 0 0 24 N
+C 0 0 100 0 0 6 N
+P 2 0 0 10 -200 -200 -150 -200 N
+P 2 0 0 10 -200 -150 -200 -200 N
+P 2 0 0 6 -200 -150 -150 -150 N
+P 2 0 0 10 -200 150 -200 -150 N
+P 2 0 0 6 -200 150 -150 150 N
+P 2 0 0 10 -200 200 -200 150 N
+P 2 0 0 10 -150 -200 150 -200 N
+P 2 0 0 6 -150 -150 -150 -200 N
+P 2 0 0 6 -150 150 -150 200 N
+P 2 0 0 10 -150 200 -200 200 N
+P 2 0 0 10 150 -200 200 -200 N
+P 2 0 0 6 150 -150 150 -200 N
+P 2 0 0 6 150 150 200 150 N
+P 2 0 0 10 150 200 -150 200 N
+P 2 0 0 6 150 200 150 150 N
+P 2 0 0 10 200 -200 200 -150 N
+P 2 0 0 6 200 -150 150 -150 N
+P 2 0 0 10 200 -150 200 0 N
+P 2 0 0 10 200 0 0 0 N
+P 2 0 0 10 200 0 200 150 N
+P 2 0 0 10 200 150 200 200 N
+P 2 0 0 10 200 200 150 200 N
+X SIGNAL 1 400 0 200 L 40 40 0 0 P
+X GND 2 400 -100 200 L 40 40 0 0 W
+X GND 3 400 -100 200 L 40 40 0 0 W
+X GND 4 400 -100 200 L 40 40 0 0 W
+X GND 5 400 -100 200 L 40 40 0 0 W
+ENDDRAW
+ENDDEF
+#
 # deets:oskj-dc-dc
 #
 DEF deets:oskj-dc-dc U 0 40 Y Y 1 F N
@@ -258,21 +280,21 @@ X EN 4 -550 -150 100 R 50 50 1 1 I
 ENDDRAW
 ENDDEF
 #
-# dk_Tactile-Switches:B3F-1000
+# dk_Tactile-Switches:FSM4JSMATR
 #
-DEF dk_Tactile-Switches:B3F-1000 S 0 40 Y Y 1 F N
+DEF dk_Tactile-Switches:FSM4JSMATR S 0 40 Y Y 1 F N
 F0 "S" 0 200 60 H V C CNN
-F1 "dk_Tactile-Switches:B3F-1000" 0 -200 60 H V C CNN
-F2 "digikey-footprints:Switch_Tactile_THT_B3F-1xxx" 200 200 60 H I L CNN
-F3 "http://omronfs.omron.com/en_US/ecb/products/pdf/en-b3f.pdf" 200 300 60 H I L CNN
-F4 "SW400-ND" 200 400 60 H I L CNN "Digi-Key_PN"
-F5 "B3F-1000" 200 500 60 H I L CNN "MPN"
+F1 "dk_Tactile-Switches:FSM4JSMATR" 0 -200 60 H V C CNN
+F2 "digikey-footprints:Switch_Tactile_SMD_6x6mm" 200 200 60 H I L CNN
+F3 "http://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&DocNm=2-1437565-7&DocType=Customer+Drawing&DocLang=English" 200 300 60 H I L CNN
+F4 "450-1759-1-ND" 200 400 60 H I L CNN "Digi-Key_PN"
+F5 "FSM4JSMATR" 200 500 60 H I L CNN "MPN"
 F6 "Switches" 200 600 60 H I L CNN "Category"
 F7 "Tactile Switches" 200 700 60 H I L CNN "Family"
-F8 "http://omronfs.omron.com/en_US/ecb/products/pdf/en-b3f.pdf" 200 800 60 H I L CNN "DK_Datasheet_Link"
-F9 "/product-detail/en/omron-electronics-inc-emc-div/B3F-1000/SW400-ND/33150" 200 900 60 H I L CNN "DK_Detail_Page"
+F8 "http://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&DocNm=2-1437565-7&DocType=Customer+Drawing&DocLang=English" 200 800 60 H I L CNN "DK_Datasheet_Link"
+F9 "/product-detail/en/te-connectivity-alcoswitch-switches/FSM4JSMATR/450-1759-1-ND/2271638" 200 900 60 H I L CNN "DK_Detail_Page"
 F10 "SWITCH TACTILE SPST-NO 0.05A 24V" 200 1000 60 H I L CNN "Description"
-F11 "Omron Electronics Inc-EMC Div" 200 1100 60 H I L CNN "Manufacturer"
+F11 "TE Connectivity ALCOSWITCH Switches" 200 1100 60 H I L CNN "Manufacturer"
 F12 "Active" 200 1200 60 H I L CNN "Status"
 DRAW
 C -60 0 10 0 1 0 N
@@ -288,6 +310,36 @@ X ~ 1 -200 100 100 R 50 50 1 1 P
 X ~ 2 -200 -100 100 R 50 50 1 1 P
 X ~ 3 200 100 100 L 50 50 1 1 P
 X ~ 4 200 -100 100 L 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# dk_Transistors-Bipolar-BJT-Single:MMSS8050-H-TP
+#
+DEF dk_Transistors-Bipolar-BJT-Single:MMSS8050-H-TP Q 0 0 Y Y 1 F N
+F0 "Q" -126 166 60 H V L CNN
+F1 "dk_Transistors-Bipolar-BJT-Single:MMSS8050-H-TP" 206 0 60 V V C CNN
+F2 "digikey-footprints:SOT-23-3" 200 200 60 H I L CNN
+F3 "http://www.mccsemi.com/up_pdf/MMSS8050(SOT-23).pdf" 200 300 60 H I L CNN
+F4 "MMSS8050-H-TPMSCT-ND" 200 400 60 H I L CNN "Digi-Key_PN"
+F5 "MMSS8050-H-TP" 200 500 60 H I L CNN "MPN"
+F6 "Discrete Semiconductor Products" 200 600 60 H I L CNN "Category"
+F7 "Transistors - Bipolar (BJT) - Single" 200 700 60 H I L CNN "Family"
+F8 "http://www.mccsemi.com/up_pdf/MMSS8050(SOT-23).pdf" 200 800 60 H I L CNN "DK_Datasheet_Link"
+F9 "/product-detail/en/micro-commercial-co/MMSS8050-H-TP/MMSS8050-H-TPMSCT-ND/2825945" 200 900 60 H I L CNN "DK_Detail_Page"
+F10 "TRANS NPN 25V 1.5A SOT23" 200 1000 60 H I L CNN "Description"
+F11 "Micro Commercial Co" 200 1100 60 H I L CNN "Manufacturer"
+F12 "Active" 200 1200 60 H I L CNN "Status"
+DRAW
+C 0 0 128 0 1 0 f
+P 2 0 1 0 -150 0 -100 0 N
+P 2 0 1 0 -140 0 0 0 N
+P 2 0 1 0 0 -50 100 -100 N
+P 2 0 1 0 0 50 100 100 N
+P 2 0 1 0 0 100 0 -100 N
+P 4 0 1 0 60 -50 80 -90 40 -100 60 -50 F
+X B 1 -200 0 100 R 50 50 1 1 I
+X E 2 100 -200 100 U 50 50 1 1 P
+X C 3 100 200 100 D 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
@@ -361,6 +413,19 @@ F3 "" 0 0 50 H I C CNN
 DRAW
 P 6 0 1 0 0 0 0 -50 50 -50 0 -100 -50 -50 0 -50 N
 X GND 1 0 0 0 D 50 50 1 1 W N
+ENDDRAW
+ENDDEF
+#
+# power:GNDA
+#
+DEF power:GNDA #PWR 0 0 Y Y 1 F P
+F0 "#PWR" 0 -250 50 H I C CNN
+F1 "power:GNDA" 0 -150 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+DRAW
+P 6 0 1 0 0 0 0 -50 50 -50 0 -100 -50 -50 0 -50 N
+X GNDA 1 0 0 0 D 50 50 1 1 W N
 ENDDRAW
 ENDDEF
 #

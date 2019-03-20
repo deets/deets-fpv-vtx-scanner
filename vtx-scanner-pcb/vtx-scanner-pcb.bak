@@ -59,18 +59,6 @@ Wire Wire Line
 	1600 3850 1600 4050
 Wire Wire Line
 	1600 4050 1700 4050
-$Comp
-L power:GND #PWR01
-U 1 1 5BFB3DE2
-P 1600 4050
-F 0 "#PWR01" H 1600 3800 50  0001 C CNN
-F 1 "GND" H 1605 3877 50  0000 C CNN
-F 2 "" H 1600 4050 50  0001 C CNN
-F 3 "" H 1600 4050 50  0001 C CNN
-	1    1600 4050
-	1    0    0    -1  
-$EndComp
-Connection ~ 1600 4050
 NoConn ~ 1550 1950
 $Comp
 L power:+5V #PWR0104
@@ -173,14 +161,13 @@ F 3 "" H 1050 950 50  0001 C CNN
 	1    1050 950 
 	1    0    0    -1  
 $EndComp
-NoConn ~ 1700 3950
 $Comp
 L deets:oskj-dc-dc U3
 U 1 1 5C66ED7D
 P 2100 1800
 F 0 "U3" H 2477 1801 50  0000 L CNN
 F 1 "oskj-dc-dc" H 2477 1710 50  0000 L CNN
-F 2 "new-joy:oskj-dc-dc" H 2000 1700 50  0001 C CNN
+F 2 "deets:oskj-dc-dc" H 2000 1700 50  0001 C CNN
 F 3 "" H 2100 1800 50  0001 C CNN
 	1    2100 1800
 	1    0    0    -1  
@@ -191,7 +178,7 @@ U 1 1 5C66EB41
 P 2200 4250
 F 0 "U1" H 2200 4875 50  0000 C CNN
 F 1 "RX5808" H 2200 4784 50  0000 C CNN
-F 2 "vtx-scanner:RX5808" H 2100 4150 50  0001 C CNN
+F 2 "deets:RX5808" H 2100 4150 50  0001 C CNN
 F 3 "" H 2200 4250 50  0001 C CNN
 	1    2200 4250
 	1    0    0    -1  
@@ -234,28 +221,6 @@ Text Label 1500 6700 0    50   ~ 0
 RTS
 Text Label 1500 6800 0    50   ~ 0
 DTR
-$Comp
-L Transistor_BJT:S8050 Q2
-U 1 1 5C6861D9
-P 2400 7000
-F 0 "Q2" H 2591 6954 50  0000 L CNN
-F 1 "S8050" H 2591 7045 50  0000 L CNN
-F 2 "Package_TO_SOT_THT:TO-92_Inline" H 2600 6925 50  0001 L CIN
-F 3 "http://www.unisonic.com.tw/datasheet/S8050.pdf" H 2400 7000 50  0001 L CNN
-	1    2400 7000
-	-1   0    0    1   
-$EndComp
-$Comp
-L Transistor_BJT:S8050 Q1
-U 1 1 5C68624C
-P 2400 6350
-F 0 "Q1" H 2591 6304 50  0000 L CNN
-F 1 "S8050" H 2591 6395 50  0000 L CNN
-F 2 "Package_TO_SOT_THT:TO-92_Inline" H 2600 6275 50  0001 L CIN
-F 3 "http://www.unisonic.com.tw/datasheet/S8050.pdf" H 2400 6350 50  0001 L CNN
-	1    2400 6350
-	-1   0    0    -1  
-$EndComp
 $Comp
 L Device:R R2
 U 1 1 5C6870C8
@@ -469,17 +434,6 @@ F 3 "" H 5400 6400 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Transistor_BJT:S8050 Q3
-U 1 1 5C68CCB9
-P 5200 6700
-F 0 "Q3" H 5391 6746 50  0000 L CNN
-F 1 "S8050" H 5391 6655 50  0000 L CNN
-F 2 "Package_TO_SOT_THT:TO-92_Inline" H 5400 6625 50  0001 L CIN
-F 3 "http://www.unisonic.com.tw/datasheet/S8050.pdf" H 5200 6700 50  0001 L CNN
-	1    5200 6700
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:GND #PWR09
 U 1 1 5C68CD56
 P 5300 6900
@@ -604,86 +558,6 @@ NoConn ~ 6200 3300
 NoConn ~ 6200 3400
 NoConn ~ 6200 3500
 NoConn ~ 6200 3600
-$Comp
-L dk_Tactile-Switches:B3F-1000 S3
-U 1 1 5C6A95D8
-P 10200 4000
-F 0 "S3" H 10200 4347 60  0000 C CNN
-F 1 "B3F-1000" H 10200 4241 60  0000 C CNN
-F 2 "digikey-footprints:Switch_Tactile_THT_B3F-1xxx" H 10400 4200 60  0001 L CNN
-F 3 "http://omronfs.omron.com/en_US/ecb/products/pdf/en-b3f.pdf" H 10400 4300 60  0001 L CNN
-F 4 "SW400-ND" H 10400 4400 60  0001 L CNN "Digi-Key_PN"
-F 5 "B3F-1000" H 10400 4500 60  0001 L CNN "MPN"
-F 6 "Switches" H 10400 4600 60  0001 L CNN "Category"
-F 7 "Tactile Switches" H 10400 4700 60  0001 L CNN "Family"
-F 8 "http://omronfs.omron.com/en_US/ecb/products/pdf/en-b3f.pdf" H 10400 4800 60  0001 L CNN "DK_Datasheet_Link"
-F 9 "/product-detail/en/omron-electronics-inc-emc-div/B3F-1000/SW400-ND/33150" H 10400 4900 60  0001 L CNN "DK_Detail_Page"
-F 10 "SWITCH TACTILE SPST-NO 0.05A 24V" H 10400 5000 60  0001 L CNN "Description"
-F 11 "Omron Electronics Inc-EMC Div" H 10400 5100 60  0001 L CNN "Manufacturer"
-F 12 "Active" H 10400 5200 60  0001 L CNN "Status"
-	1    10200 4000
-	1    0    0    -1  
-$EndComp
-$Comp
-L dk_Tactile-Switches:B3F-1000 S4
-U 1 1 5C6A97CD
-P 10200 4900
-F 0 "S4" H 10200 5247 60  0000 C CNN
-F 1 "B3F-1000" H 10200 5141 60  0000 C CNN
-F 2 "digikey-footprints:Switch_Tactile_THT_B3F-1xxx" H 10400 5100 60  0001 L CNN
-F 3 "http://omronfs.omron.com/en_US/ecb/products/pdf/en-b3f.pdf" H 10400 5200 60  0001 L CNN
-F 4 "SW400-ND" H 10400 5300 60  0001 L CNN "Digi-Key_PN"
-F 5 "B3F-1000" H 10400 5400 60  0001 L CNN "MPN"
-F 6 "Switches" H 10400 5500 60  0001 L CNN "Category"
-F 7 "Tactile Switches" H 10400 5600 60  0001 L CNN "Family"
-F 8 "http://omronfs.omron.com/en_US/ecb/products/pdf/en-b3f.pdf" H 10400 5700 60  0001 L CNN "DK_Datasheet_Link"
-F 9 "/product-detail/en/omron-electronics-inc-emc-div/B3F-1000/SW400-ND/33150" H 10400 5800 60  0001 L CNN "DK_Detail_Page"
-F 10 "SWITCH TACTILE SPST-NO 0.05A 24V" H 10400 5900 60  0001 L CNN "Description"
-F 11 "Omron Electronics Inc-EMC Div" H 10400 6000 60  0001 L CNN "Manufacturer"
-F 12 "Active" H 10400 6100 60  0001 L CNN "Status"
-	1    10200 4900
-	1    0    0    -1  
-$EndComp
-$Comp
-L dk_Tactile-Switches:B3F-1000 S2
-U 1 1 5C6AA2A4
-P 10200 2950
-F 0 "S2" H 10200 3297 60  0000 C CNN
-F 1 "B3F-1000" H 10200 3191 60  0000 C CNN
-F 2 "digikey-footprints:Switch_Tactile_THT_B3F-1xxx" H 10400 3150 60  0001 L CNN
-F 3 "http://omronfs.omron.com/en_US/ecb/products/pdf/en-b3f.pdf" H 10400 3250 60  0001 L CNN
-F 4 "SW400-ND" H 10400 3350 60  0001 L CNN "Digi-Key_PN"
-F 5 "B3F-1000" H 10400 3450 60  0001 L CNN "MPN"
-F 6 "Switches" H 10400 3550 60  0001 L CNN "Category"
-F 7 "Tactile Switches" H 10400 3650 60  0001 L CNN "Family"
-F 8 "http://omronfs.omron.com/en_US/ecb/products/pdf/en-b3f.pdf" H 10400 3750 60  0001 L CNN "DK_Datasheet_Link"
-F 9 "/product-detail/en/omron-electronics-inc-emc-div/B3F-1000/SW400-ND/33150" H 10400 3850 60  0001 L CNN "DK_Detail_Page"
-F 10 "SWITCH TACTILE SPST-NO 0.05A 24V" H 10400 3950 60  0001 L CNN "Description"
-F 11 "Omron Electronics Inc-EMC Div" H 10400 4050 60  0001 L CNN "Manufacturer"
-F 12 "Active" H 10400 4150 60  0001 L CNN "Status"
-	1    10200 2950
-	1    0    0    -1  
-$EndComp
-$Comp
-L dk_Tactile-Switches:B3F-1000 S1
-U 1 1 5C6AA2B4
-P 10150 5950
-F 0 "S1" H 10150 6297 60  0000 C CNN
-F 1 "B3F-1000" H 10150 6191 60  0000 C CNN
-F 2 "digikey-footprints:Switch_Tactile_THT_B3F-1xxx" H 10350 6150 60  0001 L CNN
-F 3 "http://omronfs.omron.com/en_US/ecb/products/pdf/en-b3f.pdf" H 10350 6250 60  0001 L CNN
-F 4 "SW400-ND" H 10350 6350 60  0001 L CNN "Digi-Key_PN"
-F 5 "B3F-1000" H 10350 6450 60  0001 L CNN "MPN"
-F 6 "Switches" H 10350 6550 60  0001 L CNN "Category"
-F 7 "Tactile Switches" H 10350 6650 60  0001 L CNN "Family"
-F 8 "http://omronfs.omron.com/en_US/ecb/products/pdf/en-b3f.pdf" H 10350 6750 60  0001 L CNN "DK_Datasheet_Link"
-F 9 "/product-detail/en/omron-electronics-inc-emc-div/B3F-1000/SW400-ND/33150" H 10350 6850 60  0001 L CNN "DK_Detail_Page"
-F 10 "SWITCH TACTILE SPST-NO 0.05A 24V" H 10350 6950 60  0001 L CNN "Description"
-F 11 "Omron Electronics Inc-EMC Div" H 10350 7050 60  0001 L CNN "Manufacturer"
-F 12 "Active" H 10350 7150 60  0001 L CNN "Status"
-	1    10150 5950
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	10400 3900 10400 4000
 Wire Wire Line
@@ -692,12 +566,12 @@ Connection ~ 10400 4000
 Wire Wire Line
 	10400 4000 10400 4100
 Wire Wire Line
-	10350 5850 10350 5950
+	10400 5850 10400 5950
 Wire Wire Line
-	10350 5950 10450 5950
-Connection ~ 10350 5950
+	10400 5950 10500 5950
+Connection ~ 10400 5950
 Wire Wire Line
-	10350 5950 10350 6050
+	10400 5950 10400 6050
 Wire Wire Line
 	10400 2850 10400 2950
 Wire Wire Line
@@ -712,17 +586,6 @@ Wire Wire Line
 Connection ~ 10400 4900
 Wire Wire Line
 	10400 4900 10400 5000
-Wire Wire Line
-	10000 3900 10000 4100
-Wire Wire Line
-	10000 3050 10000 2850
-Wire Wire Line
-	9950 6050 9950 5850
-Wire Wire Line
-	10000 5000 10000 4800
-Wire Wire Line
-	10000 4800 10050 4800
-Connection ~ 10000 4800
 $Comp
 L power:GND #PWR017
 U 1 1 5C6B19F0
@@ -734,7 +597,6 @@ F 3 "" H 10000 4100 50  0001 C CNN
 	1    10000 4100
 	1    0    0    -1  
 $EndComp
-Connection ~ 10000 4100
 $Comp
 L power:GND #PWR016
 U 1 1 5C6B1A4E
@@ -757,19 +619,17 @@ F 3 "" H 10000 5000 50  0001 C CNN
 	1    10000 5000
 	1    0    0    -1  
 $EndComp
-Connection ~ 10000 5000
 $Comp
 L power:GND #PWR015
 U 1 1 5C6B1C4A
-P 9950 6050
-F 0 "#PWR015" H 9950 5800 50  0001 C CNN
-F 1 "GND" H 9955 5877 50  0000 C CNN
-F 2 "" H 9950 6050 50  0001 C CNN
-F 3 "" H 9950 6050 50  0001 C CNN
-	1    9950 6050
+P 10000 6050
+F 0 "#PWR015" H 10000 5800 50  0001 C CNN
+F 1 "GND" H 10005 5877 50  0000 C CNN
+F 2 "" H 10000 6050 50  0001 C CNN
+F 3 "" H 10000 6050 50  0001 C CNN
+	1    10000 6050
 	1    0    0    -1  
 $EndComp
-Connection ~ 9950 6050
 $Comp
 L Device:R R5
 U 1 1 5C6B1FDF
@@ -795,12 +655,12 @@ $EndComp
 $Comp
 L Device:R R4
 U 1 1 5C6B223C
-P 10450 5800
-F 0 "R4" H 10520 5846 50  0000 L CNN
-F 1 "10K" H 10520 5755 50  0000 L CNN
-F 2 "Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder" V 10380 5800 50  0001 C CNN
-F 3 "~" H 10450 5800 50  0001 C CNN
-	1    10450 5800
+P 10500 5800
+F 0 "R4" H 10570 5846 50  0000 L CNN
+F 1 "10K" H 10570 5755 50  0000 L CNN
+F 2 "Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder" V 10430 5800 50  0001 C CNN
+F 3 "~" H 10500 5800 50  0001 C CNN
+	1    10500 5800
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -850,18 +710,17 @@ $EndComp
 $Comp
 L power:+3.3V #PWR019
 U 1 1 5C6B25B6
-P 10450 5650
-F 0 "#PWR019" H 10450 5500 50  0001 C CNN
-F 1 "+3.3V" H 10465 5823 50  0000 C CNN
-F 2 "" H 10450 5650 50  0001 C CNN
-F 3 "" H 10450 5650 50  0001 C CNN
-	1    10450 5650
+P 10500 5650
+F 0 "#PWR019" H 10500 5500 50  0001 C CNN
+F 1 "+3.3V" H 10515 5823 50  0000 C CNN
+F 2 "" H 10500 5650 50  0001 C CNN
+F 3 "" H 10500 5650 50  0001 C CNN
+	1    10500 5650
 	1    0    0    -1  
 $EndComp
-Connection ~ 10000 3050
 Wire Wire Line
-	10450 5950 10450 6050
-Connection ~ 10450 5950
+	10500 5950 10500 6050
+Connection ~ 10500 5950
 Wire Wire Line
 	10500 4900 10500 5000
 Connection ~ 10500 4900
@@ -873,7 +732,7 @@ Wire Wire Line
 Connection ~ 10500 4000
 Text Label 10500 5000 0    50   ~ 0
 BUTTON_RIGHT
-Text Label 10450 6050 0    50   ~ 0
+Text Label 10500 6050 0    50   ~ 0
 BUTTON_DOWN
 Text Label 10500 3050 0    50   ~ 0
 BUTTON_UP
@@ -903,4 +762,207 @@ NoConn ~ 6200 4700
 Text Label 5000 4100 2    50   ~ 0
 BUZZER
 NoConn ~ 5000 4400
+$Comp
+L dk_Transistors-Bipolar-BJT-Single:MMSS8050-H-TP Q2
+U 1 1 5C8D54F9
+P 2400 7000
+F 0 "Q2" H 2588 6947 60  0000 L CNN
+F 1 "MMSS8050-H-TP" H 2588 7053 60  0000 L CNN
+F 2 "digikey-footprints:SOT-23-3" H 2600 7200 60  0001 L CNN
+F 3 "http://www.mccsemi.com/up_pdf/MMSS8050(SOT-23).pdf" H 2600 7300 60  0001 L CNN
+F 4 "MMSS8050-H-TPMSCT-ND" H 2600 7400 60  0001 L CNN "Digi-Key_PN"
+F 5 "MMSS8050-H-TP" H 2600 7500 60  0001 L CNN "MPN"
+F 6 "Discrete Semiconductor Products" H 2600 7600 60  0001 L CNN "Category"
+F 7 "Transistors - Bipolar (BJT) - Single" H 2600 7700 60  0001 L CNN "Family"
+F 8 "http://www.mccsemi.com/up_pdf/MMSS8050(SOT-23).pdf" H 2600 7800 60  0001 L CNN "DK_Datasheet_Link"
+F 9 "/product-detail/en/micro-commercial-co/MMSS8050-H-TP/MMSS8050-H-TPMSCT-ND/2825945" H 2600 7900 60  0001 L CNN "DK_Detail_Page"
+F 10 "TRANS NPN 25V 1.5A SOT23" H 2600 8000 60  0001 L CNN "Description"
+F 11 "Micro Commercial Co" H 2600 8100 60  0001 L CNN "Manufacturer"
+F 12 "Active" H 2600 8200 60  0001 L CNN "Status"
+	1    2400 7000
+	-1   0    0    1   
+$EndComp
+$Comp
+L dk_Transistors-Bipolar-BJT-Single:MMSS8050-H-TP Q1
+U 1 1 5C8D5889
+P 2400 6350
+F 0 "Q1" H 2588 6403 60  0000 L CNN
+F 1 "MMSS8050-H-TP" H 2588 6297 60  0000 L CNN
+F 2 "digikey-footprints:SOT-23-3" H 2600 6550 60  0001 L CNN
+F 3 "http://www.mccsemi.com/up_pdf/MMSS8050(SOT-23).pdf" H 2600 6650 60  0001 L CNN
+F 4 "MMSS8050-H-TPMSCT-ND" H 2600 6750 60  0001 L CNN "Digi-Key_PN"
+F 5 "MMSS8050-H-TP" H 2600 6850 60  0001 L CNN "MPN"
+F 6 "Discrete Semiconductor Products" H 2600 6950 60  0001 L CNN "Category"
+F 7 "Transistors - Bipolar (BJT) - Single" H 2600 7050 60  0001 L CNN "Family"
+F 8 "http://www.mccsemi.com/up_pdf/MMSS8050(SOT-23).pdf" H 2600 7150 60  0001 L CNN "DK_Datasheet_Link"
+F 9 "/product-detail/en/micro-commercial-co/MMSS8050-H-TP/MMSS8050-H-TPMSCT-ND/2825945" H 2600 7250 60  0001 L CNN "DK_Detail_Page"
+F 10 "TRANS NPN 25V 1.5A SOT23" H 2600 7350 60  0001 L CNN "Description"
+F 11 "Micro Commercial Co" H 2600 7450 60  0001 L CNN "Manufacturer"
+F 12 "Active" H 2600 7550 60  0001 L CNN "Status"
+	1    2400 6350
+	-1   0    0    -1  
+$EndComp
+$Comp
+L dk_Transistors-Bipolar-BJT-Single:MMSS8050-H-TP Q3
+U 1 1 5C8D798E
+P 5200 6700
+F 0 "Q3" H 5388 6753 60  0000 L CNN
+F 1 "MMSS8050-H-TP" H 5388 6647 60  0000 L CNN
+F 2 "digikey-footprints:SOT-23-3" H 5400 6900 60  0001 L CNN
+F 3 "http://www.mccsemi.com/up_pdf/MMSS8050(SOT-23).pdf" H 5400 7000 60  0001 L CNN
+F 4 "MMSS8050-H-TPMSCT-ND" H 5400 7100 60  0001 L CNN "Digi-Key_PN"
+F 5 "MMSS8050-H-TP" H 5400 7200 60  0001 L CNN "MPN"
+F 6 "Discrete Semiconductor Products" H 5400 7300 60  0001 L CNN "Category"
+F 7 "Transistors - Bipolar (BJT) - Single" H 5400 7400 60  0001 L CNN "Family"
+F 8 "http://www.mccsemi.com/up_pdf/MMSS8050(SOT-23).pdf" H 5400 7500 60  0001 L CNN "DK_Datasheet_Link"
+F 9 "/product-detail/en/micro-commercial-co/MMSS8050-H-TP/MMSS8050-H-TPMSCT-ND/2825945" H 5400 7600 60  0001 L CNN "DK_Detail_Page"
+F 10 "TRANS NPN 25V 1.5A SOT23" H 5400 7700 60  0001 L CNN "Description"
+F 11 "Micro Commercial Co" H 5400 7800 60  0001 L CNN "Manufacturer"
+F 12 "Active" H 5400 7900 60  0001 L CNN "Status"
+	1    5200 6700
+	1    0    0    -1  
+$EndComp
+$Comp
+L dk_Tactile-Switches:FSM4JSMATR S1
+U 1 1 5C8D94E0
+P 10200 5950
+F 0 "S1" H 10200 6297 60  0000 C CNN
+F 1 "FSM4JSMATR" H 10200 6191 60  0000 C CNN
+F 2 "deets:Switch_Tactile_SMD_6x6mm" H 10400 6150 60  0001 L CNN
+F 3 "http://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&DocNm=2-1437565-7&DocType=Customer+Drawing&DocLang=English" H 10400 6250 60  0001 L CNN
+F 4 "450-1759-1-ND" H 10400 6350 60  0001 L CNN "Digi-Key_PN"
+F 5 "FSM4JSMATR" H 10400 6450 60  0001 L CNN "MPN"
+F 6 "Switches" H 10400 6550 60  0001 L CNN "Category"
+F 7 "Tactile Switches" H 10400 6650 60  0001 L CNN "Family"
+F 8 "http://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&DocNm=2-1437565-7&DocType=Customer+Drawing&DocLang=English" H 10400 6750 60  0001 L CNN "DK_Datasheet_Link"
+F 9 "/product-detail/en/te-connectivity-alcoswitch-switches/FSM4JSMATR/450-1759-1-ND/2271638" H 10400 6850 60  0001 L CNN "DK_Detail_Page"
+F 10 "SWITCH TACTILE SPST-NO 0.05A 24V" H 10400 6950 60  0001 L CNN "Description"
+F 11 "TE Connectivity ALCOSWITCH Switches" H 10400 7050 60  0001 L CNN "Manufacturer"
+F 12 "Active" H 10400 7150 60  0001 L CNN "Status"
+	1    10200 5950
+	1    0    0    -1  
+$EndComp
+$Comp
+L dk_Tactile-Switches:FSM4JSMATR S2
+U 1 1 5C8D9681
+P 10200 2950
+F 0 "S2" H 10200 3297 60  0000 C CNN
+F 1 "FSM4JSMATR" H 10200 3191 60  0000 C CNN
+F 2 "deets:Switch_Tactile_SMD_6x6mm" H 10400 3150 60  0001 L CNN
+F 3 "http://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&DocNm=2-1437565-7&DocType=Customer+Drawing&DocLang=English" H 10400 3250 60  0001 L CNN
+F 4 "450-1759-1-ND" H 10400 3350 60  0001 L CNN "Digi-Key_PN"
+F 5 "FSM4JSMATR" H 10400 3450 60  0001 L CNN "MPN"
+F 6 "Switches" H 10400 3550 60  0001 L CNN "Category"
+F 7 "Tactile Switches" H 10400 3650 60  0001 L CNN "Family"
+F 8 "http://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&DocNm=2-1437565-7&DocType=Customer+Drawing&DocLang=English" H 10400 3750 60  0001 L CNN "DK_Datasheet_Link"
+F 9 "/product-detail/en/te-connectivity-alcoswitch-switches/FSM4JSMATR/450-1759-1-ND/2271638" H 10400 3850 60  0001 L CNN "DK_Detail_Page"
+F 10 "SWITCH TACTILE SPST-NO 0.05A 24V" H 10400 3950 60  0001 L CNN "Description"
+F 11 "TE Connectivity ALCOSWITCH Switches" H 10400 4050 60  0001 L CNN "Manufacturer"
+F 12 "Active" H 10400 4150 60  0001 L CNN "Status"
+	1    10200 2950
+	1    0    0    -1  
+$EndComp
+$Comp
+L dk_Tactile-Switches:FSM4JSMATR S3
+U 1 1 5C8D978E
+P 10200 4000
+F 0 "S3" H 10200 4347 60  0000 C CNN
+F 1 "FSM4JSMATR" H 10200 4241 60  0000 C CNN
+F 2 "deets:Switch_Tactile_SMD_6x6mm" H 10400 4200 60  0001 L CNN
+F 3 "http://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&DocNm=2-1437565-7&DocType=Customer+Drawing&DocLang=English" H 10400 4300 60  0001 L CNN
+F 4 "450-1759-1-ND" H 10400 4400 60  0001 L CNN "Digi-Key_PN"
+F 5 "FSM4JSMATR" H 10400 4500 60  0001 L CNN "MPN"
+F 6 "Switches" H 10400 4600 60  0001 L CNN "Category"
+F 7 "Tactile Switches" H 10400 4700 60  0001 L CNN "Family"
+F 8 "http://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&DocNm=2-1437565-7&DocType=Customer+Drawing&DocLang=English" H 10400 4800 60  0001 L CNN "DK_Datasheet_Link"
+F 9 "/product-detail/en/te-connectivity-alcoswitch-switches/FSM4JSMATR/450-1759-1-ND/2271638" H 10400 4900 60  0001 L CNN "DK_Detail_Page"
+F 10 "SWITCH TACTILE SPST-NO 0.05A 24V" H 10400 5000 60  0001 L CNN "Description"
+F 11 "TE Connectivity ALCOSWITCH Switches" H 10400 5100 60  0001 L CNN "Manufacturer"
+F 12 "Active" H 10400 5200 60  0001 L CNN "Status"
+	1    10200 4000
+	1    0    0    -1  
+$EndComp
+$Comp
+L dk_Tactile-Switches:FSM4JSMATR S4
+U 1 1 5C8D9896
+P 10200 4900
+F 0 "S4" H 10200 5247 60  0000 C CNN
+F 1 "FSM4JSMATR" H 10200 5141 60  0000 C CNN
+F 2 "deets:Switch_Tactile_SMD_6x6mm" H 10400 5100 60  0001 L CNN
+F 3 "http://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&DocNm=2-1437565-7&DocType=Customer+Drawing&DocLang=English" H 10400 5200 60  0001 L CNN
+F 4 "450-1759-1-ND" H 10400 5300 60  0001 L CNN "Digi-Key_PN"
+F 5 "FSM4JSMATR" H 10400 5400 60  0001 L CNN "MPN"
+F 6 "Switches" H 10400 5500 60  0001 L CNN "Category"
+F 7 "Tactile Switches" H 10400 5600 60  0001 L CNN "Family"
+F 8 "http://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&DocNm=2-1437565-7&DocType=Customer+Drawing&DocLang=English" H 10400 5700 60  0001 L CNN "DK_Datasheet_Link"
+F 9 "/product-detail/en/te-connectivity-alcoswitch-switches/FSM4JSMATR/450-1759-1-ND/2271638" H 10400 5800 60  0001 L CNN "DK_Detail_Page"
+F 10 "SWITCH TACTILE SPST-NO 0.05A 24V" H 10400 5900 60  0001 L CNN "Description"
+F 11 "TE Connectivity ALCOSWITCH Switches" H 10400 6000 60  0001 L CNN "Manufacturer"
+F 12 "Active" H 10400 6100 60  0001 L CNN "Status"
+	1    10200 4900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10000 2850 10000 3050
+Connection ~ 10000 3050
+Wire Wire Line
+	10000 3900 10000 4100
+Connection ~ 10000 4100
+Wire Wire Line
+	10000 4800 10000 5000
+Connection ~ 10000 5000
+Wire Wire Line
+	10000 5850 10000 6050
+Connection ~ 10000 6050
+$Comp
+L deets:SMA-J-P-H-RA-TH1 J3
+U 1 1 5C8E0D7B
+P 1300 3950
+F 0 "J3" H 1405 4317 50  0000 C CNN
+F 1 "SMA-J-P-H-RA-TH1" H 1405 4226 50  0000 C CNN
+F 2 "deets:SAMTEC_SMA-J-P-H-RA-TH1" H 1300 3950 50  0001 L BNN
+F 3 "SMA-J-P-H-RA-TH1" H 1300 3950 50  0001 L BNN
+F 4 "None" H 1300 3950 50  0001 L BNN "Field4"
+F 5 "Samtec" H 1300 3950 50  0001 L BNN "Field5"
+F 6 "None" H 1300 3950 50  0001 L BNN "Field6"
+F 7 "Conn SMA F 0Hz to 6GHz 50Ohm Solder RA Thru-Hole Gold Tray" H 1300 3950 50  0001 L BNN "Field7"
+F 8 "Unavailable" H 1300 3950 50  0001 L BNN "Field8"
+	1    1300 3950
+	1    0    0    -1  
+$EndComp
+Connection ~ 1700 4050
+$Comp
+L power:GNDA #PWR0101
+U 1 1 5C8E1232
+P 1600 4050
+F 0 "#PWR0101" H 1600 3800 50  0001 C CNN
+F 1 "GNDA" H 1605 3877 50  0000 C CNN
+F 2 "" H 1600 4050 50  0001 C CNN
+F 3 "" H 1600 4050 50  0001 C CNN
+	1    1600 4050
+	1    0    0    -1  
+$EndComp
+Connection ~ 1600 4050
+$Comp
+L power:GNDA #PWR?
+U 1 1 5C8E173F
+P 1850 950
+F 0 "#PWR?" H 1850 700 50  0001 C CNN
+F 1 "GNDA" H 1855 777 50  0000 C CNN
+F 2 "" H 1850 950 50  0001 C CNN
+F 3 "" H 1850 950 50  0001 C CNN
+	1    1850 950 
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:PWR_FLAG #FLG?
+U 1 1 5C8E1957
+P 1850 950
+F 0 "#FLG?" H 1850 1025 50  0001 C CNN
+F 1 "PWR_FLAG" H 1850 1124 50  0000 C CNN
+F 2 "" H 1850 950 50  0001 C CNN
+F 3 "~" H 1850 950 50  0001 C CNN
+	1    1850 950 
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
