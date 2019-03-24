@@ -34,8 +34,9 @@ app_state_t* app_state = 0;
 int next_notification = 0;
 std::function<void(int)> change_current_mode_callback = 0;
 int  le_notification_enabled;
-int laptime_data_size;
+int laptime_max_data_size;
 std::vector<uint8_t> laptimer_data;
+decltype(app_state->laptime_buffer_pos) last_read_pos;
 btstack_packet_callback_registration_t hci_event_callback_registration;
 hci_con_handle_t con_handle;
 
@@ -53,13 +54,15 @@ const uint8_t adv_data[] = {
 };
 const uint8_t adv_data_len = sizeof(adv_data);
 
-void transfer_laptimer_data()
+size_t transfer_laptimer_data()
 {
+  const auto buffer_size = app_state->laptime_buffer.size();
   auto current_pos = app_state->laptime_buffer_pos;
   auto p = laptimer_data.data();
-  *reinterpret_cast<decltype(&current_pos)>(p) = current_pos;
-  p += sizeof(app_state->laptime_buffer_pos);
-  const auto to_transfer = laptime_data_size - sizeof(current_pos);
+  const auto to_transfer = std::min(
+    laptime_max_data_size,
+    (int)(((current_pos - last_read_pos) + buffer_size) % buffer_size)
+    );
   auto start = current_pos - to_transfer;
   // from current_pos to the end of the buffer
   if(start > current_pos)
@@ -77,6 +80,8 @@ void transfer_laptimer_data()
     app_state->laptime_buffer.begin() + current_pos,
     p
     );
+  last_read_pos = current_pos;
+  return to_transfer;
 }
 
 void packet_handler (uint8_t packet_type, uint16_t channel, uint8_t *packet, uint16_t size){
@@ -87,13 +92,13 @@ void packet_handler (uint8_t packet_type, uint16_t channel, uint8_t *packet, uin
         case HCI_EVENT_PACKET:
             switch (hci_event_packet_get_type(packet)) {
                 case ATT_EVENT_MTU_EXCHANGE_COMPLETE:
-                  laptime_data_size = att_event_mtu_exchange_complete_get_MTU(packet) - MESSAGE_OVERHEAD;
-                  ESP_LOGI("ble", "laptime data size: %i", laptime_data_size);
-                  laptimer_data.resize(laptime_data_size, 0);
+                  laptime_max_data_size = att_event_mtu_exchange_complete_get_MTU(packet) - MESSAGE_OVERHEAD;
+                  ESP_LOGI("ble", "laptime data size: %i", laptime_max_data_size);
+                  laptimer_data.resize(laptime_max_data_size, 0);
                   break;
                 case HCI_EVENT_DISCONNECTION_COMPLETE:
                     le_notification_enabled = 0;
-                    laptime_data_size = -1;
+                    laptime_max_data_size = -1;
                     break;
                 case ATT_EVENT_CAN_SEND_NOW:
                   if(next_notification & NOTIFY_CURRENT_CHANNEL)
@@ -153,7 +158,7 @@ uint16_t att_read_callback(hci_con_handle_t connection_handle, uint16_t att_hand
       case MAX_RSSI_VALUE_HANDLE:
         return sizeof(app_state->max_rssi_reading);
       case LAPTIME_RSSI_VALUE_HANDLE:
-        return laptime_data_size;
+        return transfer_laptimer_data();
       }
     }
 
@@ -170,7 +175,6 @@ uint16_t att_read_callback(hci_con_handle_t connection_handle, uint16_t att_hand
         return att_read_callback_handle_blob((uint8_t*)&app_state->max_rssi_reading, buffer_size, offset, buffer, buffer_size);
     }
     if (att_handle == LAPTIME_RSSI_VALUE_HANDLE) {
-      transfer_laptimer_data();
       return att_read_callback_handle_blob((uint8_t*)laptimer_data.data(), buffer_size, offset, buffer, buffer_size);
     }
     return 0;

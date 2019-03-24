@@ -13,7 +13,6 @@ class BTVTXScannerDelegate : NSObject, CBPeripheralDelegate
     }
     
     struct LaptimeMessage {
-        let pos: UInt16
         let values: Data
     }
 
@@ -204,9 +203,7 @@ class BTVTXScannerDelegate : NSObject, CBPeripheralDelegate
     
     private func processLaptimerData(data:Data) throws
     {
-        let a = try unpack("<H", data.subdata(in: 0..<2))
-        let pos = UInt16((a[0] as? Int)!)
-        let m = LaptimeMessage(pos: pos, values: data.suffix(2) )
+        let m = LaptimeMessage(values: data )
         laptimeMessageObserver.send(value: m)
         acquireLaptimerData()
     }
