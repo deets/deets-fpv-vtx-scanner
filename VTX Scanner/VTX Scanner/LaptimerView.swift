@@ -103,9 +103,11 @@ class LaptimerView: UIView {
         color?.setStroke()
         let step = bounds.width / CGFloat(points.count - 1)
         let hf =  bounds.height / maxRSSI;
-        path.move(to: CGPoint(x: 0.0, y: bounds.height - hf * points[0]))
+        var readPos = writePos
+        path.move(to: CGPoint(x: 0.0, y: bounds.height - hf * points[readPos]))
         for x in 1..<points.count {
-            let v = points[x]
+            readPos = (readPos + 1) % points.count
+            let v = points[readPos]
             path.addLine(to: CGPoint(x: CGFloat(x) * step, y: bounds.height - hf * v))
         }
         path.stroke()

@@ -124,9 +124,9 @@ class BTVTXScannerDelegate : NSObject, CBPeripheralDelegate
 
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         if error == nil {
-            print("didUpdateValueForCharacteristic",
-                  characteristic.uuid,
-                  "length:", characteristic.value!.count)
+//            print("didUpdateValueForCharacteristic",
+//                  characteristic.uuid,
+//                  "length:", characteristic.value!.count)
             // Lift data into main thread for further processing
             let data = characteristic.value!
             let uuid = characteristic.uuid
