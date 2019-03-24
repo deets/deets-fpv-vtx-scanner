@@ -11,12 +11,25 @@ class BTVTXScannerDelegate : NSObject, CBPeripheralDelegate
         let channel: UInt16
         let value: UInt16
     }
+    
+    struct LaptimeMessage {
+        let pos: UInt16
+        let values: Data
+    }
 
     private let (latestRSSIReading_, latestRSSIReadingObserver) = Signal<LatestRSSIReading, NoError>.pipe()
 
     var latestRSSIReading : Signal<LatestRSSIReading, NoError> {
         get {
             return latestRSSIReading_
+        }
+    }
+    
+    private let (laptimeMessage_, laptimeMessageObserver) = Signal<LaptimeMessage, NoError>.pipe()
+    
+    var laptimeMessage : Signal<LaptimeMessage, NoError> {
+        get {
+            return laptimeMessage_
         }
     }
 
@@ -192,8 +205,9 @@ class BTVTXScannerDelegate : NSObject, CBPeripheralDelegate
     private func processLaptimerData(data:Data) throws
     {
         let a = try unpack("<H", data.subdata(in: 0..<2))
-        let v = UInt16((a[0] as? Int)!)
-        print("pos:", v)
+        let pos = UInt16((a[0] as? Int)!)
+        let m = LaptimeMessage(pos: pos, values: data.suffix(2) )
+        laptimeMessageObserver.send(value: m)
         acquireLaptimerData()
     }
     

@@ -12,8 +12,9 @@ class LaptimerView: UIView {
     private var displayLink : CADisplayLink?
     private var color = UIColor(named: "black")
     
-    private let maxRSSI = CGFloat(2100.0)
+    private var maxRSSI = CGFloat(1400)
     private var points: [CGFloat] = []
+    private var writePos: Int=0
     
     var duration = 1.0 {
         didSet {
@@ -29,9 +30,8 @@ class LaptimerView: UIView {
         let numPoints = Int(Double(bounds.width) + 1) // + numExtraBufferingPoints)
         if points.count != numPoints {
             points = Array(repeating: 0, count: numPoints)
-//            endTime = nil
-//            lastWritePosition = nil
         }
+        writePos = 0
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -56,7 +56,15 @@ class LaptimerView: UIView {
                         self.stop()
                     }
                 })
-            );
+            )
+            $0.laptimeMessage.observeValues({ (m) in
+                self.processLaptimeMessage(m)
+            })
+            $0.maxRSSI.signal.observeValues({ (maxRSSI) in
+                self.maxRSSI = CGFloat(maxRSSI)
+                self.setNeedsDisplay()
+
+            })
         } )
         initializePointArray()
     }
@@ -78,7 +86,16 @@ class LaptimerView: UIView {
     }
     
     @objc private func step() {
-        setNeedsDisplay()
+//        setNeedsDisplay()
+    }
+    
+    private func processLaptimeMessage(_ message: BTVTXScannerDelegate.LaptimeMessage) {
+        message.values.forEach({ (v) in
+            let v = CGFloat(v) * 16 // remove right-shift
+            points[writePos] = v;
+            writePos = (writePos + 1 ) % points.count
+        })
+        setNeedsDisplay();
     }
 
     override func draw(_ rect: CGRect) {
@@ -86,11 +103,10 @@ class LaptimerView: UIView {
         color?.setStroke()
         let step = bounds.width / CGFloat(points.count - 1)
         let hf =  bounds.height / maxRSSI;
-        path.move(to: CGPoint(x: 0.0, y: hf * points[0]))
+        path.move(to: CGPoint(x: 0.0, y: bounds.height - hf * points[0]))
         for x in 1..<points.count {
-            //let v = points[x]
-            let v = CGFloat.random(in: 0...maxRSSI)
-            path.addLine(to: CGPoint(x: CGFloat(x) * step, y: hf * v))
+            let v = points[x]
+            path.addLine(to: CGPoint(x: CGFloat(x) * step, y: bounds.height - hf * v))
         }
         path.stroke()
     }
