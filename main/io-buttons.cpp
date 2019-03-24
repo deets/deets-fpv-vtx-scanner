@@ -97,4 +97,10 @@ void iobuttons_setup(TaskHandle_t main_task_handle)
   gpio_isr_handler_add(GPIO_RIGHT, gpio_isr_handler, (void*)GPIO_RIGHT);
   gpio_isr_handler_add(GPIO_UP, gpio_isr_handler, (void*)GPIO_UP);
   gpio_isr_handler_add(GPIO_LEFT, gpio_isr_handler, (void*)GPIO_LEFT);
+  // fill map to avoid allocates in ISR
+  int64_t ts = esp_timer_get_time();
+  for(const auto& item : s_debounces)
+  {
+    s_last[item.first] = ts;
+  }
 }
