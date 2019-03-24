@@ -2,14 +2,17 @@
 #pragma once
 
 #include <stdint.h>
+#include <vector>
 
-typedef enum {
+enum app_mode_t
+{
     SPLASH_SCREEN,
     SCANNER,
     LAPTIMER
-} app_mode_t;
+};
 
-typedef struct {
+struct app_state_t
+{
   uint32_t selected_channel;
   uint16_t last_read_channel;
   uint16_t last_rssi_reading;
@@ -22,4 +25,5 @@ typedef struct {
   int64_t trigger_cooldown;
   // laptimer data
   uint16_t laptime_buffer_pos;
-} app_state_t;
+  std::vector<uint8_t> laptime_buffer;
+};

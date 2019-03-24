@@ -1,6 +1,6 @@
 // Copyright: 2018, Diez B. Roggisch, Berlin, all rights reserved
-#include "goggle_info.h"
-#include "channel_display.h"
+#include "goggle_info.hh"
+#include "channel_display.hh"
 #include "font.h"
 #include "p2font.h"
 

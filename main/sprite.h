@@ -17,11 +17,11 @@
  * define sprites based of a bigger block.
  */
 typedef struct {
-  size_t height; // can be arbitrary
-  size_t hotspot_x;
-  size_t hotspot_y;
-  size_t image_modulo;
-  size_t mask_modulo;
+  int height; // can be arbitrary
+  int hotspot_x;
+  int hotspot_y;
+  int image_modulo;
+  int mask_modulo;
   uint32_t* image;
   uint32_t* mask;
 } sprite_t;

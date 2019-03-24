@@ -1,6 +1,6 @@
-#include "appstate.h"
+#include "appstate.hh"
 #include "ssd1306.h"
-#include "ble.h"
+#include "ble.hh"
 #include "splash-screen.hh"
 #include "scanner.hh"
 #include "storage.hh"
@@ -173,6 +173,7 @@ extern "C" void btstack_main();
 void btstack_main()
 {
   ble_init(&app_state);
+  app_state.laptime_buffer.resize(8192, 0);
   task_state.display_task_handle = xTaskCreateStatic(
     display_task,       // Function that implements the task.
     "DSP",          // Text name for the task.

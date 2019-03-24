@@ -1,5 +1,5 @@
 #include "scanner.hh"
-#include "ble.h"
+#include "ble.hh"
 
 #include <freertos/task.h>
 #include <sys/param.h>

@@ -13,8 +13,8 @@ typedef enum {
 } channel_type_t;
 
 typedef struct {
-  char* name;
-  char* channel_names[40];
+  const char* name;
+  const char* channel_names[40];
   channel_type_t channel_legal[40];
 } vtx_info_t;
 

@@ -1,5 +1,5 @@
 // Copyright: 2018, Diez B. Roggisch, Berlin, all rights reserved
-#include "channel_display.h"
+#include "channel_display.hh"
 #include "common.h"
 
 static uint32_t cursor_image[] = {
@@ -16,7 +16,6 @@ static sprite_t cursor = {
   .image=cursor_image,
   .mask=cursor_image
 };
-
 
 static uint32_t filled_row_image[] = {
   0b111,

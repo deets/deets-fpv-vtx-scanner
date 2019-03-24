@@ -1,6 +1,6 @@
 // Copyright: 2018, Diez B. Roggisch, Berlin, all rights reserved
-#include "vtx-info.h"
-#include "channel_display.h"
+#include "vtx-info.hh"
+#include "channel_display.hh"
 #include "font.h"
 #include "pc_senior.h"
 

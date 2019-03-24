@@ -2,12 +2,8 @@
 
 #pragma once
 
-#include "appstate.h"
+#include "appstate.hh"
 #include "ssd1306.h"
-
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 #define CHANNEL_NUM 40
 #define CHANNELS_HEIGHT (64 - 13)
@@ -32,7 +28,3 @@ void channel_display_init(channel_display_t* channel_display, app_state_t* app_s
 void channel_display_update_channel(int channel, int value, channel_display_t* channel_display);
 void channel_display_draw(ssd1306_display_t* display, channel_display_t* channels_display);
 void channel_display_step_cursor(channel_display_t* channels_display, int direction);
-
-#ifdef __cplusplus
-}
-#endif

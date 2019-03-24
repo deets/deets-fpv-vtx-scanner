@@ -1,7 +1,7 @@
 // Copyright: 2019, Diez B. Roggisch, Berlin, all rights reserved
 #pragma once
 
-#include "appstate.h"
+#include "appstate.hh"
 #include "ssd1306.h"
 
 #include <freertos/task.h>

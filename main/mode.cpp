@@ -1,6 +1,6 @@
 #include "mode.hh"
 
-#include "ble.h"
+#include "ble.hh"
 
 #include <esp_log.h>
 
