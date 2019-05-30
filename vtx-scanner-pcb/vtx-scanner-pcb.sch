@@ -51,8 +51,6 @@ Wire Wire Line
 Wire Wire Line
 	2750 4900 2850 4900
 Connection ~ 2750 4350
-NoConn ~ 2700 3950
-NoConn ~ 2700 4050
 Wire Wire Line
 	1700 3850 1600 3850
 Wire Wire Line
@@ -479,9 +477,9 @@ Text Label 6200 4000 0    50   ~ 0
 VRX_RSSI
 Text Label 5000 3700 2    50   ~ 0
 VRX_CS
-Text Label 5000 3600 2    50   ~ 0
-VRX_CLOCK
 Text Label 5000 3500 2    50   ~ 0
+VRX_CLOCK
+Text Label 5000 3600 2    50   ~ 0
 VRX_DATA
 Text Label 5000 4300 2    50   ~ 0
 SSD1306_DATA
@@ -1051,14 +1049,51 @@ F 3 "" H 3000 1500 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L power:GND #PWR?
+L power:GND #PWR027
 U 1 1 5CB24161
 P 1600 4050
-F 0 "#PWR?" H 1600 3800 50  0001 C CNN
+F 0 "#PWR027" H 1600 3800 50  0001 C CNN
 F 1 "GND" H 1605 3877 50  0000 C CNN
 F 2 "" H 1600 4050 50  0001 C CNN
 F 3 "" H 1600 4050 50  0001 C CNN
 	1    1600 4050
 	1    0    0    -1  
 $EndComp
+$Comp
+L dk_Barrel-Audio-Connectors:SJ-3523-SMT-TR CON1
+U 1 1 5CBA07DB
+P 3600 3700
+F 0 "CON1" H 3272 3647 60  0000 R CNN
+F 1 "SJ-3523-SMT-TR" H 3272 3753 60  0000 R CNN
+F 2 "deets:Switch_Slide_11.6x4mm_SJ-3523-SMT" H 3800 3900 60  0001 L CNN
+F 3 "https://www.cui.com/product/resource/digikeypdf/sj-352x-smt_series.pdf" H 3800 4000 60  0001 L CNN
+F 4 "CP-3523SJCT-ND" H 3800 4100 60  0001 L CNN "Digi-Key_PN"
+F 5 "SJ-3523-SMT-TR" H 3800 4200 60  0001 L CNN "MPN"
+F 6 "Connectors, Interconnects" H 3800 4300 60  0001 L CNN "Category"
+F 7 "Barrel - Audio Connectors" H 3800 4400 60  0001 L CNN "Family"
+F 8 "https://www.cui.com/product/resource/digikeypdf/sj-352x-smt_series.pdf" H 3800 4500 60  0001 L CNN "DK_Datasheet_Link"
+F 9 "/product-detail/en/cui-inc/SJ-3523-SMT-TR/CP-3523SJCT-ND/669704" H 3800 4600 60  0001 L CNN "DK_Detail_Page"
+F 10 "CONN JACK STEREO 3.5MM SMD R/A" H 3800 4700 60  0001 L CNN "Description"
+F 11 "CUI Inc." H 3800 4800 60  0001 L CNN "Manufacturer"
+F 12 "Active" H 3800 4900 60  0001 L CNN "Status"
+	1    3600 3700
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	2750 3850 3000 3850
+Wire Wire Line
+	3000 3850 3000 3600
+Wire Wire Line
+	3000 3600 3200 3600
+Connection ~ 2750 3850
+Wire Wire Line
+	2700 3950 3100 3950
+Wire Wire Line
+	3100 3950 3100 3700
+Wire Wire Line
+	3100 3700 3200 3700
+Wire Wire Line
+	2700 4050 3200 4050
+Wire Wire Line
+	3200 4050 3200 3800
 $EndSCHEMATC

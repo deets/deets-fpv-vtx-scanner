@@ -1,11 +1,11 @@
 EESchema-LIBRARY Version 2.4
 #encoding utf-8
 #
-# Connector:Conn_01x06_Male
+# Connector_Conn_01x06_Male
 #
-DEF Connector:Conn_01x06_Male J 0 40 Y N 1 F N
+DEF Connector_Conn_01x06_Male J 0 40 Y N 1 F N
 F0 "J" 0 300 50 H V C CNN
-F1 "Connector:Conn_01x06_Male" 0 -400 50 H V C CNN
+F1 "Connector_Conn_01x06_Male" 0 -400 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -33,11 +33,11 @@ X Pin_6 6 200 -300 150 L 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Connector:Conn_01x08_Female
+# Connector_Conn_01x08_Female
 #
-DEF Connector:Conn_01x08_Female J 0 40 Y N 1 F N
+DEF Connector_Conn_01x08_Female J 0 40 Y N 1 F N
 F0 "J" 0 400 50 H V C CNN
-F1 "Connector:Conn_01x08_Female" 0 -500 50 H V C CNN
+F1 "Connector_Conn_01x08_Female" 0 -500 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -71,11 +71,11 @@ X Pin_8 8 -200 -400 150 R 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Connector_Generic:Conn_01x05
+# Connector_Generic_Conn_01x05
 #
-DEF Connector_Generic:Conn_01x05 J 0 40 Y N 1 F N
+DEF Connector_Generic_Conn_01x05 J 0 40 Y N 1 F N
 F0 "J" 0 300 50 H V C CNN
-F1 "Connector_Generic:Conn_01x05" 0 -300 50 H V C CNN
+F1 "Connector_Generic_Conn_01x05" 0 -300 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -96,11 +96,11 @@ X Pin_5 5 -200 -200 150 R 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Device:C
+# Device_C
 #
-DEF Device:C C 0 10 N Y 1 F N
+DEF Device_C C 0 10 N Y 1 F N
 F0 "C" 25 100 50 H V L CNN
-F1 "Device:C" 25 -100 50 H V L CNN
+F1 "Device_C" 25 -100 50 H V L CNN
 F2 "" 38 -150 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -114,11 +114,11 @@ X ~ 2 0 -150 110 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Device:R
+# Device_R
 #
-DEF Device:R R 0 0 N Y 1 F N
+DEF Device_R R 0 0 N Y 1 F N
 F0 "R" 80 0 50 V V C CNN
-F1 "Device:R" 0 0 50 V V C CNN
+F1 "Device_R" 0 0 50 V V C CNN
 F2 "" -70 0 50 V I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -131,11 +131,11 @@ X ~ 2 0 -150 50 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Regulator_Linear:AMS1117-3.3
+# Regulator_Linear_AMS1117-3.3
 #
-DEF Regulator_Linear:AMS1117-3.3 U 0 10 Y Y 1 F N
+DEF Regulator_Linear_AMS1117-3.3 U 0 10 Y Y 1 F N
 F0 "U" -150 125 50 H V C CNN
-F1 "Regulator_Linear:AMS1117-3.3" 0 125 50 H V L CNN
+F1 "Regulator_Linear_AMS1117-3.3" 0 125 50 H V L CNN
 F2 "Package_TO_SOT_SMD:SOT-223-3_TabPin2" 0 200 50 H I C CNN
 F3 "" 100 -250 50 H I C CNN
 ALIAS AP1117-18 AP1117-25 AP1117-33 AP1117-50 LD1117S33TR_SOT223 LD1117S12TR_SOT223 LD1117S18TR_SOT223 LD1117S25TR_SOT223 LD1117S50TR_SOT223 NCP1117-12_SOT223 NCP1117-1.5_SOT223 NCP1117-1.8_SOT223 NCP1117-2.0_SOT223 NCP1117-2.5_SOT223 NCP1117-2.85_SOT223 NCP1117-3.3_SOT223 NCP1117-5.0_SOT223 AMS1117-1.5 AMS1117-1.8 AMS1117-2.5 AMS1117-2.85 AMS1117-3.3 AMS1117-5.0
@@ -150,11 +150,11 @@ X VI 3 -300 0 100 R 50 50 1 1 W
 ENDDRAW
 ENDDEF
 #
-# deets:AI-1027-TWT
+# deets_AI-1027-TWT
 #
-DEF deets:AI-1027-TWT U 0 40 Y Y 1 F N
+DEF deets_AI-1027-TWT U 0 40 Y Y 1 F N
 F0 "U" 0 -200 50 H V C CNN
-F1 "deets:AI-1027-TWT" 0 200 50 H V C CNN
+F1 "deets_AI-1027-TWT" 0 200 50 H V C CNN
 F2 "deets:AI-1027-TWT-3V-R" 350 0 50 H I C CNN
 F3 "" 350 0 50 H I C CNN
 DRAW
@@ -164,11 +164,11 @@ X BUZZ+ 2 250 100 100 L 50 50 1 1 I
 ENDDRAW
 ENDDEF
 #
-# deets:ESP32-WROVER-I
+# deets_ESP32-WROVER-I
 #
-DEF deets:ESP32-WROVER-I A 0 40 Y Y 1 L N
+DEF deets_ESP32-WROVER-I A 0 40 Y Y 1 L N
 F0 "A" -501 1203 50 H V L BNN
-F1 "deets:ESP32-WROVER-I" -501 -1304 50 H V L BNN
+F1 "deets_ESP32-WROVER-I" -501 -1304 50 H V L BNN
 F2 "XCVR_ESP32-WROVER-I" 0 0 50 H I L BNN
 F3 "Module: combo; GPIO, I2C x2, I2S x2, SDIO, SPI x3, UART x3; U.FL" 0 0 50 H I L BNN
 F4 "Espressif Systems" 0 0 50 H I L BNN
@@ -220,11 +220,11 @@ X IO33 9 600 -500 100 L 40 40 0 0 B
 ENDDRAW
 ENDDEF
 #
-# deets:RX5808
+# deets_RX5808
 #
-DEF deets:RX5808 U 0 40 Y Y 1 F N
+DEF deets_RX5808 U 0 40 Y Y 1 F N
 F0 "U" 0 0 50 H V C CNN
-F1 "deets:RX5808" 0 50 50 H V C CNN
+F1 "deets_RX5808" 0 50 50 H V C CNN
 F2 "vtx-scanner:RX5808" -100 -100 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -244,11 +244,11 @@ X RSSI 9 500 100 100 L 50 50 1 1 O
 ENDDRAW
 ENDDEF
 #
-# deets:SMA-J-P-H-RA-TH1
+# deets_SMA-J-P-H-RA-TH1
 #
-DEF deets:SMA-J-P-H-RA-TH1 J 0 40 Y N 1 L N
+DEF deets_SMA-J-P-H-RA-TH1 J 0 40 Y N 1 L N
 F0 "J" -210 241 50 H V L BNN
-F1 "deets:SMA-J-P-H-RA-TH1" -210 -291 50 H V L BNN
+F1 "deets_SMA-J-P-H-RA-TH1" -210 -291 50 H V L BNN
 F2 "deets:SAMTEC_SMA-J-P-H-RA-TH1" 0 0 50 H I L BNN
 F3 "SMA-J-P-H-RA-TH1" 0 0 50 H I L BNN
 F4 "None" 0 0 50 H I L BNN
@@ -289,11 +289,11 @@ X GND 5 400 -100 200 L 40 40 0 0 W
 ENDDRAW
 ENDDEF
 #
-# deets:XT60-M
+# deets_XT60-M
 #
-DEF deets:XT60-M J 0 40 Y Y 1 L N
+DEF deets_XT60-M J 0 40 Y Y 1 L N
 F0 "J" -100 225 50 H V L BNN
-F1 "deets:XT60-M" -110 -250 50 H V L BNN
+F1 "deets_XT60-M" -110 -250 50 H V L BNN
 F2 "AMASS_XT60-M" 0 0 50 H I L BNN
 F3 "AMASS" 0 0 50 H I L BNN
 F4 "None" 0 0 50 H I L BNN
@@ -310,11 +310,11 @@ X + 2 -300 -100 200 R 40 40 0 0 P
 ENDDRAW
 ENDDEF
 #
-# deets:oskj-dc-dc
+# deets_oskj-dc-dc
 #
-DEF deets:oskj-dc-dc U 0 40 Y Y 1 F N
+DEF deets_oskj-dc-dc U 0 40 Y Y 1 F N
 F0 "U" 0 0 50 H V C CNN
-F1 "deets:oskj-dc-dc" 0 -250 50 H V C CNN
+F1 "deets_oskj-dc-dc" 0 -250 50 H V C CNN
 F2 "new-joy:oskj-dc-dc" -100 -100 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -326,11 +326,38 @@ X EN 4 -550 -150 100 R 50 50 1 1 I
 ENDDRAW
 ENDDEF
 #
-# dk_Tactile-Switches:FSM4JSMATR
+# dk_Barrel-Audio-Connectors_SJ-3523-SMT-TR
 #
-DEF dk_Tactile-Switches:FSM4JSMATR S 0 40 Y Y 1 F N
+DEF dk_Barrel-Audio-Connectors_SJ-3523-SMT-TR CON 0 0 N Y 1 F N
+F0 "CON" -300 250 60 H V L CNN
+F1 "dk_Barrel-Audio-Connectors_SJ-3523-SMT-TR" -50 -250 60 H V C CNN
+F2 "digikey-footprints:Switch_Slide_11.6x4mm_SJ-3523-SMT" 200 200 60 H I L CNN
+F3 "https://www.cui.com/product/resource/digikeypdf/sj-352x-smt_series.pdf" 200 300 60 H I L CNN
+F4 "CP-3523SJCT-ND" 200 400 60 H I L CNN "Digi-Key_PN"
+F5 "SJ-3523-SMT-TR" 200 500 60 H I L CNN "MPN"
+F6 "Connectors, Interconnects" 200 600 60 H I L CNN "Category"
+F7 "Barrel - Audio Connectors" 200 700 60 H I L CNN "Family"
+F8 "https://www.cui.com/product/resource/digikeypdf/sj-352x-smt_series.pdf" 200 800 60 H I L CNN "DK_Datasheet_Link"
+F9 "/product-detail/en/cui-inc/SJ-3523-SMT-TR/CP-3523SJCT-ND/669704" 200 900 60 H I L CNN "DK_Detail_Page"
+F10 "CONN JACK STEREO 3.5MM SMD R/A" 200 1000 60 H I L CNN "Description"
+F11 "CUI Inc." 200 1100 60 H I L CNN "Manufacturer"
+F12 "Active" 200 1200 60 H I L CNN "Status"
+DRAW
+S 200 200 -300 -200 0 1 0 f
+P 4 0 1 0 200 0 100 0 50 -50 0 0 N
+P 4 0 1 0 200 100 0 100 -50 50 -100 100 N
+P 6 0 1 0 200 -100 -150 -100 -150 100 -200 100 -200 -50 -150 -50 N
+X S 1 400 -100 200 L 50 50 1 1 P
+X T 2 400 0 200 L 50 50 1 1 P
+X R 3 400 100 200 L 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# dk_Tactile-Switches_FSM4JSMATR
+#
+DEF dk_Tactile-Switches_FSM4JSMATR S 0 40 Y Y 1 F N
 F0 "S" 0 200 60 H V C CNN
-F1 "dk_Tactile-Switches:FSM4JSMATR" 0 -200 60 H V C CNN
+F1 "dk_Tactile-Switches_FSM4JSMATR" 0 -200 60 H V C CNN
 F2 "digikey-footprints:Switch_Tactile_SMD_6x6mm" 200 200 60 H I L CNN
 F3 "http://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&DocNm=2-1437565-7&DocType=Customer+Drawing&DocLang=English" 200 300 60 H I L CNN
 F4 "450-1759-1-ND" 200 400 60 H I L CNN "Digi-Key_PN"
@@ -359,11 +386,11 @@ X ~ 4 200 -100 100 L 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# dk_Transistors-Bipolar-BJT-Single:MMSS8050-H-TP
+# dk_Transistors-Bipolar-BJT-Single_MMSS8050-H-TP
 #
-DEF dk_Transistors-Bipolar-BJT-Single:MMSS8050-H-TP Q 0 0 Y Y 1 F N
+DEF dk_Transistors-Bipolar-BJT-Single_MMSS8050-H-TP Q 0 0 Y Y 1 F N
 F0 "Q" -126 166 60 H V L CNN
-F1 "dk_Transistors-Bipolar-BJT-Single:MMSS8050-H-TP" 206 0 60 V V C CNN
+F1 "dk_Transistors-Bipolar-BJT-Single_MMSS8050-H-TP" 206 0 60 V V C CNN
 F2 "digikey-footprints:SOT-23-3" 200 200 60 H I L CNN
 F3 "http://www.mccsemi.com/up_pdf/MMSS8050(SOT-23).pdf" 200 300 60 H I L CNN
 F4 "MMSS8050-H-TPMSCT-ND" 200 400 60 H I L CNN "Digi-Key_PN"
@@ -389,11 +416,11 @@ X C 3 100 200 100 D 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# power:+3.3V
+# power_+3.3V
 #
-DEF power:+3.3V #PWR 0 0 Y Y 1 F P
+DEF power_+3.3V #PWR 0 0 Y Y 1 F P
 F0 "#PWR" 0 -150 50 H I C CNN
-F1 "power:+3.3V" 0 140 50 H V C CNN
+F1 "power_+3.3V" 0 140 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 ALIAS +3.3V
@@ -405,11 +432,11 @@ X +3V3 1 0 0 0 U 50 50 1 1 W N
 ENDDRAW
 ENDDEF
 #
-# power:+5V
+# power_+5V
 #
-DEF power:+5V #PWR 0 0 Y Y 1 F P
+DEF power_+5V #PWR 0 0 Y Y 1 F P
 F0 "#PWR" 0 -150 50 H I C CNN
-F1 "power:+5V" 0 140 50 H V C CNN
+F1 "power_+5V" 0 140 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -420,11 +447,11 @@ X +5V 1 0 0 0 U 50 50 1 1 W N
 ENDDRAW
 ENDDEF
 #
-# power:+BATT
+# power_+BATT
 #
-DEF power:+BATT #PWR 0 0 Y Y 1 F P
+DEF power_+BATT #PWR 0 0 Y Y 1 F P
 F0 "#PWR" 0 -150 50 H I C CNN
-F1 "power:+BATT" 0 140 50 H V C CNN
+F1 "power_+BATT" 0 140 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -435,11 +462,11 @@ X +BATT 1 0 0 0 U 50 50 1 1 W N
 ENDDRAW
 ENDDEF
 #
-# power:-BATT
+# power_-BATT
 #
-DEF power:-BATT #PWR 0 0 Y Y 1 F P
+DEF power_-BATT #PWR 0 0 Y Y 1 F P
 F0 "#PWR" 0 -150 50 H I C CNN
-F1 "power:-BATT" 0 140 50 H V C CNN
+F1 "power_-BATT" 0 140 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -449,11 +476,11 @@ X -BATT 1 0 0 0 U 50 50 1 1 W N
 ENDDRAW
 ENDDEF
 #
-# power:GND
+# power_GND
 #
-DEF power:GND #PWR 0 0 Y Y 1 F P
+DEF power_GND #PWR 0 0 Y Y 1 F P
 F0 "#PWR" 0 -250 50 H I C CNN
-F1 "power:GND" 0 -150 50 H V C CNN
+F1 "power_GND" 0 -150 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -462,11 +489,11 @@ X GND 1 0 0 0 D 50 50 1 1 W N
 ENDDRAW
 ENDDEF
 #
-# power:GNDA
+# power_GNDA
 #
-DEF power:GNDA #PWR 0 0 Y Y 1 F P
+DEF power_GNDA #PWR 0 0 Y Y 1 F P
 F0 "#PWR" 0 -250 50 H I C CNN
-F1 "power:GNDA" 0 -150 50 H V C CNN
+F1 "power_GNDA" 0 -150 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -475,11 +502,11 @@ X GNDA 1 0 0 0 D 50 50 1 1 W N
 ENDDRAW
 ENDDEF
 #
-# power:PWR_FLAG
+# power_PWR_FLAG
 #
-DEF power:PWR_FLAG #FLG 0 0 N N 1 F P
+DEF power_PWR_FLAG #FLG 0 0 N N 1 F P
 F0 "#FLG" 0 75 50 H I C CNN
-F1 "power:PWR_FLAG" 0 150 50 H V C CNN
+F1 "power_PWR_FLAG" 0 150 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
