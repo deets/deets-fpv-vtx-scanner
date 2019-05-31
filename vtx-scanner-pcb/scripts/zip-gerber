@@ -1,0 +1,18 @@
+#!/usr/bin/python3
+# -*- mode: python -*-
+import zipfile
+from itertools import chain
+import pathlib
+
+BASE = pathlib.Path(__file__).parent.parent
+
+def main():
+    gerbers = BASE.glob("*.gbr")
+    drills = BASE.glob("*.drl")
+    with (BASE / "vtx-scanner-gerber-files.zip").open("wb") as outf:
+        with zipfile.ZipFile(outf, "w") as zf:
+            for f in chain(gerbers, drills):
+                zf.write(str(f), f.name)
+
+if __name__ == '__main__':
+    main()
