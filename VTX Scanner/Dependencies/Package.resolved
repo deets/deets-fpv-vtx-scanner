@@ -3,11 +3,11 @@
     "pins": [
       {
         "package": "BinUtils",
-        "repositoryURL": "https://github.com/nst/BinUtils.git",
+        "repositoryURL": "https://github.com/deets/BinUtils.git",
         "state": {
           "branch": null,
-          "revision": "512d3801fedd91feb8593fc13938bacb6fb7317e",
-          "version": "0.1.0"
+          "revision": "c2c8e9777bc47d1d86e6b60fec79855e5b67c056",
+          "version": null
         }
       },
       {
@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/Quick/Nimble.git",
         "state": {
           "branch": null,
-          "revision": "e9d769113660769a4d9dd3afb855562c0b7ae7b0",
-          "version": "7.3.4"
+          "revision": "43304bf2b1579fd555f2fdd51742771c1e4f2b98",
+          "version": "8.0.1"
         }
       },
       {
@@ -24,8 +24,17 @@
         "repositoryURL": "https://github.com/Quick/Quick.git",
         "state": {
           "branch": null,
-          "revision": "f2b5a06440ea87eba1a167cab37bf6496646c52e",
-          "version": "1.3.4"
+          "revision": "0b4ed6c706dd0cce923b5019a605a9bcc6b1b600",
+          "version": "2.0.0"
+        }
+      },
+      {
+        "package": "ReactiveCocoa",
+        "repositoryURL": "https://github.com/deets/ReactiveCocoa.git",
+        "state": {
+          "branch": null,
+          "revision": "e6b0d920a80ffe6c4d69cfbadc8fa145377be0d3",
+          "version": null
         }
       },
       {
@@ -33,8 +42,8 @@
         "repositoryURL": "https://github.com/ReactiveCocoa/ReactiveSwift.git",
         "state": {
           "branch": null,
-          "revision": "46fb4d4a8285286e54929add1d12f384675895c6",
-          "version": "3.1.0"
+          "revision": "e285cea17cca8e23928d1e85a235638184e39ac9",
+          "version": "5.0.0"
         }
       },
       {
@@ -42,8 +51,8 @@
         "repositoryURL": "https://github.com/antitypical/Result.git",
         "state": {
           "branch": null,
-          "revision": "7477584259bfce2560a19e06ad9f71db441fff11",
-          "version": "3.2.4"
+          "revision": "2ca499ba456795616fbc471561ff1d963e6ae160",
+          "version": "4.1.0"
         }
       },
       {
