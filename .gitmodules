@@ -1,3 +1,6 @@
 [submodule "vtx-scanner-pcb/modules/kicad-lib"]
 	path = vtx-scanner-pcb/modules/kicad-lib
 	url = git@github.com:deets/kicad-lib.git
+[submodule "components/esp32deets"]
+	path = components/esp32deets
+	url = git@github.com:deets/esp32deets.git
