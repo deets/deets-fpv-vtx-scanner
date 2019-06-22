@@ -21,6 +21,10 @@ if [ -z ${ESPPORT} ]; then
     done
 fi
 
+if [ -z ${ESPBAUD} ]; then
+    ESPBAUD=460800
+fi
+
 
 if [ `uname` == 'Darwin' ]; then
     CORES=4
@@ -31,3 +35,4 @@ fi
 export PATH
 export IDF_PATH
 export ESPPORT
+export ESPBAUD
