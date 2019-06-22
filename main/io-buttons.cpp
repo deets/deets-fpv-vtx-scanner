@@ -9,10 +9,10 @@
 #include <unordered_map>
 #include <stdint.h>
 
-#define GPIO_DOWN GPIO_NUM_21
-#define GPIO_UP GPIO_NUM_15
-#define GPIO_LEFT GPIO_NUM_17
-#define GPIO_RIGHT GPIO_NUM_4
+#define GPIO_UP GPIO_NUM_33
+#define GPIO_LEFT GPIO_NUM_32
+#define GPIO_RIGHT GPIO_NUM_27
+#define GPIO_DOWN GPIO_NUM_26
 
 namespace
 {
