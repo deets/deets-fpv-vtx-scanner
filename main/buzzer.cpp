@@ -1,10 +1,11 @@
 #include "buzzer.hh"
 
-#include <driver/gpio.h>
 #include <esp_timer.h>
 
 
 namespace {
+
+gpio_num_t s_pin;
 
 esp_timer_handle_t buzzer_timer_handle = NULL;
 
@@ -14,12 +15,12 @@ void buzzer_timer_task(void*)
 {
   if(!buzzer_repetitions)
   {
-    gpio_set_level(GPIO_NUM_25, 0);
+    gpio_set_level(s_pin, 0);
     esp_timer_stop(buzzer_timer_handle);
   }
   else
   {
-    gpio_set_level(GPIO_NUM_25, (buzzer_repetitions % 2) == 0);
+    gpio_set_level(s_pin, (buzzer_repetitions % 2) == 0);
     --buzzer_repetitions;
   }
 }
@@ -27,10 +28,11 @@ void buzzer_timer_task(void*)
 
 } // end ns anonymous
 
-void buzzer_setup()
+void buzzer_setup(gpio_num_t pin)
 {
+  s_pin = pin;
   gpio_config_t io_conf = {
-    .pin_bit_mask = 1ULL << GPIO_NUM_25,
+    .pin_bit_mask = 1ULL << s_pin,
     .mode = GPIO_MODE_OUTPUT,
     .pull_up_en=GPIO_PULLUP_DISABLE,
     .pull_down_en=GPIO_PULLDOWN_DISABLE,
@@ -56,7 +58,7 @@ void buzzer_setup()
 void buzzer_buzz(int ms, int repetitions)
 {
   esp_timer_stop(buzzer_timer_handle);
-  gpio_set_level(GPIO_NUM_25, 1);
+  gpio_set_level(s_pin, 1);
   buzzer_repetitions = repetitions * 2 - 1;
   esp_timer_start_periodic(buzzer_timer_handle, ms * 1000);
 }
