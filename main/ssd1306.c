@@ -104,7 +104,8 @@ void ssd1306_draw_pixel(ssd1306_display_t *display, int x, int y)
 int ssd1306_init_static(
   ssd1306_display_t *display,
   int cs, int clk, int mosi, int miso,
-  int dc, int rst
+  int dc, int rst,
+  int spi_speed
   )
 {
     esp_err_t ret;
@@ -128,7 +129,7 @@ int ssd1306_init_static(
         .max_transfer_sz=display->frame_byte_size,
     };
     spi_device_interface_config_t devcfg={
-        .clock_speed_hz=2*1000*1000,           //Clock out at 2 MHz
+        .clock_speed_hz=spi_speed,           //Clock out at 2 MHz
         .mode=0,                                //SPI mode 0
         .spics_io_num=cs,               //CS pin
         .queue_size=7,                          //We want to be able to queue 7 transactions at a time

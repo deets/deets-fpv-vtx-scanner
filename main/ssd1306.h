@@ -26,7 +26,7 @@ typedef struct {
 int ssd1306_init_static(
   ssd1306_display_t *ssd1306_display,
   int cs, int clk, int mosi, int miso,
-  int dc, int rst
+  int dc, int rst, int spi_speed
   );
 
 void ssd1306_update(ssd1306_display_t* display);
