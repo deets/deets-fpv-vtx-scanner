@@ -487,7 +487,7 @@ Text Label 5000 4000 2    50   ~ 0
 SSD1306_CLK
 Text Label 5000 4200 2    50   ~ 0
 SSD1306_CS
-Text Label 5000 3800 2    50   ~ 0
+Text Label 5000 4400 2    50   ~ 0
 SSD1306_DC
 Text Label 5000 3900 2    50   ~ 0
 SSD1306_RST
@@ -757,7 +757,6 @@ BUTTON_DOWN
 NoConn ~ 6200 4700
 Text Label 5000 4100 2    50   ~ 0
 BUZZER
-NoConn ~ 5000 4400
 $Comp
 L dk_Transistors-Bipolar-BJT-Single:MMSS8050-H-TP Q2
 U 1 1 5C8D54F9
@@ -1064,7 +1063,7 @@ L dk_Barrel-Audio-Connectors:SJ-3523-SMT-TR CON1
 U 1 1 5CBA07DB
 P 3600 3700
 F 0 "CON1" H 3272 3647 60  0000 R CNN
-F 1 "SJ-3523-SMT-TR" H 3272 3753 60  0000 R CNN
+F 1 "SJ-3523-SMT-TR" H 3950 3350 60  0000 R CNN
 F 2 "deets:Switch_Slide_11.6x4mm_SJ-3523-SMT" H 3800 3900 60  0001 L CNN
 F 3 "https://www.cui.com/product/resource/digikeypdf/sj-352x-smt_series.pdf" H 3800 4000 60  0001 L CNN
 F 4 "CP-3523SJCT-ND" H 3800 4100 60  0001 L CNN "Digi-Key_PN"
@@ -1173,4 +1172,7 @@ Wire Wire Line
 	5400 1200 5850 1200
 Text Label 5850 1200 2    50   ~ 0
 IO0
+NoConn ~ 5000 3800
+Text Notes 4950 3800 2    50   ~ 0
+strapping pin\n
 $EndSCHEMATC
