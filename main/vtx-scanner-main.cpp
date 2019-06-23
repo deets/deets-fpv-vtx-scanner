@@ -21,22 +21,21 @@
 #include <memory>
 
 
-#define PIN_NUM_MISO 25
-#define PIN_NUM_MOSI 23
-#define PIN_NUM_CLK  19
-#define PIN_NUM_CS   22
-#define PIN_NUM_DC   16 // TODO: needs to become 15 for WROVER-2 module!
-#define PIN_NUM_RST  18
-
-#define RTC_CS 14
-#define RTC_CLK 13
-#define RTC_MOSI 12
+// RX5808
 #define RTC_ADC_CHANNEL ADC1_CHANNEL_6 // GPIO 34
+#define RTC_CS 14
+#define RTC_MOSI 13
+#define RTC_CLK 12
 
-#define STAR_SPEED 50
-#define STAR_FACTOR 1024
-#define STAR_DISTANCE 8192
-#define STAR_COUNT 300
+// DISPLAY
+#define DISPLAY_DC   25
+#define DISPLAY_RST  18
+#define DISPLAY_CLK  19
+#define DISPLAY_CS   22
+#define DISPLAY_MOSI 23
+#define DISPLAY_SPEED (2 * 1000*1000)
+
+#define BUZZER_PIN GPIO_NUM_21
 
 #define DISPLAY_TASK_STACK_SIZE 8192
 
@@ -72,12 +71,12 @@ void display_task(void*)
   ssd1306_display_t display;
   ssd1306_init_static(
     &display,
-    PIN_NUM_CS,
-    PIN_NUM_CLK,
-    PIN_NUM_MOSI,
-    PIN_NUM_MISO,
-    PIN_NUM_DC,
-    PIN_NUM_RST
+    DISPLAY_CS,
+    DISPLAY_CLK,
+    DISPLAY_MOSI,
+    DISPLAY_DC,
+    DISPLAY_RST,
+    DISPLAY_SPEED
     );
 
   rtc6715_t rtc;
@@ -89,7 +88,7 @@ void display_task(void*)
     RTC_MOSI
     );
 
-  buzzer_setup();
+  buzzer_setup(BUZZER_PIN);
   buzzer_buzz(100, 3);
 
   Storage storage(app_state);
@@ -128,18 +127,22 @@ void display_task(void*)
     uint32_t status_bits = wait_for_notification();
     if(status_bits & RIGHT_PIN_ISR_FLAG)
     {
+      ESP_LOGI("main", "BUTTON_RIGHT");
       modes.input(input_t::RIGHT_BUTTON);
     }
     if(status_bits & LEFT_PIN_ISR_FLAG)
     {
+      ESP_LOGI("main", "BUTTON_LEFT");
       modes.input(input_t::LEFT_BUTTON);
     }
     if(status_bits & UP_PIN_ISR_FLAG)
     {
+      ESP_LOGI("main", "BUTTON_UP");
       modes.input(input_t::MODE_BUTTON);
     }
     if(status_bits & DOWN_PIN_ISR_FLAG)
     {
+      ESP_LOGI("main", "BUTTON_DOWN");
       modes.input(input_t::SETTINGS_BUTTON);
     }
     if(status_bits & READER_TASK_WAKEUP_FLAG)
