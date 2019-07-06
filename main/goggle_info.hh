@@ -1,6 +1,6 @@
 // Copyright: 2018, Diez B. Roggisch, Berlin, all rights reserved
 #pragma once
-#include "ssd1306.h"
+#include "display.hh"
 
 typedef struct {
   const char* name;
@@ -9,4 +9,4 @@ typedef struct {
 
 extern goggle_info_t aomway_commander_v1_info;
 
-void goggle_display_draw(ssd1306_display_t *display, goggle_info_t* goggle, int cursor_pos);
+void goggle_display_draw(Display& display, goggle_info_t* goggle, int cursor_pos);

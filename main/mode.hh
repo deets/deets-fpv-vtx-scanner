@@ -2,7 +2,7 @@
 #pragma once
 
 #include "appstate.hh"
-#include "ssd1306.h"
+#include "display.hh"
 
 #include <freertos/task.h>
 
@@ -31,7 +31,7 @@ class Mode
 public:
   Mode(app_state_t&);
   virtual void setup()=0;
-  virtual app_mode_t update(ssd1306_display_t*)=0;
+  virtual app_mode_t update(Display&)=0;
   virtual void teardown()=0;
   virtual void input(input_t) {};
 
@@ -40,6 +40,7 @@ public:
   // pdMS_TO_TICKS(1000 / <FREQUENCY>)
   void periodic(TickType_t);
   int total_elapsed_ms() const;
+  int now() const;
 
 protected:
 
@@ -78,7 +79,7 @@ public:
   void change_active_mode(app_mode_t);
 
   void input(input_t);
-  void update(ssd1306_display_t* display);
+  void update(Display& display);
 
 private:
   app_state_t& _app_state;

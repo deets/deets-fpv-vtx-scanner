@@ -61,6 +61,12 @@ int Mode::total_elapsed_ms() const
 }
 
 
+int Mode::now() const
+{
+  return xTaskGetTickCount() * 1000 / configTICK_RATE_HZ;
+}
+
+
 void Mode::notifyMainTask(uint32_t flags)
 {
   xTaskNotify(
@@ -163,7 +169,7 @@ void ModeManager::input(input_t inp)
 }
 
 
-void ModeManager::update(ssd1306_display_t* display)
+void ModeManager::update(Display& display)
 {
   change_active_mode(active().update(display));
 }

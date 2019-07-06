@@ -23,7 +23,7 @@ public:
 
   LapTimer(app_state_t&, rtc6715_t&);
   void setup() override;
-  app_mode_t update(ssd1306_display_t*) override;
+  app_mode_t update(Display&) override;
   void teardown() override;
 
 private:

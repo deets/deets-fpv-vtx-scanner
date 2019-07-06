@@ -1,29 +1,33 @@
 #include "laptimer.hh"
-#include "font.h"
-#include "pc_senior.h"
-#include "ssd1306_consts.h"
-#include "sprite.h"
 #include "buzzer.hh"
 
 #include <esp_log.h>
 #include <sys/param.h>
 #include <string.h>
 
-#define FONT &pc_senior
-
 #define DISPLAY_SPLIT 32
+#define LINE_LENGTH 12
 
 namespace {
 
-uint32_t dot_image[] = {
-  0x0007,
-  0x0007,
-  0x0007,
-};
+#define FONT  u8g2_font_helvB08_tf
+
+#include "dot.xbm"
 
 sprite_t dot = {
-  3, 1, 1, 0, 0, (uint32_t*)&dot_image, (uint32_t*)&dot_image
+  dot_bits,
+  dot_width, dot_height,
+  dot_width >> 1, dot_height >> 1
 };
+
+#include "cursor.xbm"
+
+sprite_t cursor = {
+  cursor_bits,
+  cursor_width, cursor_height,
+  1, -2
+};
+
 
 } // end ns anonymous
 
@@ -57,8 +61,9 @@ void LapTimer::setup()
   vTaskResume(_laptimer_task_handle);
 }
 
-app_mode_t LapTimer::update(ssd1306_display_t* display)
+app_mode_t LapTimer::update(Display& display)
 {
+  static int _dotpos = 10;
   int max = MAX(_app_state.max_rssi_reading, _app_state.trigger_arm_threshold);
   int min = _app_state.min_rssi_reading;
   int divider = max - min;
@@ -68,40 +73,42 @@ app_mode_t LapTimer::update(ssd1306_display_t* display)
     return LAPTIMER;
   }
 
-  for(int i=0; i < 128; ++i)
+  const auto dw = display.width();
+
+  for(int i=0; i < dw; ++i)
   {
-    ssd1306_draw_pixel(display, i, DISPLAY_SPLIT - (DISPLAY_SPLIT * (_rssi_readings[i] - min) / divider));
+    display.draw_pixel(i, DISPLAY_SPLIT - (DISPLAY_SPLIT * (_rssi_readings[i] - min) / divider));
   }
   int trigger_arm_pos = DISPLAY_SPLIT - (DISPLAY_SPLIT * (_app_state.trigger_arm_threshold - min) / divider);
   int trigger_disarm_pos = DISPLAY_SPLIT - (DISPLAY_SPLIT * (_app_state.trigger_disarm_threshold - min) / divider);
 
-  ssd1306_draw_horizontal_line(
-    display,
-    0, 12,
-    trigger_arm_pos
-    );
-  ssd1306_draw_horizontal_line(
-    display,
-    SSD1306_LCDWIDTH - 12, SSD1306_LCDWIDTH - 1,
-    trigger_disarm_pos
-    );
-  ssd1306_draw_horizontal_line(
-    display,
-    0, 127,
+  display.hline(
+     0, LINE_LENGTH,
+     trigger_arm_pos
+   );
+  display.hline(
+    0, dw - 1,
     DISPLAY_SPLIT + 1
-    );
+   );
+  display.hline(
+    dw - LINE_LENGTH, dw - 1,
+    trigger_disarm_pos
+   );
 
   switch(_state)
   {
   case DISARMED:
-    ssd1306_blit(display, &dot, 12, trigger_arm_pos);
+    display.blit(dot, LINE_LENGTH, trigger_arm_pos);
     break;
   case TRIGGERED:
-    ssd1306_blit(display, &dot, SSD1306_LCDWIDTH - 12, trigger_disarm_pos);
+    display.blit(dot, dw - LINE_LENGTH, trigger_disarm_pos);
     break;
   default:
     break;
   }
+
+  _dotpos = (_dotpos + 1) % 120;
+  display.blit(cursor, _dotpos, 20);
 
   if(_laptime_acquired)
   {
@@ -111,13 +118,12 @@ app_mode_t LapTimer::update(ssd1306_display_t* display)
   }
   char buffer[256];
   sprintf(buffer, "%i", (int)(_last_laptime / 1000));
-  font_render(
-    display,
+  display.font_render(
     FONT,
     buffer,
     24,
     64 - 8 - 8
-    );
+   );
   return LAPTIMER;
 }
 

@@ -1,6 +1,6 @@
 // Copyright: 2018, Diez B. Roggisch, Berlin, all rights reserved
 #pragma once
-#include "ssd1306.h"
+#include "display.hh"
 
 #ifdef __cplusplus
 extern "C" {
@@ -20,7 +20,7 @@ typedef struct {
 
 extern vtx_info_t tbs_unify_info;
 
-void vtx_display_draw(ssd1306_display_t *display, vtx_info_t* vtx, int cursor_pos);
+void vtx_display_draw(Display& display, vtx_info_t* vtx, int cursor_pos);
 
 #ifdef __cplusplus
 }

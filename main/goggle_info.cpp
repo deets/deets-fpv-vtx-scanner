@@ -1,10 +1,10 @@
 // Copyright: 2018, Diez B. Roggisch, Berlin, all rights reserved
 #include "goggle_info.hh"
 #include "channel_display.hh"
-#include "font.h"
-#include "p2font.h"
 
-#include <string.h>
+#include <sstream>
+
+#define FONT  u8g2_font_helvB08_tf
 
 goggle_info_t aomway_commander_v1_info = {
   .name = "AOC1",
@@ -17,13 +17,14 @@ goggle_info_t aomway_commander_v1_info = {
 };
 
 
-void goggle_display_draw(ssd1306_display_t *display, goggle_info_t* goggle, int cursor_pos)
+void goggle_display_draw(Display& display, goggle_info_t* goggle, int cursor_pos)
 {
-  int y = CHANNELS_BOTTOM + 5;
+  int y = display.height();
   int x = 127 - CHANNEL_LEFT;
   const char* channel_name = goggle->channel_names[cursor_pos];
-  x -= p2font.width * (strlen(goggle->name) + 1 + strlen(channel_name));
-  x = font_render(display, &p2font, goggle->name, x, y);
-  x = font_render(display, &p2font, ":", x, y);
-  x = font_render(display, &p2font, channel_name, x, y);
+  std::stringbuf buf;
+  std::ostream os (&buf);
+  os << goggle->name << ":" << channel_name;
+  x -= display.font_text_width(FONT, buf.str().c_str());
+  display.font_render(FONT, buf.str().c_str(), x, y);
 }

@@ -1,5 +1,5 @@
 #include "appstate.hh"
-#include "ssd1306.h"
+#include "display.hh"
 #include "ble.hh"
 #include "splash-screen.hh"
 #include "scanner.hh"
@@ -26,14 +26,6 @@
 #define RTC_CS 14
 #define RTC_MOSI 13
 #define RTC_CLK 12
-
-// DISPLAY
-#define DISPLAY_DC   25
-#define DISPLAY_RST  18
-#define DISPLAY_CLK  19
-#define DISPLAY_CS   22
-#define DISPLAY_MOSI 23
-#define DISPLAY_SPEED (2 * 1000*1000)
 
 #define BUZZER_PIN GPIO_NUM_21
 
@@ -68,16 +60,7 @@ void display_task(void*)
 {
   iobuttons_setup(xTaskGetCurrentTaskHandle());
 
-  ssd1306_display_t display;
-  ssd1306_init_static(
-    &display,
-    DISPLAY_CS,
-    DISPLAY_CLK,
-    DISPLAY_MOSI,
-    DISPLAY_DC,
-    DISPLAY_RST,
-    DISPLAY_SPEED
-    );
+  Display display;
 
   rtc6715_t rtc;
   rtc6715_setup(
@@ -164,9 +147,9 @@ void display_task(void*)
       ble_update(NOTIFY_MAX_RSSI);
     }
 
-    ssd1306_clear(&display);
-    modes.update(&display);
-    ssd1306_update(&display);
+    display.clear();
+    modes.update(display);
+    display.update();
     storage.store();
   }
 }

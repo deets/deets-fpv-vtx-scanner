@@ -2,50 +2,17 @@
 #include "channel_display.hh"
 #include "common.h"
 
-static uint32_t cursor_image[] = {
-  0b010,
-  0b111,
+namespace {
+
+#include "cursor.xbm"
+
+sprite_t cursor = {
+  cursor_bits,
+  cursor_width, cursor_height,
+  1, -2
 };
 
-static sprite_t cursor = {
-  .height=2,
-  .hotspot_x=1,
-  .hotspot_y=-2,
-  .image_modulo=0,
-  .mask_modulo=0,
-  .image=cursor_image,
-  .mask=cursor_image
-};
-
-static uint32_t filled_row_image[] = {
-  0b111,
-};
-
-static uint32_t hollow_row_image[] = {
-  0b101,
-};
-
-static sprite_t filled_row = {
-  .height=1,
-  .hotspot_x=1,
-  .hotspot_y=0,
-  .image_modulo=-1,
-  .mask_modulo=-1,
-  .image=filled_row_image,
-  .mask=filled_row_image
-};
-
-
-static sprite_t hollow_row = {
-  .height=1,
-  .hotspot_x=1,
-  .hotspot_y=0,
-  .image_modulo=-1,
-  .mask_modulo=-1,
-  .image=hollow_row_image,
-  .mask=filled_row_image
-};
-
+} // end ns anon
 
 void channel_display_init(channel_display_t* channel_display, app_state_t* app_state)
 {
@@ -78,8 +45,11 @@ void channel_display_update_channel(int channel, int value, channel_display_t* c
 }
 
 
-void channel_display_draw(ssd1306_display_t* display, channel_display_t* channel_display)
+void channel_display_draw(Display& display, channel_display_t* channel_display)
 {
+  auto handle = display.handle();
+
+  u8g2_SetDrawColor(handle, 1);
   for(int i=0; i < CHANNEL_NUM; ++i)
   {
     int height = CHANNELS_HEIGHT * \
@@ -88,31 +58,15 @@ void channel_display_draw(ssd1306_display_t* display, channel_display_t* channel
 
     height = max(height, 1); // at least one pixel height
 
-    // nasty trick - by modifying the
-    // sprite height, we blit the full
-    // height of the column
-    filled_row.height = height;
-    ssd1306_blit(
-      display,
-      &filled_row,
-      channel_display->channels[i].xpos,
-      CHANNELS_BOTTOM - height
+    u8g2_DrawFrame(
+      handle,
+      channel_display->channels[i].xpos - 1,
+      CHANNELS_BOTTOM - height,
+      3,
+      height
       );
-    if(!channel_display->channels[i].legal && height > 2)
-    {
-      // nasty trick - by modifying the
-      // sprite height, we blit the full
-      // height of the column
-      hollow_row.height = height - 2;
-      ssd1306_blit(
-        display,
-        &hollow_row,
-        channel_display->channels[i].xpos,
-        CHANNELS_BOTTOM - height + 1
-      );
-    }
   }
-  ssd1306_blit(display, &cursor, 5 + 3 * channel_display->app_state->selected_channel, CHANNELS_BOTTOM);
+  display.blit(cursor, 5 + 3 * channel_display->app_state->selected_channel, CHANNELS_BOTTOM);
 }
 
 

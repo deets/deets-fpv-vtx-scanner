@@ -53,7 +53,7 @@ void Scanner::setup()
 }
 
 
-app_mode_t Scanner::update(ssd1306_display_t* display)
+app_mode_t Scanner::update(Display& display)
 {
   channel_display_draw(display, &_channels);
   vtx_display_draw(display, _selected_vtx, _app_state.selected_channel);

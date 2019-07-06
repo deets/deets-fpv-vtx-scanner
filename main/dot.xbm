@@ -1,0 +1,4 @@
+#define dot_width 5
+#define dot_height 5
+static unsigned short dot_bits[] = {
+   0x001f, 0x001f, 0x001f, 0x001f, 0x001f };
