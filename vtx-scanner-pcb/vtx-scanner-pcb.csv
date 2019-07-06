@@ -1,0 +1,9 @@
+Reference, Quantity, Value, Footprint, Datasheet, Field4, Field5, Field6, Field7, Field8, Category, DK_Datasheet_Link, DK_Detail_Page, Description, Digi-Key_PN, Family, MPN, Manufacturer, Status
+J1 ,1,"Conn_01x06_Male","Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical","~"
+J2 ,1,"Conn_01x08_Female","Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Horizontal","~"
+U2 ,1,"AMS1117-3.3","Package_TO_SOT_SMD:SOT-223-3_TabPin2","http://www.advanced-monolithic.com/pdf/ds1117.pdf"
+
+U3 ,1,"oskj-dc-dc","deets:oskj-dc-dc",""
+
+J5 ,1,"XT60-M","deets:AMASS_XT60-M-SIDE-MOUNT","AMASS","None","","Unavailable","Package Analog Devices","XT60-M","","","","","","","","",""
+U1 ,1,"RX5808","deets:RX5808",""

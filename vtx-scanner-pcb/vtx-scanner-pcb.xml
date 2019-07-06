@@ -1,0 +1,974 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<export version="D">
+  <design>
+    <source>/home/deets/Dropbox/projects/deets-fpv-vtx-scanner/vtx-scanner-pcb/vtx-scanner-pcb.sch</source>
+    <date>So 23 Jun 2019 20:14:34 CEST</date>
+    <tool>Eeschema 5.0.2-bee76a0~70~ubuntu18.04.1</tool>
+    <sheet number="1" name="/" tstamps="/">
+      <title_block>
+        <title/>
+        <company/>
+        <rev/>
+        <date/>
+        <source>vtx-scanner-pcb.sch</source>
+        <comment number="1" value=""/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+      </title_block>
+    </sheet>
+  </design>
+  <components>
+    <comp ref="U3">
+      <value>oskj-dc-dc</value>
+      <footprint>deets:oskj-dc-dc</footprint>
+      <libsource lib="deets" part="oskj-dc-dc" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5C66ED7D</tstamp>
+    </comp>
+    <comp ref="U1">
+      <value>RX5808</value>
+      <footprint>deets:RX5808</footprint>
+      <libsource lib="deets" part="RX5808" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5C66EB41</tstamp>
+    </comp>
+    <comp ref="A1">
+      <value>ESP32-WROVER-I</value>
+      <footprint>deets:XCVR_ESP32-WROVER-I</footprint>
+      <datasheet>Module: combo; GPIO, I2C x2, I2S x2, SDIO, SPI x3, UART x3; U.FL</datasheet>
+      <fields>
+        <field name="Field4">Espressif Systems</field>
+        <field name="Field5">Module Espressif Systems</field>
+        <field name="Field6">Unavailable</field>
+        <field name="Field7">None</field>
+        <field name="Field8">ESP32-WROVER-I</field>
+      </fields>
+      <libsource lib="deets" part="ESP32-WROVER-I" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5C685CC2</tstamp>
+    </comp>
+    <comp ref="J1">
+      <value>Conn_01x06_Male</value>
+      <footprint>Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector" part="Conn_01x06_Male" description="Generic connector, single row, 01x06, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5C685EBB</tstamp>
+    </comp>
+    <comp ref="R2">
+      <value>10K</value>
+      <footprint>Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5C6870C8</tstamp>
+    </comp>
+    <comp ref="R1">
+      <value>10K</value>
+      <footprint>Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5C68714B</tstamp>
+    </comp>
+    <comp ref="R3">
+      <value>470</value>
+      <footprint>Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5C688503</tstamp>
+    </comp>
+    <comp ref="U2">
+      <value>AMS1117-3.3</value>
+      <footprint>Package_TO_SOT_SMD:SOT-223-3_TabPin2</footprint>
+      <datasheet>http://www.advanced-monolithic.com/pdf/ds1117.pdf</datasheet>
+      <libsource lib="Regulator_Linear" part="AMS1117-3.3" description="1A Low Dropout regulator, positive, 3.3V fixed output, SOT-223"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5C6891DA</tstamp>
+    </comp>
+    <comp ref="C2">
+      <value>47uF</value>
+      <footprint>Capacitor_SMD:CP_Elec_5x5.8</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5C68A2A2</tstamp>
+    </comp>
+    <comp ref="C3">
+      <value>100nF</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5C68A315</tstamp>
+    </comp>
+    <comp ref="C1">
+      <value>47uF</value>
+      <footprint>Capacitor_SMD:CP_Elec_5x5.8</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5C68B574</tstamp>
+    </comp>
+    <comp ref="U4">
+      <value>AI-1027-TWT</value>
+      <footprint>deets:AI-1027-TWT</footprint>
+      <libsource lib="deets" part="AI-1027-TWT" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5C68CC18</tstamp>
+    </comp>
+    <comp ref="J2">
+      <value>Conn_01x08_Female</value>
+      <footprint>Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Horizontal</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector" part="Conn_01x08_Female" description="Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5C69E4E5</tstamp>
+    </comp>
+    <comp ref="R5">
+      <value>10K</value>
+      <footprint>Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5C6B1FDF</tstamp>
+    </comp>
+    <comp ref="R7">
+      <value>10K</value>
+      <footprint>Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5C6B206C</tstamp>
+    </comp>
+    <comp ref="R4">
+      <value>10K</value>
+      <footprint>Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5C6B223C</tstamp>
+    </comp>
+    <comp ref="R6">
+      <value>10K</value>
+      <footprint>Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5C6B22D1</tstamp>
+    </comp>
+    <comp ref="Q2">
+      <value>MMSS8050-H-TP</value>
+      <footprint>digikey-footprints:SOT-23-3</footprint>
+      <datasheet>http://www.mccsemi.com/up_pdf/MMSS8050(SOT-23).pdf</datasheet>
+      <fields>
+        <field name="Category">Discrete Semiconductor Products</field>
+        <field name="DK_Datasheet_Link">http://www.mccsemi.com/up_pdf/MMSS8050(SOT-23).pdf</field>
+        <field name="DK_Detail_Page">/product-detail/en/micro-commercial-co/MMSS8050-H-TP/MMSS8050-H-TPMSCT-ND/2825945</field>
+        <field name="Description">TRANS NPN 25V 1.5A SOT23</field>
+        <field name="Digi-Key_PN">MMSS8050-H-TPMSCT-ND</field>
+        <field name="Family">Transistors - Bipolar (BJT) - Single</field>
+        <field name="MPN">MMSS8050-H-TP</field>
+        <field name="Manufacturer">Micro Commercial Co</field>
+        <field name="Status">Active</field>
+      </fields>
+      <libsource lib="dk_Transistors-Bipolar-BJT-Single" part="MMSS8050-H-TP" description="TRANS NPN 25V 1.5A SOT23"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5C8D54F9</tstamp>
+    </comp>
+    <comp ref="Q1">
+      <value>MMSS8050-H-TP</value>
+      <footprint>digikey-footprints:SOT-23-3</footprint>
+      <datasheet>http://www.mccsemi.com/up_pdf/MMSS8050(SOT-23).pdf</datasheet>
+      <fields>
+        <field name="Category">Discrete Semiconductor Products</field>
+        <field name="DK_Datasheet_Link">http://www.mccsemi.com/up_pdf/MMSS8050(SOT-23).pdf</field>
+        <field name="DK_Detail_Page">/product-detail/en/micro-commercial-co/MMSS8050-H-TP/MMSS8050-H-TPMSCT-ND/2825945</field>
+        <field name="Description">TRANS NPN 25V 1.5A SOT23</field>
+        <field name="Digi-Key_PN">MMSS8050-H-TPMSCT-ND</field>
+        <field name="Family">Transistors - Bipolar (BJT) - Single</field>
+        <field name="MPN">MMSS8050-H-TP</field>
+        <field name="Manufacturer">Micro Commercial Co</field>
+        <field name="Status">Active</field>
+      </fields>
+      <libsource lib="dk_Transistors-Bipolar-BJT-Single" part="MMSS8050-H-TP" description="TRANS NPN 25V 1.5A SOT23"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5C8D5889</tstamp>
+    </comp>
+    <comp ref="Q3">
+      <value>MMSS8050-H-TP</value>
+      <footprint>digikey-footprints:SOT-23-3</footprint>
+      <datasheet>http://www.mccsemi.com/up_pdf/MMSS8050(SOT-23).pdf</datasheet>
+      <fields>
+        <field name="Category">Discrete Semiconductor Products</field>
+        <field name="DK_Datasheet_Link">http://www.mccsemi.com/up_pdf/MMSS8050(SOT-23).pdf</field>
+        <field name="DK_Detail_Page">/product-detail/en/micro-commercial-co/MMSS8050-H-TP/MMSS8050-H-TPMSCT-ND/2825945</field>
+        <field name="Description">TRANS NPN 25V 1.5A SOT23</field>
+        <field name="Digi-Key_PN">MMSS8050-H-TPMSCT-ND</field>
+        <field name="Family">Transistors - Bipolar (BJT) - Single</field>
+        <field name="MPN">MMSS8050-H-TP</field>
+        <field name="Manufacturer">Micro Commercial Co</field>
+        <field name="Status">Active</field>
+      </fields>
+      <libsource lib="dk_Transistors-Bipolar-BJT-Single" part="MMSS8050-H-TP" description="TRANS NPN 25V 1.5A SOT23"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5C8D798E</tstamp>
+    </comp>
+    <comp ref="S1">
+      <value>FSM4JSMATR</value>
+      <footprint>deets:Switch_Tactile_SMD_6x6mm</footprint>
+      <datasheet>http://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&amp;DocNm=2-1437565-7&amp;DocType=Customer+Drawing&amp;DocLang=English</datasheet>
+      <fields>
+        <field name="Category">Switches</field>
+        <field name="DK_Datasheet_Link">http://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&amp;DocNm=2-1437565-7&amp;DocType=Customer+Drawing&amp;DocLang=English</field>
+        <field name="DK_Detail_Page">/product-detail/en/te-connectivity-alcoswitch-switches/FSM4JSMATR/450-1759-1-ND/2271638</field>
+        <field name="Description">SWITCH TACTILE SPST-NO 0.05A 24V</field>
+        <field name="Digi-Key_PN">450-1759-1-ND</field>
+        <field name="Family">Tactile Switches</field>
+        <field name="MPN">FSM4JSMATR</field>
+        <field name="Manufacturer">TE Connectivity ALCOSWITCH Switches</field>
+        <field name="Status">Active</field>
+      </fields>
+      <libsource lib="dk_Tactile-Switches" part="FSM4JSMATR" description="SWITCH TACTILE SPST-NO 0.05A 24V"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5C8D94E0</tstamp>
+    </comp>
+    <comp ref="S2">
+      <value>FSM4JSMATR</value>
+      <footprint>deets:Switch_Tactile_SMD_6x6mm</footprint>
+      <datasheet>http://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&amp;DocNm=2-1437565-7&amp;DocType=Customer+Drawing&amp;DocLang=English</datasheet>
+      <fields>
+        <field name="Category">Switches</field>
+        <field name="DK_Datasheet_Link">http://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&amp;DocNm=2-1437565-7&amp;DocType=Customer+Drawing&amp;DocLang=English</field>
+        <field name="DK_Detail_Page">/product-detail/en/te-connectivity-alcoswitch-switches/FSM4JSMATR/450-1759-1-ND/2271638</field>
+        <field name="Description">SWITCH TACTILE SPST-NO 0.05A 24V</field>
+        <field name="Digi-Key_PN">450-1759-1-ND</field>
+        <field name="Family">Tactile Switches</field>
+        <field name="MPN">FSM4JSMATR</field>
+        <field name="Manufacturer">TE Connectivity ALCOSWITCH Switches</field>
+        <field name="Status">Active</field>
+      </fields>
+      <libsource lib="dk_Tactile-Switches" part="FSM4JSMATR" description="SWITCH TACTILE SPST-NO 0.05A 24V"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5C8D9681</tstamp>
+    </comp>
+    <comp ref="S3">
+      <value>FSM4JSMATR</value>
+      <footprint>deets:Switch_Tactile_SMD_6x6mm</footprint>
+      <datasheet>http://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&amp;DocNm=2-1437565-7&amp;DocType=Customer+Drawing&amp;DocLang=English</datasheet>
+      <fields>
+        <field name="Category">Switches</field>
+        <field name="DK_Datasheet_Link">http://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&amp;DocNm=2-1437565-7&amp;DocType=Customer+Drawing&amp;DocLang=English</field>
+        <field name="DK_Detail_Page">/product-detail/en/te-connectivity-alcoswitch-switches/FSM4JSMATR/450-1759-1-ND/2271638</field>
+        <field name="Description">SWITCH TACTILE SPST-NO 0.05A 24V</field>
+        <field name="Digi-Key_PN">450-1759-1-ND</field>
+        <field name="Family">Tactile Switches</field>
+        <field name="MPN">FSM4JSMATR</field>
+        <field name="Manufacturer">TE Connectivity ALCOSWITCH Switches</field>
+        <field name="Status">Active</field>
+      </fields>
+      <libsource lib="dk_Tactile-Switches" part="FSM4JSMATR" description="SWITCH TACTILE SPST-NO 0.05A 24V"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5C8D978E</tstamp>
+    </comp>
+    <comp ref="S4">
+      <value>FSM4JSMATR</value>
+      <footprint>deets:Switch_Tactile_SMD_6x6mm</footprint>
+      <datasheet>http://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&amp;DocNm=2-1437565-7&amp;DocType=Customer+Drawing&amp;DocLang=English</datasheet>
+      <fields>
+        <field name="Category">Switches</field>
+        <field name="DK_Datasheet_Link">http://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&amp;DocNm=2-1437565-7&amp;DocType=Customer+Drawing&amp;DocLang=English</field>
+        <field name="DK_Detail_Page">/product-detail/en/te-connectivity-alcoswitch-switches/FSM4JSMATR/450-1759-1-ND/2271638</field>
+        <field name="Description">SWITCH TACTILE SPST-NO 0.05A 24V</field>
+        <field name="Digi-Key_PN">450-1759-1-ND</field>
+        <field name="Family">Tactile Switches</field>
+        <field name="MPN">FSM4JSMATR</field>
+        <field name="Manufacturer">TE Connectivity ALCOSWITCH Switches</field>
+        <field name="Status">Active</field>
+      </fields>
+      <libsource lib="dk_Tactile-Switches" part="FSM4JSMATR" description="SWITCH TACTILE SPST-NO 0.05A 24V"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5C8D9896</tstamp>
+    </comp>
+    <comp ref="J3">
+      <value>SMA-J-P-H-RA-TH1</value>
+      <footprint>deets:SAMTEC_SMA-J-P-H-RA-TH1</footprint>
+      <datasheet>SMA-J-P-H-RA-TH1</datasheet>
+      <fields>
+        <field name="Field4">None</field>
+        <field name="Field5">Samtec</field>
+        <field name="Field6">None</field>
+        <field name="Field7">Conn SMA F 0Hz to 6GHz 50Ohm Solder RA Thru-Hole Gold Tray</field>
+        <field name="Field8">Unavailable</field>
+      </fields>
+      <libsource lib="deets" part="SMA-J-P-H-RA-TH1" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5C8E0D7B</tstamp>
+    </comp>
+    <comp ref="J4">
+      <value>Conn_01x05</value>
+      <footprint>Connector_JST:JST_PH_S5B-PH-K_1x05_P2.00mm_Horizontal</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector_Generic" part="Conn_01x05" description="Generic connector, single row, 01x05, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5CB1EFA4</tstamp>
+    </comp>
+    <comp ref="J5">
+      <value>XT60-M</value>
+      <footprint>deets:AMASS_XT60-M-SIDE-MOUNT</footprint>
+      <datasheet>AMASS</datasheet>
+      <fields>
+        <field name="Field4">None</field>
+        <field name="Field6">Unavailable</field>
+        <field name="Field7">Package Analog Devices</field>
+        <field name="Field8">XT60-M</field>
+      </fields>
+      <libsource lib="deets" part="XT60-M" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5CB22143</tstamp>
+    </comp>
+    <comp ref="CON1">
+      <value>SJ-3523-SMT-TR</value>
+      <footprint>deets:Switch_Slide_11.6x4mm_SJ-3523-SMT</footprint>
+      <datasheet>https://www.cui.com/product/resource/digikeypdf/sj-352x-smt_series.pdf</datasheet>
+      <fields>
+        <field name="Category">Connectors, Interconnects</field>
+        <field name="DK_Datasheet_Link">https://www.cui.com/product/resource/digikeypdf/sj-352x-smt_series.pdf</field>
+        <field name="DK_Detail_Page">/product-detail/en/cui-inc/SJ-3523-SMT-TR/CP-3523SJCT-ND/669704</field>
+        <field name="Description">CONN JACK STEREO 3.5MM SMD R/A</field>
+        <field name="Digi-Key_PN">CP-3523SJCT-ND</field>
+        <field name="Family">Barrel - Audio Connectors</field>
+        <field name="MPN">SJ-3523-SMT-TR</field>
+        <field name="Manufacturer">CUI Inc.</field>
+        <field name="Status">Active</field>
+      </fields>
+      <libsource lib="dk_Barrel-Audio-Connectors" part="SJ-3523-SMT-TR" description="CONN JACK STEREO 3.5MM SMD R/A"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5CBA07DB</tstamp>
+    </comp>
+    <comp ref="R8">
+      <value>10K</value>
+      <footprint>Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D0E4C72</tstamp>
+    </comp>
+    <comp ref="C4">
+      <value>300nF</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D0E76C3</tstamp>
+    </comp>
+    <comp ref="R9">
+      <value>10K</value>
+      <footprint>Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D0E975F</tstamp>
+    </comp>
+  </components>
+  <libparts>
+    <libpart lib="Connector" part="Conn_01x06_Male">
+      <description>Generic connector, single row, 01x06, script generated (kicad-library-utils/schlib/autogen/connector/)</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Connector*:*_1x??_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_01x06_Male</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+        <pin num="3" name="Pin_3" type="passive"/>
+        <pin num="4" name="Pin_4" type="passive"/>
+        <pin num="5" name="Pin_5" type="passive"/>
+        <pin num="6" name="Pin_6" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Connector" part="Conn_01x08_Female">
+      <description>Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Connector*:*_1x??_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_01x08_Female</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+        <pin num="3" name="Pin_3" type="passive"/>
+        <pin num="4" name="Pin_4" type="passive"/>
+        <pin num="5" name="Pin_5" type="passive"/>
+        <pin num="6" name="Pin_6" type="passive"/>
+        <pin num="7" name="Pin_7" type="passive"/>
+        <pin num="8" name="Pin_8" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Connector_Generic" part="Conn_01x05">
+      <description>Generic connector, single row, 01x05, script generated (kicad-library-utils/schlib/autogen/connector/)</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Connector*:*_1x??_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_01x05</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+        <pin num="3" name="Pin_3" type="passive"/>
+        <pin num="4" name="Pin_4" type="passive"/>
+        <pin num="5" name="Pin_5" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Device" part="C">
+      <description>Unpolarized capacitor</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>C_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">C</field>
+        <field name="Value">C</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Device" part="R">
+      <description>Resistor</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>R_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">R</field>
+        <field name="Value">R</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Regulator_Linear" part="AP1117-15">
+      <aliases>
+        <alias>AP1117-18</alias>
+        <alias>AP1117-25</alias>
+        <alias>AP1117-33</alias>
+        <alias>AP1117-50</alias>
+        <alias>LD1117S33TR_SOT223</alias>
+        <alias>LD1117S12TR_SOT223</alias>
+        <alias>LD1117S18TR_SOT223</alias>
+        <alias>LD1117S25TR_SOT223</alias>
+        <alias>LD1117S50TR_SOT223</alias>
+        <alias>NCP1117-12_SOT223</alias>
+        <alias>NCP1117-1.5_SOT223</alias>
+        <alias>NCP1117-1.8_SOT223</alias>
+        <alias>NCP1117-2.0_SOT223</alias>
+        <alias>NCP1117-2.5_SOT223</alias>
+        <alias>NCP1117-2.85_SOT223</alias>
+        <alias>NCP1117-3.3_SOT223</alias>
+        <alias>NCP1117-5.0_SOT223</alias>
+        <alias>AMS1117-1.5</alias>
+        <alias>AMS1117-1.8</alias>
+        <alias>AMS1117-2.5</alias>
+        <alias>AMS1117-2.85</alias>
+        <alias>AMS1117-3.3</alias>
+        <alias>AMS1117-5.0</alias>
+      </aliases>
+      <description>1A Low Dropout regulator, positive, 1.5V fixed output, SOT-223</description>
+      <docs>http://www.diodes.com/datasheets/AP1117.pdf</docs>
+      <footprints>
+        <fp>SOT?223*TabPin2*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">AP1117-15</field>
+        <field name="Footprint">Package_TO_SOT_SMD:SOT-223-3_TabPin2</field>
+      </fields>
+      <pins>
+        <pin num="1" name="GND" type="power_in"/>
+        <pin num="2" name="VO" type="power_out"/>
+        <pin num="3" name="VI" type="power_in"/>
+      </pins>
+    </libpart>
+    <libpart lib="deets" part="AI-1027-TWT">
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">AI-1027-TWT</field>
+        <field name="Footprint">deets:AI-1027-TWT-3V-R</field>
+      </fields>
+      <pins>
+        <pin num="1" name="BUZZ-" type="input"/>
+        <pin num="2" name="BUZZ+" type="input"/>
+      </pins>
+    </libpart>
+    <libpart lib="deets" part="ESP32-WROVER-I">
+      <fields>
+        <field name="Reference">A</field>
+        <field name="Value">ESP32-WROVER-I</field>
+        <field name="Footprint">XCVR_ESP32-WROVER-I</field>
+        <field name="Datasheet">Module: combo; GPIO, I2C x2, I2S x2, SDIO, SPI x3, UART x3; U.FL</field>
+        <field name="Field4">Espressif Systems</field>
+        <field name="Field5">Module Espressif Systems</field>
+        <field name="Field6">Unavailable</field>
+        <field name="Field7">None</field>
+        <field name="Field8">ESP32-WROVER-I</field>
+      </fields>
+      <pins>
+        <pin num="1" name="GND" type="power_in"/>
+        <pin num="2" name="VDD3V3" type="power_in"/>
+        <pin num="3" name="EN" type="input"/>
+        <pin num="4" name="SENSOR_VP" type="input"/>
+        <pin num="5" name="SENSOR_VN" type="input"/>
+        <pin num="6" name="IO34" type="input"/>
+        <pin num="7" name="IO35" type="input"/>
+        <pin num="8" name="IO32" type="BiDi"/>
+        <pin num="9" name="IO33" type="BiDi"/>
+        <pin num="10" name="IO25" type="BiDi"/>
+        <pin num="11" name="IO26" type="BiDi"/>
+        <pin num="12" name="IO27" type="BiDi"/>
+        <pin num="13" name="IO14" type="BiDi"/>
+        <pin num="14" name="IO12" type="BiDi"/>
+        <pin num="15" name="GND" type="power_in"/>
+        <pin num="16" name="IO13" type="BiDi"/>
+        <pin num="17" name="SHD/SD2" type="BiDi"/>
+        <pin num="18" name="SWP/SD3" type="BiDi"/>
+        <pin num="19" name="SCS/CMD" type="BiDi"/>
+        <pin num="20" name="SCK/CLK" type="BiDi"/>
+        <pin num="21" name="SDO/SD0" type="BiDi"/>
+        <pin num="22" name="SDI/SD1" type="BiDi"/>
+        <pin num="23" name="IO15" type="BiDi"/>
+        <pin num="24" name="IO2" type="BiDi"/>
+        <pin num="25" name="IO0" type="BiDi"/>
+        <pin num="26" name="IO4" type="BiDi"/>
+        <pin num="29" name="IO5" type="BiDi"/>
+        <pin num="30" name="IO18" type="BiDi"/>
+        <pin num="31" name="IO19" type="BiDi"/>
+        <pin num="33" name="IO21" type="BiDi"/>
+        <pin num="34" name="RXD0" type="BiDi"/>
+        <pin num="35" name="TXD0" type="BiDi"/>
+        <pin num="36" name="IO22" type="BiDi"/>
+        <pin num="37" name="IO23" type="BiDi"/>
+        <pin num="38" name="GND" type="power_in"/>
+        <pin num="39" name="EXP" type="power_in"/>
+      </pins>
+    </libpart>
+    <libpart lib="deets" part="RX5808">
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">RX5808</field>
+        <field name="Footprint">vtx-scanner:RX5808</field>
+      </fields>
+      <pins>
+        <pin num="1" name="AGND" type="power_in"/>
+        <pin num="2" name="ANT" type="input"/>
+        <pin num="3" name="AGND" type="power_in"/>
+        <pin num="4" name="DATA/CH1" type="input"/>
+        <pin num="5" name="CS/CH2" type="input"/>
+        <pin num="6" name="CLOCK/CH3" type="input"/>
+        <pin num="7" name="GND" type="power_in"/>
+        <pin num="8" name="5V" type="power_in"/>
+        <pin num="9" name="RSSI" type="output"/>
+        <pin num="10" name="AUDIO" type="output"/>
+        <pin num="11" name="VIDEO" type="output"/>
+        <pin num="12" name="GND" type="power_in"/>
+      </pins>
+    </libpart>
+    <libpart lib="deets" part="SMA-J-P-H-RA-TH1">
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">SMA-J-P-H-RA-TH1</field>
+        <field name="Footprint">deets:SAMTEC_SMA-J-P-H-RA-TH1</field>
+        <field name="Datasheet">SMA-J-P-H-RA-TH1</field>
+        <field name="Field4">None</field>
+        <field name="Field5">Samtec</field>
+        <field name="Field6">None</field>
+        <field name="Field7">Conn SMA F 0Hz to 6GHz 50Ohm Solder RA Thru-Hole Gold Tray</field>
+        <field name="Field8">Unavailable</field>
+      </fields>
+      <pins>
+        <pin num="1" name="SIGNAL" type="passive"/>
+        <pin num="2" name="GND" type="power_in"/>
+        <pin num="3" name="GND" type="power_in"/>
+        <pin num="4" name="GND" type="power_in"/>
+        <pin num="5" name="GND" type="power_in"/>
+      </pins>
+    </libpart>
+    <libpart lib="deets" part="XT60-M">
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">XT60-M</field>
+        <field name="Footprint">AMASS_XT60-M</field>
+        <field name="Datasheet">AMASS</field>
+        <field name="Field4">None</field>
+        <field name="Field6">Unavailable</field>
+        <field name="Field7">Package Analog Devices</field>
+        <field name="Field8">XT60-M</field>
+      </fields>
+      <pins>
+        <pin num="1" name="-" type="passive"/>
+        <pin num="2" name="+" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="deets" part="oskj-dc-dc">
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">oskj-dc-dc</field>
+        <field name="Footprint">new-joy:oskj-dc-dc</field>
+      </fields>
+      <pins>
+        <pin num="1" name="VO+" type="power_out"/>
+        <pin num="2" name="GND" type="power_in"/>
+        <pin num="3" name="IN+" type="power_in"/>
+        <pin num="4" name="EN" type="input"/>
+      </pins>
+    </libpart>
+    <libpart lib="dk_Barrel-Audio-Connectors" part="SJ-3523-SMT-TR">
+      <description>CONN JACK STEREO 3.5MM SMD R/A</description>
+      <docs>https://www.cui.com/product/resource/digikeypdf/sj-352x-smt_series.pdf</docs>
+      <fields>
+        <field name="Reference">CON</field>
+        <field name="Value">SJ-3523-SMT-TR</field>
+        <field name="Footprint">digikey-footprints:Switch_Slide_11.6x4mm_SJ-3523-SMT</field>
+        <field name="Datasheet">https://www.cui.com/product/resource/digikeypdf/sj-352x-smt_series.pdf</field>
+        <field name="Digi-Key_PN">CP-3523SJCT-ND</field>
+        <field name="MPN">SJ-3523-SMT-TR</field>
+        <field name="Category">Connectors, Interconnects</field>
+        <field name="Family">Barrel - Audio Connectors</field>
+        <field name="DK_Datasheet_Link">https://www.cui.com/product/resource/digikeypdf/sj-352x-smt_series.pdf</field>
+        <field name="DK_Detail_Page">/product-detail/en/cui-inc/SJ-3523-SMT-TR/CP-3523SJCT-ND/669704</field>
+        <field name="Description">CONN JACK STEREO 3.5MM SMD R/A</field>
+        <field name="Manufacturer">CUI Inc.</field>
+        <field name="Status">Active</field>
+      </fields>
+      <pins>
+        <pin num="1" name="S" type="passive"/>
+        <pin num="2" name="T" type="passive"/>
+        <pin num="3" name="R" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="dk_Tactile-Switches" part="FSM4JSMATR">
+      <description>SWITCH TACTILE SPST-NO 0.05A 24V</description>
+      <docs>http://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&amp;DocNm=2-1437565-7&amp;DocType=Customer+Drawing&amp;DocLang=English</docs>
+      <fields>
+        <field name="Reference">S</field>
+        <field name="Value">FSM4JSMATR</field>
+        <field name="Footprint">digikey-footprints:Switch_Tactile_SMD_6x6mm</field>
+        <field name="Datasheet">http://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&amp;DocNm=2-1437565-7&amp;DocType=Customer+Drawing&amp;DocLang=English</field>
+        <field name="Digi-Key_PN">450-1759-1-ND</field>
+        <field name="MPN">FSM4JSMATR</field>
+        <field name="Category">Switches</field>
+        <field name="Family">Tactile Switches</field>
+        <field name="DK_Datasheet_Link">http://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&amp;DocNm=2-1437565-7&amp;DocType=Customer+Drawing&amp;DocLang=English</field>
+        <field name="DK_Detail_Page">/product-detail/en/te-connectivity-alcoswitch-switches/FSM4JSMATR/450-1759-1-ND/2271638</field>
+        <field name="Description">SWITCH TACTILE SPST-NO 0.05A 24V</field>
+        <field name="Manufacturer">TE Connectivity ALCOSWITCH Switches</field>
+        <field name="Status">Active</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+        <pin num="3" name="~" type="passive"/>
+        <pin num="4" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="dk_Transistors-Bipolar-BJT-Single" part="MMSS8050-H-TP">
+      <description>TRANS NPN 25V 1.5A SOT23</description>
+      <docs>http://www.mccsemi.com/up_pdf/MMSS8050(SOT-23).pdf</docs>
+      <fields>
+        <field name="Reference">Q</field>
+        <field name="Value">MMSS8050-H-TP</field>
+        <field name="Footprint">digikey-footprints:SOT-23-3</field>
+        <field name="Datasheet">http://www.mccsemi.com/up_pdf/MMSS8050(SOT-23).pdf</field>
+        <field name="Digi-Key_PN">MMSS8050-H-TPMSCT-ND</field>
+        <field name="MPN">MMSS8050-H-TP</field>
+        <field name="Category">Discrete Semiconductor Products</field>
+        <field name="Family">Transistors - Bipolar (BJT) - Single</field>
+        <field name="DK_Datasheet_Link">http://www.mccsemi.com/up_pdf/MMSS8050(SOT-23).pdf</field>
+        <field name="DK_Detail_Page">/product-detail/en/micro-commercial-co/MMSS8050-H-TP/MMSS8050-H-TPMSCT-ND/2825945</field>
+        <field name="Description">TRANS NPN 25V 1.5A SOT23</field>
+        <field name="Manufacturer">Micro Commercial Co</field>
+        <field name="Status">Active</field>
+      </fields>
+      <pins>
+        <pin num="1" name="B" type="input"/>
+        <pin num="2" name="E" type="passive"/>
+        <pin num="3" name="C" type="passive"/>
+      </pins>
+    </libpart>
+  </libparts>
+  <libraries>
+    <library logical="Connector">
+      <uri>/usr/share/kicad/library/Connector.lib</uri>
+    </library>
+    <library logical="Connector_Generic">
+      <uri>/usr/share/kicad/library/Connector_Generic.lib</uri>
+    </library>
+    <library logical="Device">
+      <uri>/usr/share/kicad/library/Device.lib</uri>
+    </library>
+    <library logical="Regulator_Linear">
+      <uri>/usr/share/kicad/library/Regulator_Linear.lib</uri>
+    </library>
+    <library logical="deets">
+      <uri>/home/deets/Dropbox/projects/deets-fpv-vtx-scanner/vtx-scanner-pcb/modules/kicad-lib/deets.lib</uri>
+    </library>
+    <library logical="dk_Barrel-Audio-Connectors">
+      <uri>/home/deets/software/vc/digikey-kicad-library/digikey-symbols/dk_Barrel-Audio-Connectors.lib</uri>
+    </library>
+    <library logical="dk_Tactile-Switches">
+      <uri>/home/deets/software/vc/digikey-kicad-library/digikey-symbols/dk_Tactile-Switches.lib</uri>
+    </library>
+    <library logical="dk_Transistors-Bipolar-BJT-Single">
+      <uri>/home/deets/software/vc/digikey-kicad-library/digikey-symbols/dk_Transistors-Bipolar-BJT-Single.lib</uri>
+    </library>
+  </libraries>
+  <nets>
+    <net code="1" name="+3V3">
+      <node ref="R5" pin="1"/>
+      <node ref="R9" pin="1"/>
+      <node ref="C2" pin="1"/>
+      <node ref="R8" pin="1"/>
+      <node ref="C3" pin="1"/>
+      <node ref="J4" pin="2"/>
+      <node ref="A1" pin="2"/>
+      <node ref="R4" pin="1"/>
+      <node ref="U2" pin="2"/>
+      <node ref="R6" pin="1"/>
+      <node ref="R7" pin="1"/>
+      <node ref="J2" pin="3"/>
+    </net>
+    <net code="2" name="/RTS">
+      <node ref="Q1" pin="2"/>
+      <node ref="R2" pin="1"/>
+      <node ref="J1" pin="3"/>
+    </net>
+    <net code="3" name="Net-(Q1-Pad1)">
+      <node ref="Q1" pin="1"/>
+      <node ref="R1" pin="2"/>
+    </net>
+    <net code="4" name="Net-(Q2-Pad1)">
+      <node ref="Q2" pin="1"/>
+      <node ref="R2" pin="2"/>
+    </net>
+    <net code="5" name="Net-(A1-Pad39)">
+      <node ref="A1" pin="39"/>
+    </net>
+    <net code="6" name="Net-(A1-Pad5)">
+      <node ref="A1" pin="5"/>
+    </net>
+    <net code="7" name="Net-(A1-Pad20)">
+      <node ref="A1" pin="20"/>
+    </net>
+    <net code="8" name="Net-(A1-Pad19)">
+      <node ref="A1" pin="19"/>
+    </net>
+    <net code="9" name="Net-(A1-Pad18)">
+      <node ref="A1" pin="18"/>
+    </net>
+    <net code="10" name="Net-(A1-Pad17)">
+      <node ref="A1" pin="17"/>
+    </net>
+    <net code="11" name="Net-(A1-Pad22)">
+      <node ref="A1" pin="22"/>
+    </net>
+    <net code="12" name="Net-(A1-Pad21)">
+      <node ref="A1" pin="21"/>
+    </net>
+    <net code="13" name="Net-(J2-Pad2)">
+      <node ref="J2" pin="2"/>
+    </net>
+    <net code="14" name="/SSD1306_DATA">
+      <node ref="A1" pin="37"/>
+      <node ref="J2" pin="8"/>
+    </net>
+    <net code="15" name="/SSD1306_CLK">
+      <node ref="J2" pin="7"/>
+      <node ref="A1" pin="31"/>
+    </net>
+    <net code="16" name="/BUTTON_RIGHT">
+      <node ref="A1" pin="12"/>
+      <node ref="S4" pin="3"/>
+      <node ref="S4" pin="4"/>
+      <node ref="R7" pin="2"/>
+    </net>
+    <net code="17" name="-BATT">
+      <node ref="U1" pin="12"/>
+      <node ref="J4" pin="5"/>
+      <node ref="U1" pin="3"/>
+      <node ref="J3" pin="5"/>
+      <node ref="U1" pin="1"/>
+      <node ref="J3" pin="4"/>
+      <node ref="J3" pin="3"/>
+      <node ref="S1" pin="1"/>
+      <node ref="S1" pin="2"/>
+      <node ref="U3" pin="2"/>
+      <node ref="S2" pin="1"/>
+      <node ref="S2" pin="2"/>
+      <node ref="S3" pin="1"/>
+      <node ref="S3" pin="2"/>
+      <node ref="S4" pin="2"/>
+      <node ref="J1" pin="6"/>
+      <node ref="S4" pin="1"/>
+      <node ref="A1" pin="1"/>
+      <node ref="A1" pin="38"/>
+      <node ref="U1" pin="7"/>
+      <node ref="J3" pin="2"/>
+      <node ref="A1" pin="15"/>
+      <node ref="C1" pin="2"/>
+      <node ref="Q3" pin="2"/>
+      <node ref="CON1" pin="1"/>
+      <node ref="J5" pin="1"/>
+      <node ref="J2" pin="1"/>
+      <node ref="U2" pin="1"/>
+      <node ref="C2" pin="2"/>
+      <node ref="C4" pin="2"/>
+      <node ref="C3" pin="2"/>
+    </net>
+    <net code="18" name="Net-(CON1-Pad2)">
+      <node ref="U1" pin="11"/>
+      <node ref="CON1" pin="2"/>
+    </net>
+    <net code="19" name="Net-(CON1-Pad3)">
+      <node ref="CON1" pin="3"/>
+      <node ref="U1" pin="10"/>
+    </net>
+    <net code="20" name="+BATT">
+      <node ref="U3" pin="3"/>
+      <node ref="J5" pin="2"/>
+    </net>
+    <net code="21" name="+5V">
+      <node ref="U4" pin="2"/>
+      <node ref="U2" pin="3"/>
+      <node ref="C1" pin="1"/>
+      <node ref="J4" pin="1"/>
+      <node ref="U3" pin="1"/>
+      <node ref="U1" pin="8"/>
+    </net>
+    <net code="22" name="Net-(A1-Pad23)">
+      <node ref="A1" pin="23"/>
+    </net>
+    <net code="23" name="/IO0">
+      <node ref="Q2" pin="3"/>
+      <node ref="A1" pin="25"/>
+      <node ref="R9" pin="2"/>
+    </net>
+    <net code="24" name="Net-(Q3-Pad3)">
+      <node ref="U4" pin="1"/>
+      <node ref="Q3" pin="3"/>
+    </net>
+    <net code="25" name="/ANT">
+      <node ref="J3" pin="1"/>
+      <node ref="U1" pin="2"/>
+    </net>
+    <net code="26" name="/EXP2">
+      <node ref="J4" pin="4"/>
+      <node ref="A1" pin="7"/>
+    </net>
+    <net code="27" name="/EXP1">
+      <node ref="J4" pin="3"/>
+      <node ref="A1" pin="26"/>
+    </net>
+    <net code="28" name="/SSD1306_DC">
+      <node ref="A1" pin="10"/>
+      <node ref="J2" pin="6"/>
+    </net>
+    <net code="30" name="Net-(A1-Pad24)">
+      <node ref="A1" pin="24"/>
+    </net>
+    <net code="31" name="/VRX_DATA">
+      <node ref="U1" pin="4"/>
+      <node ref="A1" pin="16"/>
+    </net>
+    <net code="32" name="/VRX_CLOCK">
+      <node ref="U1" pin="6"/>
+      <node ref="A1" pin="14"/>
+    </net>
+    <net code="33" name="/VRX_CS">
+      <node ref="U1" pin="5"/>
+      <node ref="A1" pin="13"/>
+    </net>
+    <net code="34" name="/BUTTON_DOWN">
+      <node ref="R4" pin="2"/>
+      <node ref="S1" pin="4"/>
+      <node ref="S1" pin="3"/>
+      <node ref="A1" pin="11"/>
+    </net>
+    <net code="35" name="Net-(J1-Pad5)">
+      <node ref="J1" pin="5"/>
+    </net>
+    <net code="36" name="/TX">
+      <node ref="J1" pin="2"/>
+      <node ref="R3" pin="1"/>
+    </net>
+    <net code="37" name="/RX">
+      <node ref="A1" pin="35"/>
+      <node ref="J1" pin="1"/>
+    </net>
+    <net code="38" name="/BUTTON_UP">
+      <node ref="R5" pin="2"/>
+      <node ref="S2" pin="4"/>
+      <node ref="S2" pin="3"/>
+      <node ref="A1" pin="9"/>
+    </net>
+    <net code="39" name="/BUTTON_LEFT">
+      <node ref="A1" pin="8"/>
+      <node ref="R6" pin="2"/>
+      <node ref="S3" pin="4"/>
+      <node ref="S3" pin="3"/>
+    </net>
+    <net code="40" name="/VRX_RSSI">
+      <node ref="A1" pin="6"/>
+      <node ref="U1" pin="9"/>
+    </net>
+    <net code="41" name="Net-(A1-Pad4)">
+      <node ref="A1" pin="4"/>
+    </net>
+    <net code="42" name="Net-(A1-Pad34)">
+      <node ref="R3" pin="2"/>
+      <node ref="A1" pin="34"/>
+    </net>
+    <net code="43" name="/BUZZER">
+      <node ref="A1" pin="33"/>
+      <node ref="Q3" pin="1"/>
+    </net>
+    <net code="44" name="/#EN">
+      <node ref="Q1" pin="3"/>
+      <node ref="C4" pin="1"/>
+      <node ref="R8" pin="2"/>
+      <node ref="A1" pin="3"/>
+    </net>
+    <net code="45" name="Net-(A1-Pad29)">
+      <node ref="A1" pin="29"/>
+    </net>
+    <net code="46" name="Net-(U3-Pad4)">
+      <node ref="U3" pin="4"/>
+    </net>
+    <net code="47" name="/SSD1306_RST">
+      <node ref="A1" pin="30"/>
+      <node ref="J2" pin="5"/>
+    </net>
+    <net code="48" name="/SSD1306_CS">
+      <node ref="J2" pin="4"/>
+      <node ref="A1" pin="36"/>
+    </net>
+    <net code="49" name="/DTR">
+      <node ref="Q2" pin="2"/>
+      <node ref="R1" pin="1"/>
+      <node ref="J1" pin="4"/>
+    </net>
+  </nets>
+</export>
