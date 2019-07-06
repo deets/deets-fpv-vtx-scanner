@@ -1175,4 +1175,6 @@ IO0
 NoConn ~ 5000 3800
 Text Notes 4950 3800 2    50   ~ 0
 strapping pin\n
+Text Notes 1450 2750 0    50   ~ 0
+Replaced with NCV1117
 $EndSCHEMATC
