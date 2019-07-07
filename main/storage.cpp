@@ -33,11 +33,12 @@ void Storage::store()
   bool commit = false;
   if(_app_state.selected_channel != _persisted_app_state.selected_channel)
   {
+    ESP_LOGE("storage", "Storing selected_channel");
     err = nvs_set_u32(_nvs_handle, K_SELECTED_CHANNEL, _app_state.selected_channel);
     commit = (err == ESP_OK || err == ESP_ERR_NVS_NOT_FOUND);
     if(!commit)
     {
-      ESP_LOGE("storage", "Failed storing");
+      ESP_LOGE("storage", "Failed storing selected_channel");
     }
   }
   if(commit)

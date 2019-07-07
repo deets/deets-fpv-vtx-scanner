@@ -13,6 +13,19 @@ enum app_mode_t
 
 struct app_state_t
 {
+  app_state_t()
+    : selected_channel(0)
+    , last_read_channel(0)
+    , last_rssi_reading(0)
+    , max_rssi_reading(0)
+    , min_rssi_reading(8191)
+    , current_mode(SPLASH_SCREEN)
+    , trigger_arm_threshold(0)
+    , trigger_disarm_threshold(0)
+    , trigger_max_latency(0)
+    , trigger_cooldown(0)
+    , laptime_buffer_pos(0)
+  {}
   uint32_t selected_channel;
   uint16_t last_read_channel;
   uint16_t last_rssi_reading;
