@@ -1,10 +1,10 @@
 // Copyright: 2018, Diez B. Roggisch, Berlin, all rights reserved
 #include "goggle_info.hh"
 #include "channel_display.hh"
+#include "font.h"
+#include "rtc6715.h"
 
 #include <sstream>
-
-#define FONT  u8g2_font_helvB08_tf
 
 goggle_info_t aomway_commander_v1_info = {
   .name = "AOC1",
@@ -22,9 +22,13 @@ void goggle_display_draw(Display& display, goggle_info_t* goggle, int cursor_pos
   int y = display.height();
   int x = 127 - CHANNEL_LEFT;
   const char* channel_name = goggle->channel_names[cursor_pos];
-  std::stringbuf buf;
-  std::ostream os (&buf);
-  os << goggle->name << ":" << channel_name;
-  x -= display.font_text_width(FONT, buf.str().c_str());
-  display.font_render(FONT, buf.str().c_str(), x, y);
+
+  char buffer[256];
+  sprintf(buffer, "%s:%s", goggle->name, channel_name);
+  x -= display.font_text_width(NORMAL, buffer);
+  display.font_render(NORMAL, buffer, x, y);
+
+  sprintf(buffer, "%i", rtc6715_frequency_for_channel(cursor_pos));
+  x = display.width() / 2 - display.font_text_width(SMALL, buffer) / 2;
+  display.font_render(SMALL, buffer, x, y);
 }

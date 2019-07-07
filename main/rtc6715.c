@@ -89,3 +89,8 @@ void rtc6715_select_channel(rtc6715_t* rtc, int channel)
   ret = spi_device_transmit(rtc->spi, &t);  //Transmit!
   ESP_ERROR_CHECK(ret);
 }
+
+int rtc6715_frequency_for_channel(int channel)
+{
+  return frequency_table[channel];
+}

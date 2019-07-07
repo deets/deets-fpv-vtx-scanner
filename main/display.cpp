@@ -66,18 +66,18 @@ void Display::hline(int x, int x2, int y)
 }
 
 
-void Display::font_render(const uint8_t *font, const char* text, int x, int y)
+void Display::font_render(const font_info_t& font, const char* text, int x, int y)
 {
   u8g2_SetFontMode(&_u8g2, 0);
   u8g2_SetDrawColor(&_u8g2, 1);
-  u8g2_SetFont(&_u8g2, font);
-  u8g2_DrawStr(&_u8g2, x, y, text);
+  u8g2_SetFont(&_u8g2, font.font);
+  u8g2_DrawStr(&_u8g2, x, y + font.y_adjust, text);
 }
 
 
-int Display::font_text_width(const uint8_t *font, const char* text)
+int Display::font_text_width(const font_info_t& font, const char* text)
 {
-  u8g2_SetFont(&_u8g2, font);
+  u8g2_SetFont(&_u8g2, font.font);
   return u8g2_GetStrWidth(&_u8g2, text);
 }
 

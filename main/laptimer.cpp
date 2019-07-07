@@ -1,5 +1,6 @@
 #include "laptimer.hh"
 #include "buzzer.hh"
+#include "font.h"
 
 #include <esp_log.h>
 #include <sys/param.h>
@@ -119,7 +120,7 @@ app_mode_t LapTimer::update(Display& display)
   char buffer[256];
   sprintf(buffer, "%i", (int)(_last_laptime / 1000));
   display.font_render(
-    FONT,
+    NORMAL,
     buffer,
     24,
     64 - 8 - 8

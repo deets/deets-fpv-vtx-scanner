@@ -1,6 +1,7 @@
 // Copyright: 2018, Diez B. Roggisch, Berlin, all rights reserved
 #include "vtx-info.hh"
 #include "channel_display.hh"
+#include "font.h"
 
 #include <sstream>
 
@@ -29,5 +30,5 @@ void vtx_display_draw(Display& display, vtx_info_t* vtx, int cursor_pos)
   std::stringbuf buf;
   std::ostream os (&buf);
   os << vtx->name << ":" << vtx->channel_names[cursor_pos];
-  display.font_render(FONT, buf.str().c_str(), x, y);
+  display.font_render(NORMAL, buf.str().c_str(), x, y);
 }

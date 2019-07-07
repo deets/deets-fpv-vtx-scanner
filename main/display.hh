@@ -1,6 +1,7 @@
 // Copyright: 2019, Diez B. Roggisch, Berlin, all rights reserved
 // -*- mode: c++-mode -*-
 #pragma once
+#include "font.h"
 
 #include <u8g2_esp32_hal.h>
 
@@ -28,8 +29,8 @@ public:
   void blit(const sprite_t&, int x, int y);
   void hline(int x, int x2, int y);
 
-  void font_render(const uint8_t *font, const char*, int x, int y);
-  int font_text_width(const uint8_t *font, const char*);
+  void font_render(const font_info_t& font, const char*, int x, int y);
+  int font_text_width(const font_info_t& font, const char*);
 
   u8g2_t* handle();
 

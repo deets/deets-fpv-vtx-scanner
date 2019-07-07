@@ -1,11 +1,10 @@
 #include "splash-screen.hh"
+#include "font.h"
 
 #include <u8g2.h>
 
 
 namespace {
-
-#define FONT  u8g2_font_helvB08_tf
 
 #include "deets-fpv-logo-bw.xbm"
 
@@ -66,9 +65,9 @@ app_mode_t SplashScreen::update(Display& display)
   if(_logo_arrived)
   {
     display.font_render(
-      FONT,
+      NORMAL,
       "deets FPV",
-      128 - display.font_text_width(FONT, "deets FPV"),
+      128 - display.font_text_width(NORMAL, "deets FPV"),
       10
       );
   }
@@ -76,9 +75,9 @@ app_mode_t SplashScreen::update(Display& display)
   if(_logo_arrived && now() - *_logo_arrived > 500)
   {
     display.font_render(
-      FONT,
+      NORMAL,
       "scanner",
-      128 - display.font_text_width(FONT, "scanner"),
+      128 - display.font_text_width(NORMAL, "scanner"),
       64 - 8 - 10
       );
   }

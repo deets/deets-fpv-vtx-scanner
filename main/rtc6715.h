@@ -17,6 +17,8 @@ int rtc6715_read_rssi(rtc6715_t* rtc);
 
 void rtc6715_select_channel(rtc6715_t* rtc, int channel);
 
+int rtc6715_frequency_for_channel(int channel);
+
 #ifdef __cplusplus
 }
 #endif
