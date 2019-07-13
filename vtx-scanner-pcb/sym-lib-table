@@ -1,3 +1,4 @@
 (sym_lib_table
   (lib (name deets)(type Legacy)(uri ${KIPRJMOD}/modules/kicad-lib/deets.lib)(options "")(descr ""))
+  (lib (name vtx-scanner-pcb-rescue)(type Legacy)(uri ${KIPRJMOD}/vtx-scanner-pcb-rescue.lib)(options "")(descr ""))
 )

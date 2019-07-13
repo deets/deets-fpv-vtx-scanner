@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:vtx-scanner-pcb-cache
-EELAYER 26 0
+EELAYER 29 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -499,56 +499,36 @@ Text Notes 4950 3250 2    50   ~ 0
 strapping pin\n
 NoConn ~ 5000 2800
 $Comp
-L Connector:Conn_01x08_Female J2
-U 1 1 5C69E4E5
-P 7900 4000
-F 0 "J2" H 7927 3976 50  0000 L CNN
-F 1 "Conn_01x08_Female" H 7927 3885 50  0000 L CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Horizontal" H 7900 4000 50  0001 C CNN
-F 3 "~" H 7900 4000 50  0001 C CNN
-	1    7900 4000
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	7700 3700 7350 3700
-$Comp
 L power:GND #PWR014
 U 1 1 5C69EBDF
-P 7350 3700
-F 0 "#PWR014" H 7350 3450 50  0001 C CNN
-F 1 "GND" H 7355 3527 50  0000 C CNN
-F 2 "" H 7350 3700 50  0001 C CNN
-F 3 "" H 7350 3700 50  0001 C CNN
-	1    7350 3700
+P 8250 3000
+F 0 "#PWR014" H 8250 2750 50  0001 C CNN
+F 1 "GND" H 8255 2827 50  0000 C CNN
+F 2 "" H 8250 3000 50  0001 C CNN
+F 3 "" H 8250 3000 50  0001 C CNN
+	1    8250 3000
 	1    0    0    -1  
 $EndComp
-NoConn ~ 7700 3800
-Wire Wire Line
-	7700 3900 7550 3900
-Wire Wire Line
-	7550 3900 7550 3600
-Wire Wire Line
-	7550 3600 7350 3600
 $Comp
 L power:+3.3V #PWR013
 U 1 1 5C6A5EDE
-P 7350 3600
-F 0 "#PWR013" H 7350 3450 50  0001 C CNN
-F 1 "+3.3V" H 7365 3773 50  0000 C CNN
-F 2 "" H 7350 3600 50  0001 C CNN
-F 3 "" H 7350 3600 50  0001 C CNN
-	1    7350 3600
+P 7850 3300
+F 0 "#PWR013" H 7850 3150 50  0001 C CNN
+F 1 "+3.3V" H 7865 3473 50  0000 C CNN
+F 2 "" H 7850 3300 50  0001 C CNN
+F 3 "" H 7850 3300 50  0001 C CNN
+	1    7850 3300
 	1    0    0    -1  
 $EndComp
-Text Label 7700 4000 2    50   ~ 0
+Text Label 8350 3800 2    50   ~ 0
 SSD1306_CS
-Text Label 7700 4100 2    50   ~ 0
+Text Label 8350 3600 2    50   ~ 0
 SSD1306_RST
-Text Label 7700 4200 2    50   ~ 0
+Text Label 8350 3700 2    50   ~ 0
 SSD1306_DC
-Text Label 7700 4300 2    50   ~ 0
+Text Label 8350 3400 2    50   ~ 0
 SSD1306_CLK
-Text Label 7700 4400 2    50   ~ 0
+Text Label 8350 3500 2    50   ~ 0
 SSD1306_DATA
 NoConn ~ 6200 3100
 NoConn ~ 6200 3200
@@ -758,7 +738,7 @@ NoConn ~ 6200 4700
 Text Label 5000 4100 2    50   ~ 0
 BUZZER
 $Comp
-L dk_Transistors-Bipolar-BJT-Single:MMSS8050-H-TP Q2
+L vtx-scanner-pcb-rescue:MMSS8050-H-TP-dk_Transistors-Bipolar-BJT-Single Q2
 U 1 1 5C8D54F9
 P 2400 7000
 F 0 "Q2" H 2588 6947 60  0000 L CNN
@@ -778,7 +758,7 @@ F 12 "Active" H 2600 8200 60  0001 L CNN "Status"
 	-1   0    0    1   
 $EndComp
 $Comp
-L dk_Transistors-Bipolar-BJT-Single:MMSS8050-H-TP Q1
+L vtx-scanner-pcb-rescue:MMSS8050-H-TP-dk_Transistors-Bipolar-BJT-Single Q1
 U 1 1 5C8D5889
 P 2400 6350
 F 0 "Q1" H 2588 6403 60  0000 L CNN
@@ -798,7 +778,7 @@ F 12 "Active" H 2600 7550 60  0001 L CNN "Status"
 	-1   0    0    -1  
 $EndComp
 $Comp
-L dk_Transistors-Bipolar-BJT-Single:MMSS8050-H-TP Q3
+L vtx-scanner-pcb-rescue:MMSS8050-H-TP-dk_Transistors-Bipolar-BJT-Single Q3
 U 1 1 5C8D798E
 P 5200 6700
 F 0 "Q3" H 5388 6753 60  0000 L CNN
@@ -818,7 +798,7 @@ F 12 "Active" H 5400 7900 60  0001 L CNN "Status"
 	1    0    0    -1  
 $EndComp
 $Comp
-L dk_Tactile-Switches:FSM4JSMATR S1
+L vtx-scanner-pcb-rescue:FSM4JSMATR-dk_Tactile-Switches S1
 U 1 1 5C8D94E0
 P 10200 5950
 F 0 "S1" H 10200 6297 60  0000 C CNN
@@ -838,7 +818,7 @@ F 12 "Active" H 10400 7150 60  0001 L CNN "Status"
 	1    0    0    -1  
 $EndComp
 $Comp
-L dk_Tactile-Switches:FSM4JSMATR S2
+L vtx-scanner-pcb-rescue:FSM4JSMATR-dk_Tactile-Switches S2
 U 1 1 5C8D9681
 P 10200 2950
 F 0 "S2" H 10200 3297 60  0000 C CNN
@@ -858,7 +838,7 @@ F 12 "Active" H 10400 4150 60  0001 L CNN "Status"
 	1    0    0    -1  
 $EndComp
 $Comp
-L dk_Tactile-Switches:FSM4JSMATR S3
+L vtx-scanner-pcb-rescue:FSM4JSMATR-dk_Tactile-Switches S3
 U 1 1 5C8D978E
 P 10200 4000
 F 0 "S3" H 10200 4347 60  0000 C CNN
@@ -878,7 +858,7 @@ F 12 "Active" H 10400 5200 60  0001 L CNN "Status"
 	1    0    0    -1  
 $EndComp
 $Comp
-L dk_Tactile-Switches:FSM4JSMATR S4
+L vtx-scanner-pcb-rescue:FSM4JSMATR-dk_Tactile-Switches S4
 U 1 1 5C8D9896
 P 10200 4900
 F 0 "S4" H 10200 5247 60  0000 C CNN
@@ -1059,7 +1039,7 @@ F 3 "" H 1600 4050 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L dk_Barrel-Audio-Connectors:SJ-3523-SMT-TR CON1
+L vtx-scanner-pcb-rescue:SJ-3523-SMT-TR-dk_Barrel-Audio-Connectors CON1
 U 1 1 5CBA07DB
 P 3600 3700
 F 0 "CON1" H 3272 3647 60  0000 R CNN
@@ -1177,4 +1157,21 @@ Text Notes 4950 3800 2    50   ~ 0
 strapping pin\n
 Text Notes 1450 2750 0    50   ~ 0
 Replaced with NCV1117
+$Comp
+L deets:sh1106-1.3inch-oled J2
+U 1 1 5D28AE75
+P 8550 3500
+F 0 "J2" H 8769 3561 50  0000 L CNN
+F 1 "sh1106-1.3inch-oled" H 8769 3470 50  0000 L CNN
+F 2 "deets:sh1106-1.3inch-oled" H 8550 3500 50  0001 C CNN
+F 3 "" H 8550 3500 50  0001 C CNN
+	1    8550 3500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8350 3000 8250 3000
+Wire Wire Line
+	8350 3000 8350 3200
+Wire Wire Line
+	7850 3300 8350 3300
 $EndSCHEMATC
