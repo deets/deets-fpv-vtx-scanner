@@ -1,2 +1,1 @@
-*.gbr
-*.drl
+/gerber-output/

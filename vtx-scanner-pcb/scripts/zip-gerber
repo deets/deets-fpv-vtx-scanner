@@ -3,13 +3,24 @@
 import zipfile
 from itertools import chain
 import pathlib
+import subprocess
 
-BASE = pathlib.Path(__file__).parent.parent
+BASE = pathlib.Path(__file__).parent.parent.absolute()
+
+def git_describe():
+    p = subprocess.run(["git", "describe"], capture_output=True)
+    return p.stdout.strip().decode()
 
 def main():
-    gerbers = BASE.glob("*.gbr")
-    drills = BASE.glob("*.drl")
-    with (BASE / "vtx-scanner-gerber-files.zip").open("wb") as outf:
+    description = git_describe()
+    gerber_output =  BASE / "gerber-output"
+    gerbers = gerber_output.glob("*.gbr")
+    drills = gerber_output.glob("*.drl")
+    pcb_orders = BASE / "pcb-orders"
+    output_dir = pcb_orders / description
+    assert not output_dir.exists()
+    output_dir.mkdir()
+    with (output_dir / f"vtx-scanner-gerber-{description}.zip").open("wb") as outf:
         with zipfile.ZipFile(outf, "w") as zf:
             for f in chain(gerbers, drills):
                 zf.write(str(f), f.name)
