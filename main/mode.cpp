@@ -1,8 +1,14 @@
 #include "mode.hh"
-
+#include "settings.hh"
 #include "ble.hh"
 
 #include <esp_log.h>
+
+namespace {
+
+std::vector<Setting> s_empty_settings;
+
+}; // end ns anonymous
 
 Mode::Mode(app_state_t& app_state)
   : _app_state(app_state)
@@ -55,6 +61,7 @@ ModeManager::ModeManager(app_state_t& app_state, app_mode_t start, std::unique_p
   : _app_state(app_state)
 {
   add_mode(start, std::move(mode));
+  add_mode(SETTINGS, std::unique_ptr<Mode>(new SettingsMode(app_state)));
   active().setup();
   ble_update(NOTIFY_CURRENT_MODE);
 }
@@ -93,6 +100,7 @@ void ModeManager::change_active_mode(int mode)
       case SPLASH_SCREEN:
       case SCANNER:
       case LAPTIMER:
+      case SETTINGS:
         valid = true;
         break;
       }
@@ -129,8 +137,21 @@ void Mode::teardown()
 }
 
 
+std::vector<Setting>& Mode::settings()
+{
+  return s_empty_settings;
+}
+
+
 void ModeManager::input(input_t inp)
 {
+  // settings just grabs all buttons
+  if(_app_state.current_mode == SETTINGS)
+  {
+    active().input(inp);
+    return;
+  }
+
   switch(inp)
   {
   case RIGHT_BUTTON:
@@ -138,7 +159,7 @@ void ModeManager::input(input_t inp)
     active().input(inp);
     break;
   case MODE_BUTTON:
-    // this defenis the implicit model cycling order
+    // this defines the implicit model cycling order
     switch(_app_state.current_mode)
     {
     case SCANNER:
@@ -148,9 +169,18 @@ void ModeManager::input(input_t inp)
       change_active_mode(SCANNER);
       break;
     case SPLASH_SCREEN:
+    case SETTINGS:
       break;
     }
+    break;
   case SETTINGS_BUTTON:
+    ESP_LOGI("modes", "SETTINGS_BUTTON");
+    if(true || active().settings().size())
+    {
+      const auto current =  _app_state.current_mode;
+      change_active_mode(SETTINGS);
+      static_cast<SettingsMode&>(active()).return_mode = current;
+    }
     break;
   }
 }

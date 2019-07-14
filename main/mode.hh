@@ -26,6 +26,12 @@ enum input_t
   SETTINGS_BUTTON
 };
 
+class Setting
+{
+public:
+  const std::string& name() const;
+};
+
 class Mode
 {
 public:
@@ -39,6 +45,7 @@ public:
 protected:
   void periodic(int ms);
 
+  virtual std::vector<Setting>& settings();
   virtual void setup_impl() {};
   virtual void teardown_impl() {};
 
@@ -47,12 +54,13 @@ protected:
   app_state_t& _app_state;
 
 private:
+  friend class ModeManager;
+
   static void s_periodic_timer_callback(void*);
 
   TaskHandle_t _main_task_handle;
   esp_timer_handle_t _periodic_timer_handle;
 };
-
 
 class ModeManager
 {

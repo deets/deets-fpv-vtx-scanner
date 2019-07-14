@@ -8,7 +8,8 @@ enum app_mode_t
 {
     SPLASH_SCREEN,
     SCANNER,
-    LAPTIMER
+    LAPTIMER,
+    SETTINGS
 };
 
 struct app_state_t
