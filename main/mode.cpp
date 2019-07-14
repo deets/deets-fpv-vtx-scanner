@@ -158,5 +158,8 @@ void ModeManager::input(input_t inp)
 
 void ModeManager::update(Display& display)
 {
+  // the update might result in a follow-up
+  // mode being selected. Thus the somewhat
+  // convoluted invocation of change_active_mode
   change_active_mode(active().update(display));
 }
