@@ -87,14 +87,13 @@ void display_task(void*)
     );
   modes.add_mode(
     LAPTIMER,
-    std::unique_ptr<Mode>(new LapTimer(app_state, rtc))
+    std::unique_ptr<Mode>(new LapTimer(app_state, rtc, display.width()))
     );
 
   ble_set_mode_change_callback(
     [&modes](int mode) {
       modes.change_active_mode(mode);
     });
-
 
   app_state.min_rssi_reading = 8129; // bigger than anything we can ever read
 

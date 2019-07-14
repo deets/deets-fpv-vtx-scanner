@@ -7,10 +7,11 @@ class SplashScreen : public Mode
 {
 public:
   SplashScreen(app_state_t&, app_mode_t follow_mode);
-  void setup() override;
   app_mode_t update(Display&) override;
-  void teardown() override;
   void input(input_t) override;
+
+protected:
+  void setup_impl() override;
 
 private:
   int _x;

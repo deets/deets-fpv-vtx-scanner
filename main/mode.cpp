@@ -4,76 +4,50 @@
 
 #include <esp_log.h>
 
-void Mode::s_periodic_task_callback(void* data)
-{
-  ((Mode*)data)->periodic_task_callback();
-}
-
-
 Mode::Mode(app_state_t& app_state)
   : _app_state(app_state)
 {
-  _main_task_handle = xTaskGetCurrentTaskHandle();
-  _periodic_task_handle = xTaskCreateStatic(
-    Mode::s_periodic_task_callback,       /* Function that implements the task. */
-    "PER",          /* Text name for the task. */
-    PERIODIC_TASK_STACK_SIZE,      /* Number of indexes in the xStack array. */
-    ( void * )this,    /* Parameter passed into the task. */
-    tskIDLE_PRIORITY,/* Priority at which the task is created. */
-    _periodic_task_stack,          /* Array to use as the task's stack. */
-    &_periodic_task_buffer
+  esp_timer_create_args_t timer_args = {
+    .callback = &Mode::s_periodic_timer_callback,
+    .arg=this,
+    .dispatch_method = ESP_TIMER_TASK,
+    .name = "periodic_timer"
+  };
+  auto err = esp_timer_create(
+    &timer_args,
+    &_periodic_timer_handle
     );
-  periodic(0);
+  assert(err == ESP_OK);
+  _main_task_handle = xTaskGetCurrentTaskHandle();
 }
 
 
-void Mode::periodic(TickType_t period)
+void Mode::s_periodic_timer_callback(void* data)
 {
-  // always suspend to allow for
-  // several periodic-calls with period > 0 in a row
-  vTaskSuspend(_periodic_task_handle );
-  if(period)
-  {
-    ESP_LOGD("mode", "periodic task period: %ims", period);
-    _wake_period = period;
-    _periodic_start = _last_wake_time = xTaskGetTickCount();
-    vTaskResume(_periodic_task_handle);
-  }
-}
-
-void Mode::periodic_task_callback()
-{
-  while(true)
-  {
-    vTaskDelayUntil( &_last_wake_time, _wake_period );
-    xTaskNotify(
-      _main_task_handle,
-      PERIODIC_TASK_WAKEUP_FLAG,
-      eSetBits
-      );
-  }
+  ((Mode*)data)->notify_main_task(READER_TASK_WAKEUP_FLAG);
 }
 
 
-int Mode::total_elapsed_ms() const
-{
-  return (_last_wake_time - _periodic_start) * 1000 / configTICK_RATE_HZ;
-}
-
-
-int Mode::now() const
-{
-  return xTaskGetTickCount() * 1000 / configTICK_RATE_HZ;
-}
-
-
-void Mode::notifyMainTask(uint32_t flags)
+void Mode::notify_main_task(uint32_t flags)
 {
   xTaskNotify(
     _main_task_handle,
     flags,
     eSetBits
     );
+}
+
+
+void Mode::periodic(int ms)
+{
+  if(ms == 0)
+  {
+    esp_timer_stop(_periodic_timer_handle);
+  }
+  else
+  {
+    esp_timer_start_periodic(_periodic_timer_handle, ms * 1000);
+  }
 }
 
 
@@ -139,6 +113,19 @@ void ModeManager::change_active_mode(app_mode_t next_mode)
     active().setup();
     ble_update(NOTIFY_CURRENT_MODE);
   }
+}
+
+
+void Mode::setup()
+{
+  setup_impl();
+}
+
+
+void Mode::teardown()
+{
+  teardown_impl();
+  periodic(0);
 }
 
 

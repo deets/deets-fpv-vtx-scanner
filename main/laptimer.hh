@@ -21,10 +21,12 @@ class LapTimer : public Mode
 
 public:
 
-  LapTimer(app_state_t&, rtc6715_t&);
-  void setup() override;
+  LapTimer(app_state_t&, rtc6715_t&, size_t display_width);
   app_mode_t update(Display&) override;
-  void teardown() override;
+
+protected:
+  void setup_impl() override;
+  void teardown_impl() override;
 
 private:
   static void s_laptimer_task(void*);
@@ -36,7 +38,7 @@ private:
   StaticTask_t _laptimer_task_buffer;
   StackType_t  _laptimer_task_stack[LAPTIMER_TASK_STACK_SIZE];
 
-  uint16_t _rssi_readings[128];
+  std::vector<uint16_t> _rssi_readings; // Display width
 
   int64_t _last_laptime;
   bool _laptime_acquired;

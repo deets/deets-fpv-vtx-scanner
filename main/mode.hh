@@ -30,39 +30,27 @@ class Mode
 {
 public:
   Mode(app_state_t&);
-  virtual void setup()=0;
+  void setup();
+  void teardown();
+
   virtual app_mode_t update(Display&)=0;
-  virtual void teardown()=0;
   virtual void input(input_t) {};
 
-  // Ensures peridodic wakeup
-  // Compute argument like this:
-  // pdMS_TO_TICKS(1000 / <FREQUENCY>)
-  void periodic(TickType_t);
-  int total_elapsed_ms() const;
-  int now() const;
-
 protected:
+  void periodic(int ms);
 
-  void notifyMainTask(uint32_t flags);
+  virtual void setup_impl() {};
+  virtual void teardown_impl() {};
+
+  void notify_main_task(uint32_t flags);
 
   app_state_t& _app_state;
 
 private:
+  static void s_periodic_timer_callback(void*);
 
   TaskHandle_t _main_task_handle;
-
-  TickType_t _last_wake_time;
-  TickType_t _wake_period;
-  TickType_t _periodic_start;
-
-  TaskHandle_t _periodic_task_handle;
-  StaticTask_t _periodic_task_buffer;
-  StackType_t  _periodic_task_stack[PERIODIC_TASK_STACK_SIZE];
-
-  void periodic_task_callback();
-
-  static void s_periodic_task_callback(void*);
+  esp_timer_handle_t _periodic_timer_handle;
 };
 
 

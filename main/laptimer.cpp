@@ -11,8 +11,6 @@
 
 namespace {
 
-#define FONT  u8g2_font_helvB08_tf
-
 #include "dot.xbm"
 
 sprite_t dot = {
@@ -21,20 +19,12 @@ sprite_t dot = {
   dot_width >> 1, dot_height >> 1
 };
 
-#include "cursor.xbm"
-
-sprite_t cursor = {
-  cursor_bits,
-  cursor_width, cursor_height,
-  1, -2
-};
-
-
 } // end ns anonymous
 
-LapTimer::LapTimer(app_state_t& app_state, rtc6715_t& rtc)
+LapTimer::LapTimer(app_state_t& app_state, rtc6715_t& rtc, size_t display_width)
   : Mode(app_state)
   , _rtc(rtc)
+  , _rssi_readings(display_width)
   , _last_laptime(0)
   , _laptime_acquired(false)
 {
@@ -54,7 +44,7 @@ LapTimer::LapTimer(app_state_t& app_state, rtc6715_t& rtc)
   std::fill(app_state.laptime_buffer.begin(), app_state.laptime_buffer.end(), 0);
 }
 
-void LapTimer::setup()
+void LapTimer::setup_impl()
 {
   auto screen_period = pdMS_TO_TICKS(1000 / 60);
   periodic(screen_period);
@@ -64,7 +54,6 @@ void LapTimer::setup()
 
 app_mode_t LapTimer::update(Display& display)
 {
-  static int _dotpos = 10;
   int max = MAX(_app_state.max_rssi_reading, _app_state.trigger_arm_threshold);
   int min = _app_state.min_rssi_reading;
   int divider = max - min;
@@ -108,9 +97,6 @@ app_mode_t LapTimer::update(Display& display)
     break;
   }
 
-  _dotpos = (_dotpos + 1) % 120;
-  display.blit(cursor, _dotpos, 20);
-
   if(_laptime_acquired)
   {
     ESP_LOGI("laptimer", "laptime: %i", (int)(_last_laptime / 1000));
@@ -129,10 +115,9 @@ app_mode_t LapTimer::update(Display& display)
 }
 
 
-void LapTimer::teardown()
+void LapTimer::teardown_impl()
 {
   vTaskSuspend(_laptimer_task_handle);
-  periodic(0);
 }
 
 void LapTimer::s_laptimer_task(void* data)
@@ -162,7 +147,7 @@ void LapTimer::laptimer_task()
 
     _app_state.max_rssi_reading = MAX(_rssi_readings[pos], _app_state.max_rssi_reading);
     _app_state.min_rssi_reading = MIN(_rssi_readings[pos], _app_state.min_rssi_reading);
-    pos = (pos + 1) % 128;
+    pos = (pos + 1) % _rssi_readings.size();
 
     auto now = esp_timer_get_time();
     switch(_state)

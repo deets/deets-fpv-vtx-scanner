@@ -16,10 +16,12 @@ class Scanner : public Mode
 {
 public:
   Scanner(app_state_t&, rtc6715_t&);
-  void setup() override;
   app_mode_t update(Display&) override;
-  void teardown() override;
   void input(input_t) override;
+
+protected:
+  void setup_impl() override;
+  void teardown_impl() override;
 
 private:
   static void s_scanner_task(void*);

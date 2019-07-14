@@ -47,7 +47,7 @@ Scanner::Scanner(app_state_t& app_state, rtc6715_t& rtc)
 }
 
 
-void Scanner::setup()
+void Scanner::setup_impl()
 {
   vTaskResume(_scanner_task_handle);
 }
@@ -62,7 +62,7 @@ app_mode_t Scanner::update(Display& display)
 }
 
 
-void Scanner::teardown()
+void Scanner::teardown_impl()
 {
   vTaskSuspend(_scanner_task_handle);
 }
@@ -93,7 +93,7 @@ void Scanner::scanner_task()
       _app_state.last_rssi_reading,
       &_channels
       );
-    notifyMainTask(READER_TASK_WAKEUP_FLAG);
+    notify_main_task(READER_TASK_WAKEUP_FLAG);
     // switch channel to the next one after reading
     // so we get the maximum of stabilisation time.
     current_channel = (current_channel + 1) % CHANNEL_NUM;
