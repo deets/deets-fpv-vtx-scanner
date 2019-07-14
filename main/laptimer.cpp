@@ -9,18 +9,6 @@
 #define DISPLAY_SPLIT 32
 #define LINE_LENGTH 12
 
-namespace {
-
-#include "dot.xbm"
-
-sprite_t dot = {
-  dot_bits,
-  dot_width, dot_height,
-  dot_width >> 1, dot_height >> 1
-};
-
-} // end ns anonymous
-
 LapTimer::LapTimer(app_state_t& app_state, rtc6715_t& rtc, size_t display_width)
   : Mode(app_state)
   , _rtc(rtc)
@@ -29,6 +17,8 @@ LapTimer::LapTimer(app_state_t& app_state, rtc6715_t& rtc, size_t display_width)
   , _laptime_acquired(false)
 {
   app_state.laptime_buffer_pos = 0;
+  std::fill(app_state.laptime_buffer.begin(), app_state.laptime_buffer.end(), 0);
+
   _laptimer_task_handle = xTaskCreateStaticPinnedToCore(
     s_laptimer_task,       // Function that implements the task.
     "LPT",          // Text name for the task.
@@ -40,8 +30,6 @@ LapTimer::LapTimer(app_state_t& app_state, rtc6715_t& rtc, size_t display_width)
     1 // Core 1
     );
   vTaskSuspend(_laptimer_task_handle);
-
-  std::fill(app_state.laptime_buffer.begin(), app_state.laptime_buffer.end(), 0);
 }
 
 void LapTimer::setup_impl()
@@ -69,33 +57,11 @@ app_mode_t LapTimer::update(Display& display)
   {
     display.draw_pixel(i, DISPLAY_SPLIT - (DISPLAY_SPLIT * (_rssi_readings[i] - min) / divider));
   }
-  int trigger_arm_pos = DISPLAY_SPLIT - (DISPLAY_SPLIT * (_app_state.trigger_arm_threshold - min) / divider);
-  int trigger_disarm_pos = DISPLAY_SPLIT - (DISPLAY_SPLIT * (_app_state.trigger_disarm_threshold - min) / divider);
-
-  display.hline(
-     0, LINE_LENGTH,
-     trigger_arm_pos
-   );
+  // horizontal separation
   display.hline(
     0, dw - 1,
     DISPLAY_SPLIT + 1
    );
-  display.hline(
-    dw - LINE_LENGTH, dw - 1,
-    trigger_disarm_pos
-   );
-
-  switch(_state)
-  {
-  case DISARMED:
-    display.blit(dot, LINE_LENGTH, trigger_arm_pos);
-    break;
-  case TRIGGERED:
-    display.blit(dot, dw - LINE_LENGTH, trigger_disarm_pos);
-    break;
-  default:
-    break;
-  }
 
   if(_laptime_acquired)
   {
