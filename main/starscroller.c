@@ -3,7 +3,7 @@
 
 #include "esp_system.h"
 
-static int random(int start, int end)
+static int rand_range(int start, int end)
 {
   int r = esp_random();
   r = r % (end - start);
@@ -13,9 +13,9 @@ static int random(int start, int end)
 
 static void starscroller_place_star(starscroller_handle_t* stars, star_t* star)
 {
-  star->x = random(-1024, 1024);
-  star->y = random(-1024, 1024);
-  star->z = random(0, stars->distance) + stars->distance;
+  star->x = rand_range(-1024, 1024);
+  star->y = rand_range(-1024, 1024);
+  star->z = rand_range(0, stars->distance) + stars->distance;
 }
 
 

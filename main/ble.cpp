@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <vector>
+#include <cassert>
 
 namespace {
 
