@@ -25,12 +25,7 @@ if [ -z ${ESPBAUD} ]; then
     ESPBAUD=460800
 fi
 
-
-if [ `uname` == 'Darwin' ]; then
-    CORES=4
-else
-    CORES=28
-fi
+CORES=`python3 -c 'import multiprocessing as mp; print(mp.cpu_count())'`
 
 export PATH
 export IDF_PATH
