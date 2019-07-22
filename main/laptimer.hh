@@ -1,8 +1,6 @@
 // Copyright: 2019, Diez B. Roggisch, Berlin, all rights reserved
 #pragma once
 
-#pragma once
-
 #include "mode.hh"
 #include "rtc6715.h"
 
