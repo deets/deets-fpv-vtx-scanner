@@ -153,7 +153,10 @@ uint16_t att_read_callback(hci_con_handle_t connection_handle, uint16_t att_hand
       case CURRENT_CHANNEL_VALUE_HANDLE:
         return sizeof(app_state->selected_channel);
       case LAST_RSSI_VALUE_HANDLE:
-        return sizeof(app_state->last_read_channel);
+        // this is a special case, we bundle the
+        // two value last_read_channel and last_rssi_reading
+        // together!
+        return sizeof(app_state->last_read_channel) * 2;
       case CURRENT_MODE_VALUE_HANDLE:
         return sizeof(app_state->current_mode);
       case MAX_RSSI_VALUE_HANDLE:
