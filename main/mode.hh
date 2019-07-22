@@ -16,6 +16,7 @@
 #define UP_PIN_ISR_FLAG (1 << 3)
 #define DOWN_PIN_ISR_FLAG (1 << 4)
 #define PERIODIC_TASK_WAKEUP_FLAG (1 << 5)
+#define LAST_RSSI_UPDATED_FLAG (1 << 6)
 
 
 enum input_t

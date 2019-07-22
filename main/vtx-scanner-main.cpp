@@ -119,7 +119,7 @@ void display_task(void*)
       ESP_LOGI("main", "BUTTON_DOWN");
       modes.input(input_t::SETTINGS_BUTTON);
     }
-    if(status_bits & READER_TASK_WAKEUP_FLAG)
+    if(status_bits & LAST_RSSI_UPDATED_FLAG)
     {
       ble_update(NOTIFY_LAST_RSSI);
     }

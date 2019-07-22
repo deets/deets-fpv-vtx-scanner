@@ -93,7 +93,7 @@ void Scanner::scanner_task()
       _app_state.last_rssi_reading,
       &_channels
       );
-    notify_main_task(READER_TASK_WAKEUP_FLAG);
+    notify_main_task(LAST_RSSI_UPDATED_FLAG);
     // switch channel to the next one after reading
     // so we get the maximum of stabilisation time.
     current_channel = (current_channel + 1) % CHANNEL_NUM;
