@@ -9,7 +9,7 @@
 #define DISPLAY_SPLIT 32
 #define LINE_LENGTH 12
 
-LapTimer::LapTimer(app_state_t& app_state, rtc6715_t& rtc, size_t display_width)
+LapTimer::LapTimer(app_state_t& app_state, RTC6715& rtc, size_t display_width)
   : Mode(app_state)
   , _rtc(rtc)
   , _rssi_readings(display_width)
@@ -36,7 +36,7 @@ void LapTimer::setup_impl()
 {
   auto screen_period = pdMS_TO_TICKS(1000 / 60);
   periodic(screen_period);
-  rtc6715_select_channel(&_rtc, _app_state.selected_channel);
+  _rtc.select_channel(_app_state.selected_channel);
   vTaskResume(_laptimer_task_handle);
 }
 
@@ -84,6 +84,10 @@ app_mode_t LapTimer::update(Display& display)
 void LapTimer::teardown_impl()
 {
   vTaskSuspend(_laptimer_task_handle);
+  while(eTaskGetState(_laptimer_task_handle) != eSuspended)
+  {
+    ESP_LOGI("laptimer", "task not yet suspended");
+  }
 }
 
 void LapTimer::s_laptimer_task(void* data)
@@ -107,7 +111,8 @@ void LapTimer::laptimer_task()
   for( ;; )
   {
     vTaskDelayUntil( &last_wake_time, period );
-    uint16_t reading = _rssi_readings[pos] = rtc6715_read_rssi(&_rtc);
+
+    uint16_t reading = _rssi_readings[pos] = _rtc.read_rssi();
     _app_state.laptime_buffer[_app_state.laptime_buffer_pos] = uint8_t(reading >> 4); // we read 12 bit, limit down to one byte
     _app_state.laptime_buffer_pos = (_app_state.laptime_buffer_pos + 1) % _app_state.laptime_buffer.size();
 

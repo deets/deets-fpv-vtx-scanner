@@ -17,9 +17,9 @@ void copy_legal_channel_info(vtx_info_t* vtx, channel_display_t* channels, int h
 } // end ns anonymous
 
 
-Scanner::Scanner(app_state_t& app_state, rtc6715_t& rtc)
+Scanner::Scanner(app_state_t& app_state, RTC6715& rtc)
   : Mode(app_state)
-  ,_rtc(rtc)
+  , _rtc(rtc)
   , _has_ham(false)
 {
   _selected_vtx = &tbs_unify_info;
@@ -84,7 +84,7 @@ void Scanner::scanner_task()
   for( ;; )
   {
     vTaskDelayUntil( &last_wake_time, frequency );
-    _app_state.last_rssi_reading = rtc6715_read_rssi(&_rtc);
+    _app_state.last_rssi_reading = _rtc.read_rssi();
     _app_state.last_read_channel = current_channel;
     _app_state.max_rssi_reading = MAX(_app_state.last_rssi_reading, _app_state.max_rssi_reading);
     _app_state.min_rssi_reading = MIN(_app_state.last_rssi_reading, _app_state.min_rssi_reading);
@@ -97,7 +97,7 @@ void Scanner::scanner_task()
     // switch channel to the next one after reading
     // so we get the maximum of stabilisation time.
     current_channel = (current_channel + 1) % CHANNEL_NUM;
-    rtc6715_select_channel(&_rtc, current_channel);
+    _rtc.select_channel(current_channel);
   }
 }
 

@@ -2,7 +2,7 @@
 #include "goggle_info.hh"
 #include "channel_display.hh"
 #include "font.h"
-#include "rtc6715.h"
+#include "rtc6715.hh"
 
 #include <sstream>
 
@@ -28,7 +28,7 @@ void goggle_display_draw(Display& display, goggle_info_t* goggle, int cursor_pos
   x -= display.font_text_width(NORMAL, buffer);
   display.font_render(NORMAL, buffer, x, y);
 
-  sprintf(buffer, "%i", rtc6715_frequency_for_channel(cursor_pos));
+  sprintf(buffer, "%i", RTC6715::frequency_for_channel(cursor_pos));
   x = display.width() / 2 - display.font_text_width(SMALL, buffer) / 2;
   display.font_render(SMALL, buffer, x, y);
 }

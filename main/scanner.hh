@@ -6,7 +6,7 @@
 #include "channel_display.hh"
 #include "vtx-info.hh"
 #include "goggle_info.hh"
-#include "rtc6715.h"
+#include "rtc6715.hh"
 
 
 #define SCANNER_TASK_STACK_SIZE 2000
@@ -15,7 +15,7 @@
 class Scanner : public Mode
 {
 public:
-  Scanner(app_state_t&, rtc6715_t&);
+  Scanner(app_state_t&, RTC6715&);
   app_mode_t update(Display&) override;
   void input(input_t) override;
 
@@ -27,7 +27,7 @@ private:
   static void s_scanner_task(void*);
   void scanner_task();
 
-  rtc6715_t& _rtc;
+  RTC6715& _rtc;
 
   channel_display_t _channels;
   vtx_info_t* _selected_vtx;

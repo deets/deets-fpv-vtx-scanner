@@ -2,7 +2,7 @@
 #pragma once
 
 #include "mode.hh"
-#include "rtc6715.h"
+#include "rtc6715.hh"
 
 #define LAPTIMER_TASK_STACK_SIZE 2000
 
@@ -19,7 +19,7 @@ class LapTimer : public Mode
 
 public:
 
-  LapTimer(app_state_t&, rtc6715_t&, size_t display_width);
+  LapTimer(app_state_t&, RTC6715&, size_t display_width);
   app_mode_t update(Display&) override;
 
 protected:
@@ -30,7 +30,7 @@ private:
   static void s_laptimer_task(void*);
   void laptimer_task();
 
-  rtc6715_t& _rtc;
+  RTC6715& _rtc;
 
   TaskHandle_t _laptimer_task_handle;
   StaticTask_t _laptimer_task_buffer;

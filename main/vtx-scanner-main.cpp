@@ -62,9 +62,7 @@ void display_task(void*)
 
   Display display;
 
-  rtc6715_t rtc;
-  rtc6715_setup(
-    &rtc,
+  RTC6715 rtc(
     RTC_ADC_CHANNEL,
     RTC_CS,
     RTC_CLK,
