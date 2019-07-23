@@ -26,6 +26,7 @@ struct app_state_t
     , trigger_max_latency(0)
     , trigger_cooldown(0)
     , laptime_buffer_pos(0)
+    , laptime_buffer(8192, 0)
   {}
   uint32_t selected_channel;
   uint16_t last_read_channel;

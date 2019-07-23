@@ -35,9 +35,9 @@ app_state_t* app_state = 0;
 int next_notification = 0;
 std::function<void(int)> change_current_mode_callback = 0;
 int  le_notification_enabled;
-int laptime_max_data_size;
+ssize_t laptime_max_data_size;
 std::vector<uint8_t> laptimer_data;
-decltype(app_state->laptime_buffer_pos) last_read_pos;
+ssize_t last_read_pos;
 btstack_packet_callback_registration_t hci_event_callback_registration;
 hci_con_handle_t con_handle;
 
@@ -57,14 +57,20 @@ const uint8_t adv_data_len = sizeof(adv_data);
 
 size_t transfer_laptimer_data()
 {
-  const auto buffer_size = app_state->laptime_buffer.size();
-  auto current_pos = app_state->laptime_buffer_pos;
+  const ssize_t buffer_size = app_state->laptime_buffer.size();
+  ssize_t current_pos = app_state->laptime_buffer_pos;
   auto p = laptimer_data.data();
+
   const auto to_transfer = std::min(
     laptime_max_data_size,
-    (int)(((current_pos - last_read_pos) + buffer_size) % buffer_size)
+    (ssize_t)(((current_pos + buffer_size) - last_read_pos) % buffer_size)
     );
-  auto start = current_pos - to_transfer;
+  // for(uint8_t i=0; i < to_transfer; i++)
+  // {
+  //   *p++ = i;
+  // }
+
+  auto start = (current_pos + buffer_size - to_transfer) % buffer_size;
   // from current_pos to the end of the buffer
   if(start > current_pos)
   {
@@ -73,7 +79,6 @@ size_t transfer_laptimer_data()
       app_state->laptime_buffer.end(),
       p
       );
-    p += app_state->laptime_buffer.end() - (app_state->laptime_buffer.begin() + start);
     start = 0;
   }
   std::copy(
@@ -85,7 +90,7 @@ size_t transfer_laptimer_data()
   return to_transfer;
 }
 
-void packet_handler (uint8_t packet_type, uint16_t channel, uint8_t *packet, uint16_t size){
+void packet_handler(uint8_t packet_type, uint16_t channel, uint8_t *packet, uint16_t size){
     UNUSED(channel);
     UNUSED(size);
 

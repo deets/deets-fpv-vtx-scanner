@@ -16,9 +16,6 @@ LapTimer::LapTimer(app_state_t& app_state, RTC6715& rtc, size_t display_width)
   , _last_laptime(0)
   , _laptime_acquired(false)
 {
-  app_state.laptime_buffer_pos = 0;
-  std::fill(app_state.laptime_buffer.begin(), app_state.laptime_buffer.end(), 0);
-
   _laptimer_task_handle = xTaskCreateStaticPinnedToCore(
     s_laptimer_task,       // Function that implements the task.
     "LPT",          // Text name for the task.
@@ -113,11 +110,13 @@ void LapTimer::laptimer_task()
     vTaskDelayUntil( &last_wake_time, period );
 
     uint16_t reading = _rssi_readings[pos] = _rtc.read_rssi();
-    _app_state.laptime_buffer[_app_state.laptime_buffer_pos] = uint8_t(reading >> 4); // we read 12 bit, limit down to one byte
-    _app_state.laptime_buffer_pos = (_app_state.laptime_buffer_pos + 1) % _app_state.laptime_buffer.size();
 
     _app_state.max_rssi_reading = MAX(_rssi_readings[pos], _app_state.max_rssi_reading);
     _app_state.min_rssi_reading = MIN(_rssi_readings[pos], _app_state.min_rssi_reading);
+
+    _app_state.laptime_buffer[_app_state.laptime_buffer_pos] = uint8_t(reading >> 4); // we read 12 bit, limit down to one byte
+    _app_state.laptime_buffer_pos = (_app_state.laptime_buffer_pos + 1) % _app_state.laptime_buffer.size();
+
     pos = (pos + 1) % _rssi_readings.size();
 
     auto now = esp_timer_get_time();
