@@ -7,15 +7,17 @@
 
 class PeakDetector
 {
-  enum state_t {
-    BELOW_THRESHOLD,
-    DETECTING_PEAK
-  };
 
 public:
 
+  enum state_t {
+    BELOW_THRESHOLD,
+    DETECTING_PEAK,
+    PEAK
+  };
+
   using ts_t = peak_detection_t::ts_t;
-  using callback_t = std::function<void(ts_t)>;
+  using callback_t = std::function<void(state_t, ts_t)>;
 
 
   PeakDetector(callback_t peak_callback, peak_detection_t& config, uint16_t& max_rssi_reading);

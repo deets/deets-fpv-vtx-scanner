@@ -37,6 +37,7 @@ void PeakDetector::reset()
 
 void PeakDetector::feed(ts_t now, uint16_t rssi)
 {
+  const auto old_state = _state;
   switch(_state)
   {
   case BELOW_THRESHOLD:
@@ -55,6 +56,13 @@ void PeakDetector::feed(ts_t now, uint16_t rssi)
       _state = state_detecting_peak(above_threshold, now, rssi);
     }
     break;
+  case PEAK:
+    assert(false); // this shouldn't happen, it's only for the purpose of communicating the peak
+    break;
+  }
+  if(old_state != _state)
+  {
+    _callback(_state, now);
   }
 }
 
@@ -63,7 +71,6 @@ PeakDetector::state_t PeakDetector::state_below_threshold(bool above_threshold, 
 {
   if(above_threshold)
   {
-    ESP_LOGI("peakd", "above threshold -> DETECTING_PEAK");
     _peak_start = now;
     _peak_reading = rssi;
     return DETECTING_PEAK;
@@ -88,15 +95,13 @@ PeakDetector::state_t PeakDetector::state_detecting_peak(bool above_threshold, t
   }
   else
   {
-    ESP_LOGI("peakd", "below threshold -> BELOW_THRESHOLD");
     // falling below the threshold
     // means we first have to validate that the
     // overall peak was large enough
     const bool large_enough_peak = is_large_enough_peak(_peak_start, now, _config.peak_size);
     if(large_enough_peak)
     {
-      ESP_LOGI("peakd", "large enough peak, we have a lap!");
-      _callback(_peak_start);
+      _callback(PEAK, _peak_start);
     }
     return BELOW_THRESHOLD;
   }

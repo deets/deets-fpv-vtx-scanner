@@ -10,6 +10,11 @@
 
 class LapTimer : public Mode
 {
+  struct queue_message_t {
+    PeakDetector::state_t state;
+    PeakDetector::ts_t peak;
+  };
+
 public:
 
   LapTimer(app_state_t&, RTC6715&, size_t display_width);
@@ -20,9 +25,10 @@ protected:
   void teardown_impl() override;
 
 private:
-  void peak_detected(PeakDetector::ts_t peak);
+  void peak_detector_callback(PeakDetector::state_t, PeakDetector::ts_t peak);
   static void s_laptimer_task(void*);
   void laptimer_task();
+  void process_queue();
 
   RTC6715& _rtc;
 
@@ -33,4 +39,5 @@ private:
   std::vector<uint16_t> _rssi_readings; // Display width
 
   PeakDetector _peak_detector;
+  QueueHandle_t _task_q;
 };

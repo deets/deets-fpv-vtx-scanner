@@ -1,6 +1,7 @@
 #include "laptimer.hh"
 #include "buzzer.hh"
 #include "font.h"
+#include "buzzer.hh"
 
 #include <esp_log.h>
 #include <sys/param.h>
@@ -14,7 +15,9 @@ LapTimer::LapTimer(app_state_t& app_state, RTC6715& rtc, size_t display_width)
   , _rtc(rtc)
   , _rssi_readings(display_width)
   , _peak_detector(
-    [this](PeakDetector::ts_t) {},
+    [this](PeakDetector::state_t state, PeakDetector::ts_t ts) {
+      peak_detector_callback(state, ts);
+    },
     app_state.peak_detection_config,
     app_state.max_rssi_reading
     )
@@ -30,6 +33,8 @@ LapTimer::LapTimer(app_state_t& app_state, RTC6715& rtc, size_t display_width)
     1 // Core 1
     );
   vTaskSuspend(_laptimer_task_handle);
+  _task_q = xQueueCreate(20, sizeof(queue_message_t));
+  assert(_task_q);
 }
 
 void LapTimer::setup_impl()
@@ -64,7 +69,7 @@ app_mode_t LapTimer::update(Display& display)
     0, dw - 1,
     DISPLAY_SPLIT + 1
    );
-
+  process_queue();
   // char buffer[256];
   // sprintf(buffer, "%i", (int)(_last_laptime / 1000));
   // display.font_render(
@@ -73,14 +78,36 @@ app_mode_t LapTimer::update(Display& display)
   //   24,
   //   64 - 8 - 8
   //  );
+
   return LAPTIMER;
 }
 
 
-void LapTimer::peak_detected(PeakDetector::ts_t peak)
+void LapTimer::process_queue()
 {
-  ESP_LOGI("laptimer", "laptime: %i", (int)(peak / 1000));
-  buzzer_buzz(150, 1);
+  queue_message_t m;
+  if(xQueueGenericReceive(_task_q, &m, 0, false))
+  {
+    switch(m.state)
+    {
+    case PeakDetector::PEAK:
+      ESP_LOGI("laptimer", "laptime!");
+      buzzer_buzz(100, 1);
+      break;
+    case PeakDetector::BELOW_THRESHOLD:
+      ESP_LOGI("laptimer", "BELOW_THRESHOLD");
+      break;
+    case PeakDetector::DETECTING_PEAK:
+      ESP_LOGI("laptimer", "DETECTING_PEAK");
+      break;
+    }
+  }
+}
+
+void LapTimer::peak_detector_callback(PeakDetector::state_t s, PeakDetector::ts_t peak)
+{
+  const queue_message_t m = { s, peak };
+  xQueueSendToBack(_task_q, &m, 0);
 }
 
 
