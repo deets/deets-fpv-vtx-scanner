@@ -57,7 +57,6 @@ void buzzer_setup(gpio_num_t pin)
 
 void buzzer_buzz(int ms, int repetitions)
 {
-  return;
   esp_timer_stop(buzzer_timer_handle);
   gpio_set_level(s_pin, 1);
   buzzer_repetitions = repetitions * 2 - 1;
