@@ -29,22 +29,12 @@ namespace {
 #define LAPTIME_RSSI_VALUE_HANDLE ATT_CHARACTERISTIC_135BFFE1_E787_4A27_9402_D76493424B53_01_VALUE_HANDLE
 #define LAPTIME_RSSI_CLIENT_CONFIGURATION_HANDLE ATT_CHARACTERISTIC_135BFFE1_E787_4A27_9402_D76493424B53_01_CLIENT_CONFIGURATION_HANDLE
 
+#define LAPTIME_EVENT_VALUE_HANDLE ATT_CHARACTERISTIC_C112478C_9801_481D_8A79_854D23FD9DF2_01_VALUE_HANDLE
+#define LAPTIME_EVENT_CONFIGURATION_HANDLE ATT_CHARACTERISTIC_C112478C_9801_481D_8A79_854D23FD9DF2_01_CLIENT_CONFIGURATION_HANDLE
+
+
 #define MESSAGE_OVERHEAD 3 // this is from the streamer example.
 
-app_state_t* app_state = 0;
-int next_notification = 0;
-std::function<void(int)> change_current_mode_callback = 0;
-int  le_notification_enabled;
-ssize_t laptime_max_data_size;
-std::vector<uint8_t> laptimer_data;
-ssize_t last_read_pos;
-btstack_packet_callback_registration_t hci_event_callback_registration;
-hci_con_handle_t con_handle;
-
-
-void packet_handler (uint8_t packet_type, uint16_t channel, uint8_t *packet, uint16_t size);
-uint16_t att_read_callback(hci_con_handle_t con_handle, uint16_t att_handle, uint16_t offset, uint8_t * buffer, uint16_t buffer_size);
-int att_write_callback(hci_con_handle_t con_handle, uint16_t att_handle, uint16_t transaction_mode, uint16_t offset, uint8_t *buffer, uint16_t buffer_size);
 
 const uint8_t adv_data[] = {
     // Flags general discoverable, BR/EDR not supported
@@ -55,42 +45,46 @@ const uint8_t adv_data[] = {
 };
 const uint8_t adv_data_len = sizeof(adv_data);
 
-size_t transfer_laptimer_data()
+
+} // end ns anonymous
+
+BLE* BLE::s_instance = nullptr;
+
+
+size_t BLE::transfer_laptimer_data()
 {
-  const ssize_t buffer_size = app_state->laptime_buffer.size();
-  ssize_t current_pos = app_state->laptime_buffer_pos;
-  auto p = laptimer_data.data();
+  const ssize_t buffer_size = _app_state.laptime_buffer.size();
+  ssize_t current_pos = _app_state.laptime_buffer_pos;
+  auto p = _laptimer_data.data();
 
   const auto to_transfer = std::min(
-    laptime_max_data_size,
-    (ssize_t)(((current_pos + buffer_size) - last_read_pos) % buffer_size)
+    _laptime_max_data_size,
+    (ssize_t)(((current_pos + buffer_size) - _last_read_pos) % buffer_size)
     );
-  // for(uint8_t i=0; i < to_transfer; i++)
-  // {
-  //   *p++ = i;
-  // }
 
   auto start = (current_pos + buffer_size - to_transfer) % buffer_size;
   // from current_pos to the end of the buffer
   if(start > current_pos)
   {
     std::copy(
-      app_state->laptime_buffer.begin() + start,
-      app_state->laptime_buffer.end(),
+      _app_state.laptime_buffer.begin() + start,
+      _app_state.laptime_buffer.end(),
       p
       );
     start = 0;
   }
   std::copy(
-    app_state->laptime_buffer.begin() + start,
-    app_state->laptime_buffer.begin() + current_pos,
+    _app_state.laptime_buffer.begin() + start,
+    _app_state.laptime_buffer.begin() + current_pos,
     p
     );
-  last_read_pos = current_pos;
+  _last_read_pos = current_pos;
   return to_transfer;
 }
 
-void packet_handler(uint8_t packet_type, uint16_t channel, uint8_t *packet, uint16_t size){
+
+void BLE::packet_handler(uint8_t packet_type, uint16_t channel, uint8_t *packet, uint16_t size)
+{
     UNUSED(channel);
     UNUSED(size);
 
@@ -98,56 +92,57 @@ void packet_handler(uint8_t packet_type, uint16_t channel, uint8_t *packet, uint
         case HCI_EVENT_PACKET:
             switch (hci_event_packet_get_type(packet)) {
                 case ATT_EVENT_MTU_EXCHANGE_COMPLETE:
-                  laptime_max_data_size = att_event_mtu_exchange_complete_get_MTU(packet) - MESSAGE_OVERHEAD;
-                  ESP_LOGI("ble", "laptime data size: %i", laptime_max_data_size);
-                  laptimer_data.resize(laptime_max_data_size, 0);
+                  _laptime_max_data_size = att_event_mtu_exchange_complete_get_MTU(packet) - MESSAGE_OVERHEAD;
+                  ESP_LOGI("ble", "laptime data size: %i", _laptime_max_data_size);
+                  _laptimer_data.resize(_laptime_max_data_size, 0);
                   break;
                 case HCI_EVENT_DISCONNECTION_COMPLETE:
-                    le_notification_enabled = 0;
-                    laptime_max_data_size = -1;
+                    _le_notification_enabled = 0;
+                    _laptime_max_data_size = -1;
                     break;
                 case ATT_EVENT_CAN_SEND_NOW:
-                  if(next_notification & NOTIFY_CURRENT_CHANNEL)
+                  if(_next_notification & NOTIFY_CURRENT_CHANNEL)
                   {
                     att_server_notify(
-                      con_handle,
+                      _con_handle,
                       CURRENT_CHANNEL_VALUE_HANDLE,
-                      (uint8_t*)&app_state->selected_channel, sizeof(uint32_t)
+                      (uint8_t*)&_app_state.selected_channel, sizeof(uint32_t)
 
                       );
                   }
-                  if(next_notification & NOTIFY_LAST_RSSI)
+                  if(_next_notification & NOTIFY_LAST_RSSI)
                   {
                     att_server_notify(
-                      con_handle,
+                      _con_handle,
                       LAST_RSSI_VALUE_HANDLE,
-                      (uint8_t*)&app_state->last_read_channel, sizeof(uint32_t)
+                      (uint8_t*)&_app_state.last_read_channel, sizeof(uint32_t)
                       );
                   }
-                  if(next_notification & NOTIFY_CURRENT_MODE)
+                  if(_next_notification & NOTIFY_CURRENT_MODE)
                   {
                     att_server_notify(
-                      con_handle,
+                      _con_handle,
                       CURRENT_MODE_VALUE_HANDLE,
-                      (uint8_t*)&app_state->current_mode, sizeof(int)
+                      (uint8_t*)&_app_state.current_mode, sizeof(int)
                       );
                   }
-                  if(next_notification & NOTIFY_MAX_RSSI)
+                  if(_next_notification & NOTIFY_MAX_RSSI)
                   {
                     att_server_notify(
-                      con_handle,
+                      _con_handle,
                       MAX_RSSI_VALUE_HANDLE,
-                      (uint8_t*)&app_state->max_rssi_reading, sizeof(uint16_t)
+                      (uint8_t*)&_app_state.max_rssi_reading, sizeof(uint16_t)
                       );
                   }
-                  next_notification = 0;
+                  _next_notification = 0;
                   break;
             }
             break;
     }
 }
 
-uint16_t att_read_callback(hci_con_handle_t connection_handle, uint16_t att_handle, uint16_t offset, uint8_t * buffer, uint16_t buffer_size){
+
+uint16_t BLE::att_read_callback(hci_con_handle_t connection_handle, uint16_t att_handle, uint16_t offset, uint8_t * buffer, uint16_t buffer_size){
     UNUSED(connection_handle);
 
     // if buffer is NULL, we need to deliver the size of the data
@@ -156,40 +151,40 @@ uint16_t att_read_callback(hci_con_handle_t connection_handle, uint16_t att_hand
       switch(att_handle)
       {
       case CURRENT_CHANNEL_VALUE_HANDLE:
-        return sizeof(app_state->selected_channel);
+        return sizeof(_app_state.selected_channel);
       case LAST_RSSI_VALUE_HANDLE:
         // this is a special case, we bundle the
         // two value last_read_channel and last_rssi_reading
         // together!
-        return sizeof(app_state->last_read_channel) * 2;
+        return sizeof(_app_state.last_read_channel) * 2;
       case CURRENT_MODE_VALUE_HANDLE:
-        return sizeof(app_state->current_mode);
+        return sizeof(_app_state.current_mode);
       case MAX_RSSI_VALUE_HANDLE:
-        return sizeof(app_state->max_rssi_reading);
+        return sizeof(_app_state.max_rssi_reading);
       case LAPTIME_RSSI_VALUE_HANDLE:
         return transfer_laptimer_data();
       }
     }
 
     if (att_handle == CURRENT_CHANNEL_VALUE_HANDLE) {
-        return att_read_callback_handle_blob((uint8_t*)&app_state->selected_channel, buffer_size, offset, buffer, buffer_size);
+        return att_read_callback_handle_blob((uint8_t*)&_app_state.selected_channel, buffer_size, offset, buffer, buffer_size);
     }
     if (att_handle == LAST_RSSI_VALUE_HANDLE) {
-        return att_read_callback_handle_blob((uint8_t*)&app_state->last_read_channel, buffer_size, offset, buffer, buffer_size);
+        return att_read_callback_handle_blob((uint8_t*)&_app_state.last_read_channel, buffer_size, offset, buffer, buffer_size);
     }
     if (att_handle == CURRENT_MODE_VALUE_HANDLE) {
-        return att_read_callback_handle_blob((uint8_t*)&app_state->current_mode, buffer_size, offset, buffer, buffer_size);
+        return att_read_callback_handle_blob((uint8_t*)&_app_state.current_mode, buffer_size, offset, buffer, buffer_size);
     }
     if (att_handle == MAX_RSSI_VALUE_HANDLE) {
-        return att_read_callback_handle_blob((uint8_t*)&app_state->max_rssi_reading, buffer_size, offset, buffer, buffer_size);
+        return att_read_callback_handle_blob((uint8_t*)&_app_state.max_rssi_reading, buffer_size, offset, buffer, buffer_size);
     }
     if (att_handle == LAPTIME_RSSI_VALUE_HANDLE) {
-      return att_read_callback_handle_blob((uint8_t*)laptimer_data.data(), buffer_size, offset, buffer, buffer_size);
+      return att_read_callback_handle_blob((uint8_t*)_laptimer_data.data(), buffer_size, offset, buffer, buffer_size);
     }
     return 0;
 }
 
-int att_write_callback(hci_con_handle_t connection_handle, uint16_t att_handle, uint16_t transaction_mode, uint16_t offset, uint8_t *buffer, uint16_t buffer_size){
+int BLE::att_write_callback(hci_con_handle_t connection_handle, uint16_t att_handle, uint16_t transaction_mode, uint16_t offset, uint8_t *buffer, uint16_t buffer_size){
     UNUSED(transaction_mode);
     UNUSED(offset);
     UNUSED(buffer_size);
@@ -202,47 +197,50 @@ int att_write_callback(hci_con_handle_t connection_handle, uint16_t att_handle, 
     case CURRENT_MODE_CLIENT_CONFIGURATION_HANDLE:
     case MAX_RSSI_CLIENT_CONFIGURATION_HANDLE:
     case LAPTIME_RSSI_CLIENT_CONFIGURATION_HANDLE:
-      le_notification_enabled |= little_endian_read_16(buffer, 0) == GATT_CLIENT_CHARACTERISTICS_CONFIGURATION_NOTIFICATION;
-      con_handle = connection_handle;
+      _le_notification_enabled |= little_endian_read_16(buffer, 0) == GATT_CLIENT_CHARACTERISTICS_CONFIGURATION_NOTIFICATION;
+      _con_handle = connection_handle;
       break;
     case CURRENT_CHANNEL_VALUE_HANDLE:
       ESP_LOGD("ble", "Write current channel");
       assert(buffer_size == sizeof(int));
-      app_state->selected_channel = *(uint32_t*)buffer;
+      _app_state.selected_channel = *(uint32_t*)buffer;
       break;
     case CURRENT_MODE_VALUE_HANDLE:
       ESP_LOGD("ble", "Write current mode");
       assert(buffer_size == sizeof(int));
-      if(change_current_mode_callback)
+      if(_change_current_mode_callback)
       {
-        change_current_mode_callback(*(int*)buffer);
+        _change_current_mode_callback(*(int*)buffer);
       }
       break;
     }
     return 0;
 }
 
-} // end ns anonymous
 
-
-void ble_set_mode_change_callback(std::function<void(int)> cmcb)
+void BLE::set_mode_change_callback(std::function<void(int)> cmcb)
 {
-  change_current_mode_callback = cmcb;
+  _change_current_mode_callback = cmcb;
 }
 
-void ble_init(app_state_t* app_state_p)
-{
-  app_state = app_state_p;
-  l2cap_init();
 
+BLE::BLE(app_state_t& app_state)
+  : _app_state(app_state)
+  , _change_current_mode_callback(0)
+  , _le_notification_enabled(0)
+  , _next_notification(0)
+  , _last_read_pos(0)
+{
+  assert(!s_instance);
+  s_instance = this;
+
+  l2cap_init();
   // setup le device db
   le_device_db_init();
-
   // setup SM: Display only
   sm_init();
-
-  // setup ATT server
-  att_server_init(profile_data, att_read_callback, att_write_callback);
+  // setup ATT server, profile_data is from vtx_scanner_ble.h
+  att_server_init(profile_data, &BLE::s_att_read_callback, &BLE::s_att_write_callback);
 
   // setup advertisements
   uint16_t adv_int_min = 0x0030;
@@ -255,21 +253,55 @@ void ble_init(app_state_t* app_state_p)
   gap_advertisements_enable(1);
 
   // register for HCI events
-  hci_event_callback_registration.callback = &packet_handler;
-  hci_add_event_handler(&hci_event_callback_registration);
+  _hci_event_callback_registration.callback = &BLE::s_packet_handler;
+  hci_add_event_handler(&_hci_event_callback_registration);
 
   // register for ATT event
-  att_server_register_packet_handler(packet_handler);
+  att_server_register_packet_handler(&BLE::s_packet_handler);
 
   hci_power_control(HCI_POWER_ON);
 }
 
 
-void ble_update(characeristic_notify_t notify_for)
+void BLE::update(characeristic_notify_t notify_for)
 {
-  if (le_notification_enabled)
+  if (_le_notification_enabled)
   {
-    next_notification |= notify_for;
-    att_server_request_can_send_now_event(con_handle);
+    _next_notification |= notify_for;
+    att_server_request_can_send_now_event(_con_handle);
   }
+}
+
+
+uint16_t BLE::s_att_read_callback(hci_con_handle_t connection_handle, uint16_t att_handle, uint16_t offset, uint8_t * buffer, uint16_t buffer_size)
+{
+  assert(s_instance);
+  return BLE::s_instance->att_read_callback(connection_handle, att_handle, offset, buffer, buffer_size);
+}
+
+
+int BLE::s_att_write_callback(hci_con_handle_t connection_handle, uint16_t att_handle, uint16_t transaction_mode, uint16_t offset, uint8_t *buffer, uint16_t buffer_size)
+{
+  assert(s_instance);
+  return BLE::s_instance->att_write_callback(connection_handle, att_handle, transaction_mode, offset, buffer, buffer_size);
+}
+
+
+void BLE::s_packet_handler(uint8_t packet_type, uint16_t channel, uint8_t *packet, uint16_t size)
+{
+  assert(s_instance);
+  BLE::s_instance->packet_handler(packet_type, channel, packet, size);
+}
+
+// TODO: remove
+void ble_update(characeristic_notify_t n)
+{
+  BLE::s_instance->update(n);
+}
+
+
+// TODO: remove
+void ble_set_mode_change_callback(std::function<void(int)> f)
+{
+  BLE::s_instance->set_mode_change_callback(f);
 }

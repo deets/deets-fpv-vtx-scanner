@@ -149,7 +149,7 @@ void display_task(void*)
 extern "C" void btstack_main();
 void btstack_main()
 {
-  ble_init(&app_state);
+  new BLE(app_state);
   task_state.display_task_handle = xTaskCreateStatic(
     display_task,       // Function that implements the task.
     "DSP",          // Text name for the task.
@@ -159,5 +159,4 @@ void btstack_main()
     task_state.display_task_stack,          // Array to use as the task's stack.
     &task_state.display_task_buffer // Variable to hold the task's data structure.
     );
-
 }
