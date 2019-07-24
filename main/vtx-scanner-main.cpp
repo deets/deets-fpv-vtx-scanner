@@ -70,7 +70,7 @@ void display_task(void*)
     );
 
   buzzer_setup(BUZZER_PIN);
-  buzzer_buzz(100, 3);
+  //buzzer_buzz(100, 3);
 
   Storage storage(app_state);
 

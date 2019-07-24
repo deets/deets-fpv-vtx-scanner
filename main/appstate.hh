@@ -12,6 +12,29 @@ enum app_mode_t
     SETTINGS
 };
 
+/**
+ * This contains the data necessary to track and
+ * detect a close flyby (based on RSSI levels)
+ *
+ * For a in detail description of the approach
+ * and meaning of the values, see peak_detection_strategy.hh
+ */
+struct peak_detection_t
+{
+  using ts_t = int64_t;
+
+  int trigger_threshold_percent; // 1-100, percent
+  int trigger_threshold_hysteresis; // 1-100, percent, added to trigger_threshold_percent
+  ts_t peak_size; // 1-n, milliseconds.
+
+  peak_detection_t()
+    : trigger_threshold_percent(70)
+    , trigger_threshold_hysteresis(-15)
+    , peak_size(200)
+  {}
+};
+
+
 struct app_state_t
 {
   app_state_t()
@@ -41,4 +64,5 @@ struct app_state_t
   // laptimer data
   uint16_t laptime_buffer_pos;
   std::vector<uint8_t> laptime_buffer;
+  peak_detection_t peak_detection_config;
 };

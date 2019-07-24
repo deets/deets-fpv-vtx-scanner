@@ -13,8 +13,11 @@ LapTimer::LapTimer(app_state_t& app_state, RTC6715& rtc, size_t display_width)
   : Mode(app_state)
   , _rtc(rtc)
   , _rssi_readings(display_width)
-  , _last_laptime(0)
-  , _laptime_acquired(false)
+  , _peak_detector(
+    [this](PeakDetector::ts_t) {},
+    app_state.peak_detection_config,
+    app_state.max_rssi_reading
+    )
 {
   _laptimer_task_handle = xTaskCreateStaticPinnedToCore(
     s_laptimer_task,       // Function that implements the task.
@@ -31,9 +34,11 @@ LapTimer::LapTimer(app_state_t& app_state, RTC6715& rtc, size_t display_width)
 
 void LapTimer::setup_impl()
 {
+  ESP_LOGE("laptimer", "setup");
   auto screen_period = pdMS_TO_TICKS(1000 / 60);
   periodic(screen_period);
   _rtc.select_channel(_app_state.selected_channel);
+  _peak_detector.reset();
   vTaskResume(_laptimer_task_handle);
 }
 
@@ -60,21 +65,22 @@ app_mode_t LapTimer::update(Display& display)
     DISPLAY_SPLIT + 1
    );
 
-  if(_laptime_acquired)
-  {
-    ESP_LOGI("laptimer", "laptime: %i", (int)(_last_laptime / 1000));
-    _laptime_acquired = false;
-    buzzer_buzz(150, 1);
-  }
-  char buffer[256];
-  sprintf(buffer, "%i", (int)(_last_laptime / 1000));
-  display.font_render(
-    NORMAL,
-    buffer,
-    24,
-    64 - 8 - 8
-   );
+  // char buffer[256];
+  // sprintf(buffer, "%i", (int)(_last_laptime / 1000));
+  // display.font_render(
+  //   NORMAL,
+  //   buffer,
+  //   24,
+  //   64 - 8 - 8
+  //  );
   return LAPTIMER;
+}
+
+
+void LapTimer::peak_detected(PeakDetector::ts_t peak)
+{
+  ESP_LOGI("laptimer", "laptime: %i", (int)(peak / 1000));
+  buzzer_buzz(150, 1);
 }
 
 
@@ -100,10 +106,6 @@ void LapTimer::laptimer_task()
   ESP_LOGI("laptimer", "laptimer task period: %ims", period);
   last_wake_time = xTaskGetTickCount ();
 
-  uint16_t trigger_reading = 0;
-  int64_t trigger_time = 0;
-  _state = DISARMED;
-
   size_t pos = 0;
   for( ;; )
   {
@@ -120,44 +122,6 @@ void LapTimer::laptimer_task()
     pos = (pos + 1) % _rssi_readings.size();
 
     auto now = esp_timer_get_time();
-    switch(_state)
-    {
-    case DISARMED:
-      if(reading > _app_state.trigger_arm_threshold)
-      {
-        _state = ARMED;
-        trigger_time = now;
-        trigger_reading = reading;
-      }
-      break;
-    case ARMED:
-      if(reading > trigger_reading)
-      {
-        trigger_time = now;
-        trigger_reading = reading;
-      }
-      else
-      {
-        if(now - trigger_time > _app_state.trigger_max_latency)
-        {
-          _last_laptime = trigger_time;
-          _laptime_acquired = true;
-          _state = COOLDOWN;
-        }
-      }
-      break;
-    case COOLDOWN:
-      if(now - trigger_time >= _app_state.trigger_cooldown)
-      {
-        _state = TRIGGERED;
-      }
-      break;
-    case TRIGGERED:
-      if(reading < _app_state.trigger_disarm_threshold)
-      {
-        _state = DISARMED;
-      }
-      break;
-    }
+    _peak_detector.feed(now, reading);
   }
 }

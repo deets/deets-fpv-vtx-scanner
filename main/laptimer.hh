@@ -3,20 +3,13 @@
 
 #include "mode.hh"
 #include "rtc6715.hh"
+#include "peak_detection_strategy.hh"
 
 #define LAPTIMER_TASK_STACK_SIZE 2000
 
 
 class LapTimer : public Mode
 {
-  enum TriggerState
-  {
-    DISARMED,
-    ARMED,
-    TRIGGERED,
-    COOLDOWN
-  };
-
 public:
 
   LapTimer(app_state_t&, RTC6715&, size_t display_width);
@@ -27,6 +20,7 @@ protected:
   void teardown_impl() override;
 
 private:
+  void peak_detected(PeakDetector::ts_t peak);
   static void s_laptimer_task(void*);
   void laptimer_task();
 
@@ -38,7 +32,5 @@ private:
 
   std::vector<uint16_t> _rssi_readings; // Display width
 
-  int64_t _last_laptime;
-  bool _laptime_acquired;
-  TriggerState _state;
+  PeakDetector _peak_detector;
 };
