@@ -4,20 +4,20 @@
 #include "mode.hh"
 #include "rtc6715.hh"
 #include "peak_detection_strategy.hh"
+#include "laptime_tracker.hh"
 
 #define LAPTIMER_TASK_STACK_SIZE 2000
-
 
 class LapTimer : public Mode
 {
   struct queue_message_t {
     PeakDetector::state_t state;
-    PeakDetector::ts_t peak;
+    ts_t peak;
   };
 
 public:
 
-  LapTimer(app_state_t&, RTC6715&, size_t display_width);
+  LapTimer(app_state_t&, RTC6715&, size_t display_width, LapTimeTracker&);
   app_mode_t update(Display&) override;
 
 protected:
@@ -25,7 +25,7 @@ protected:
   void teardown_impl() override;
 
 private:
-  void peak_detector_callback(PeakDetector::state_t, PeakDetector::ts_t peak);
+  void peak_detector_callback(PeakDetector::state_t, ts_t peak);
   static void s_laptimer_task(void*);
   void laptimer_task();
   void process_queue();
@@ -40,4 +40,6 @@ private:
 
   PeakDetector _peak_detector;
   QueueHandle_t _task_q;
+
+  LapTimeTracker& _lap_time_tracker;
 };

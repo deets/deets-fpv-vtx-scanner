@@ -12,6 +12,8 @@ enum app_mode_t
     SETTINGS
 };
 
+using ts_t = int64_t;
+
 /**
  * This contains the data necessary to track and
  * detect a close flyby (based on RSSI levels)
@@ -21,8 +23,6 @@ enum app_mode_t
  */
 struct peak_detection_t
 {
-  using ts_t = int64_t;
-
   int trigger_threshold_percent; // 1-100, percent
   int trigger_threshold_hysteresis; // 1-100, percent, added to trigger_threshold_percent
   ts_t peak_size; // 1-n, milliseconds.

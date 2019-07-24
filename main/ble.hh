@@ -15,7 +15,6 @@ enum characeristic_notify_t
   NOTIFY_LAPTIME_RSSI_VALUE=1 << 4
 };
 
-
 class BLE {
 
 public:

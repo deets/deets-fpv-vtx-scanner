@@ -16,7 +16,6 @@ public:
     PEAK
   };
 
-  using ts_t = peak_detection_t::ts_t;
   using callback_t = std::function<void(state_t, ts_t)>;
 
 

@@ -5,8 +5,6 @@
 
 namespace  {
 
-using ts_t = peak_detection_t::ts_t;
-
 bool is_above_threshold(uint16_t rssi, const uint16_t& max_rssi, int threshold)
 {
   return rssi > (max_rssi * threshold / 100);

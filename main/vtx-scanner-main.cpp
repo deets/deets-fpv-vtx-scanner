@@ -5,6 +5,7 @@
 #include "scanner.hh"
 #include "storage.hh"
 #include "laptimer.hh"
+#include "laptime_tracker.hh"
 #include "buzzer.hh"
 #include "io-buttons.hh"
 
@@ -60,6 +61,8 @@ void display_task(void*)
 {
   iobuttons_setup(xTaskGetCurrentTaskHandle());
 
+  LapTimeTracker lap_time_tracker;
+
   Display display;
 
   RTC6715 rtc(
@@ -85,7 +88,7 @@ void display_task(void*)
     );
   modes.add_mode(
     LAPTIMER,
-    std::unique_ptr<Mode>(new LapTimer(app_state, rtc, display.width()))
+    std::unique_ptr<Mode>(new LapTimer(app_state, rtc, display.width(), lap_time_tracker))
     );
 
   ble_set_mode_change_callback(
@@ -156,7 +159,7 @@ void btstack_main()
     DISPLAY_TASK_STACK_SIZE,      // Stack size in bytes, not words.
     0,
     tskIDLE_PRIORITY,// Priority at which the task is created.
-    task_state.display_task_stack,          // Array to use as the task's stack.
+    task_state.display_task_stack,  // Array to use as the task's stack.
     &task_state.display_task_buffer // Variable to hold the task's data structure.
     );
 }

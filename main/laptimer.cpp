@@ -10,17 +10,19 @@
 #define DISPLAY_SPLIT 32
 #define LINE_LENGTH 12
 
-LapTimer::LapTimer(app_state_t& app_state, RTC6715& rtc, size_t display_width)
+LapTimer::LapTimer(app_state_t& app_state, RTC6715& rtc, size_t display_width, LapTimeTracker& lpt)
   : Mode(app_state)
   , _rtc(rtc)
   , _rssi_readings(display_width)
   , _peak_detector(
-    [this](PeakDetector::state_t state, PeakDetector::ts_t ts) {
+    [this](PeakDetector::state_t state, ts_t ts) {
       peak_detector_callback(state, ts);
     },
     app_state.peak_detection_config,
     app_state.max_rssi_reading
     )
+  , _lap_time_tracker(lpt)
+
 {
   _laptimer_task_handle = xTaskCreateStaticPinnedToCore(
     s_laptimer_task,       // Function that implements the task.
@@ -44,6 +46,7 @@ void LapTimer::setup_impl()
   periodic(screen_period);
   _rtc.select_channel(_app_state.selected_channel);
   _peak_detector.reset();
+  _lap_time_tracker.reset();
   vTaskResume(_laptimer_task_handle);
 }
 
@@ -93,6 +96,7 @@ void LapTimer::process_queue()
     case PeakDetector::PEAK:
       ESP_LOGI("laptimer", "laptime!");
       buzzer_buzz(100, 1);
+      _lap_time_tracker.record(m.peak);
       break;
     case PeakDetector::BELOW_THRESHOLD:
       ESP_LOGI("laptimer", "BELOW_THRESHOLD");
@@ -104,7 +108,7 @@ void LapTimer::process_queue()
   }
 }
 
-void LapTimer::peak_detector_callback(PeakDetector::state_t s, PeakDetector::ts_t peak)
+void LapTimer::peak_detector_callback(PeakDetector::state_t s, ts_t peak)
 {
   const queue_message_t m = { s, peak };
   xQueueSendToBack(_task_q, &m, 0);
