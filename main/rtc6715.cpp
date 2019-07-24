@@ -44,11 +44,10 @@ RTC6715::RTC6715(adc1_channel_t adc_channel, int cs, int clk, int mosi)
   adc1_config_width(ADC_WIDTH_12Bit);
   adc1_config_channel_atten(_adc_channel, ADC_ATTEN_11db);
 
-
   // setup spi
   spi_bus_config_t buscfg = {
     .mosi_io_num=mosi,
-    .miso_io_num=1,
+    .miso_io_num=-1,
     .sclk_io_num=clk,
     .quadwp_io_num=-1,
     .quadhd_io_num=-1,
@@ -73,13 +72,11 @@ RTC6715::RTC6715(adc1_channel_t adc_channel, int cs, int clk, int mosi)
     .pre_cb=nullptr,
     .post_cb=nullptr
   };
-
   //Initialize the SPI bus
   ret = spi_bus_initialize(VSPI_HOST, &buscfg, 0);
   ESP_ERROR_CHECK(ret);
   ret = spi_bus_add_device(VSPI_HOST, &devcfg, &_spi);
   ESP_ERROR_CHECK(ret);
-
   _semaphore = xSemaphoreCreateMutexStatic(&_semaphore_buffer);
 }
 
