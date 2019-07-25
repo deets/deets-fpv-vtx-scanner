@@ -1,6 +1,7 @@
 // Copyright: 2019, Diez B. Roggisch, Berlin, all rights reserved
 
 #include "appstate.hh"
+#include "laptime_tracker.hh"
 
 #include <btstack.h>
 
@@ -12,16 +13,17 @@ enum characeristic_notify_t
   NOTIFY_LAST_RSSI=1 << 1,
   NOTIFY_CURRENT_MODE=1 << 2,
   NOTIFY_MAX_RSSI=1 << 3,
-  NOTIFY_LAPTIME_RSSI_VALUE=1 << 4
+  NOTIFY_LAPTIME_RSSI_VALUE=1 << 4,
+  NOTIFY_NEW_LAPTIME=1 << 5
 };
 
 class BLE {
 
 public:
 
-  BLE(app_state_t& app_state);
+  BLE(app_state_t& app_state, LapTimeTracker& lap_time_tracker);
   void set_mode_change_callback(std::function<void(int)>);
-  void update(characeristic_notify_t);
+  void notify(characeristic_notify_t);
 
 private:
   BLE(const BLE&)=delete;
@@ -39,6 +41,8 @@ private:
   size_t transfer_laptimer_data();
 
   app_state_t& _app_state;
+  LapTimeTracker& _lap_time_tracker;
+
   std::function<void(int)> _change_current_mode_callback;
   int  _le_notification_enabled;
   int _next_notification;
@@ -50,10 +54,10 @@ private:
   btstack_packet_callback_registration_t _hci_event_callback_registration;
   hci_con_handle_t _con_handle;
 
-  friend void ble_update(characeristic_notify_t);
+  friend void ble_notify(characeristic_notify_t);
   friend void ble_set_mode_change_callback(std::function<void(int)>);
 };
 
 
-void ble_update(characeristic_notify_t);
+void ble_notify(characeristic_notify_t);
 void ble_set_mode_change_callback(std::function<void(int)>);

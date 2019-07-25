@@ -2,6 +2,7 @@
 #include "buzzer.hh"
 #include "font.h"
 #include "buzzer.hh"
+#include "ble.hh"
 
 #include <esp_log.h>
 #include <sys/param.h>
@@ -95,8 +96,11 @@ void LapTimer::process_queue()
     {
     case PeakDetector::PEAK:
       ESP_LOGI("laptimer", "laptime!");
-      buzzer_buzz(100, 1);
-      _lap_time_tracker.record(m.peak);
+      //buzzer_buzz(100, 1);
+      if(_lap_time_tracker.record(m.peak))
+      {
+        ble_notify(NOTIFY_NEW_LAPTIME);
+      }
       break;
     case PeakDetector::BELOW_THRESHOLD:
       ESP_LOGI("laptimer", "BELOW_THRESHOLD");

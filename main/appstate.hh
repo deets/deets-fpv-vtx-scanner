@@ -1,7 +1,7 @@
 // Copyright: 2019, Diez B. Roggisch, Berlin, all rights reserved
 #pragma once
+#include "laptime_tracker.hh"
 
-#include <stdint.h>
 #include <vector>
 
 enum app_mode_t
@@ -11,8 +11,6 @@ enum app_mode_t
     LAPTIMER,
     SETTINGS
 };
-
-using ts_t = int64_t;
 
 /**
  * This contains the data necessary to track and

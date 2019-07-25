@@ -62,6 +62,7 @@ void display_task(void*)
   iobuttons_setup(xTaskGetCurrentTaskHandle());
 
   LapTimeTracker lap_time_tracker;
+  BLE ble(app_state, lap_time_tracker);
 
   Display display;
 
@@ -124,7 +125,7 @@ void display_task(void*)
     }
     if(status_bits & LAST_RSSI_UPDATED_FLAG)
     {
-      ble_update(NOTIFY_LAST_RSSI);
+      ble_notify(NOTIFY_LAST_RSSI);
     }
 
     // This is a bit ugly, but for the time
@@ -138,7 +139,7 @@ void display_task(void*)
     {
       max_rssi = app_state.max_rssi_reading;
       ESP_LOGI("main", "max rssi changed: %i", app_state.max_rssi_reading);
-      ble_update(NOTIFY_MAX_RSSI);
+      ble_notify(NOTIFY_MAX_RSSI);
     }
 
     display.clear();
@@ -152,7 +153,6 @@ void display_task(void*)
 extern "C" void btstack_main();
 void btstack_main()
 {
-  new BLE(app_state);
   task_state.display_task_handle = xTaskCreateStatic(
     display_task,       // Function that implements the task.
     "DSP",          // Text name for the task.

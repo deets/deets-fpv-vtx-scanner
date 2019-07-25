@@ -1,8 +1,10 @@
 // Copyright: 2019, Diez B. Roggisch, Berlin, all rights reserved
 #pragma once
-#include "appstate.hh"
 
+#include <stdint.h>
 #include <vector>
+
+using ts_t = int64_t;
 
 struct laptime_t {
   uint16_t count;
@@ -19,9 +21,10 @@ class LapTimeTracker {
 
 public:
   /**
-   * Record a lap at the timestamp.
+   * Record a peak at the timestamp. Returns
+   * true if this resulted in an actual laptime recorded.
    */
-  void record(ts_t);
+  bool record(ts_t);
   /**
    * Query a concrete laptime for a given count.
    * Here count can be 0 to get the *last* laptime.
@@ -33,6 +36,9 @@ public:
   void reset();
 
 private:
+  void trigger() const;
 
   std::vector<laptime_t> _laps;
+  laptime_t _last_lap;
+
 };

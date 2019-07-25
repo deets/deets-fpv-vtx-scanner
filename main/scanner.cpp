@@ -108,11 +108,11 @@ void Scanner::input(input_t button)
   {
   case input_t::RIGHT_BUTTON:
     channel_display_step_cursor(&_channels, 1);
-    ble_update(NOTIFY_CURRENT_CHANNEL);
+    ble_notify(NOTIFY_CURRENT_CHANNEL);
     break;
   case input_t::LEFT_BUTTON:
     channel_display_step_cursor(&_channels, -1);
-    ble_update(NOTIFY_CURRENT_CHANNEL);
+    ble_notify(NOTIFY_CURRENT_CHANNEL);
     break;
   default:
     break;

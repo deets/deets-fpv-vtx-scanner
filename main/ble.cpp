@@ -45,7 +45,23 @@ const uint8_t adv_data[] = {
 };
 const uint8_t adv_data_len = sizeof(adv_data);
 
+struct laptime_wire_t {
+  uint8_t data[sizeof(laptime_t::count) + sizeof(laptime_t::time)]; // uint16_t + int64_t
 
+  laptime_wire_t(laptime_t t)
+  {
+    uint8_t* p = reinterpret_cast<uint8_t*>(this);
+    std::copy(
+      reinterpret_cast<uint8_t*>(&t.count),
+      reinterpret_cast<uint8_t*>(&t.count) + sizeof(decltype(t.count)),
+      p);
+    std::copy(
+      reinterpret_cast<uint8_t*>(&t.time),
+      reinterpret_cast<uint8_t*>(&t.time) + sizeof(decltype(t.time)),
+      p + sizeof(decltype(t.count)));
+  }
+
+};
 } // end ns anonymous
 
 BLE* BLE::s_instance = nullptr;
@@ -134,6 +150,16 @@ void BLE::packet_handler(uint8_t packet_type, uint16_t channel, uint8_t *packet,
                       (uint8_t*)&_app_state.max_rssi_reading, sizeof(uint16_t)
                       );
                   }
+                  if(_next_notification & NOTIFY_NEW_LAPTIME)
+                  {
+                    const auto last_laptime = laptime_wire_t(_lap_time_tracker.laptime(0));
+                    att_server_notify(
+                      _con_handle,
+                      LAPTIME_EVENT_VALUE_HANDLE,
+                      // this is copied, so no worries about last_laptime falling out of scope
+                      (uint8_t*)&last_laptime, sizeof(laptime_wire_t)
+                      );
+                  }
                   _next_notification = 0;
                   break;
             }
@@ -163,6 +189,8 @@ uint16_t BLE::att_read_callback(hci_con_handle_t connection_handle, uint16_t att
         return sizeof(_app_state.max_rssi_reading);
       case LAPTIME_RSSI_VALUE_HANDLE:
         return transfer_laptimer_data();
+      case LAPTIME_EVENT_VALUE_HANDLE:
+        return sizeof(laptime_wire_t);
       }
     }
 
@@ -180,6 +208,10 @@ uint16_t BLE::att_read_callback(hci_con_handle_t connection_handle, uint16_t att
     }
     if (att_handle == LAPTIME_RSSI_VALUE_HANDLE) {
       return att_read_callback_handle_blob((uint8_t*)_laptimer_data.data(), buffer_size, offset, buffer, buffer_size);
+    }
+    if (att_handle == LAPTIME_EVENT_VALUE_HANDLE) {
+      const auto last_laptime = laptime_wire_t(_lap_time_tracker.laptime(0));
+      return att_read_callback_handle_blob((uint8_t*)&last_laptime, buffer_size, offset, buffer, buffer_size);
     }
     return 0;
 }
@@ -224,8 +256,9 @@ void BLE::set_mode_change_callback(std::function<void(int)> cmcb)
 }
 
 
-BLE::BLE(app_state_t& app_state)
+BLE::BLE(app_state_t& app_state, LapTimeTracker& lap_time_tracker)
   : _app_state(app_state)
+  , _lap_time_tracker(lap_time_tracker)
   , _change_current_mode_callback(0)
   , _le_notification_enabled(0)
   , _next_notification(0)
@@ -263,7 +296,7 @@ BLE::BLE(app_state_t& app_state)
 }
 
 
-void BLE::update(characeristic_notify_t notify_for)
+void BLE::notify(characeristic_notify_t notify_for)
 {
   if (_le_notification_enabled)
   {
@@ -294,9 +327,9 @@ void BLE::s_packet_handler(uint8_t packet_type, uint16_t channel, uint8_t *packe
 }
 
 // TODO: remove
-void ble_update(characeristic_notify_t n)
+void ble_notify(characeristic_notify_t n)
 {
-  BLE::s_instance->update(n);
+  BLE::s_instance->notify(n);
 }
 
 

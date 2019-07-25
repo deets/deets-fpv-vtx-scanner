@@ -6,10 +6,19 @@
 
 #include <algorithm>
 
-void LapTimeTracker::record(ts_t t)
+bool LapTimeTracker::record(ts_t t)
 {
-  _laps.push_back({static_cast<uint16_t>(_laps.size() + 1), t});
-  ESP_LOGI("lpt", "record laptime %i", _laps.size());
+  bool res = false;
+  ESP_LOGI("lpt", "record peak %i", _laps.size());
+  if(_last_lap)
+  {
+    const auto laptime = t - _last_lap.time;
+    ESP_LOGI("lpt", "laptime %i", static_cast<int>(laptime));
+    _laps.push_back({static_cast<uint16_t>(_laps.size() + 1), laptime});
+    res = true;
+  }
+  _last_lap = { 1, t };
+  return res;
 }
 
 
@@ -34,4 +43,5 @@ laptime_t LapTimeTracker::laptime(uint16_t count) const
 void LapTimeTracker::reset()
 {
   _laps.clear();
+  _last_lap = { 0, 0 };
 }

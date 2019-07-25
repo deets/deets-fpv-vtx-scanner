@@ -63,7 +63,7 @@ ModeManager::ModeManager(app_state_t& app_state, app_mode_t start, std::unique_p
   add_mode(start, std::move(mode));
   add_mode(SETTINGS, std::unique_ptr<Mode>(new SettingsMode(app_state)));
   active().setup();
-  ble_update(NOTIFY_CURRENT_MODE);
+  ble_notify(NOTIFY_CURRENT_MODE);
 }
 
 
@@ -119,7 +119,7 @@ void ModeManager::change_active_mode(app_mode_t next_mode)
     active().teardown();
     _app_state.current_mode = next_mode;
     active().setup();
-    ble_update(NOTIFY_CURRENT_MODE);
+    ble_notify(NOTIFY_CURRENT_MODE);
   }
 }
 
