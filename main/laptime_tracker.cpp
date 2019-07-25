@@ -22,7 +22,7 @@ bool LapTimeTracker::record(ts_t t)
 }
 
 
-laptime_t LapTimeTracker::laptime(uint16_t count) const
+laptime_t LapTimeTracker::laptime(int count) const
 {
   if(_laps.size())
   {
@@ -30,10 +30,21 @@ laptime_t LapTimeTracker::laptime(uint16_t count) const
     {
       return _laps.back();
     }
-    const auto it = std::find_if(_laps.begin(), _laps.end(), [&count](const laptime_t& lap) { return lap.count == count; });
-    if(it != _laps.end())
+    if(count > 0)
     {
-      return *it;
+      const auto it = std::find_if(_laps.begin(), _laps.end(), [&count](const laptime_t& lap) { return lap.count == count; });
+      if(it != _laps.end())
+      {
+        return *it;
+      }
+    }
+    else // count < 0
+    {
+      const int index = _laps.size() - 1 + count;
+      if(index >= 0)
+      {
+        return _laps[index];
+      }
     }
   }
   return { 0, 0 };

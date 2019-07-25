@@ -29,6 +29,8 @@ private:
   static void s_laptimer_task(void*);
   void laptimer_task();
   void process_queue();
+  void display_waveform(Display&);
+  void display_laptimes(Display&);
 
   RTC6715& _rtc;
 

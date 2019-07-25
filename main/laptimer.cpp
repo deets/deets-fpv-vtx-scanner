@@ -10,6 +10,8 @@
 
 #define DISPLAY_SPLIT 32
 #define LINE_LENGTH 12
+#define LAPTIME_FORMAT "%2i: %.3f"
+
 
 LapTimer::LapTimer(app_state_t& app_state, RTC6715& rtc, size_t display_width, LapTimeTracker& lpt)
   : Mode(app_state)
@@ -40,6 +42,7 @@ LapTimer::LapTimer(app_state_t& app_state, RTC6715& rtc, size_t display_width, L
   assert(_task_q);
 }
 
+
 void LapTimer::setup_impl()
 {
   ESP_LOGE("laptimer", "setup");
@@ -51,7 +54,8 @@ void LapTimer::setup_impl()
   vTaskResume(_laptimer_task_handle);
 }
 
-app_mode_t LapTimer::update(Display& display)
+
+void LapTimer::display_waveform(Display& display)
 {
   int max = MAX(_app_state.max_rssi_reading, _app_state.trigger_arm_threshold);
   int min = _app_state.min_rssi_reading;
@@ -59,7 +63,7 @@ app_mode_t LapTimer::update(Display& display)
   // We don't have enough data yet
   if(divider <= 0)
   {
-    return LAPTIMER;
+    return;
   }
 
   const auto dw = display.width();
@@ -68,20 +72,69 @@ app_mode_t LapTimer::update(Display& display)
   {
     display.draw_pixel(i, DISPLAY_SPLIT - (DISPLAY_SPLIT * (_rssi_readings[i] - min) / divider));
   }
-  // horizontal separation
-  display.hline(
-    0, dw - 1,
-    DISPLAY_SPLIT + 1
-   );
+}
+
+
+void LapTimer::display_laptimes(Display& display)
+{
+  char large_line[256];
+  auto y = DISPLAY_SPLIT + 1;
+  const auto current = _lap_time_tracker.laptime(0);
+  std::vector<std::vector<char>> prev_laptimes;
+  if(current)
+  {
+    sprintf(large_line, LAPTIME_FORMAT, current.count, current.seconds());
+
+    for(int i=1; i < 4; ++i)
+    {
+      const auto prev = _lap_time_tracker.laptime(-i);
+      if(prev)
+      {
+        char buffer[256];
+        sprintf(buffer, LAPTIME_FORMAT, prev.count, prev.seconds());
+        const auto len = strlen(buffer);
+        std::vector<char> s;
+        std::copy(buffer, buffer + len + 1, std::back_inserter(s));
+        prev_laptimes.push_back(s);
+      }
+      else
+      {
+        break;
+      }
+    }
+  }
+  else
+  {
+    sprintf(large_line, "Waiting..");
+  }
+  display.font_render(
+    NORMAL,
+    large_line,
+    0,
+    y + NORMAL.size + 2
+    );
+  auto sy = y + SMALL.size + 3;
+  for(const auto& prev : prev_laptimes)
+  {
+
+    display.font_render(
+      SMALL,
+      prev.data(),
+      display.width() / 2 + 2,
+      sy
+    );
+    sy += SMALL.size + 2;
+  }
+}
+
+
+app_mode_t LapTimer::update(Display& display)
+{
   process_queue();
-  // char buffer[256];
-  // sprintf(buffer, "%i", (int)(_last_laptime / 1000));
-  // display.font_render(
-  //   NORMAL,
-  //   buffer,
-  //   24,
-  //   64 - 8 - 8
-  //  );
+  display_waveform(display);
+  // horizontal separation
+  display.hline(0, display.width() - 1, DISPLAY_SPLIT + 1);
+  display_laptimes(display);
 
   return LAPTIMER;
 }

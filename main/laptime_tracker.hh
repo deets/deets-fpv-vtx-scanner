@@ -15,6 +15,13 @@ struct laptime_t {
     return count != 0;
   }
 
+  double seconds() const
+  {
+    double res = time;
+    res /= 1000000;
+    return res;
+  }
+
 };
 
 class LapTimeTracker {
@@ -31,8 +38,14 @@ public:
    * The result will either be a proper laptime, or
    * also have a count and time of 0 to signify that there is
    * no laptime for that count (0 or otherwise).
+   *
+   * Negative numbers will yield laptimes from the back.
+   * E.g. -1 will yield the second to last lap, etc.
+   *
+   * The operator bool() of the return-value will be false
+   * if it's not a valid laptime.
    */
-  laptime_t laptime(uint16_t count) const;
+  laptime_t laptime(int count) const;
   void reset();
 
 private:
