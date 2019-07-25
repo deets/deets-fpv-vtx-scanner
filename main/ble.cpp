@@ -51,14 +51,14 @@ struct laptime_wire_t {
   laptime_wire_t(laptime_t t)
   {
     uint8_t* p = reinterpret_cast<uint8_t*>(this);
-    std::copy(
+    p = std::copy(
       reinterpret_cast<uint8_t*>(&t.count),
       reinterpret_cast<uint8_t*>(&t.count) + sizeof(decltype(t.count)),
       p);
     std::copy(
       reinterpret_cast<uint8_t*>(&t.time),
       reinterpret_cast<uint8_t*>(&t.time) + sizeof(decltype(t.time)),
-      p + sizeof(decltype(t.count)));
+      p);
   }
 
 };
@@ -82,7 +82,7 @@ size_t BLE::transfer_laptimer_data()
   // from current_pos to the end of the buffer
   if(start > current_pos)
   {
-    std::copy(
+    p = std::copy(
       _app_state.laptime_buffer.begin() + start,
       _app_state.laptime_buffer.end(),
       p
