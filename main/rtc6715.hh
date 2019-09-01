@@ -3,7 +3,7 @@
 
 #include <driver/spi_master.h>
 #include <driver/adc.h>
-#include <FreeRTOS/semphr.h>
+#include <freertos/semphr.h>
 
 class RTC6715 {
 
