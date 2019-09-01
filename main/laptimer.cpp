@@ -85,7 +85,7 @@ void LapTimer::display_laptimes(Display& display)
   {
     sprintf(large_line, LAPTIME_FORMAT, current.count, current.seconds());
 
-    for(int i=1; i < 4; ++i)
+    for(int i=1; i < 5; ++i)
     {
       const auto prev = _lap_time_tracker.laptime(-i);
       if(prev)
@@ -137,6 +137,21 @@ app_mode_t LapTimer::update(Display& display)
   display_laptimes(display);
 
   return LAPTIMER;
+}
+
+
+void LapTimer::input(input_t button)
+{
+  switch(button)
+  {
+  case input_t::RIGHT_BUTTON:
+    break;
+  case input_t::LEFT_BUTTON:
+    _lap_time_tracker.reset();
+    break;
+  default:
+    break;
+  }
 }
 
 

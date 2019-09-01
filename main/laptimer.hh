@@ -23,6 +23,7 @@ public:
 protected:
   void setup_impl() override;
   void teardown_impl() override;
+  void input(input_t) override;
 
 private:
   void peak_detector_callback(PeakDetector::state_t, ts_t peak);
