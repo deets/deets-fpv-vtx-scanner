@@ -3,25 +3,16 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3B0A8E4B2232D01400067EE5 /* BinUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B76565D2232CF3A00CE5B8F /* BinUtils.framework */; };
-		3B0A8E4C2232D01400067EE5 /* BinUtils.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3B76565D2232CF3A00CE5B8F /* BinUtils.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		3B0A8E502232D36800067EE5 /* ReactiveSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B7656532232CF0900CE5B8F /* ReactiveSwift.framework */; };
-		3B0A8E512232D36800067EE5 /* ReactiveSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3B7656532232CF0900CE5B8F /* ReactiveSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		3B0A8E542232D36800067EE5 /* Dependencies.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B7656512232CF0900CE5B8F /* Dependencies.framework */; };
-		3B0A8E552232D36800067EE5 /* Dependencies.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3B7656512232CF0900CE5B8F /* Dependencies.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		3B0A8E582232D36800067EE5 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B7656552232CF0900CE5B8F /* Result.framework */; };
-		3B0A8E592232D36800067EE5 /* Result.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3B7656552232CF0900CE5B8F /* Result.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		3B6AFFBE22353F2100992EA2 /* SwiftSVG.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B6AFFBD22353F2100992EA2 /* SwiftSVG.framework */; };
-		3B6AFFBF22353F2100992EA2 /* SwiftSVG.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3B6AFFBD22353F2100992EA2 /* SwiftSVG.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3B6AFFC6223550FC00992EA2 /* scanner-icon.svg in Resources */ = {isa = PBXBuildFile; fileRef = 3B6AFFC5223550FC00992EA2 /* scanner-icon.svg */; };
 		3B6AFFC822359BCA00992EA2 /* VTXTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6AFFC722359BCA00992EA2 /* VTXTypes.swift */; };
 		3BE3B08C222C1A7C0064A84E /* LaptimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE3B08B222C1A7C0064A84E /* LaptimerView.swift */; };
 		3BE3B08E222C27B90064A84E /* ScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE3B08D222C27B80064A84E /* ScannerView.swift */; };
 		3BE3B090222C6FF00064A84E /* BTVTXScannerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE3B08F222C6FF00064A84E /* BTVTXScannerDelegate.swift */; };
+		3BFBBE64231C41AD00DE9E08 /* BinUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFBBE63231C41AD00DE9E08 /* BinUtils.swift */; };
 		3BFE8731222AFE18006C947F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFE8730222AFE18006C947F /* AppDelegate.swift */; };
 		3BFE8733222AFE18006C947F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFE8732222AFE18006C947F /* ViewController.swift */; };
 		3BFE8736222AFE18006C947F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BFE8734222AFE18006C947F /* Main.storyboard */; };
@@ -30,79 +21,10 @@
 		3BFE8746222AFE1A006C947F /* VTX_ScannerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFE8745222AFE1A006C947F /* VTX_ScannerTests.swift */; };
 		3BFE8751222AFE1A006C947F /* VTX_ScannerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFE8750222AFE1A006C947F /* VTX_ScannerUITests.swift */; };
 		3BFE875F222B049B006C947F /* BTManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFE875E222B049B006C947F /* BTManager.swift */; };
+		811BB5F7D6F4FEA39838B39B /* Pods_VTX_Scanner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 374EBE99D2FA19BCD93F4F4E /* Pods_VTX_Scanner.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		3B0A8E4D2232D01400067EE5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3B7656442232CF0800CE5B8F /* Dependencies.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = "BinUtils::BinUtils";
-			remoteInfo = BinUtils;
-		};
-		3B0A8E522232D36800067EE5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3B7656442232CF0800CE5B8F /* Dependencies.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = "ReactiveSwift::ReactiveSwift";
-			remoteInfo = ReactiveSwift;
-		};
-		3B0A8E562232D36800067EE5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3B7656442232CF0800CE5B8F /* Dependencies.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = "Dependencies::Dependencies";
-			remoteInfo = Dependencies;
-		};
-		3B0A8E5A2232D36800067EE5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3B7656442232CF0800CE5B8F /* Dependencies.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = "Result::Result";
-			remoteInfo = Result;
-		};
-		3B6AFFBC22353F2100992EA2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3B7656442232CF0800CE5B8F /* Dependencies.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = "SwiftSVG::SwiftSVG::Product";
-			remoteInfo = SwiftSVG;
-		};
-		3B6AFFC022353F2100992EA2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3B7656442232CF0800CE5B8F /* Dependencies.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = "SwiftSVG::SwiftSVG";
-			remoteInfo = SwiftSVG;
-		};
-		3B7656502232CF0900CE5B8F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3B7656442232CF0800CE5B8F /* Dependencies.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = "Dependencies::Dependencies::Product";
-			remoteInfo = Dependencies;
-		};
-		3B7656522232CF0900CE5B8F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3B7656442232CF0800CE5B8F /* Dependencies.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = "ReactiveSwift::ReactiveSwift::Product";
-			remoteInfo = ReactiveSwift;
-		};
-		3B7656542232CF0900CE5B8F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3B7656442232CF0800CE5B8F /* Dependencies.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = "Result::Result::Product";
-			remoteInfo = Result;
-		};
-		3B76565C2232CF3A00CE5B8F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3B7656442232CF0800CE5B8F /* Dependencies.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = "BinUtils::BinUtils::Product";
-			remoteInfo = BinUtils;
-		};
 		3BFE8742222AFE1A006C947F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3BFE8725222AFE18006C947F /* Project object */;
@@ -126,11 +48,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				3B0A8E4C2232D01400067EE5 /* BinUtils.framework in Embed Frameworks */,
-				3B0A8E512232D36800067EE5 /* ReactiveSwift.framework in Embed Frameworks */,
-				3B0A8E552232D36800067EE5 /* Dependencies.framework in Embed Frameworks */,
-				3B6AFFBF22353F2100992EA2 /* SwiftSVG.framework in Embed Frameworks */,
-				3B0A8E592232D36800067EE5 /* Result.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -138,12 +55,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		19FBCE913478F453B9F98E91 /* Pods-VTX Scanner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VTX Scanner.debug.xcconfig"; path = "Target Support Files/Pods-VTX Scanner/Pods-VTX Scanner.debug.xcconfig"; sourceTree = "<group>"; };
+		374EBE99D2FA19BCD93F4F4E /* Pods_VTX_Scanner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VTX_Scanner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B6AFFC5223550FC00992EA2 /* scanner-icon.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "scanner-icon.svg"; sourceTree = "<group>"; };
 		3B6AFFC722359BCA00992EA2 /* VTXTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VTXTypes.swift; sourceTree = "<group>"; };
-		3B7656442232CF0800CE5B8F /* Dependencies.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Dependencies.xcodeproj; path = Dependencies/Dependencies.xcodeproj; sourceTree = "<group>"; };
 		3BE3B08B222C1A7C0064A84E /* LaptimerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaptimerView.swift; sourceTree = "<group>"; };
 		3BE3B08D222C27B80064A84E /* ScannerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannerView.swift; sourceTree = "<group>"; };
 		3BE3B08F222C6FF00064A84E /* BTVTXScannerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTVTXScannerDelegate.swift; sourceTree = "<group>"; };
+		3BFBBE63231C41AD00DE9E08 /* BinUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BinUtils.swift; sourceTree = "<group>"; };
 		3BFE872D222AFE18006C947F /* VTX Scanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VTX Scanner.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BFE8730222AFE18006C947F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3BFE8732222AFE18006C947F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -158,6 +77,7 @@
 		3BFE8750222AFE1A006C947F /* VTX_ScannerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VTX_ScannerUITests.swift; sourceTree = "<group>"; };
 		3BFE8752222AFE1A006C947F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3BFE875E222B049B006C947F /* BTManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTManager.swift; sourceTree = "<group>"; };
+		D1717A63069EEF711DB248C6 /* Pods-VTX Scanner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VTX Scanner.release.xcconfig"; path = "Target Support Files/Pods-VTX Scanner/Pods-VTX Scanner.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,11 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3B0A8E4B2232D01400067EE5 /* BinUtils.framework in Frameworks */,
-				3B0A8E502232D36800067EE5 /* ReactiveSwift.framework in Frameworks */,
-				3B0A8E542232D36800067EE5 /* Dependencies.framework in Frameworks */,
-				3B6AFFBE22353F2100992EA2 /* SwiftSVG.framework in Frameworks */,
-				3B0A8E582232D36800067EE5 /* Result.framework in Frameworks */,
+				811BB5F7D6F4FEA39838B39B /* Pods_VTX_Scanner.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -190,6 +106,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B7EA7B6BE64955CE37737B6 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				19FBCE913478F453B9F98E91 /* Pods-VTX Scanner.debug.xcconfig */,
+				D1717A63069EEF711DB248C6 /* Pods-VTX Scanner.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		3B6AFFC22235482E00992EA2 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
@@ -201,26 +126,15 @@
 		3B76562E2232C61100CE5B8F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3B7656442232CF0800CE5B8F /* Dependencies.xcodeproj */,
+				374EBE99D2FA19BCD93F4F4E /* Pods_VTX_Scanner.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		3B7656452232CF0800CE5B8F /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				3B76565D2232CF3A00CE5B8F /* BinUtils.framework */,
-				3B7656512232CF0900CE5B8F /* Dependencies.framework */,
-				3B7656532232CF0900CE5B8F /* ReactiveSwift.framework */,
-				3B7656552232CF0900CE5B8F /* Result.framework */,
-				3B6AFFBD22353F2100992EA2 /* SwiftSVG.framework */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		3BE3B091222C70080064A84E /* Bluetooth */ = {
 			isa = PBXGroup;
 			children = (
+				3BFBBE63231C41AD00DE9E08 /* BinUtils.swift */,
 				3BE3B08F222C6FF00064A84E /* BTVTXScannerDelegate.swift */,
 				3BFE875E222B049B006C947F /* BTManager.swift */,
 			);
@@ -236,6 +150,7 @@
 				3BFE874F222AFE1A006C947F /* VTX ScannerUITests */,
 				3BFE872E222AFE18006C947F /* Products */,
 				3B76562E2232C61100CE5B8F /* Frameworks */,
+				0B7EA7B6BE64955CE37737B6 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -291,19 +206,16 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3BFE8755222AFE1A006C947F /* Build configuration list for PBXNativeTarget "VTX Scanner" */;
 			buildPhases = (
+				2123C052602AE323769C48F8 /* [CP] Check Pods Manifest.lock */,
 				3BFE8729222AFE18006C947F /* Sources */,
 				3BFE872A222AFE18006C947F /* Frameworks */,
 				3BFE872B222AFE18006C947F /* Resources */,
 				3B0A8E4F2232D01400067EE5 /* Embed Frameworks */,
+				4BEFEA8590351918FE1C3F02 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				3B0A8E4E2232D01400067EE5 /* PBXTargetDependency */,
-				3B0A8E532232D36800067EE5 /* PBXTargetDependency */,
-				3B0A8E572232D36800067EE5 /* PBXTargetDependency */,
-				3B0A8E5B2232D36800067EE5 /* PBXTargetDependency */,
-				3B6AFFC122353F2100992EA2 /* PBXTargetDependency */,
 			);
 			name = "VTX Scanner";
 			productName = "VTX Scanner";
@@ -380,12 +292,6 @@
 			mainGroup = 3BFE8724222AFE18006C947F;
 			productRefGroup = 3BFE872E222AFE18006C947F /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 3B7656452232CF0800CE5B8F /* Products */;
-					ProjectRef = 3B7656442232CF0800CE5B8F /* Dependencies.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				3BFE872C222AFE18006C947F /* VTX Scanner */,
@@ -394,44 +300,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		3B6AFFBD22353F2100992EA2 /* SwiftSVG.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SwiftSVG.framework;
-			remoteRef = 3B6AFFBC22353F2100992EA2 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		3B7656512232CF0900CE5B8F /* Dependencies.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Dependencies.framework;
-			remoteRef = 3B7656502232CF0900CE5B8F /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		3B7656532232CF0900CE5B8F /* ReactiveSwift.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = ReactiveSwift.framework;
-			remoteRef = 3B7656522232CF0900CE5B8F /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		3B7656552232CF0900CE5B8F /* Result.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Result.framework;
-			remoteRef = 3B7656542232CF0900CE5B8F /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		3B76565D2232CF3A00CE5B8F /* BinUtils.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = BinUtils.framework;
-			remoteRef = 3B76565C2232CF3A00CE5B8F /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		3BFE872B222AFE18006C947F /* Resources */ = {
@@ -461,6 +329,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		2123C052602AE323769C48F8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-VTX Scanner-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4BEFEA8590351918FE1C3F02 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-VTX Scanner/Pods-VTX Scanner-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-VTX Scanner/Pods-VTX Scanner-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-VTX Scanner/Pods-VTX Scanner-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		3BFE8729222AFE18006C947F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -469,6 +379,7 @@
 				3BFE8733222AFE18006C947F /* ViewController.swift in Sources */,
 				3BFE8731222AFE18006C947F /* AppDelegate.swift in Sources */,
 				3BE3B090222C6FF00064A84E /* BTVTXScannerDelegate.swift in Sources */,
+				3BFBBE64231C41AD00DE9E08 /* BinUtils.swift in Sources */,
 				3BE3B08C222C1A7C0064A84E /* LaptimerView.swift in Sources */,
 				3BFE875F222B049B006C947F /* BTManager.swift in Sources */,
 				3BE3B08E222C27B90064A84E /* ScannerView.swift in Sources */,
@@ -495,31 +406,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		3B0A8E4E2232D01400067EE5 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = BinUtils;
-			targetProxy = 3B0A8E4D2232D01400067EE5 /* PBXContainerItemProxy */;
-		};
-		3B0A8E532232D36800067EE5 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = ReactiveSwift;
-			targetProxy = 3B0A8E522232D36800067EE5 /* PBXContainerItemProxy */;
-		};
-		3B0A8E572232D36800067EE5 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = Dependencies;
-			targetProxy = 3B0A8E562232D36800067EE5 /* PBXContainerItemProxy */;
-		};
-		3B0A8E5B2232D36800067EE5 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = Result;
-			targetProxy = 3B0A8E5A2232D36800067EE5 /* PBXContainerItemProxy */;
-		};
-		3B6AFFC122353F2100992EA2 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = SwiftSVG;
-			targetProxy = 3B6AFFC022353F2100992EA2 /* PBXContainerItemProxy */;
-		};
 		3BFE8743222AFE1A006C947F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 3BFE872C222AFE18006C947F /* VTX Scanner */;
@@ -670,8 +556,8 @@
 		};
 		3BFE8756222AFE1A006C947F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 19FBCE913478F453B9F98E91 /* Pods-VTX Scanner.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2V8EJ8P68A;
@@ -689,8 +575,8 @@
 		};
 		3BFE8757222AFE1A006C947F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1717A63069EEF711DB248C6 /* Pods-VTX Scanner.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2V8EJ8P68A;

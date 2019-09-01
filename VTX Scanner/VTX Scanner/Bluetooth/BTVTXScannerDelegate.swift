@@ -1,6 +1,5 @@
 import Foundation
 import CoreBluetooth
-import BinUtils
 import ReactiveSwift
 import Result
 

@@ -1,0 +1,24 @@
+PODS:
+  - ReactiveSwift (5.0.1):
+    - Result (~> 4.1)
+  - Result (4.1.0)
+  - SwiftSVG (2.3.0)
+
+DEPENDENCIES:
+  - ReactiveSwift (~> 5.0)
+  - SwiftSVG (~> 2.0)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - ReactiveSwift
+    - Result
+    - SwiftSVG
+
+SPEC CHECKSUMS:
+  ReactiveSwift: cac20a5bbe560c5806bd29c0fccf90d03b996ac1
+  Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
+  SwiftSVG: a864db6198fbddfd377f8169849580df18512e67
+
+PODFILE CHECKSUM: 7fd40b6d5f38ef4be86458d0b4352a9d17b736c5
+
+COCOAPODS: 1.7.5

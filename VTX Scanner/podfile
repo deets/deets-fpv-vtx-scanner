@@ -1,0 +1,7 @@
+platform :ios, '8.0'
+use_frameworks!
+
+target 'VTX Scanner' do
+  pod 'ReactiveSwift', '~> 5.0'
+  pod 'SwiftSVG', '~> 2.0'
+end
