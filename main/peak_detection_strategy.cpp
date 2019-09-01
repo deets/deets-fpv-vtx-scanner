@@ -54,6 +54,9 @@ void PeakDetector::feed(ts_t now, uint16_t rssi)
       _state = state_detecting_peak(above_threshold, now, rssi);
     }
     break;
+  case COOLDOWN:
+    _state = state_cooldown(true, now, rssi);
+    break;
   case PEAK:
     assert(false); // this shouldn't happen, it's only for the purpose of communicating the peak
     break;
@@ -103,4 +106,13 @@ PeakDetector::state_t PeakDetector::state_detecting_peak(bool above_threshold, t
     }
     return BELOW_THRESHOLD;
   }
+}
+
+PeakDetector::state_t PeakDetector::state_cooldown(bool, ts_t now, uint16_t)
+{
+  if((now - _peak_start) / 1000 < _config.cooldown_period)
+  {
+    return COOLDOWN;
+  }
+  return BELOW_THRESHOLD;
 }

@@ -149,7 +149,7 @@ void LapTimer::process_queue()
     {
     case PeakDetector::PEAK:
       ESP_LOGI("laptimer", "laptime!");
-      //buzzer_buzz(100, 1);
+      buzzer_buzz(100, 1);
       if(_lap_time_tracker.record(m.peak))
       {
         ble_notify(NOTIFY_NEW_LAPTIME);
@@ -160,6 +160,9 @@ void LapTimer::process_queue()
       break;
     case PeakDetector::DETECTING_PEAK:
       ESP_LOGI("laptimer", "DETECTING_PEAK");
+      break;
+    case PeakDetector::COOLDOWN:
+      ESP_LOGI("laptimer", "COOLDOWN");
       break;
     }
   }

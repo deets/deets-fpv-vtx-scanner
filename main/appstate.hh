@@ -24,11 +24,13 @@ struct peak_detection_t
   int trigger_threshold_percent; // 1-100, percent
   int trigger_threshold_hysteresis; // 1-100, percent, added to trigger_threshold_percent
   ts_t peak_size; // 1-n, milliseconds.
+  ts_t cooldown_period; // 0-n, milliseconds
 
   peak_detection_t()
     : trigger_threshold_percent(70)
     , trigger_threshold_hysteresis(-15)
     , peak_size(200)
+    , cooldown_period(5000)
   {}
 };
 
