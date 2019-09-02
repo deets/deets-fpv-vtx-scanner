@@ -7,12 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		162E47AD41C2CCF836E0BA94 /* Pods_VTX_ScannerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 634254D1D2AA871F3283DA46 /* Pods_VTX_ScannerUITests.framework */; };
 		3B6AFFC6223550FC00992EA2 /* scanner-icon.svg in Resources */ = {isa = PBXBuildFile; fileRef = 3B6AFFC5223550FC00992EA2 /* scanner-icon.svg */; };
 		3B6AFFC822359BCA00992EA2 /* VTXTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6AFFC722359BCA00992EA2 /* VTXTypes.swift */; };
 		3BE3B08C222C1A7C0064A84E /* LaptimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE3B08B222C1A7C0064A84E /* LaptimerView.swift */; };
 		3BE3B08E222C27B90064A84E /* ScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE3B08D222C27B80064A84E /* ScannerView.swift */; };
 		3BE3B090222C6FF00064A84E /* BTVTXScannerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE3B08F222C6FF00064A84E /* BTVTXScannerDelegate.swift */; };
 		3BFBBE64231C41AD00DE9E08 /* BinUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFBBE63231C41AD00DE9E08 /* BinUtils.swift */; };
+		3BFBBE66231C4CE900DE9E08 /* BinUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFBBE63231C41AD00DE9E08 /* BinUtils.swift */; };
+		3BFBBE67231C4CEA00DE9E08 /* BinUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFBBE63231C41AD00DE9E08 /* BinUtils.swift */; };
+		3BFBBE68231C4CED00DE9E08 /* BTVTXScannerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE3B08F222C6FF00064A84E /* BTVTXScannerDelegate.swift */; };
+		3BFBBE69231C4CED00DE9E08 /* BTVTXScannerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE3B08F222C6FF00064A84E /* BTVTXScannerDelegate.swift */; };
+		3BFBBE6B231C4CF400DE9E08 /* BTManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFE875E222B049B006C947F /* BTManager.swift */; };
+		3BFBBE6C231C4CF500DE9E08 /* BTManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFE875E222B049B006C947F /* BTManager.swift */; };
+		3BFBBE70231D985E00DE9E08 /* VTXTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6AFFC722359BCA00992EA2 /* VTXTypes.swift */; };
+		3BFBBE71231D985F00DE9E08 /* VTXTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6AFFC722359BCA00992EA2 /* VTXTypes.swift */; };
 		3BFE8731222AFE18006C947F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFE8730222AFE18006C947F /* AppDelegate.swift */; };
 		3BFE8733222AFE18006C947F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFE8732222AFE18006C947F /* ViewController.swift */; };
 		3BFE8736222AFE18006C947F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BFE8734222AFE18006C947F /* Main.storyboard */; };
@@ -22,6 +31,7 @@
 		3BFE8751222AFE1A006C947F /* VTX_ScannerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFE8750222AFE1A006C947F /* VTX_ScannerUITests.swift */; };
 		3BFE875F222B049B006C947F /* BTManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFE875E222B049B006C947F /* BTManager.swift */; };
 		811BB5F7D6F4FEA39838B39B /* Pods_VTX_Scanner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 374EBE99D2FA19BCD93F4F4E /* Pods_VTX_Scanner.framework */; };
+		9F5B604244F70455E433CF43 /* Pods_VTX_ScannerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11F95A80A27D5FA01C5561AF /* Pods_VTX_ScannerTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,7 +65,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		11F95A80A27D5FA01C5561AF /* Pods_VTX_ScannerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VTX_ScannerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		172D5F77CF87F9325CE7B98F /* Pods-VTX ScannerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VTX ScannerTests.debug.xcconfig"; path = "Target Support Files/Pods-VTX ScannerTests/Pods-VTX ScannerTests.debug.xcconfig"; sourceTree = "<group>"; };
 		19FBCE913478F453B9F98E91 /* Pods-VTX Scanner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VTX Scanner.debug.xcconfig"; path = "Target Support Files/Pods-VTX Scanner/Pods-VTX Scanner.debug.xcconfig"; sourceTree = "<group>"; };
+		353B8E74084EB6B910D4507B /* Pods-VTX ScannerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VTX ScannerUITests.release.xcconfig"; path = "Target Support Files/Pods-VTX ScannerUITests/Pods-VTX ScannerUITests.release.xcconfig"; sourceTree = "<group>"; };
 		374EBE99D2FA19BCD93F4F4E /* Pods_VTX_Scanner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VTX_Scanner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B6AFFC5223550FC00992EA2 /* scanner-icon.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "scanner-icon.svg"; sourceTree = "<group>"; };
 		3B6AFFC722359BCA00992EA2 /* VTXTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VTXTypes.swift; sourceTree = "<group>"; };
@@ -77,6 +90,9 @@
 		3BFE8750222AFE1A006C947F /* VTX_ScannerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VTX_ScannerUITests.swift; sourceTree = "<group>"; };
 		3BFE8752222AFE1A006C947F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3BFE875E222B049B006C947F /* BTManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTManager.swift; sourceTree = "<group>"; };
+		634254D1D2AA871F3283DA46 /* Pods_VTX_ScannerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VTX_ScannerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AED6957FE3BC3B2AA3CD6168 /* Pods-VTX ScannerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VTX ScannerTests.release.xcconfig"; path = "Target Support Files/Pods-VTX ScannerTests/Pods-VTX ScannerTests.release.xcconfig"; sourceTree = "<group>"; };
+		C164B36EB3BB06514FE02C63 /* Pods-VTX ScannerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VTX ScannerUITests.debug.xcconfig"; path = "Target Support Files/Pods-VTX ScannerUITests/Pods-VTX ScannerUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		D1717A63069EEF711DB248C6 /* Pods-VTX Scanner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VTX Scanner.release.xcconfig"; path = "Target Support Files/Pods-VTX Scanner/Pods-VTX Scanner.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -93,6 +109,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F5B604244F70455E433CF43 /* Pods_VTX_ScannerTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,6 +117,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				162E47AD41C2CCF836E0BA94 /* Pods_VTX_ScannerUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -111,6 +129,10 @@
 			children = (
 				19FBCE913478F453B9F98E91 /* Pods-VTX Scanner.debug.xcconfig */,
 				D1717A63069EEF711DB248C6 /* Pods-VTX Scanner.release.xcconfig */,
+				C164B36EB3BB06514FE02C63 /* Pods-VTX ScannerUITests.debug.xcconfig */,
+				353B8E74084EB6B910D4507B /* Pods-VTX ScannerUITests.release.xcconfig */,
+				172D5F77CF87F9325CE7B98F /* Pods-VTX ScannerTests.debug.xcconfig */,
+				AED6957FE3BC3B2AA3CD6168 /* Pods-VTX ScannerTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -127,6 +149,8 @@
 			isa = PBXGroup;
 			children = (
 				374EBE99D2FA19BCD93F4F4E /* Pods_VTX_Scanner.framework */,
+				634254D1D2AA871F3283DA46 /* Pods_VTX_ScannerUITests.framework */,
+				11F95A80A27D5FA01C5561AF /* Pods_VTX_ScannerTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -226,6 +250,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3BFE8758222AFE1A006C947F /* Build configuration list for PBXNativeTarget "VTX ScannerTests" */;
 			buildPhases = (
+				52AF41DA12D9A79BAF7754F8 /* [CP] Check Pods Manifest.lock */,
 				3BFE873D222AFE1A006C947F /* Sources */,
 				3BFE873E222AFE1A006C947F /* Frameworks */,
 				3BFE873F222AFE1A006C947F /* Resources */,
@@ -244,6 +269,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3BFE875B222AFE1A006C947F /* Build configuration list for PBXNativeTarget "VTX ScannerUITests" */;
 			buildPhases = (
+				946268A336B597DB838174D1 /* [CP] Check Pods Manifest.lock */,
 				3BFE8748222AFE1A006C947F /* Sources */,
 				3BFE8749222AFE1A006C947F /* Frameworks */,
 				3BFE874A222AFE1A006C947F /* Resources */,
@@ -369,6 +395,50 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-VTX Scanner/Pods-VTX Scanner-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		52AF41DA12D9A79BAF7754F8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-VTX ScannerTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		946268A336B597DB838174D1 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-VTX ScannerUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -392,6 +462,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				3BFE8746222AFE1A006C947F /* VTX_ScannerTests.swift in Sources */,
+				3BFBBE67231C4CEA00DE9E08 /* BinUtils.swift in Sources */,
+				3BFBBE69231C4CED00DE9E08 /* BTVTXScannerDelegate.swift in Sources */,
+				3BFBBE6C231C4CF500DE9E08 /* BTManager.swift in Sources */,
+				3BFBBE71231D985F00DE9E08 /* VTXTypes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -400,6 +474,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				3BFE8751222AFE1A006C947F /* VTX_ScannerUITests.swift in Sources */,
+				3BFBBE6B231C4CF400DE9E08 /* BTManager.swift in Sources */,
+				3BFBBE66231C4CE900DE9E08 /* BinUtils.swift in Sources */,
+				3BFBBE68231C4CED00DE9E08 /* BTVTXScannerDelegate.swift in Sources */,
+				3BFBBE70231D985E00DE9E08 /* VTXTypes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -594,10 +672,12 @@
 		};
 		3BFE8759222AFE1A006C947F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 172D5F77CF87F9325CE7B98F /* Pods-VTX ScannerTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2V8EJ8P68A;
 				INFOPLIST_FILE = "VTX ScannerTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -614,10 +694,12 @@
 		};
 		3BFE875A222AFE1A006C947F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AED6957FE3BC3B2AA3CD6168 /* Pods-VTX ScannerTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2V8EJ8P68A;
 				INFOPLIST_FILE = "VTX ScannerTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -634,9 +716,11 @@
 		};
 		3BFE875C222AFE1A006C947F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C164B36EB3BB06514FE02C63 /* Pods-VTX ScannerUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2V8EJ8P68A;
 				INFOPLIST_FILE = "VTX ScannerUITests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -653,9 +737,11 @@
 		};
 		3BFE875D222AFE1A006C947F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 353B8E74084EB6B910D4507B /* Pods-VTX ScannerUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2V8EJ8P68A;
 				INFOPLIST_FILE = "VTX ScannerUITests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

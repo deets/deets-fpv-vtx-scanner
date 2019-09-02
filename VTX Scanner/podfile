@@ -1,7 +1,13 @@
-platform :ios, '8.0'
+platform :ios, '12.0'
 use_frameworks!
 
 target 'VTX Scanner' do
   pod 'ReactiveSwift', '~> 5.0'
   pod 'SwiftSVG', '~> 2.0'
+  target 'VTX ScannerUITests' do
+    inherit! :search_paths
+  end  
+  target 'VTX ScannerTests' do
+    inherit! :search_paths
+  end  
 end

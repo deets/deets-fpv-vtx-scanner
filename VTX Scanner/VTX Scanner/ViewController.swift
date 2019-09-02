@@ -22,6 +22,12 @@ class ViewController: UIViewController, BTDelegate  {
     func didConnectScanner(_ scanner: BTVTXScannerDelegate) {
         NSLog("connectedScanner: new scanner")
         connectedScannerObserver.send(value: scanner)
+        if let scannerView = scannerView {
+            scannerView.connect(
+                scanner.latestRSSIReading,
+                scanner.maxRSSI
+            )
+        }
     }
     
     
@@ -29,10 +35,6 @@ class ViewController: UIViewController, BTDelegate  {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let subscriber = scannerView?.scannerObserver {
-            NSLog("connectedScanner.observe")
-            connectedScanner.observe(subscriber)
-        }
         if let subscriber = laptimerView?.scannerObserver {
             NSLog("connectedScanner.observe")
             connectedScanner.observe(subscriber)

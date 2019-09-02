@@ -1,0 +1,6 @@
+framework module Pods_VTX_ScannerTests {
+  umbrella header "Pods-VTX ScannerTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

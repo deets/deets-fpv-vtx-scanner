@@ -14,3 +14,8 @@ enum app_mode_t {
     case SCANNER
     case LAPTIMER
 }
+
+struct LatestRSSIReading {
+    let channel: UInt16
+    let value: UInt16
+}

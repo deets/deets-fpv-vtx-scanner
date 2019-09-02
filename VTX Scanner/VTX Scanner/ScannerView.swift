@@ -8,8 +8,6 @@ class ScannerView: UIView {
 
     let channelCount = CGFloat(40.0)
     
-    var scannerObserver : Signal<BTVTXScannerDelegate, NoError>.Observer?
-    
     struct RSSIReading {
         var value : Int
     }
@@ -44,25 +42,19 @@ class ScannerView: UIView {
         initialize()
     }
 
+    func connect(_ latestRSSIReading: Signal<LatestRSSIReading, NoError>, _ maxRSSI: MutableProperty<UInt16> ) {
+        latestRSSIReading.observe(
+            Signal<LatestRSSIReading, NoError>.Observer(value: {
+                self.readings[Int($0.channel)].value = Int($0.value)
+                self.setNeedsDisplay()
+            })
+        )
+    }
     private func initialize() {
         readings = Array(
             repeating: RSSIReading(value: 1),
             count: 40 // we always have 40 channels
         )
-        scannerObserver = Signal<BTVTXScannerDelegate, NoError>.Observer(value: {
-            $0.latestRSSIReading.observe(
-                Signal<BTVTXScannerDelegate.LatestRSSIReading, NoError>.Observer(value: {
-                    self.readings[Int($0.channel)].value = Int($0.value)
-                    self.setNeedsDisplay()
-                })
-            )
-            self.maxRSSI = Int($0.maxRSSI.value)
-            $0.maxRSSI.signal.observe(
-                Signal<UInt16, NoError>.Observer(value: { (v : UInt16) -> Void in
-                    self.maxRSSI = Int(v)
-                })
-            );
-        } )
     }
 
     override func draw(_ rect: CGRect) {

@@ -5,12 +5,6 @@ import Result
 
 class BTVTXScannerDelegate : NSObject, CBPeripheralDelegate
 {
-
-    struct LatestRSSIReading {
-        let channel: UInt16
-        let value: UInt16
-    }
-    
     struct LaptimeMessage {
         let values: Data
     }
