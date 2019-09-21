@@ -22,6 +22,7 @@
 		3BFBBE6C231C4CF500DE9E08 /* BTManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFE875E222B049B006C947F /* BTManager.swift */; };
 		3BFBBE70231D985E00DE9E08 /* VTXTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6AFFC722359BCA00992EA2 /* VTXTypes.swift */; };
 		3BFBBE71231D985F00DE9E08 /* VTXTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6AFFC722359BCA00992EA2 /* VTXTypes.swift */; };
+		3BFBBE72231D9F0000DE9E08 /* ScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE3B08D222C27B80064A84E /* ScannerView.swift */; };
 		3BFE8731222AFE18006C947F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFE8730222AFE18006C947F /* AppDelegate.swift */; };
 		3BFE8733222AFE18006C947F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFE8732222AFE18006C947F /* ViewController.swift */; };
 		3BFE8736222AFE18006C947F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BFE8734222AFE18006C947F /* Main.storyboard */; };
@@ -476,6 +477,7 @@
 				3BFE8751222AFE1A006C947F /* VTX_ScannerUITests.swift in Sources */,
 				3BFBBE6B231C4CF400DE9E08 /* BTManager.swift in Sources */,
 				3BFBBE66231C4CE900DE9E08 /* BinUtils.swift in Sources */,
+				3BFBBE72231D9F0000DE9E08 /* ScannerView.swift in Sources */,
 				3BFBBE68231C4CED00DE9E08 /* BTVTXScannerDelegate.swift in Sources */,
 				3BFBBE70231D985E00DE9E08 /* VTXTypes.swift in Sources */,
 			);
