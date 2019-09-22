@@ -1,3 +1,5 @@
+#define __BTSTACK_FILE__ "vtx-scanner-main.c"
+
 #include "appstate.hh"
 #include "display.hh"
 #include "ble.hh"
@@ -41,8 +43,6 @@ typedef struct {
 } task_state_t;
 
 task_state_t task_state;
-
-#define __BTSTACK_FILE__ "vtx-scanner-main.c"
 
 uint32_t wait_for_notification()
 {
