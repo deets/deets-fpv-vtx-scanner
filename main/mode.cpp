@@ -6,7 +6,7 @@
 
 namespace {
 
-std::vector<Setting> s_empty_settings;
+std::vector<Setting*> s_empty_settings;
 
 }; // end ns anonymous
 
@@ -137,7 +137,7 @@ void Mode::teardown()
 }
 
 
-std::vector<Setting>& Mode::settings()
+std::vector<Setting*>& Mode::settings()
 {
   return s_empty_settings;
 }
@@ -177,9 +177,10 @@ void ModeManager::input(input_t inp)
     ESP_LOGI("modes", "SETTINGS_BUTTON");
     if(true || active().settings().size())
     {
-      const auto current =  _app_state.current_mode;
+      auto& settings_mode = static_cast<SettingsMode&>(*_modes.at(SETTINGS));
+      settings_mode.return_mode = _app_state.current_mode;
+      settings_mode.settings = &active().settings();
       change_active_mode(SETTINGS);
-      static_cast<SettingsMode&>(active()).return_mode = current;
     }
     break;
   }

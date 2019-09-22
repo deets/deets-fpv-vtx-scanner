@@ -24,6 +24,7 @@ protected:
   void setup_impl() override;
   void teardown_impl() override;
   void input(input_t) override;
+  std::vector<Setting*>& settings() override;
 
 private:
   void peak_detector_callback(PeakDetector::state_t, ts_t peak);
@@ -45,4 +46,6 @@ private:
   QueueHandle_t _task_q;
 
   LapTimeTracker& _lap_time_tracker;
+
+  std::vector<Setting*> _settings;
 };

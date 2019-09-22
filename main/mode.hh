@@ -30,7 +30,19 @@ enum input_t
 class Setting
 {
 public:
-  const std::string& name() const;
+  Setting(std::string name) : _name(name)
+  {
+  }
+
+  const std::string& name() const
+  {
+    return _name;
+  }
+
+  virtual void right()=0;
+  virtual void left()=0;
+private:
+  std::string _name;
 };
 
 class Mode
@@ -46,7 +58,7 @@ public:
 protected:
   void periodic(int ms);
 
-  virtual std::vector<Setting>& settings();
+  virtual std::vector<Setting*>& settings();
   virtual void setup_impl() {};
   virtual void teardown_impl() {};
 

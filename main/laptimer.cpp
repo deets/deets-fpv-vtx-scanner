@@ -3,6 +3,7 @@
 #include "font.h"
 #include "buzzer.hh"
 #include "ble.hh"
+#include "settings.hh"
 
 #include <esp_log.h>
 #include <sys/param.h>
@@ -11,7 +12,6 @@
 #define DISPLAY_SPLIT 32
 #define LINE_LENGTH 12
 #define LAPTIME_FORMAT "%2i: %.3f"
-
 
 LapTimer::LapTimer(app_state_t& app_state, RTC6715& rtc, size_t display_width, LapTimeTracker& lpt)
   : Mode(app_state)
@@ -40,6 +40,19 @@ LapTimer::LapTimer(app_state_t& app_state, RTC6715& rtc, size_t display_width, L
   vTaskSuspend(_laptimer_task_handle);
   _task_q = xQueueCreate(20, sizeof(queue_message_t));
   assert(_task_q);
+  _settings.push_back(new LowerUpperBoundSetting<decltype(app_state.peak_detection_config.peak_size)>(
+                        "Peak Length",
+                        app_state.peak_detection_config.peak_size,
+                        50,
+                        5000,
+                        50
+                        ));
+
+}
+
+std::vector<Setting*>& LapTimer::settings()
+{
+  return _settings;
 }
 
 
