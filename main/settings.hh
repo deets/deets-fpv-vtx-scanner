@@ -29,6 +29,13 @@ public:
     _value = clamp(_value - _step);
   }
 
+  const char* value() const override
+  {
+    static char buffer[50];
+    sprintf(buffer, "<%i>", static_cast<int>(_value));
+    return buffer;
+  }
+
 private:
 
   T clamp(T value)

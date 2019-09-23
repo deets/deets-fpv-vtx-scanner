@@ -1,6 +1,9 @@
 // Copyright: 2019, Diez B. Roggisch, Berlin, all rights reserved
 #include "settings.hh"
 #include "font.h"
+#include <esp_log.h>
+
+#define FONT SMALL
 
 class BackSetting : public Setting
 {
@@ -16,6 +19,10 @@ public:
     settings_mode->_done = true;
   }
 
+  const char* value() const
+  {
+    return "<YES>";
+  }
   SettingsMode* settings_mode;
 };
 
@@ -48,17 +55,31 @@ void SettingsMode::setup_impl()
 
 app_mode_t SettingsMode::update(Display& display)
 {
-  const auto rows = display.height() / (NORMAL.size + PADDING) + 1;
-  for(size_t i=0; i < rows; ++i)
+  const auto rows = display.height() / (FONT.size + PADDING) + 1;
+  const auto start = -rows / 2;
+  const auto end = rows + start;
+  for(auto i=start; i < end; ++i)
   {
-    if(i < _all_settings.size())
+    const auto entry = i + _pos;
+    if(entry >= 0 && entry < _all_settings.size())
     {
+      const auto width = display.font_text_width(FONT, _all_settings[entry]->name());
+      const auto v = V_MIDDLE + (FONT.size + PADDING) * i;
       display.font_render(
-        NORMAL,
-        _all_settings[i]->name().c_str(),
-        24,
-        V_MIDDLE + (NORMAL.size + PADDING) * i
+        FONT,
+        _all_settings[entry]->name(),
+        H_MIDDLE - width,
+        v
         );
+      if(entry == _pos)
+      {
+        display.font_render(
+          FONT,
+          _all_settings[entry]->value(),
+          H_MIDDLE + PADDING,
+          v
+          );
+      }
     }
   }
   return _done ? return_mode : SETTINGS;
@@ -75,7 +96,11 @@ void SettingsMode::input(input_t in)
   case RIGHT_BUTTON:
     _all_settings[_pos]->right();
     break;
-  default:
+  case MODE_BUTTON:
+    _pos = (_pos - 1) % _all_settings.size();
+    break;
+  case SETTINGS_BUTTON:
+    _pos = (_pos + 1) % _all_settings.size();
     break;
   }
 }

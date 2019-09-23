@@ -34,13 +34,14 @@ public:
   {
   }
 
-  const std::string& name() const
+  const char* name() const
   {
-    return _name;
+    return _name.c_str();
   }
 
   virtual void right()=0;
   virtual void left()=0;
+  virtual const char* value() const=0;
 private:
   std::string _name;
 };
