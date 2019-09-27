@@ -40,13 +40,15 @@ LapTimer::LapTimer(app_state_t& app_state, RTC6715& rtc, size_t display_width, L
   vTaskSuspend(_laptimer_task_handle);
   _task_q = xQueueCreate(20, sizeof(queue_message_t));
   assert(_task_q);
-  _settings.push_back(new LowerUpperBoundSetting<decltype(app_state.peak_detection_config.peak_size)>(
+  auto h = new LowerUpperBoundSetting<decltype(app_state.peak_detection_config.peak_size)>(
                         "Peak Length",
                         app_state.peak_detection_config.peak_size,
                         50,
                         5000,
                         50
-                        ));
+    );
+
+  _settings.push_back(h->unit("ms"));
 
 }
 

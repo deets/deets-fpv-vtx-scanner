@@ -15,6 +15,7 @@ public:
     , _lower(lower)
     , _upper(upper)
     , _step(step)
+    , _unit("")
   {
     _value = clamp(_value);
   }
@@ -32,8 +33,14 @@ public:
   const char* value() const override
   {
     static char buffer[50];
-    sprintf(buffer, "<%i>", static_cast<int>(_value));
+    sprintf(buffer, "<%i%s>", static_cast<int>(_value), _unit);
     return buffer;
+  }
+
+  LowerUpperBoundSetting* unit(const char* u)
+  {
+    _unit = u;
+    return this;
   }
 
 private:
@@ -45,6 +52,8 @@ private:
 
   T& _value;
   T _lower, _upper, _step;
+
+  const char* _unit;
 };
 
 class SettingsMode : public Mode
