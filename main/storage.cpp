@@ -9,6 +9,7 @@
 #define K_SELECTED_CHANNEL "sel-chan"
 
 namespace {
+
 std::string hash(const char* arg)
 {
   const auto h = std::hash<std::string>{}(arg);
@@ -17,19 +18,57 @@ std::string hash(const char* arg)
   return s.str();
 }
 
+template<typename T>
+struct NVSLoadStore
+{
+  esp_err_t store(const T&);
+  esp_err_t restore(T*);
+};
+
+template<>
+struct NVSLoadStore<ts_t>
+{
+  esp_err_t store(nvs_handle nvs_handle, const char* name, const ts_t& value)
+  {
+    return nvs_set_i64(nvs_handle, name, value);
+  }
+
+  esp_err_t restore(nvs_handle nvs_handle, const char* name, ts_t* value)
+  {
+    return nvs_get_i64(nvs_handle, name, value);
+  }
+
+};
+
+template<>
+struct NVSLoadStore<uint32_t>
+{
+  esp_err_t store(nvs_handle nvs_handle, const char* name, const uint32_t& value)
+  {
+    return nvs_set_u32(nvs_handle, name, value);
+  }
+
+  esp_err_t restore(nvs_handle nvs_handle, const char* name, uint32_t* value)
+  {
+    return nvs_get_u32(nvs_handle, name, value);
+  }
+
+};
+
 } // end ns anonymous
 
 #define CHECK_AND_STORE(attributename) \
   if(_app_state.attributename != _persisted_app_state.attributename) \
   { \
     ESP_LOGE("storage", "Storing "#attributename); \
-    err = nvs_set_u32(_nvs_handle, hash(#attributename).c_str(), _app_state.attributename); \
+    err = NVSLoadStore<decltype(_app_state.attributename)>{}.store( \
+      _nvs_handle, hash(#attributename).c_str(), _app_state.attributename); \
     commit &= (err == ESP_OK || err == ESP_ERR_NVS_NOT_FOUND); \
   } \
 
 
 #define RESTORE(attributename) \
-  err = nvs_get_u32(_nvs_handle, hash(#attributename).c_str(), (uint32_t*)&_app_state.attributename); \
+  err = NVSLoadStore<decltype(_app_state.attributename)>{}.restore(_nvs_handle, hash(#attributename).c_str(), &_app_state.attributename); \
   switch (err) { \
   case ESP_OK: \
     break; \
@@ -38,6 +77,7 @@ std::string hash(const char* arg)
   default : \
     ESP_LOGE("storage", "Error (%s) reading!", esp_err_to_name(err)); \
   }
+
 
 Storage::Storage(app_state_t& app_state)
   : _app_state(app_state)
