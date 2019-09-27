@@ -59,7 +59,7 @@ private:
 class SettingsMode : public Mode
 {
 public:
-  using Mode::Mode;
+  SettingsMode(app_state_t&);
   app_mode_t update(Display& display) override;
   void input(input_t) override;
   app_mode_t return_mode;
@@ -72,4 +72,6 @@ private:
   bool _done;
   ssize_t _pos;
   std::vector<Setting*> _all_settings;
+
+  std::unique_ptr<BackSetting> _back_setting;
 };

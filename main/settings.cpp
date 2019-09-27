@@ -8,22 +8,29 @@
 class BackSetting : public Setting
 {
 public:
-  using Setting::Setting;
+  BackSetting(SettingsMode* mode)
+    : Setting("Back")
+    , _settings_mode(mode)
+  {
+  }
 
   void right() override
   {
-    settings_mode->_done = true;
+    _settings_mode->_done = true;
   }
   void left() override
   {
-    settings_mode->_done = true;
+    _settings_mode->_done = true;
   }
 
   const char* value() const
   {
     return "<YES>";
   }
-  SettingsMode* settings_mode;
+
+private:
+
+  SettingsMode* _settings_mode;
 };
 
 
@@ -33,18 +40,22 @@ const int H_MIDDLE = 64;
 const int V_MIDDLE = 32;
 const int PADDING = 2;
 
-auto _back_setting = new BackSetting{"Back"};
-
 } // end ns anon
+
+SettingsMode::SettingsMode(app_state_t& app_state)
+  : Mode(app_state)
+  , _back_setting(new BackSetting{this})
+{
+}
+
 
 void SettingsMode::setup_impl()
 {
   _done = false;
   _pos = 0;
-  _back_setting->settings_mode = this;
 
   _all_settings.clear();
-  _all_settings.push_back(_back_setting);
+  _all_settings.push_back(_back_setting.get());
   std::copy(
     settings->begin(),
     settings->end(),
