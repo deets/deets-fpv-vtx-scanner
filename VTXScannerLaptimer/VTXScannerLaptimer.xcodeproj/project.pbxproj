@@ -1,0 +1,695 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3B3417232348CAE700C1CA0E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3417222348CAE700C1CA0E /* AppDelegate.swift */; };
+		3B3417252348CAE700C1CA0E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3417242348CAE700C1CA0E /* ViewController.swift */; };
+		3B3417272348CAE800C1CA0E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B3417262348CAE800C1CA0E /* Assets.xcassets */; };
+		3B34172A2348CAE800C1CA0E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B3417282348CAE800C1CA0E /* Main.storyboard */; };
+		3B3417362348CAE900C1CA0E /* VTXScannerLaptimerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3417352348CAE900C1CA0E /* VTXScannerLaptimerTests.swift */; };
+		3B3417412348CAE900C1CA0E /* VTXScannerLaptimerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3417402348CAE900C1CA0E /* VTXScannerLaptimerUITests.swift */; };
+		4B6FE2CBD48F349199ABAD62 /* Pods_VTXScannerLaptimerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23F689449F52910C66A806E1 /* Pods_VTXScannerLaptimerUITests.framework */; };
+		D3E6ACB5C71F3B9BD6CF2FDB /* Pods_VTXScannerLaptimer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49D9FDEE3FE648B2B195B249 /* Pods_VTXScannerLaptimer.framework */; };
+		FEE4D8D18D84157B860AF385 /* Pods_VTXScannerLaptimerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFBB4B9364A6FD3A5694263C /* Pods_VTXScannerLaptimerTests.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		3B3417322348CAE900C1CA0E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3B3417172348CAE700C1CA0E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3B34171E2348CAE700C1CA0E;
+			remoteInfo = VTXScannerLaptimer;
+		};
+		3B34173D2348CAE900C1CA0E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3B3417172348CAE700C1CA0E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3B34171E2348CAE700C1CA0E;
+			remoteInfo = VTXScannerLaptimer;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		23F689449F52910C66A806E1 /* Pods_VTXScannerLaptimerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VTXScannerLaptimerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2C09648699E50B16E95B8E2F /* Pods-VTXScannerLaptimerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VTXScannerLaptimerUITests.release.xcconfig"; path = "Target Support Files/Pods-VTXScannerLaptimerUITests/Pods-VTXScannerLaptimerUITests.release.xcconfig"; sourceTree = "<group>"; };
+		3B34171F2348CAE700C1CA0E /* VTXScannerLaptimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VTXScannerLaptimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3B3417222348CAE700C1CA0E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		3B3417242348CAE700C1CA0E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3B3417262348CAE800C1CA0E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3B3417292348CAE800C1CA0E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		3B34172B2348CAE800C1CA0E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3B34172C2348CAE800C1CA0E /* VTXScannerLaptimer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VTXScannerLaptimer.entitlements; sourceTree = "<group>"; };
+		3B3417312348CAE900C1CA0E /* VTXScannerLaptimerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VTXScannerLaptimerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3B3417352348CAE900C1CA0E /* VTXScannerLaptimerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VTXScannerLaptimerTests.swift; sourceTree = "<group>"; };
+		3B3417372348CAE900C1CA0E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3B34173C2348CAE900C1CA0E /* VTXScannerLaptimerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VTXScannerLaptimerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3B3417402348CAE900C1CA0E /* VTXScannerLaptimerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VTXScannerLaptimerUITests.swift; sourceTree = "<group>"; };
+		3B3417422348CAE900C1CA0E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		49D9FDEE3FE648B2B195B249 /* Pods_VTXScannerLaptimer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VTXScannerLaptimer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6D52CDFCA148FCEB54ECB83B /* Pods-VTXScannerLaptimer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VTXScannerLaptimer.release.xcconfig"; path = "Target Support Files/Pods-VTXScannerLaptimer/Pods-VTXScannerLaptimer.release.xcconfig"; sourceTree = "<group>"; };
+		85EF02DA06009BF154C10890 /* Pods-VTXScannerLaptimer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VTXScannerLaptimer.debug.xcconfig"; path = "Target Support Files/Pods-VTXScannerLaptimer/Pods-VTXScannerLaptimer.debug.xcconfig"; sourceTree = "<group>"; };
+		8C0A64C7A227AECB2E7F2187 /* Pods-VTXScannerLaptimerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VTXScannerLaptimerTests.release.xcconfig"; path = "Target Support Files/Pods-VTXScannerLaptimerTests/Pods-VTXScannerLaptimerTests.release.xcconfig"; sourceTree = "<group>"; };
+		E2123F7B9E869AA36122D62E /* Pods-VTXScannerLaptimerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VTXScannerLaptimerTests.debug.xcconfig"; path = "Target Support Files/Pods-VTXScannerLaptimerTests/Pods-VTXScannerLaptimerTests.debug.xcconfig"; sourceTree = "<group>"; };
+		EF7D7CF61C9A939FA7A48363 /* Pods-VTXScannerLaptimerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VTXScannerLaptimerUITests.debug.xcconfig"; path = "Target Support Files/Pods-VTXScannerLaptimerUITests/Pods-VTXScannerLaptimerUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		EFBB4B9364A6FD3A5694263C /* Pods_VTXScannerLaptimerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VTXScannerLaptimerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3B34171C2348CAE700C1CA0E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3E6ACB5C71F3B9BD6CF2FDB /* Pods_VTXScannerLaptimer.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3B34172E2348CAE900C1CA0E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FEE4D8D18D84157B860AF385 /* Pods_VTXScannerLaptimerTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3B3417392348CAE900C1CA0E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4B6FE2CBD48F349199ABAD62 /* Pods_VTXScannerLaptimerUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3B3417162348CAE700C1CA0E = {
+			isa = PBXGroup;
+			children = (
+				3B3417212348CAE700C1CA0E /* VTXScannerLaptimer */,
+				3B3417342348CAE900C1CA0E /* VTXScannerLaptimerTests */,
+				3B34173F2348CAE900C1CA0E /* VTXScannerLaptimerUITests */,
+				3B3417202348CAE700C1CA0E /* Products */,
+				6DD2CBF6EF021BBFE12B96AD /* Pods */,
+				EEF77BCD4A4DCC5FF5C0118C /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		3B3417202348CAE700C1CA0E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3B34171F2348CAE700C1CA0E /* VTXScannerLaptimer.app */,
+				3B3417312348CAE900C1CA0E /* VTXScannerLaptimerTests.xctest */,
+				3B34173C2348CAE900C1CA0E /* VTXScannerLaptimerUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3B3417212348CAE700C1CA0E /* VTXScannerLaptimer */ = {
+			isa = PBXGroup;
+			children = (
+				3B3417222348CAE700C1CA0E /* AppDelegate.swift */,
+				3B3417242348CAE700C1CA0E /* ViewController.swift */,
+				3B3417262348CAE800C1CA0E /* Assets.xcassets */,
+				3B3417282348CAE800C1CA0E /* Main.storyboard */,
+				3B34172B2348CAE800C1CA0E /* Info.plist */,
+				3B34172C2348CAE800C1CA0E /* VTXScannerLaptimer.entitlements */,
+			);
+			path = VTXScannerLaptimer;
+			sourceTree = "<group>";
+		};
+		3B3417342348CAE900C1CA0E /* VTXScannerLaptimerTests */ = {
+			isa = PBXGroup;
+			children = (
+				3B3417352348CAE900C1CA0E /* VTXScannerLaptimerTests.swift */,
+				3B3417372348CAE900C1CA0E /* Info.plist */,
+			);
+			path = VTXScannerLaptimerTests;
+			sourceTree = "<group>";
+		};
+		3B34173F2348CAE900C1CA0E /* VTXScannerLaptimerUITests */ = {
+			isa = PBXGroup;
+			children = (
+				3B3417402348CAE900C1CA0E /* VTXScannerLaptimerUITests.swift */,
+				3B3417422348CAE900C1CA0E /* Info.plist */,
+			);
+			path = VTXScannerLaptimerUITests;
+			sourceTree = "<group>";
+		};
+		6DD2CBF6EF021BBFE12B96AD /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				85EF02DA06009BF154C10890 /* Pods-VTXScannerLaptimer.debug.xcconfig */,
+				6D52CDFCA148FCEB54ECB83B /* Pods-VTXScannerLaptimer.release.xcconfig */,
+				E2123F7B9E869AA36122D62E /* Pods-VTXScannerLaptimerTests.debug.xcconfig */,
+				8C0A64C7A227AECB2E7F2187 /* Pods-VTXScannerLaptimerTests.release.xcconfig */,
+				EF7D7CF61C9A939FA7A48363 /* Pods-VTXScannerLaptimerUITests.debug.xcconfig */,
+				2C09648699E50B16E95B8E2F /* Pods-VTXScannerLaptimerUITests.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		EEF77BCD4A4DCC5FF5C0118C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				49D9FDEE3FE648B2B195B249 /* Pods_VTXScannerLaptimer.framework */,
+				EFBB4B9364A6FD3A5694263C /* Pods_VTXScannerLaptimerTests.framework */,
+				23F689449F52910C66A806E1 /* Pods_VTXScannerLaptimerUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3B34171E2348CAE700C1CA0E /* VTXScannerLaptimer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3B3417452348CAE900C1CA0E /* Build configuration list for PBXNativeTarget "VTXScannerLaptimer" */;
+			buildPhases = (
+				C2CE10D45CBFDF409E44568E /* [CP] Check Pods Manifest.lock */,
+				3B34171B2348CAE700C1CA0E /* Sources */,
+				3B34171C2348CAE700C1CA0E /* Frameworks */,
+				3B34171D2348CAE700C1CA0E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = VTXScannerLaptimer;
+			productName = VTXScannerLaptimer;
+			productReference = 3B34171F2348CAE700C1CA0E /* VTXScannerLaptimer.app */;
+			productType = "com.apple.product-type.application";
+		};
+		3B3417302348CAE900C1CA0E /* VTXScannerLaptimerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3B3417482348CAE900C1CA0E /* Build configuration list for PBXNativeTarget "VTXScannerLaptimerTests" */;
+			buildPhases = (
+				F5F5429CBFBE861EB5CD7560 /* [CP] Check Pods Manifest.lock */,
+				3B34172D2348CAE900C1CA0E /* Sources */,
+				3B34172E2348CAE900C1CA0E /* Frameworks */,
+				3B34172F2348CAE900C1CA0E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3B3417332348CAE900C1CA0E /* PBXTargetDependency */,
+			);
+			name = VTXScannerLaptimerTests;
+			productName = VTXScannerLaptimerTests;
+			productReference = 3B3417312348CAE900C1CA0E /* VTXScannerLaptimerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		3B34173B2348CAE900C1CA0E /* VTXScannerLaptimerUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3B34174B2348CAE900C1CA0E /* Build configuration list for PBXNativeTarget "VTXScannerLaptimerUITests" */;
+			buildPhases = (
+				927FC230AD7285CE61605C0E /* [CP] Check Pods Manifest.lock */,
+				3B3417382348CAE900C1CA0E /* Sources */,
+				3B3417392348CAE900C1CA0E /* Frameworks */,
+				3B34173A2348CAE900C1CA0E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3B34173E2348CAE900C1CA0E /* PBXTargetDependency */,
+			);
+			name = VTXScannerLaptimerUITests;
+			productName = VTXScannerLaptimerUITests;
+			productReference = 3B34173C2348CAE900C1CA0E /* VTXScannerLaptimerUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		3B3417172348CAE700C1CA0E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1100;
+				LastUpgradeCheck = 1100;
+				ORGANIZATIONNAME = "Diez B. Roggisch";
+				TargetAttributes = {
+					3B34171E2348CAE700C1CA0E = {
+						CreatedOnToolsVersion = 11.0;
+					};
+					3B3417302348CAE900C1CA0E = {
+						CreatedOnToolsVersion = 11.0;
+						TestTargetID = 3B34171E2348CAE700C1CA0E;
+					};
+					3B34173B2348CAE900C1CA0E = {
+						CreatedOnToolsVersion = 11.0;
+						TestTargetID = 3B34171E2348CAE700C1CA0E;
+					};
+				};
+			};
+			buildConfigurationList = 3B34171A2348CAE700C1CA0E /* Build configuration list for PBXProject "VTXScannerLaptimer" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 3B3417162348CAE700C1CA0E;
+			productRefGroup = 3B3417202348CAE700C1CA0E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				3B34171E2348CAE700C1CA0E /* VTXScannerLaptimer */,
+				3B3417302348CAE900C1CA0E /* VTXScannerLaptimerTests */,
+				3B34173B2348CAE900C1CA0E /* VTXScannerLaptimerUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		3B34171D2348CAE700C1CA0E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3B3417272348CAE800C1CA0E /* Assets.xcassets in Resources */,
+				3B34172A2348CAE800C1CA0E /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3B34172F2348CAE900C1CA0E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3B34173A2348CAE900C1CA0E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		927FC230AD7285CE61605C0E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-VTXScannerLaptimerUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C2CE10D45CBFDF409E44568E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-VTXScannerLaptimer-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F5F5429CBFBE861EB5CD7560 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-VTXScannerLaptimerTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3B34171B2348CAE700C1CA0E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3B3417252348CAE700C1CA0E /* ViewController.swift in Sources */,
+				3B3417232348CAE700C1CA0E /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3B34172D2348CAE900C1CA0E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3B3417362348CAE900C1CA0E /* VTXScannerLaptimerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3B3417382348CAE900C1CA0E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3B3417412348CAE900C1CA0E /* VTXScannerLaptimerUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3B3417332348CAE900C1CA0E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3B34171E2348CAE700C1CA0E /* VTXScannerLaptimer */;
+			targetProxy = 3B3417322348CAE900C1CA0E /* PBXContainerItemProxy */;
+		};
+		3B34173E2348CAE900C1CA0E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3B34171E2348CAE700C1CA0E /* VTXScannerLaptimer */;
+			targetProxy = 3B34173D2348CAE900C1CA0E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		3B3417282348CAE800C1CA0E /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3B3417292348CAE800C1CA0E /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		3B3417432348CAE900C1CA0E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		3B3417442348CAE900C1CA0E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		3B3417462348CAE900C1CA0E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 85EF02DA06009BF154C10890 /* Pods-VTXScannerLaptimer.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = VTXScannerLaptimer/VTXScannerLaptimer.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = VTXScannerLaptimer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = de.roggisch.VTXScannerLaptimer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		3B3417472348CAE900C1CA0E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6D52CDFCA148FCEB54ECB83B /* Pods-VTXScannerLaptimer.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = VTXScannerLaptimer/VTXScannerLaptimer.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = VTXScannerLaptimer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = de.roggisch.VTXScannerLaptimer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		3B3417492348CAE900C1CA0E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E2123F7B9E869AA36122D62E /* Pods-VTXScannerLaptimerTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = VTXScannerLaptimerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				PRODUCT_BUNDLE_IDENTIFIER = de.roggisch.VTXScannerLaptimerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VTXScannerLaptimer.app/Contents/MacOS/VTXScannerLaptimer";
+			};
+			name = Debug;
+		};
+		3B34174A2348CAE900C1CA0E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8C0A64C7A227AECB2E7F2187 /* Pods-VTXScannerLaptimerTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = VTXScannerLaptimerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				PRODUCT_BUNDLE_IDENTIFIER = de.roggisch.VTXScannerLaptimerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VTXScannerLaptimer.app/Contents/MacOS/VTXScannerLaptimer";
+			};
+			name = Release;
+		};
+		3B34174C2348CAE900C1CA0E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EF7D7CF61C9A939FA7A48363 /* Pods-VTXScannerLaptimerUITests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = VTXScannerLaptimerUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = de.roggisch.VTXScannerLaptimerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = VTXScannerLaptimer;
+			};
+			name = Debug;
+		};
+		3B34174D2348CAE900C1CA0E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2C09648699E50B16E95B8E2F /* Pods-VTXScannerLaptimerUITests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = VTXScannerLaptimerUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = de.roggisch.VTXScannerLaptimerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = VTXScannerLaptimer;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3B34171A2348CAE700C1CA0E /* Build configuration list for PBXProject "VTXScannerLaptimer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3B3417432348CAE900C1CA0E /* Debug */,
+				3B3417442348CAE900C1CA0E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3B3417452348CAE900C1CA0E /* Build configuration list for PBXNativeTarget "VTXScannerLaptimer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3B3417462348CAE900C1CA0E /* Debug */,
+				3B3417472348CAE900C1CA0E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3B3417482348CAE900C1CA0E /* Build configuration list for PBXNativeTarget "VTXScannerLaptimerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3B3417492348CAE900C1CA0E /* Debug */,
+				3B34174A2348CAE900C1CA0E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3B34174B2348CAE900C1CA0E /* Build configuration list for PBXNativeTarget "VTXScannerLaptimerUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3B34174C2348CAE900C1CA0E /* Debug */,
+				3B34174D2348CAE900C1CA0E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 3B3417172348CAE700C1CA0E /* Project object */;
+}
