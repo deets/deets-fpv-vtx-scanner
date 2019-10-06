@@ -13,7 +13,7 @@
 		3B34172A2348CAE800C1CA0E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B3417282348CAE800C1CA0E /* Main.storyboard */; };
 		3B3417362348CAE900C1CA0E /* VTXScannerLaptimerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3417352348CAE900C1CA0E /* VTXScannerLaptimerTests.swift */; };
 		3B3417412348CAE900C1CA0E /* VTXScannerLaptimerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3417402348CAE900C1CA0E /* VTXScannerLaptimerUITests.swift */; };
-		4B6FE2CBD48F349199ABAD62 /* Pods_VTXScannerLaptimerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23F689449F52910C66A806E1 /* Pods_VTXScannerLaptimerUITests.framework */; };
+		95C9C40EAE0F5A35ADC9E53B /* Pods_VTXScannerLaptimer_VTXScannerLaptimerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB95F18B9E4299F71E8D042E /* Pods_VTXScannerLaptimer_VTXScannerLaptimerUITests.framework */; };
 		D3E6ACB5C71F3B9BD6CF2FDB /* Pods_VTXScannerLaptimer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49D9FDEE3FE648B2B195B249 /* Pods_VTXScannerLaptimer.framework */; };
 		FEE4D8D18D84157B860AF385 /* Pods_VTXScannerLaptimerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFBB4B9364A6FD3A5694263C /* Pods_VTXScannerLaptimerTests.framework */; };
 /* End PBXBuildFile section */
@@ -36,7 +36,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		23F689449F52910C66A806E1 /* Pods_VTXScannerLaptimerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VTXScannerLaptimerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C09648699E50B16E95B8E2F /* Pods-VTXScannerLaptimerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VTXScannerLaptimerUITests.release.xcconfig"; path = "Target Support Files/Pods-VTXScannerLaptimerUITests/Pods-VTXScannerLaptimerUITests.release.xcconfig"; sourceTree = "<group>"; };
 		3B34171F2348CAE700C1CA0E /* VTXScannerLaptimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VTXScannerLaptimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B3417222348CAE700C1CA0E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -51,11 +50,14 @@
 		3B34173C2348CAE900C1CA0E /* VTXScannerLaptimerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VTXScannerLaptimerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B3417402348CAE900C1CA0E /* VTXScannerLaptimerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VTXScannerLaptimerUITests.swift; sourceTree = "<group>"; };
 		3B3417422348CAE900C1CA0E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		499BE72BE17A29C800D4B397 /* Pods-VTXScannerLaptimer-VTXScannerLaptimerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VTXScannerLaptimer-VTXScannerLaptimerUITests.debug.xcconfig"; path = "Target Support Files/Pods-VTXScannerLaptimer-VTXScannerLaptimerUITests/Pods-VTXScannerLaptimer-VTXScannerLaptimerUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		49D9FDEE3FE648B2B195B249 /* Pods_VTXScannerLaptimer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VTXScannerLaptimer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D52CDFCA148FCEB54ECB83B /* Pods-VTXScannerLaptimer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VTXScannerLaptimer.release.xcconfig"; path = "Target Support Files/Pods-VTXScannerLaptimer/Pods-VTXScannerLaptimer.release.xcconfig"; sourceTree = "<group>"; };
 		85EF02DA06009BF154C10890 /* Pods-VTXScannerLaptimer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VTXScannerLaptimer.debug.xcconfig"; path = "Target Support Files/Pods-VTXScannerLaptimer/Pods-VTXScannerLaptimer.debug.xcconfig"; sourceTree = "<group>"; };
 		8C0A64C7A227AECB2E7F2187 /* Pods-VTXScannerLaptimerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VTXScannerLaptimerTests.release.xcconfig"; path = "Target Support Files/Pods-VTXScannerLaptimerTests/Pods-VTXScannerLaptimerTests.release.xcconfig"; sourceTree = "<group>"; };
+		DB95F18B9E4299F71E8D042E /* Pods_VTXScannerLaptimer_VTXScannerLaptimerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VTXScannerLaptimer_VTXScannerLaptimerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2123F7B9E869AA36122D62E /* Pods-VTXScannerLaptimerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VTXScannerLaptimerTests.debug.xcconfig"; path = "Target Support Files/Pods-VTXScannerLaptimerTests/Pods-VTXScannerLaptimerTests.debug.xcconfig"; sourceTree = "<group>"; };
+		E3357ED68AA151719582E04E /* Pods-VTXScannerLaptimer-VTXScannerLaptimerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VTXScannerLaptimer-VTXScannerLaptimerUITests.release.xcconfig"; path = "Target Support Files/Pods-VTXScannerLaptimer-VTXScannerLaptimerUITests/Pods-VTXScannerLaptimer-VTXScannerLaptimerUITests.release.xcconfig"; sourceTree = "<group>"; };
 		EF7D7CF61C9A939FA7A48363 /* Pods-VTXScannerLaptimerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VTXScannerLaptimerUITests.debug.xcconfig"; path = "Target Support Files/Pods-VTXScannerLaptimerUITests/Pods-VTXScannerLaptimerUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		EFBB4B9364A6FD3A5694263C /* Pods_VTXScannerLaptimerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VTXScannerLaptimerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -81,7 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4B6FE2CBD48F349199ABAD62 /* Pods_VTXScannerLaptimerUITests.framework in Frameworks */,
+				95C9C40EAE0F5A35ADC9E53B /* Pods_VTXScannerLaptimer_VTXScannerLaptimerUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -150,6 +152,8 @@
 				8C0A64C7A227AECB2E7F2187 /* Pods-VTXScannerLaptimerTests.release.xcconfig */,
 				EF7D7CF61C9A939FA7A48363 /* Pods-VTXScannerLaptimerUITests.debug.xcconfig */,
 				2C09648699E50B16E95B8E2F /* Pods-VTXScannerLaptimerUITests.release.xcconfig */,
+				499BE72BE17A29C800D4B397 /* Pods-VTXScannerLaptimer-VTXScannerLaptimerUITests.debug.xcconfig */,
+				E3357ED68AA151719582E04E /* Pods-VTXScannerLaptimer-VTXScannerLaptimerUITests.release.xcconfig */,
 			);
 			name = Pods;
 			path = Pods;
@@ -160,7 +164,7 @@
 			children = (
 				49D9FDEE3FE648B2B195B249 /* Pods_VTXScannerLaptimer.framework */,
 				EFBB4B9364A6FD3A5694263C /* Pods_VTXScannerLaptimerTests.framework */,
-				23F689449F52910C66A806E1 /* Pods_VTXScannerLaptimerUITests.framework */,
+				DB95F18B9E4299F71E8D042E /* Pods_VTXScannerLaptimer_VTXScannerLaptimerUITests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -176,6 +180,7 @@
 				3B34171B2348CAE700C1CA0E /* Sources */,
 				3B34171C2348CAE700C1CA0E /* Frameworks */,
 				3B34171D2348CAE700C1CA0E /* Resources */,
+				252A7A7957A11ADD171E7A7A /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -213,6 +218,7 @@
 				3B3417382348CAE900C1CA0E /* Sources */,
 				3B3417392348CAE900C1CA0E /* Frameworks */,
 				3B34173A2348CAE900C1CA0E /* Resources */,
+				80048D323B258FF50B81F204 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -294,6 +300,40 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		252A7A7957A11ADD171E7A7A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-VTXScannerLaptimer/Pods-VTXScannerLaptimer-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-VTXScannerLaptimer/Pods-VTXScannerLaptimer-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-VTXScannerLaptimer/Pods-VTXScannerLaptimer-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		80048D323B258FF50B81F204 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-VTXScannerLaptimer-VTXScannerLaptimerUITests/Pods-VTXScannerLaptimer-VTXScannerLaptimerUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-VTXScannerLaptimer-VTXScannerLaptimerUITests/Pods-VTXScannerLaptimer-VTXScannerLaptimerUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-VTXScannerLaptimer-VTXScannerLaptimerUITests/Pods-VTXScannerLaptimer-VTXScannerLaptimerUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		927FC230AD7285CE61605C0E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -309,7 +349,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-VTXScannerLaptimerUITests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-VTXScannerLaptimer-VTXScannerLaptimerUITests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -612,7 +652,7 @@
 		};
 		3B34174C2348CAE900C1CA0E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EF7D7CF61C9A939FA7A48363 /* Pods-VTXScannerLaptimerUITests.debug.xcconfig */;
+			baseConfigurationReference = 499BE72BE17A29C800D4B397 /* Pods-VTXScannerLaptimer-VTXScannerLaptimerUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -632,7 +672,7 @@
 		};
 		3B34174D2348CAE900C1CA0E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2C09648699E50B16E95B8E2F /* Pods-VTXScannerLaptimerUITests.release.xcconfig */;
+			baseConfigurationReference = E3357ED68AA151719582E04E /* Pods-VTXScannerLaptimer-VTXScannerLaptimerUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
