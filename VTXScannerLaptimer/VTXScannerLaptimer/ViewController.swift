@@ -50,8 +50,8 @@ extension ViewController: NSTableViewDataSource {
 extension ViewController: NSTableViewDelegate {
 
   fileprivate enum CellIdentifiers {
-    static let NameCell = NSUserInterfaceItemIdentifier(rawValue: "NameCellID")
-    static let StatusCell = NSUserInterfaceItemIdentifier(rawValue: "StatusCellID")
+    static let NameCellID = NSUserInterfaceItemIdentifier(rawValue: "NameCellID")
+    static let StatusCellID = NSUserInterfaceItemIdentifier(rawValue: "StatusCellID")
     
   }
     
@@ -59,7 +59,6 @@ extension ViewController: NSTableViewDelegate {
   func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
 
     var text: String = ""
-    var cellIdentifier: NSUserInterfaceItemIdentifier?
     if(row >= testData.count)
     {
         return nil
@@ -67,24 +66,18 @@ extension ViewController: NSTableViewDelegate {
     let item = testData[row]
 
     // 2
-    if tableColumn == tableView.tableColumns[0] {
+    if tableColumn?.identifier == CellIdentifiers.NameCellID {
       text = item.name
-      cellIdentifier = CellIdentifiers.NameCell
-    } else if tableColumn == tableView.tableColumns[1] {
+    } else if tableColumn?.identifier == CellIdentifiers.StatusCellID {
         text = item.status
-        cellIdentifier = CellIdentifiers.StatusCell
     }
     
     // 3
-    if let cell = tableView.makeView(withIdentifier: cellIdentifier!, owner: nil) as? NSTextField {
-        cell.stringValue = text
+    if let cell = tableView.makeView(withIdentifier: tableColumn!.identifier, owner: self) as? NSTableCellView {
+        cell.textField?.stringValue = text
       return cell
-    } else {
-        let cell = NSTextField.init()
-        cell.stringValue = text
-        cell.identifier = cellIdentifier
-        return cell
     }
+    return nil
   }
 
 }
