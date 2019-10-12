@@ -37,3 +37,7 @@ class VTXScannerList {
         return scanners[index]
     }
 }
+
+protocol VTXScannerListContainer {
+    func setScannerList(_ scannerList: VTXScannerList)
+}

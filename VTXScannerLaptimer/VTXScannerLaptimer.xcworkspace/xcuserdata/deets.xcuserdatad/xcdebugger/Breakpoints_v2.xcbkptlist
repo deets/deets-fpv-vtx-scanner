@@ -31,10 +31,58 @@
             filePath = "VTXScannerLaptimer/KnownVTXScannerViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "50"
-            endingLineNumber = "50"
+            startingLineNumber = "45"
+            endingLineNumber = "45"
             landmarkName = "numberOfRows(in:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "33AC8A03-4DBC-4DE8-8C74-1552A72ECCD4"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "VTXScannerLaptimer/KnownVTXScannerViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "18"
+            endingLineNumber = "18"
+            landmarkName = "scanners"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "33AC8A03-4DBC-4DE8-8C74-1552A72ECCD4 - bf27056453daaff7"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "VTXScannerLaptimer.KnownVTXScannerViewController.scanners.didset : Swift.Optional&lt;VTXScannerLaptimer.VTXScannerList&gt;"
+                  moduleName = "VTXScannerLaptimer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/deets/Dropbox/projects/deets-fpv-vtx-scanner/VTXScannerLaptimer/VTXScannerLaptimer/KnownVTXScannerViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "18"
+                  endingLineNumber = "18"
+                  offsetFromSymbolStart = "92">
+               </Location>
+               <Location
+                  uuid = "33AC8A03-4DBC-4DE8-8C74-1552A72ECCD4 - bd385879a78c1fe6"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Int) -&gt; () in VTXScannerLaptimer.KnownVTXScannerViewController.scanners.didset : Swift.Optional&lt;VTXScannerLaptimer.VTXScannerList&gt;"
+                  moduleName = "VTXScannerLaptimer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/deets/Dropbox/projects/deets-fpv-vtx-scanner/VTXScannerLaptimer/VTXScannerLaptimer/KnownVTXScannerViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "19"
+                  endingLineNumber = "19"
+                  offsetFromSymbolStart = "111">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

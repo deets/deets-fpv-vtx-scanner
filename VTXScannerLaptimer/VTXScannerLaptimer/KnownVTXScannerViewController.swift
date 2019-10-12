@@ -14,12 +14,14 @@ class KnownVTXScannerViewController: NSViewController {
 
     var scanners : VTXScannerList? {
         didSet {
-            print("VTXScannerList::didSet")
+            // reload on change
             scanners?.numberOfScanners.signal.observeValues({(count) in
                 if let tableView = self.tableView {
                     tableView.reloadData()
                 }
             })
+            // reload on set
+            tableView.reloadData()
         }
     }
 
@@ -28,11 +30,6 @@ class KnownVTXScannerViewController: NSViewController {
 
         tableView.delegate = self
         tableView.dataSource = self
-
-        print("VTXScannerList::viewDidLoad")
-        scanners = VTXScannerList()
-        scanners?.addScanner("Diez", "Tired")
-        tableView.reloadData()
     }
 
     override var representedObject: Any? {
@@ -40,8 +37,6 @@ class KnownVTXScannerViewController: NSViewController {
         // Update the view, if already loaded.
         }
     }
-
-
 }
 
 extension KnownVTXScannerViewController: NSTableViewDataSource {
@@ -63,7 +58,6 @@ extension KnownVTXScannerViewController: NSTableViewDelegate {
 
 
   func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-    print("tableView:row:", row)
 
     var text: String = ""
     if(row >= numberOfRows(in: tableView))
@@ -85,4 +79,11 @@ extension KnownVTXScannerViewController: NSTableViewDelegate {
     return nil
   }
 
+}
+
+
+extension KnownVTXScannerViewController: VTXScannerListContainer {
+    func setScannerList(_ scannerList: VTXScannerList) {
+        self.scanners = scannerList
+    }
 }
