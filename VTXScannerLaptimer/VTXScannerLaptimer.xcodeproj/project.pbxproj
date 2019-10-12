@@ -3,16 +3,17 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		3B3417232348CAE700C1CA0E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3417222348CAE700C1CA0E /* AppDelegate.swift */; };
-		3B3417252348CAE700C1CA0E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3417242348CAE700C1CA0E /* ViewController.swift */; };
+		3B3417252348CAE700C1CA0E /* KnownVTXScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3417242348CAE700C1CA0E /* KnownVTXScannerViewController.swift */; };
 		3B3417272348CAE800C1CA0E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B3417262348CAE800C1CA0E /* Assets.xcassets */; };
 		3B34172A2348CAE800C1CA0E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B3417282348CAE800C1CA0E /* Main.storyboard */; };
 		3B3417362348CAE900C1CA0E /* VTXScannerLaptimerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3417352348CAE900C1CA0E /* VTXScannerLaptimerTests.swift */; };
 		3B3417412348CAE900C1CA0E /* VTXScannerLaptimerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3417402348CAE900C1CA0E /* VTXScannerLaptimerUITests.swift */; };
+		3BD219D92350C7690044191A /* VTXScannerList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD219D82350C7690044191A /* VTXScannerList.swift */; };
 		95C9C40EAE0F5A35ADC9E53B /* Pods_VTXScannerLaptimer_VTXScannerLaptimerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB95F18B9E4299F71E8D042E /* Pods_VTXScannerLaptimer_VTXScannerLaptimerUITests.framework */; };
 		D3E6ACB5C71F3B9BD6CF2FDB /* Pods_VTXScannerLaptimer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49D9FDEE3FE648B2B195B249 /* Pods_VTXScannerLaptimer.framework */; };
 		FEE4D8D18D84157B860AF385 /* Pods_VTXScannerLaptimerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFBB4B9364A6FD3A5694263C /* Pods_VTXScannerLaptimerTests.framework */; };
@@ -39,7 +40,7 @@
 		2C09648699E50B16E95B8E2F /* Pods-VTXScannerLaptimerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VTXScannerLaptimerUITests.release.xcconfig"; path = "Target Support Files/Pods-VTXScannerLaptimerUITests/Pods-VTXScannerLaptimerUITests.release.xcconfig"; sourceTree = "<group>"; };
 		3B34171F2348CAE700C1CA0E /* VTXScannerLaptimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VTXScannerLaptimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B3417222348CAE700C1CA0E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3B3417242348CAE700C1CA0E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3B3417242348CAE700C1CA0E /* KnownVTXScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnownVTXScannerViewController.swift; sourceTree = "<group>"; };
 		3B3417262348CAE800C1CA0E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3B3417292348CAE800C1CA0E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3B34172B2348CAE800C1CA0E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -50,6 +51,7 @@
 		3B34173C2348CAE900C1CA0E /* VTXScannerLaptimerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VTXScannerLaptimerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B3417402348CAE900C1CA0E /* VTXScannerLaptimerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VTXScannerLaptimerUITests.swift; sourceTree = "<group>"; };
 		3B3417422348CAE900C1CA0E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3BD219D82350C7690044191A /* VTXScannerList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VTXScannerList.swift; sourceTree = "<group>"; };
 		499BE72BE17A29C800D4B397 /* Pods-VTXScannerLaptimer-VTXScannerLaptimerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VTXScannerLaptimer-VTXScannerLaptimerUITests.debug.xcconfig"; path = "Target Support Files/Pods-VTXScannerLaptimer-VTXScannerLaptimerUITests/Pods-VTXScannerLaptimer-VTXScannerLaptimerUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		49D9FDEE3FE648B2B195B249 /* Pods_VTXScannerLaptimer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VTXScannerLaptimer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D52CDFCA148FCEB54ECB83B /* Pods-VTXScannerLaptimer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VTXScannerLaptimer.release.xcconfig"; path = "Target Support Files/Pods-VTXScannerLaptimer/Pods-VTXScannerLaptimer.release.xcconfig"; sourceTree = "<group>"; };
@@ -115,8 +117,9 @@
 		3B3417212348CAE700C1CA0E /* VTXScannerLaptimer */ = {
 			isa = PBXGroup;
 			children = (
+				3BD219D72350C5720044191A /* Models */,
 				3B3417222348CAE700C1CA0E /* AppDelegate.swift */,
-				3B3417242348CAE700C1CA0E /* ViewController.swift */,
+				3B3417242348CAE700C1CA0E /* KnownVTXScannerViewController.swift */,
 				3B3417262348CAE800C1CA0E /* Assets.xcassets */,
 				3B3417282348CAE800C1CA0E /* Main.storyboard */,
 				3B34172B2348CAE800C1CA0E /* Info.plist */,
@@ -143,6 +146,14 @@
 			path = VTXScannerLaptimerUITests;
 			sourceTree = "<group>";
 		};
+		3BD219D72350C5720044191A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3BD219D82350C7690044191A /* VTXScannerList.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		6DD2CBF6EF021BBFE12B96AD /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -155,7 +166,6 @@
 				499BE72BE17A29C800D4B397 /* Pods-VTXScannerLaptimer-VTXScannerLaptimerUITests.debug.xcconfig */,
 				E3357ED68AA151719582E04E /* Pods-VTXScannerLaptimer-VTXScannerLaptimerUITests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -407,8 +417,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3B3417252348CAE700C1CA0E /* ViewController.swift in Sources */,
+				3B3417252348CAE700C1CA0E /* KnownVTXScannerViewController.swift in Sources */,
 				3B3417232348CAE700C1CA0E /* AppDelegate.swift in Sources */,
+				3BD219D92350C7690044191A /* VTXScannerList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

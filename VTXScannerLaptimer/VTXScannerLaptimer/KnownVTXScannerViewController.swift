@@ -8,26 +8,31 @@
 
 import Cocoa
 
-class ViewController: NSViewController {
+class KnownVTXScannerViewController: NSViewController {
 
     @IBOutlet weak var tableView: NSTableView!
-  
-    struct TestEntry {
-        let name: String
-        var status: String
+
+    var scanners : VTXScannerList? {
+        didSet {
+            print("VTXScannerList::didSet")
+            scanners?.numberOfScanners.signal.observeValues({(count) in
+                if let tableView = self.tableView {
+                    tableView.reloadData()
+                }
+            })
+        }
     }
-    
-    let testData: [TestEntry] = [
-        TestEntry(name: "Anne", status: "Ok"),
-        TestEntry(name: "Diez", status: "Tired")
-       ]
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         tableView.delegate = self
         tableView.dataSource = self
-        // Do any additional setup after loading the view.
+
+        print("VTXScannerList::viewDidLoad")
+        scanners = VTXScannerList()
+        scanners?.addScanner("Diez", "Tired")
+        tableView.reloadData()
     }
 
     override var representedObject: Any? {
@@ -39,40 +44,40 @@ class ViewController: NSViewController {
 
 }
 
-extension ViewController: NSTableViewDataSource {
-  
+extension KnownVTXScannerViewController: NSTableViewDataSource {
+
   func numberOfRows(in tableView: NSTableView) -> Int {
-    return testData.count;
+    let result = scanners != nil ? scanners!.count : 0
+    return result
   }
 
 }
 
-extension ViewController: NSTableViewDelegate {
+extension KnownVTXScannerViewController: NSTableViewDelegate {
 
   fileprivate enum CellIdentifiers {
     static let NameCellID = NSUserInterfaceItemIdentifier(rawValue: "NameCellID")
     static let StatusCellID = NSUserInterfaceItemIdentifier(rawValue: "StatusCellID")
-    
+
   }
-    
-   
+
+
   func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+    print("tableView:row:", row)
 
     var text: String = ""
-    if(row >= testData.count)
+    if(row >= numberOfRows(in: tableView))
     {
         return nil
     }
-    let item = testData[row]
+    let item = scanners!.at(row)!
 
-    // 2
     if tableColumn?.identifier == CellIdentifiers.NameCellID {
       text = item.name
     } else if tableColumn?.identifier == CellIdentifiers.StatusCellID {
         text = item.status
     }
-    
-    // 3
+
     if let cell = tableView.makeView(withIdentifier: tableColumn!.identifier, owner: self) as? NSTableCellView {
         cell.textField?.stringValue = text
       return cell

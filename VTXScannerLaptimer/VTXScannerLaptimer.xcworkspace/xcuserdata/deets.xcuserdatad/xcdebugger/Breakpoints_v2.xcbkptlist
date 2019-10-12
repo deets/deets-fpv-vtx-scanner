@@ -7,15 +7,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D9F2B0FD-16ED-45AC-8FD6-7DC2A5D74311"
+            uuid = "1211AC3F-1393-470C-A560-982C1320FC7C"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VTXScannerLaptimer/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "63"
-            endingLineNumber = "63"
+            startingLineNumber = "70"
+            endingLineNumber = "70"
             landmarkName = "tableView(_:viewFor:row:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -23,16 +23,17 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "4CF45BD1-062F-47D7-B575-4218127B3A17"
-            shouldBeEnabled = "Yes"
+            uuid = "4F9493CC-0182-46E8-ADE8-41A185A70FC9"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
+            condition = "&#xa7;"
             continueAfterRunningActions = "No"
-            filePath = "VTXScannerLaptimer/ViewController.swift"
+            filePath = "VTXScannerLaptimer/KnownVTXScannerViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
-            landmarkName = "tableView(_:viewFor:row:)"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
+            landmarkName = "numberOfRows(in:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
