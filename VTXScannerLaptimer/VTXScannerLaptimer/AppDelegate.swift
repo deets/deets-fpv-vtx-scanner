@@ -15,10 +15,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        let window:NSWindow = NSApplication.shared.windows.first!
 
         scanners.addScanner("Diez", "Tired")
 
+
+        let window:NSWindow = NSApplication.shared.windows.first!
         if let controller = window.contentViewController  {
             if let current = controller as? VTXScannerListContainer {
                 current.setScannerList(scanners)
