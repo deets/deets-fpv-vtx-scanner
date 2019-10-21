@@ -50,6 +50,27 @@ LapTimer::LapTimer(app_state_t& app_state, RTC6715& rtc, size_t display_width, L
 
   _settings.push_back(h->unit("ms"));
 
+  auto h2 = new LowerUpperBoundSetting<decltype(app_state.peak_detection_config.trigger_threshold_percent)>(
+    "Trig. Thresh. %",
+    app_state.peak_detection_config.trigger_threshold_percent,
+    1,
+    100,
+    5
+    );
+
+  _settings.push_back(h2->unit("%"));
+
+
+  auto h3 = new LowerUpperBoundSetting<decltype(app_state.peak_detection_config.trigger_threshold_hysteresis)>(
+    "Trig. Thr. Hyst. %",
+    app_state.peak_detection_config.trigger_threshold_hysteresis,
+    -100,
+    100,
+    5
+    );
+
+  _settings.push_back(h3->unit("%"));
+
 }
 
 std::vector<Setting*>& LapTimer::settings()

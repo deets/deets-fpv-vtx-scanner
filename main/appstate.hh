@@ -27,7 +27,7 @@ struct peak_detection_t
   ts_t cooldown_period; // 0-n, milliseconds
 
   peak_detection_t()
-    : trigger_threshold_percent(70)
+    : trigger_threshold_percent(85)
     , trigger_threshold_hysteresis(-15)
     , peak_size(200)
     , cooldown_period(5000)

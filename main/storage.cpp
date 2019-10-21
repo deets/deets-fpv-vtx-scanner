@@ -55,6 +55,21 @@ struct NVSLoadStore<uint32_t>
 
 };
 
+template<>
+struct NVSLoadStore<int>
+{
+  esp_err_t store(nvs_handle nvs_handle, const char* name, const int& value)
+  {
+    return nvs_set_i32(nvs_handle, name, value);
+  }
+
+  esp_err_t restore(nvs_handle nvs_handle, const char* name, int* value)
+  {
+    return nvs_get_i32(nvs_handle, name, value);
+  }
+
+};
+
 } // end ns anonymous
 
 #define CHECK_AND_STORE(attributename) \
@@ -106,6 +121,8 @@ void Storage::store()
   bool commit = true;
   CHECK_AND_STORE(selected_channel);
   CHECK_AND_STORE(peak_detection_config.peak_size);
+  CHECK_AND_STORE(peak_detection_config.trigger_threshold_percent);
+  CHECK_AND_STORE(peak_detection_config.trigger_threshold_hysteresis);
   if(commit)
   {
     err = nvs_commit(_nvs_handle);
@@ -121,4 +138,7 @@ void Storage::restore()
   esp_err_t err;
   RESTORE(selected_channel);
   RESTORE(peak_detection_config.peak_size);
+  RESTORE(peak_detection_config.trigger_threshold_percent);
+  RESTORE(peak_detection_config.trigger_threshold_hysteresis);
+
 }
