@@ -48,4 +48,7 @@ private:
   LapTimeTracker& _lap_time_tracker;
 
   std::vector<Setting*> _settings;
+
+  ts_t _diff;
+  bool _show_diff;
 };

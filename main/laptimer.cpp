@@ -87,6 +87,9 @@ void LapTimer::setup_impl()
   _rtc.select_channel(_app_state.selected_channel);
   _peak_detector.reset();
   _lap_time_tracker.reset();
+
+  _show_diff = false;
+
   vTaskResume(_laptimer_task_handle);
 }
 
@@ -172,6 +175,11 @@ app_mode_t LapTimer::update(Display& display)
   display.hline(0, display.width() - 1, DISPLAY_SPLIT + 1);
   display_laptimes(display);
 
+  if(_show_diff)
+  {
+    _show_diff = false;
+    ESP_LOGI("laptimer", "1000 samples in %i", (int)_diff);
+  }
   return LAPTIMER;
 }
 
@@ -248,7 +256,9 @@ void LapTimer::laptimer_task()
   ESP_LOGI("laptimer", "laptimer task period: %ims", period);
   last_wake_time = xTaskGetTickCount ();
 
+  auto last = esp_timer_get_time();
   size_t pos = 0;
+  auto count = 0;
   for( ;; )
   {
     vTaskDelayUntil( &last_wake_time, period );
@@ -265,5 +275,12 @@ void LapTimer::laptimer_task()
 
     auto now = esp_timer_get_time();
     _peak_detector.feed(now, reading);
+    if(++count == 1000)
+    {
+      count = 0;
+      _diff = now - last;
+      _show_diff = true;
+      last = now;
+    }
   }
 }
