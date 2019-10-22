@@ -694,6 +694,17 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
+                                                <button verticalHuggingPriority="750" id="8ba-W1-11S">
+                                                    <rect key="frame" x="583" y="582" width="115" height="32"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                                    <buttonCell key="cell" type="push" title="Capture Log" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="B9N-dg-wv4">
+                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <action selector="captureLog:" target="oFL-FT-PhO" id="9kl-s5-vEW"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <connections>
                                                 <outlet property="rssiValuesPerSecond" destination="7ls-wh-UdT" id="piO-9d-iBW"/>
