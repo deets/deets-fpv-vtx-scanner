@@ -27,6 +27,7 @@ LapTimer::LapTimer(app_state_t& app_state, RTC6715& rtc, size_t display_width, L
   , _lap_time_tracker(lpt)
 
 {
+  _task_q = xQueueCreate(20, sizeof(queue_message_t));
   _laptimer_task_handle = xTaskCreateStaticPinnedToCore(
     s_laptimer_task,       // Function that implements the task.
     "LPT",          // Text name for the task.
@@ -38,7 +39,6 @@ LapTimer::LapTimer(app_state_t& app_state, RTC6715& rtc, size_t display_width, L
     1 // Core 1
     );
   vTaskSuspend(_laptimer_task_handle);
-  _task_q = xQueueCreate(20, sizeof(queue_message_t));
   assert(_task_q);
   auto h = new LowerUpperBoundSetting<decltype(app_state.peak_detection_config.peak_size)>(
                         "Peak Length",
