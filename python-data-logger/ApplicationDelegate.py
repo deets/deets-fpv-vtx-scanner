@@ -1,4 +1,4 @@
-from objc import IBAction, IBOutlet
+from objc import IBAction, IBOutlet, ivar
 
 from Foundation import (
     NSObject,
@@ -9,12 +9,18 @@ from Cocoa import (
     NSColor,
     )
 
-from VTXScanner import setup_bt_delegate
+from VTXScanner import setup_bt_delegate, Mode
 
 class ApplicationDelegate(NSObject):
 
-
     scanView = IBOutlet("scanView")
+
+    mode = ivar.int("mode")
+
+    MODE2INDEX = {
+        Mode.SCANNER: 0,
+        Mode.LAPTIMER: 1,
+    }
 
     def init(self):
         self = super(ApplicationDelegate, self).init()
@@ -28,13 +34,15 @@ class ApplicationDelegate(NSObject):
             self.scanView.updateChannel_,
             "last_rssi",
         )
+        self.vtx_delegate.addListener_for_(
+            self.modeChanged_,
+            "mode",
+        )
+
+    def modeChanged_(self, delegate_mode):
+        delegate_mode = delegate_mode[0]
+        mode = self.MODE2INDEX.get(delegate_mode, 0)
+        self.mode = mode
 
     def applicationWillTerminate_(self, sender):
         pass
-
-
-    # @IBAction
-    # def rotateColor_(self, _sender):
-    #     index = [i for i, color in enumerate(self.colors) if color == self.view.color][0]
-    #     self.view.color = self.colors[(index + 1) % len(self.colors)]
-    #     self.view.setNeedsDisplay_(True)

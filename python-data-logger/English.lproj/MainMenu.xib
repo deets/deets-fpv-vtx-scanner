@@ -664,7 +664,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <font key="font" metaFont="system"/>
                         <tabViewItems>
-                            <tabViewItem label="Tab" identifier="" id="Si1-YM-1sO">
+                            <tabViewItem label="Scanner" identifier="" id="Si1-YM-1sO">
                                 <view key="view" id="SeE-9b-gkQ">
                                     <rect key="frame" x="10" y="33" width="706" height="628"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -676,13 +676,16 @@
                                     </subviews>
                                 </view>
                             </tabViewItem>
-                            <tabViewItem label="View" identifier="" id="kV0-an-wQv">
+                            <tabViewItem label="Laptimer" identifier="" id="kV0-an-wQv">
                                 <view key="view" id="ZCV-uX-1Bj">
                                     <rect key="frame" x="10" y="33" width="706" height="628"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                             </tabViewItem>
                         </tabViewItems>
+                        <connections>
+                            <binding destination="826" name="selectedIndex" keyPath="mode" id="9Hl-FR-IQF"/>
+                        </connections>
                     </tabView>
                 </subviews>
             </view>
@@ -692,5 +695,6 @@
                 <outlet property="scanView" destination="1027" id="PcF-vY-cg1"/>
             </connections>
         </customObject>
+        <userDefaultsController representsSharedInstance="YES" id="aVX-gx-H7t"/>
     </objects>
 </document>

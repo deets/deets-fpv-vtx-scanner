@@ -138,7 +138,7 @@ class VTXDelegate(NSObject):
         data = characteristic.value().bytes().tobytes()
         mode = struct.unpack("<I", data)[0]
         self.mode = Mode(mode)
-        print("mode switched:", self.mode)
+        return ("mode", self.mode)
 
     def laptimeRssi_(self, characteristic):
         value = characteristic.value()
