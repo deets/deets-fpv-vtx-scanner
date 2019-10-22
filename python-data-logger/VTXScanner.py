@@ -3,8 +3,10 @@ import socket
 import sys
 import struct
 from enum import Enum, unique
+from collections import defaultdict
 
 import objc
+import libdispatch
 from PyObjCTools import AppHelper
 from Foundation import NSObject
 
@@ -52,7 +54,16 @@ class VTXDelegate(NSObject):
         self.service = None
         self._mode = None
         self._characteristics = {}
+        self._listeners = defaultdict(list)
         return self
+
+    def emit_(self, value):
+        message, args = value[0], value[1:]
+        for listener in self._listeners[message]:
+            listener(args)
+
+    def addListener_for_(self, listener, message):
+        self._listeners[message].append(listener)
 
     @property
     def mode(self):
@@ -111,8 +122,17 @@ class VTXDelegate(NSObject):
         print("Receiving notifications for", characteristic)
 
     def peripheral_didUpdateValueForCharacteristic_error_(self, peripheral, characteristic, error):
+        # This is executed in a background thread. We need to
+        # forward it to the main thread
         value = self.TRANSFORM[characteristic.UUID()](self, characteristic)
         self._trigger_value_read()
+        mq = libdispatch.dispatch_get_main_queue()
+
+        def forward():
+            if value is not None:
+                self.emit_(value)
+
+        libdispatch.dispatch_async(mq, forward)
 
     def currentMode_(self, characteristic):
         data = characteristic.value().bytes().tobytes()
@@ -131,7 +151,7 @@ class VTXDelegate(NSObject):
     def lastRssi_(self, characteristic):
         data = characteristic.value().bytes().tobytes()
         channel, value = struct.unpack("<HH", data)
-        print("channel", channel, "value", value)
+        return ("last_rssi", channel, value)
 
     def laptime_(self, characteristic):
         data = characteristic.value().bytes().tobytes()

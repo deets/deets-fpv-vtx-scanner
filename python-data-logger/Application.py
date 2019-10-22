@@ -1,5 +1,5 @@
 from ApplicationDelegate import *
-from ApplicationView import *
+from ScanView import *
 
 
 if __name__ == '__main__':
