@@ -32,7 +32,7 @@ LapTimer::LapTimer(app_state_t& app_state, RTC6715& rtc, size_t display_width, L
     "LPT",          // Text name for the task.
     LAPTIMER_TASK_STACK_SIZE,      // Stack size in bytes, not words.
     this,
-    tskIDLE_PRIORITY,// Priority at which the task is created.
+    tskIDLE_PRIORITY + 1,// Priority at which the task is created.
     _laptimer_task_stack,          // Array to use as the task's stack.
     &_laptimer_task_buffer, // Variable to hold the task's data structure.
     1 // Core 1
