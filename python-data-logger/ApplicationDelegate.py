@@ -14,6 +14,7 @@ from VTXScanner import setup_bt_delegate, Mode
 class ApplicationDelegate(NSObject):
 
     scanView = IBOutlet("scanView")
+    laptimerView = IBOutlet("laptimerView")
 
     mode = ivar.int("mode")
 
@@ -31,12 +32,16 @@ class ApplicationDelegate(NSObject):
         NSLog("applicationDidFinishLaunching_")
         self.bt_manager, self.vtx_delegate = setup_bt_delegate()
         self.vtx_delegate.addListener_for_(
+            self.modeChanged_,
+            "mode",
+        )
+        self.vtx_delegate.addListener_for_(
             self.scanView.updateChannel_,
             "last_rssi",
         )
         self.vtx_delegate.addListener_for_(
-            self.modeChanged_,
-            "mode",
+            self.laptimerView.updateRssiValues_,
+            "laptime_rssi",
         )
 
     def modeChanged_(self, delegate_mode):

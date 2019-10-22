@@ -9,7 +9,8 @@
 /* Begin PBXFileReference section */
 		3B748313161A21A1001E6A78 /* ApplicationDelegate.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = ApplicationDelegate.py; sourceTree = "<group>"; };
 		3B748318161A21A1001E6A78 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = MainMenu.xib; sourceTree = "<group>"; };
-		3BFCEF191786F9C80076C2A8 /* ApplicationView.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = ApplicationView.py; sourceTree = "<group>"; };
+		462680B4235F4FB20038E585 /* LaptimerView.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = LaptimerView.py; sourceTree = "<group>"; };
+		462680B5235F4FB20038E585 /* ScanView.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = ScanView.py; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -32,7 +33,8 @@
 		3BFCEF181786F9820076C2A8 /* PythonSources */ = {
 			isa = PBXGroup;
 			children = (
-				3BFCEF191786F9C80076C2A8 /* ApplicationView.py */,
+				462680B4235F4FB20038E585 /* LaptimerView.py */,
+				462680B5235F4FB20038E585 /* ScanView.py */,
 				3B748313161A21A1001E6A78 /* ApplicationDelegate.py */,
 			);
 			name = PythonSources;

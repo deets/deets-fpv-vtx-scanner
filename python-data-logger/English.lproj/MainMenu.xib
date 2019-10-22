@@ -11,7 +11,7 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customObject id="373" customClass="NSFontManager"/>
         <menu title="Main Menu" systemMenu="main" id="29" userLabel="Main Menu">
             <items>
@@ -680,6 +680,26 @@
                                 <view key="view" id="ZCV-uX-1Bj">
                                     <rect key="frame" x="10" y="33" width="706" height="628"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <customView identifier="LaptimerView" id="oFL-FT-PhO" customClass="LaptimerView">
+                                            <rect key="frame" x="-3" y="-3" width="712" height="628"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="7ls-wh-UdT">
+                                                    <rect key="frame" x="18" y="591" width="37" height="17"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="u86-wE-v1d">
+                                                        <font key="font" usesAppearanceFont="YES"/>
+                                                        <color key="textColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                </textField>
+                                            </subviews>
+                                            <connections>
+                                                <outlet property="rssiValuesPerSecond" destination="7ls-wh-UdT" id="piO-9d-iBW"/>
+                                            </connections>
+                                        </customView>
+                                    </subviews>
                                 </view>
                             </tabViewItem>
                         </tabViewItems>
@@ -689,9 +709,11 @@
                     </tabView>
                 </subviews>
             </view>
+            <point key="canvasLocation" x="72" y="-495"/>
         </window>
         <customObject id="826" customClass="ApplicationDelegate">
             <connections>
+                <outlet property="laptimerView" destination="oFL-FT-PhO" id="pOz-nQ-j1m"/>
                 <outlet property="scanView" destination="1027" id="PcF-vY-cg1"/>
             </connections>
         </customObject>

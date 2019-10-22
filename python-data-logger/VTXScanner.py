@@ -1,6 +1,7 @@
 import select
 import socket
 import sys
+import time
 import struct
 from enum import Enum, unique
 from collections import defaultdict
@@ -17,15 +18,6 @@ objc.loadBundle("CoreBluetooth", globals(),
 @unique
 class Mode(Enum):
     SPLASH_SCREEN, SCANNER, LAPTIMER, SETTINGS = range(4)
-
-
-RSSI_PATH = "/rssi"
-MODE_PATH = "/mode"
-LAST_RSSI_PATH = "/lastrssi"
-NEW_LAPTIME_PATH = "/laptime"
-
-PORT = 34254
-HOST = "localhost"
 
 
 VTX_SERVICE = CBUUID.UUIDWithString_(u'D27E29B4-4DBD-4103-A8B6-09301EFDDD01')
@@ -142,11 +134,9 @@ class VTXDelegate(NSObject):
 
     def laptimeRssi_(self, characteristic):
         value = characteristic.value()
-        # b = osc_message_builder.OscMessageBuilder(RSSI_PATH)
-        # for v in value:
-        #     b.add_arg(v << 4) # scaled up to 4096
-        # message = b.build()
-        # self._client.send(message)
+        now = time.monotonic()
+        return ("laptime_rssi", now, [v << 4 for v in value])
+
 
     def lastRssi_(self, characteristic):
         data = characteristic.value().bytes().tobytes()
