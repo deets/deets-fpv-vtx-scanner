@@ -2,12 +2,18 @@
 
 #include "rtc6715.hh"
 
+#include <esp_log.h>
 #include <stdint.h>
 
 // This ensures waiting for the mutex will block
 #if !defined(INCLUDE_vTaskSuspend) ||  INCLUDE_vTaskSuspend != 1
 #error "We expect  INCLUDE_vTaskSuspend to be 1!"
 #endif
+
+#define SYNTH_B_REG 0x01
+#define RX_CONTROL_REG_1 0x08
+#define RX_CONTROL_REG_2 0x09
+#define DEFAULT_GAIN 0x7
 
 namespace {
 /*
@@ -38,6 +44,8 @@ uint32_t calc_register(uint32_t channel)
 
 RTC6715::RTC6715(adc1_channel_t adc_channel, int cs, int clk, int mosi)
   : _adc_channel(adc_channel)
+  , _receiver_control_register_1(0b00000011111101000000)
+  , _receiver_control_register_2(0b10110010000000011000)
 {
   esp_err_t ret;
 
@@ -67,7 +75,7 @@ RTC6715::RTC6715(adc1_channel_t adc_channel, int cs, int clk, int mosi)
     .clock_speed_hz=SPI_SPEED,
     .input_delay_ns=0,
     .spics_io_num=cs,
-    .flags=SPI_DEVICE_TXBIT_LSBFIRST,
+    .flags=SPI_DEVICE_TXBIT_LSBFIRST|SPI_DEVICE_RXBIT_LSBFIRST,
     .queue_size=1,
     .pre_cb=nullptr,
     .post_cb=nullptr
@@ -78,6 +86,8 @@ RTC6715::RTC6715(adc1_channel_t adc_channel, int cs, int clk, int mosi)
   ret = spi_bus_add_device(VSPI_HOST, &devcfg, &_spi);
   ESP_ERROR_CHECK(ret);
   _semaphore = xSemaphoreCreateMutexStatic(&_semaphore_buffer);
+  set_ifabf_gain(DEFAULT_GAIN);
+  set_ifaaf_gain(DEFAULT_GAIN);
 }
 
 
@@ -89,16 +99,20 @@ int RTC6715::read_rssi()
 
 void RTC6715::select_channel(int channel)
 {
-  esp_err_t ret;
-
   if(channel < 0 && channel >= 40)
   {
     return;
   }
-
   uint32_t register_value = calc_register(channel);
+  write_register(SYNTH_B_REG, register_value);
+}
+
+
+void RTC6715::write_register(uint8_t reg, uint32_t value)
+{
+  esp_err_t ret;
   spi_transaction_t t;
-  uint32_t cmd = (0x1 | 0x10) | (register_value << 5);
+  uint32_t cmd = (reg | 0x10) | (value << 5); // 0x10 for writing!
   t.length = 25;
   t.rxlength = 25;
   t.tx_buffer = (void*)cmd;
@@ -114,4 +128,24 @@ void RTC6715::select_channel(int channel)
 int RTC6715::frequency_for_channel(int channel)
 {
   return frequency_table[channel];
+}
+
+
+void RTC6715::set_ifabf_gain(uint8_t value)
+{
+  const auto gain = (value & 0x7) << 8;
+  const auto mask = ~(0x7 << 8);
+  _receiver_control_register_1 &= mask;
+  _receiver_control_register_1 |= gain;
+  write_register(RX_CONTROL_REG_1, _receiver_control_register_1);
+}
+
+
+void RTC6715::set_ifaaf_gain(uint8_t value)
+{
+  const auto gain = (value & 0x7) << 17;
+  const auto mask = ~(0x7 << 17);
+  _receiver_control_register_2 &= mask;
+  _receiver_control_register_2 |= gain;
+  write_register(RX_CONTROL_REG_2, _receiver_control_register_2);
 }

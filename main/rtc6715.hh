@@ -13,13 +13,21 @@ public:
 
   int read_rssi();
   void select_channel(int channel);
+  void set_ifabf_gain(uint8_t);
+  void set_ifaaf_gain(uint8_t);
 
   static int frequency_for_channel(int channel);
 
 private:
+  void write_register(uint8_t reg, uint32_t value);
+  uint32_t read_register(uint8_t reg);
+
   adc1_channel_t _adc_channel;
   spi_device_handle_t _spi;
 
   SemaphoreHandle_t _semaphore;
   StaticSemaphore_t _semaphore_buffer;
+
+  uint32_t _receiver_control_register_1;
+  uint32_t _receiver_control_register_2;
 };
