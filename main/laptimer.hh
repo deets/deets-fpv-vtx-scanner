@@ -5,6 +5,7 @@
 #include "rtc6715.hh"
 #include "peak_detection_strategy.hh"
 #include "laptime_tracker.hh"
+#include "buzzer.hh"
 
 #define LAPTIMER_TASK_STACK_SIZE 2000
 
@@ -17,7 +18,7 @@ class LapTimer : public Mode
 
 public:
 
-  LapTimer(app_state_t&, RTC6715&, size_t display_width, LapTimeTracker&);
+  LapTimer(app_state_t&, RTC6715&, size_t display_width, LapTimeTracker&, Buzzer&);
   app_mode_t update(Display&) override;
 
 protected:
@@ -51,4 +52,5 @@ private:
 
   ts_t _diff;
   bool _show_diff;
+  Buzzer& _buzzer;
 };

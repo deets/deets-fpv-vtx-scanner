@@ -73,10 +73,10 @@ void display_task(void*)
     RTC_MOSI
     );
 
-  buzzer_setup(BUZZER_PIN);
-  //buzzer_buzz(100, 3);
-
   Storage storage(app_state);
+  Buzzer buzzer(app_state, BUZZER_PIN);
+
+  buzzer.buzz(100, 3);
 
   ModeManager modes(
     app_state,
@@ -89,7 +89,7 @@ void display_task(void*)
     );
   modes.add_mode(
     LAPTIMER,
-    std::unique_ptr<Mode>(new LapTimer(app_state, rtc, display.width(), lap_time_tracker))
+    std::unique_ptr<Mode>(new LapTimer(app_state, rtc, display.width(), lap_time_tracker, buzzer))
     );
 
   ble_set_mode_change_callback(

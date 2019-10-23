@@ -50,6 +50,7 @@ struct app_state_t
     , trigger_cooldown(0)
     , laptime_buffer_pos(0)
     , laptime_buffer(8192, 0)
+    , use_buzzer(true)
   {}
   uint32_t selected_channel;
   uint16_t last_read_channel;
@@ -65,4 +66,5 @@ struct app_state_t
   uint16_t laptime_buffer_pos;
   std::vector<uint8_t> laptime_buffer;
   peak_detection_t peak_detection_config;
+  bool use_buzzer;
 };

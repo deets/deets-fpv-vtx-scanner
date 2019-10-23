@@ -56,6 +56,38 @@ private:
   const char* _unit;
 };
 
+class BoolSetting : public Setting
+{
+public:
+  BoolSetting(std::string name, bool& value)
+    : Setting(name)
+    , _value(value)
+  {
+  }
+
+  void right() override
+  {
+    _value = !_value;
+  }
+
+  void left() override
+  {
+    _value = !_value;
+  }
+
+  const char* value() const override
+  {
+    static char buffer[50];
+    sprintf(buffer, "<%s>", _value ? "ON" : "OFF");
+    return buffer;
+  }
+
+private:
+
+  bool& _value;
+};
+
+
 class SettingsMode : public Mode
 {
 public:

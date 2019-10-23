@@ -70,6 +70,24 @@ struct NVSLoadStore<int>
 
 };
 
+template<>
+struct NVSLoadStore<bool>
+{
+  esp_err_t store(nvs_handle nvs_handle, const char* name, const bool& value)
+  {
+    return nvs_set_u8(nvs_handle, name, value);
+  }
+
+  esp_err_t restore(nvs_handle nvs_handle, const char* name, bool* value)
+  {
+    uint8_t v;
+    const auto res = nvs_get_u8(nvs_handle, name, &v);
+    *value = (bool)v;
+    return res;
+  }
+
+};
+
 } // end ns anonymous
 
 #define CHECK_AND_STORE(attributename) \
@@ -123,6 +141,7 @@ void Storage::store()
   CHECK_AND_STORE(peak_detection_config.peak_size);
   CHECK_AND_STORE(peak_detection_config.trigger_threshold_percent);
   CHECK_AND_STORE(peak_detection_config.trigger_threshold_hysteresis);
+  CHECK_AND_STORE(use_buzzer);
   if(commit)
   {
     err = nvs_commit(_nvs_handle);
@@ -140,5 +159,5 @@ void Storage::restore()
   RESTORE(peak_detection_config.peak_size);
   RESTORE(peak_detection_config.trigger_threshold_percent);
   RESTORE(peak_detection_config.trigger_threshold_hysteresis);
-
+  RESTORE(use_buzzer);
 }

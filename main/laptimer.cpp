@@ -13,7 +13,7 @@
 #define LINE_LENGTH 12
 #define LAPTIME_FORMAT "%2i: %.3f"
 
-LapTimer::LapTimer(app_state_t& app_state, RTC6715& rtc, size_t display_width, LapTimeTracker& lpt)
+LapTimer::LapTimer(app_state_t& app_state, RTC6715& rtc, size_t display_width, LapTimeTracker& lpt, Buzzer& buzzer)
   : Mode(app_state)
   , _rtc(rtc)
   , _rssi_readings(display_width)
@@ -25,6 +25,7 @@ LapTimer::LapTimer(app_state_t& app_state, RTC6715& rtc, size_t display_width, L
     app_state.max_rssi_reading
     )
   , _lap_time_tracker(lpt)
+  , _buzzer(buzzer)
 
 {
   _task_q = xQueueCreate(20, sizeof(queue_message_t));
@@ -40,16 +41,16 @@ LapTimer::LapTimer(app_state_t& app_state, RTC6715& rtc, size_t display_width, L
     );
   vTaskSuspend(_laptimer_task_handle);
   assert(_task_q);
+
   auto h = new LowerUpperBoundSetting<decltype(app_state.peak_detection_config.peak_size)>(
-                        "Peak Length",
-                        app_state.peak_detection_config.peak_size,
-                        50,
-                        5000,
-                        50
+    "Peak Length",
+    app_state.peak_detection_config.peak_size,
+    50,
+    5000,
+    50
     );
 
   _settings.push_back(h->unit("ms"));
-
   auto h2 = new LowerUpperBoundSetting<decltype(app_state.peak_detection_config.trigger_threshold_percent)>(
     "Trig. Thresh. %",
     app_state.peak_detection_config.trigger_threshold_percent,
@@ -60,7 +61,6 @@ LapTimer::LapTimer(app_state_t& app_state, RTC6715& rtc, size_t display_width, L
 
   _settings.push_back(h2->unit("%"));
 
-
   auto h3 = new LowerUpperBoundSetting<decltype(app_state.peak_detection_config.trigger_threshold_hysteresis)>(
     "Trig. Thr. Hyst. %",
     app_state.peak_detection_config.trigger_threshold_hysteresis,
@@ -68,8 +68,13 @@ LapTimer::LapTimer(app_state_t& app_state, RTC6715& rtc, size_t display_width, L
     100,
     5
     );
+  _settings.push_back(h3);
 
-  _settings.push_back(h3->unit("%"));
+  auto bs = new BoolSetting(
+    "Use Buzzer",
+    app_state.use_buzzer
+    );
+  _settings.push_back(bs);
 
 }
 
@@ -208,7 +213,7 @@ void LapTimer::process_queue()
     {
     case PeakDetector::PEAK:
       ESP_LOGI("laptimer", "laptime!");
-      buzzer_buzz(100, 1);
+      _buzzer.buzz(100, 1);
       if(_lap_time_tracker.record(m.peak))
       {
         ble_notify(NOTIFY_NEW_LAPTIME);
