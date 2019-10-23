@@ -30,6 +30,7 @@ VALUE_ON_MODE_SWITCH = {
     Mode.LAPTIMER: (VTX_LAPTIME_RSSI, )
 }
 
+CBCharacteristicWriteWithoutResponse = 1
 
 class VTXDelegate(NSObject):
 
@@ -73,17 +74,22 @@ class VTXDelegate(NSObject):
                 self._characteristics[uuid]
             )
 
+    def changeMode_(self, mode):
+        self.peripheral.writeValue_forCharacteristic_type_(
+            struct.pack("<I", mode.value),
+            self._characteristics[VTX_CURRENT_MODE],
+            CBCharacteristicWriteWithoutResponse,
+        )
+
     def centralManagerDidUpdateState_(self, manager):
         self.manager = manager
         manager.scanForPeripheralsWithServices_options_([VTX_SERVICE], None)
 
     def centralManager_didDiscoverPeripheral_advertisementData_RSSI_(self, manager, peripheral, data, rssi):
-        print("peripheral", peripheral)
         self.peripheral = peripheral
         manager.connectPeripheral_options_(peripheral, None)
 
     def centralManager_didConnectPeripheral_(self, manager, peripheral):
-        print("connected peripheral", peripheral)
         self.peripheral.setDelegate_(self)
         self.peripheral.discoverServices_([VTX_SERVICE])
 
@@ -99,7 +105,6 @@ class VTXDelegate(NSObject):
         self.peripheral.discoverCharacteristics_forService_(self.CHARACTERISTICS_TO_DISCOVER, self.service)
 
     def peripheral_didDiscoverCharacteristicsForService_error_(self, peripheral, service, error):
-        print( repr(error))
         for characteristic in self.service.characteristics():
             uuid = characteristic.UUID()
             if uuid in self.CHARACTERISTICS_TO_DISCOVER:
@@ -108,7 +113,7 @@ class VTXDelegate(NSObject):
                 self._characteristics[uuid] = characteristic
 
     def peripheral_didWriteValueForCharacteristic_error_(self, peripheral, characteristic, error):
-        pass
+           print("peripheral_didWriteValueForCharacteristic_error_")
 
     def peripheral_didUpdateNotificationStateForCharacteristic_error_(self, peripheral, characteristic, error):
         print("Receiving notifications for", characteristic)

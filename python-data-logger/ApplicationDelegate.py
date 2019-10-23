@@ -1,4 +1,5 @@
-from objc import IBAction, IBOutlet, ivar
+from contextlib import contextmanager
+from objc import IBAction, IBOutlet, ivar, python_method
 
 from Foundation import (
     NSObject,
@@ -23,9 +24,15 @@ class ApplicationDelegate(NSObject):
         Mode.LAPTIMER: 1,
     }
 
+    NAME2MODE = {
+        "scanner": Mode.SCANNER,
+        "laptimer": Mode.LAPTIMER,
+    }
+
     def init(self):
         self = super(ApplicationDelegate, self).init()
         self.colors = [NSColor.blackColor(), NSColor.redColor(), NSColor.greenColor()]
+        self._allow_mode_change = False
         return self
 
     def applicationDidFinishLaunching_(self, _):
@@ -44,10 +51,24 @@ class ApplicationDelegate(NSObject):
             "laptime_rssi",
         )
 
+    @python_method
+    @contextmanager
+    def allow_mode_change(self):
+        self._allow_mode_change = True
+        try:
+            yield
+        finally:
+            self._allow_mode_change = False
+
     def modeChanged_(self, delegate_mode):
-        delegate_mode = delegate_mode[0]
-        mode = self.MODE2INDEX.get(delegate_mode, 0)
-        self.mode = mode
+        with self.allow_mode_change():
+            delegate_mode = delegate_mode[0]
+            mode = self.MODE2INDEX.get(delegate_mode, 0)
+            self.mode = mode
 
     def applicationWillTerminate_(self, sender):
         pass
+
+    def tabView_shouldSelectTabViewItem_(self, tabview, item):
+        self.vtx_delegate.changeMode_(self.NAME2MODE[item.identifier()])
+        return self._allow_mode_change
