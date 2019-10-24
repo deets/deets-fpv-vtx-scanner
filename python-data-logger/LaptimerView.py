@@ -47,11 +47,14 @@ class LaptimerView(NSView):
     RETAINED_SAMPLES = 2000
 
     rssiValuesPerSecond = IBOutlet("rssiValuesPerSecond")
+    currentRSSI = IBOutlet("currentRSSI")
+
 
     def initWithFrame_(self, frame):
         self.backgroundColor = NSColor.blackColor()
         self.graphColor = NSColor.whiteColor()
         self._last_ts = None
+        self._last_display = None
         self._rssi_values = []
         self._capture = None
         self._filtered_value_per_second = 1000.0
@@ -74,16 +77,22 @@ class LaptimerView(NSView):
                 x += hstep
                 path.lineToPoint_((x, int(v * vstep)))
             path.stroke()
+            self.currentRSSI.setIntValue_(v)
+
+        self.rssiValuesPerSecond.setIntValue_(int(self._filtered_value_per_second))
 
     def updateRssiValues_(self, args):
         ts, values = args
         if self._last_ts is not None:
-            self._filtered_value_per_second += (len(values) / (ts - self._last_ts) - self._filtered_value_per_second) * self.FILTER_GAIN
-            self.rssiValuesPerSecond.setIntValue_(int(self._filtered_value_per_second))
+            elapsed = ts - self._last_ts
+            self._filtered_value_per_second += (len(values) / elapsed - self._filtered_value_per_second) * self.FILTER_GAIN
+            if self._last_display is None or (ts - self._last_display) > 1/30.0:
+                self.setNeedsDisplay_(True)
+                self._last_display = ts
+
         self._last_ts = ts
         self._rssi_values.extend(values)
         self._rssi_values[:-self.RETAINED_SAMPLES] = []
-        self.setNeedsDisplay_(True)
         if self._capture:
             self._capture.feed(values)
 
