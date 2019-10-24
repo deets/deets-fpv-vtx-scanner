@@ -33,6 +33,7 @@ class ApplicationDelegate(NSObject):
         self = super(ApplicationDelegate, self).init()
         self.colors = [NSColor.blackColor(), NSColor.redColor(), NSColor.greenColor()]
         self._allow_mode_change = False
+        self.vtx_delegate = None
         return self
 
     def applicationDidFinishLaunching_(self, _):
@@ -70,5 +71,8 @@ class ApplicationDelegate(NSObject):
         pass
 
     def tabView_shouldSelectTabViewItem_(self, tabview, item):
-        self.vtx_delegate.changeMode_(self.NAME2MODE[item.identifier()])
-        return self._allow_mode_change
+        if self.vtx_delegate is not None:
+            self.vtx_delegate.changeMode_(self.NAME2MODE[item.identifier()])
+            return self._allow_mode_change
+        else:
+            return True
