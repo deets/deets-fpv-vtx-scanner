@@ -1,8 +1,10 @@
 import datetime
+import math
 import pathlib
 import threading
 import queue
 import csv
+import itertools
 
 from Cocoa import (
     NSView,
@@ -19,6 +21,8 @@ class Capture:
     def __init__(self):
         fname = self.BASE / "vtx-scanner-log-{}.csv".format(datetime.datetime.now().isoformat().replace(":", "-"))
         self._f = fname.open("w")
+        self._writer = csv.writer(self._f)
+        self._writer.writerow(['value', 'timestamp'])
         self._q = queue.Queue()
         self._t = threading.Thread(target=self._run)
         self._t.start()
@@ -27,8 +31,8 @@ class Capture:
         self._q.put(None)
         self._t.join()
 
-    def feed(self, samples):
-        self._q.put(samples)
+    def feed(self, timestamp, samples):
+        self._q.put((timestamp, samples))
 
     @python_method
     def _run(self):
@@ -36,15 +40,16 @@ class Capture:
             data = self._q.get()
             if data is None:
                 break
-            for value in data:
-                self._f.write(f"{value}\n")
+            timestamp, values = data
+            for row in zip(values, itertools.chain([timestamp], itertools.repeat(None))):
+                self._writer.writerow(row)
         self._f.close()
 
 
 class LaptimerView(NSView):
 
     FILTER_GAIN = 0.005
-    RETAINED_SAMPLES = 2000
+    RETAINED_SAMPLES = 1000
 
     rssiValuesPerSecond = IBOutlet("rssiValuesPerSecond")
     currentRSSI = IBOutlet("currentRSSI")
@@ -77,7 +82,7 @@ class LaptimerView(NSView):
                 x += hstep
                 path.lineToPoint_((x, int(v * vstep)))
             path.stroke()
-            self.currentRSSI.setIntValue_(v)
+            self.currentRSSI.setFloatValue_(v / 4096 * 3.3)
 
         self.rssiValuesPerSecond.setIntValue_(int(self._filtered_value_per_second))
 
@@ -94,7 +99,7 @@ class LaptimerView(NSView):
         self._rssi_values.extend(values)
         self._rssi_values[:-self.RETAINED_SAMPLES] = []
         if self._capture:
-            self._capture.feed(values)
+            self._capture.feed(ts, values)
 
     @IBAction
     def captureLog_(self, sender):

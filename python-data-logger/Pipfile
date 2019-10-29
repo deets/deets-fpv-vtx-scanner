@@ -8,6 +8,7 @@ verify_ssl = true
 [packages]
 pyobjc = "*"
 py2app = "*"
+bokeh = "*"
 
 [requires]
 python_version = "3.7"
