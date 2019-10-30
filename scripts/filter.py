@@ -153,3 +153,14 @@ class IIR2Filter(object):
             self.output = self.acc_output[i]
 
         return self.output
+
+
+class BitFilter:
+
+    def __init__(self, bit):
+        self._value = 0
+        self._bit = bit
+
+    def filter(self, value):
+        self._value += ((value << 16) - self._value) >> self._bit
+        return self._value >> 16

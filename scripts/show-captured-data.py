@@ -13,7 +13,7 @@ from bokeh.plotting import figure
 from bokeh.palettes import Spectral as Palette
 
 
-from filter import IIR2Filter
+from filter import IIR2Filter, BitFilter
 
 WIDTH, HEIGHT = 1200, 800
 
@@ -33,7 +33,27 @@ def read_data(reader):
     return np.array([int(value) for value, ts in itertools.islice(reader, 1, None)])
 
 
-CUTOFFS = [5, 10, 20, 100]
+HALF_TIME = 5 * SAMPLEERATE # seconds * samplerate
+
+CUTOFFS = [5, 10]
+BITFILTERS = [3, 5, 7]
+
+LAPTIME_THRESHOLD = 0.95
+
+def laptimes(values):
+    max_rssi = max(values)
+    timestamps = []
+    points = []
+    i = 0
+    while i < len(values):
+        value = values[i]
+        if value >= max_rssi * LAPTIME_THRESHOLD:
+            timestamps.append(i)
+            points.append(value)
+            i += int(HALF_TIME)
+        i += 1
+    return timestamps, points
+
 
 def main():
     with open(FILE) as inf:
@@ -42,6 +62,10 @@ def main():
 
     def compute_filtered(cutoff):
         filter = IIR2Filter(2, [cutoff], 'lowpass', fs=SAMPLEERATE)
+        return [filter.filter(v) for v in raw]
+
+    def compute_bitfilter(bit):
+        filter = BitFilter(bit)
         return [filter.filter(v) for v in raw]
 
     x = np.linspace(0, len(raw), len(raw))
@@ -65,6 +89,12 @@ def main():
         slider.on_change('value', update_filter)
         sliders.append(slider)
 
+
+    # for initial plotting of all, it's important
+    # that the higher bits get plotted last
+    for bit in sorted(BITFILTERS):
+        data[f"{bit}bit"] = compute_bitfilter(bit)
+
     source = ColumnDataSource(data=data)
 
     # Set up plot
@@ -76,6 +106,9 @@ def main():
     palette = Palette[len(data) - 1]
     for color, key in zip(palette, (k for k in data.keys() if k != 'x')):
         plot.line('x', key, source=source, line_width=1, line_alpha=0.6, legend=f"{key}:", line_color=color)
+        lx, ly = laptimes(data[key])
+        plot.circle(lx, ly, size=10, fill_color=color, line_color="black", line_width=2, legend=f"{key} laptimes")
+
 
     plot.legend.location = "top_left"
     plot.legend.click_policy="hide"
