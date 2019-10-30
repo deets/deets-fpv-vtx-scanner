@@ -22,15 +22,11 @@ enum app_mode_t
 struct peak_detection_t
 {
   int trigger_threshold_percent; // 1-100, percent
-  int trigger_threshold_hysteresis; // -100-+100, percent, added to trigger_threshold_percent
-  ts_t peak_size; // 1-n, milliseconds.
-  ts_t cooldown_period; // 0-n, milliseconds
+  ts_t laptime; // 1-n, seconds
 
   peak_detection_t()
-    : trigger_threshold_percent(85)
-    , trigger_threshold_hysteresis(-15)
-    , peak_size(200)
-    , cooldown_period(5000)
+    : trigger_threshold_percent(95)
+    , laptime(5)
   {}
 };
 

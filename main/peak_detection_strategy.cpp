@@ -10,12 +10,6 @@ bool is_above_threshold(uint16_t rssi, const uint16_t& max_rssi, int threshold)
   return rssi > (max_rssi * threshold / 100);
 }
 
-bool is_large_enough_peak(ts_t peak_start, ts_t now, ts_t peak_size)
-{
-  return (now - peak_start) / 1000 /*  ms */ >= peak_size;
-}
-
-
 }  // end ns anonymous
 
 PeakDetector::PeakDetector(callback_t callback, peak_detection_t& config, uint16_t& max_rssi_reading)
@@ -29,7 +23,7 @@ PeakDetector::PeakDetector(callback_t callback, peak_detection_t& config, uint16
 
 void PeakDetector::reset()
 {
-  _state = BELOW_THRESHOLD;
+  _state = DETECTING_PEAK;
 }
 
 
@@ -38,27 +32,16 @@ void PeakDetector::feed(ts_t now, uint16_t rssi)
   const auto old_state = _state;
   switch(_state)
   {
-  case BELOW_THRESHOLD:
-    {
-      const bool above_threshold = is_above_threshold(rssi, _max_rssi_reading, _config.trigger_threshold_percent);
-      _state = state_below_threshold(above_threshold, now, rssi);
-    }
-    break;
   case DETECTING_PEAK:
     {
-      const bool above_threshold = is_above_threshold(
-        rssi,
-        _max_rssi_reading,
-        _config.trigger_threshold_percent + _config.trigger_threshold_hysteresis
-        );
-      _state = state_detecting_peak(above_threshold, now, rssi);
+      _state = state_detecting_peak(now, rssi);
     }
     break;
   case COOLDOWN:
-    _state = state_cooldown(true, now, rssi);
+    _state = state_cooldown(now, rssi);
     break;
-  case PEAK:
-    assert(false); // this shouldn't happen, it's only for the purpose of communicating the peak
+  case LAPTIME:
+    ESP_LOGE("pdetect", "Wrong state LAPTIME");
     break;
   }
   if(old_state != _state)
@@ -68,51 +51,30 @@ void PeakDetector::feed(ts_t now, uint16_t rssi)
 }
 
 
-PeakDetector::state_t PeakDetector::state_below_threshold(bool above_threshold, ts_t now, uint16_t rssi)
+PeakDetector::state_t PeakDetector::state_detecting_peak(ts_t now, uint16_t rssi)
 {
+  const bool above_threshold = is_above_threshold(
+    rssi,
+    _max_rssi_reading,
+    _config.trigger_threshold_percent
+    );
   if(above_threshold)
   {
     _peak_start = now;
-    _peak_reading = rssi;
-    return DETECTING_PEAK;
+    // Trigger recording of the laptime
+    _callback(LAPTIME, now);
+    return COOLDOWN;
   }
-  return BELOW_THRESHOLD;
+  return DETECTING_PEAK;
 }
 
 
-PeakDetector::state_t PeakDetector::state_detecting_peak(bool above_threshold, ts_t now, uint16_t rssi)
+PeakDetector::state_t PeakDetector::state_cooldown(ts_t now, uint16_t)
 {
-  if(above_threshold)
-  {
-    // If we are getting a greater reading
-    // than ever before - record that
-    if(rssi > _peak_reading)
-    {
-      _peak_start = now;
-      _peak_reading = rssi;
-    }
-    // as long as we are above the threshold, we continue to look for the ever higher peak.
-    return DETECTING_PEAK;
-  }
-  else
-  {
-    // falling below the threshold
-    // means we first have to validate that the
-    // overall peak was large enough
-    const bool large_enough_peak = is_large_enough_peak(_peak_start, now, _config.peak_size);
-    if(large_enough_peak)
-    {
-      _callback(PEAK, _peak_start);
-    }
-    return BELOW_THRESHOLD;
-  }
-}
-
-PeakDetector::state_t PeakDetector::state_cooldown(bool, ts_t now, uint16_t)
-{
-  if((now - _peak_start) / 1000 < _config.cooldown_period)
+  const auto diff = (now - _peak_start) / 1000000;
+  if(diff < _config.laptime / 2)
   {
     return COOLDOWN;
   }
-  return BELOW_THRESHOLD;
+  return DETECTING_PEAK;
 }

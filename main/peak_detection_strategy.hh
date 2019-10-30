@@ -11,9 +11,8 @@ class PeakDetector
 public:
 
   enum state_t {
-    BELOW_THRESHOLD,
     DETECTING_PEAK,
-    PEAK,
+    LAPTIME,
     COOLDOWN
   };
 
@@ -30,13 +29,11 @@ public:
   void feed(ts_t now, uint16_t rssi);
 
 private:
-  state_t state_below_threshold(bool above_threshold, ts_t now, uint16_t rssi);
-  state_t state_detecting_peak(bool above_threshold, ts_t now, uint16_t rssi);
-  state_t state_cooldown(bool above_threshold, ts_t now, uint16_t rssi);
+  state_t state_detecting_peak(ts_t now, uint16_t rssi);
+  state_t state_cooldown(ts_t now, uint16_t rssi);
 
   state_t _state;
   ts_t _peak_start;
-  uint16_t _peak_reading;
 
   callback_t _callback;
   peak_detection_t& _config;

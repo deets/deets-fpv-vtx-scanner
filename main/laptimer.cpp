@@ -42,15 +42,6 @@ LapTimer::LapTimer(app_state_t& app_state, RTC6715& rtc, size_t display_width, L
   vTaskSuspend(_laptimer_task_handle);
   assert(_task_q);
 
-  auto h = new LowerUpperBoundSetting<decltype(app_state.peak_detection_config.peak_size)>(
-    "Peak Length",
-    app_state.peak_detection_config.peak_size,
-    50,
-    5000,
-    50
-    );
-
-  _settings.push_back(h->unit("ms"));
   auto h2 = new LowerUpperBoundSetting<decltype(app_state.peak_detection_config.trigger_threshold_percent)>(
     "Trig. Thresh. %",
     app_state.peak_detection_config.trigger_threshold_percent,
@@ -61,12 +52,12 @@ LapTimer::LapTimer(app_state_t& app_state, RTC6715& rtc, size_t display_width, L
 
   _settings.push_back(h2->unit("%"));
 
-  auto h3 = new LowerUpperBoundSetting<decltype(app_state.peak_detection_config.trigger_threshold_hysteresis)>(
-    "Trig. Thr. Hyst. %",
-    app_state.peak_detection_config.trigger_threshold_hysteresis,
-    -100,
+  auto h3 = new LowerUpperBoundSetting<decltype(app_state.peak_detection_config.laptime)>(
+    "Laptime",
+    app_state.peak_detection_config.laptime,
+    1,
     100,
-    5
+    1
     );
   _settings.push_back(h3);
 
@@ -86,7 +77,6 @@ std::vector<Setting*>& LapTimer::settings()
 
 void LapTimer::setup_impl()
 {
-  ESP_LOGE("laptimer", "setup");
   auto screen_period = pdMS_TO_TICKS(1000 / 60);
   periodic(screen_period);
   _rtc.select_channel(_app_state.selected_channel);
@@ -211,19 +201,16 @@ void LapTimer::process_queue()
   {
     switch(m.state)
     {
-    case PeakDetector::PEAK:
+    case PeakDetector::DETECTING_PEAK:
+      ESP_LOGI("laptimer", "DETECTING_PEAK");
+      break;
+    case PeakDetector::LAPTIME:
       ESP_LOGI("laptimer", "laptime!");
       _buzzer.buzz(100, 1);
       if(_lap_time_tracker.record(m.peak))
       {
         ble_notify(NOTIFY_NEW_LAPTIME);
       }
-      break;
-    case PeakDetector::BELOW_THRESHOLD:
-      ESP_LOGI("laptimer", "BELOW_THRESHOLD");
-      break;
-    case PeakDetector::DETECTING_PEAK:
-      ESP_LOGI("laptimer", "DETECTING_PEAK");
       break;
     case PeakDetector::COOLDOWN:
       ESP_LOGI("laptimer", "COOLDOWN");

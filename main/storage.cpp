@@ -138,9 +138,8 @@ void Storage::store()
   esp_err_t err;
   bool commit = true;
   CHECK_AND_STORE(selected_channel);
-  CHECK_AND_STORE(peak_detection_config.peak_size);
   CHECK_AND_STORE(peak_detection_config.trigger_threshold_percent);
-  CHECK_AND_STORE(peak_detection_config.trigger_threshold_hysteresis);
+  CHECK_AND_STORE(peak_detection_config.laptime);
   CHECK_AND_STORE(use_buzzer);
   if(commit)
   {
@@ -156,8 +155,7 @@ void Storage::restore()
 
   esp_err_t err;
   RESTORE(selected_channel);
-  RESTORE(peak_detection_config.peak_size);
   RESTORE(peak_detection_config.trigger_threshold_percent);
-  RESTORE(peak_detection_config.trigger_threshold_hysteresis);
+  RESTORE(peak_detection_config.laptime);
   RESTORE(use_buzzer);
 }
