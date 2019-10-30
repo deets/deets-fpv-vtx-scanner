@@ -1,3 +1,4 @@
+import time
 import datetime
 import math
 import pathlib
@@ -48,8 +49,10 @@ class Capture:
 
 class LaptimerView(NSView):
 
+    SAMPLEERATE = 1000
+    FRAMETIME = 1/30.0
     FILTER_GAIN = 0.005
-    RETAINED_SAMPLES = 1000
+    RETAINED_SAMPLES_START = 4000
 
     rssiValuesPerSecond = IBOutlet("rssiValuesPerSecond")
     currentRSSI = IBOutlet("currentRSSI")
@@ -64,10 +67,12 @@ class LaptimerView(NSView):
         self._rssi_values = []
         self._max_rssi = 0
         self._capture = None
-        self._filtered_value_per_second = 1000.0
+        self._retained_samples = self.RETAINED_SAMPLES_START
+        self._filtered_value_per_second = self.SAMPLEERATE
         return super(LaptimerView, self).initWithFrame_(frame)
 
     def drawRect_(self, rect):
+        start = time.monotonic()
         f = self.frame()
         f.origin.x = f.origin.y = 0.0
         self.backgroundColor.set()
@@ -98,18 +103,21 @@ class LaptimerView(NSView):
 
         self.rssiValuesPerSecond.setIntValue_(int(self._filtered_value_per_second))
 
+        if time.monotonic() - start > self.FRAMETIME:
+            self._retained_samples = int(self._retained_samples * 0.95)
+
     def updateRssiValues_(self, args):
         ts, values = args
         if self._last_ts is not None:
             elapsed = ts - self._last_ts
             self._filtered_value_per_second += (len(values) / elapsed - self._filtered_value_per_second) * self.FILTER_GAIN
-            if self._last_display is None or (ts - self._last_display) > 1/30.0:
+            if self._last_display is None or (ts - self._last_display) > self.FRAMETIME:
                 self.setNeedsDisplay_(True)
                 self._last_display = ts
 
         self._last_ts = ts
         self._rssi_values.extend(values)
-        self._rssi_values[:-self.RETAINED_SAMPLES] = []
+        self._rssi_values[:-self._retained_samples] = []
         if self._capture:
             self._capture.feed(ts, values)
 
