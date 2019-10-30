@@ -1,19 +1,4 @@
-''' Present an interactive function explorer with slider widgets.
-
-Scrub the sliders to change the properties of the ``sin`` curve, or
-type into the title text box to update the title of the plot.
-
-Use the ``bokeh serve`` command to run the example by executing:
-
-    bokeh serve sliders.py
-
-at your command prompt. Then navigate to the URL
-
-    http://localhost:5006/sliders
-
-in your browser.
-
-'''
+import os
 import sys
 import csv
 import numpy as np
@@ -21,70 +6,83 @@ import itertools
 
 from bokeh.io import curdoc
 from bokeh.layouts import row, column
+
 from bokeh.models import ColumnDataSource
 from bokeh.models.widgets import Slider, TextInput
 from bokeh.plotting import figure
+from bokeh.palettes import Spectral as Palette
+
+
+from filter import IIR2Filter
 
 WIDTH, HEIGHT = 1200, 800
+
+
+CUTOFF = 100 # Hz
+SAMPLEERATE=1000.0
+
+BASE = os.path.dirname(__file__)
+
+FILE = os.path.join(
+    BASE, "..", "python-data-logger", "captured-runs",
+    "tinyhawk-ableton-hof-paar-runden-mit-ausflug-nach-hinten.csv"
+    )
+assert os.path.exists(FILE)
 
 def read_data(reader):
     return np.array([int(value) for value, ts in itertools.islice(reader, 1, None)])
 
 
+CUTOFFS = [5, 10, 20, 100]
+
 def main():
-    with open('/tmp/vtx-scanner-log-2019-10-28T16-06-24.926670.csv') as inf:
+    with open(FILE) as inf:
         reader = csv.reader(inf)
-        y = read_data(reader)
+        raw = read_data(reader)
 
-    x = np.linspace(0, len(y), len(y))
+    def compute_filtered(cutoff):
+        filter = IIR2Filter(2, [cutoff], 'lowpass', fs=SAMPLEERATE)
+        return [filter.filter(v) for v in raw]
 
-    source = ColumnDataSource(data=dict(x=x, y=y))
+    x = np.linspace(0, len(raw), len(raw))
+
+    data = dict(
+        x=x,
+        raw=raw,
+    )
+
+    def update_filter(attrname, old, new):
+        print('update_filter', old, new)
+        data[attrname] = compute_filtered(new)
+        source.data = data
+
+    sliders = []
+    # for initial plotting of all, it's important
+    # that the lower frequencies get plotted last.
+    for cutoff in reversed(sorted(CUTOFFS)):
+        data[f"{cutoff}Hz"] = compute_filtered(cutoff)
+        slider = Slider(title=f"{cutoff}", value=cutoff, start=1, end=SAMPLEERATE / 2, step=1)
+        slider.on_change('value', update_filter)
+        sliders.append(slider)
+
+    source = ColumnDataSource(data=data)
 
     # Set up plot
-    plot = figure(plot_height=HEIGHT, plot_width=WIDTH, title="VTX laptimer data",
-                  tools="crosshair,pan,reset,save,wheel_zoom",
-                  x_range=[0, len(y)], y_range=[0, 4096])
+    plot = figure(
+        plot_height=HEIGHT, plot_width=WIDTH, title="VTX laptimer data",
+        x_range=[0, len(raw)], y_range=[0, 4096]
+    )
 
-    plot.line('x', 'y', source=source, line_width=3, line_alpha=0.6)
+    palette = Palette[len(data) - 1]
+    for color, key in zip(palette, (k for k in data.keys() if k != 'x')):
+        plot.line('x', key, source=source, line_width=1, line_alpha=0.6, legend=f"{key}:", line_color=color)
 
-    # Set up widgets
-    #text = TextInput(title="title", value='my sine wave')
-    offset = Slider(title="offset", value=0.0, start=-5.0, end=5.0, step=0.1)
-    # amplitude = Slider(title="amplitude", value=1.0, start=-5.0, end=5.0, step=0.1)
-    # phase = Slider(title="phase", value=0.0, start=0.0, end=2*np.pi)
-    # freq = Slider(title="frequency", value=1.0, start=0.1, end=5.1, step=0.1)
-
-
-    # # Set up callbacks
-    # def update_title(attrname, old, new):
-    #     plot.title.text = text.value
-
-    #text.on_change('value', update_title)
-
-    def update_data(attrname, old, new):
-
-        # Get the current slider values
-        a = amplitude.value
-        b = offset.value
-        w = phase.value
-        k = freq.value
-
-        # Generate the new curve
-        x = np.linspace(0, 4*np.pi, N)
-        y = a*np.sin(k*x + w) + b
-
-        source.data = dict(x=x, y=y)
-
-    # for w in [offset, amplitude, phase, freq]:
-    #     w.on_change('value', update_data)
-
+    plot.legend.location = "top_left"
+    plot.legend.click_policy="hide"
 
     # # Set up layouts and add to document
-    # inputs = column(text, offset, amplitude, phase, freq)
-
-    curdoc().add_root(row(plot, width=800))
-    #curdoc().add_root(row(inputs, plot, width=800))
+    inputs = column(*sliders)
+    curdoc().add_root(row(inputs, plot, width=WIDTH))
     curdoc().title = "VTX Laptimer"
-
 
 main()

@@ -9,6 +9,7 @@ verify_ssl = true
 pyobjc = "*"
 py2app = "*"
 bokeh = "*"
+scipy = "*"
 
 [requires]
 python_version = "3.7"
