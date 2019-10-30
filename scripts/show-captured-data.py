@@ -25,7 +25,8 @@ BASE = os.path.dirname(__file__)
 
 FILE = os.path.join(
     BASE, "..", "python-data-logger", "captured-runs",
-    "tinyhawk-ableton-hof-paar-runden-mit-ausflug-nach-hinten.csv"
+    "tinyhawk-ableton-hof-paar-runden-1.csv"
+    #"tinyhawk-ableton-hof-paar-runden-mit-ausflug-nach-hinten.csv"
     )
 assert os.path.exists(FILE)
 
