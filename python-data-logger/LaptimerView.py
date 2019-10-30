@@ -58,12 +58,13 @@ class LaptimerView(NSView):
     def initWithFrame_(self, frame):
         self.backgroundColor = NSColor.blackColor()
         self.graphColor = NSColor.whiteColor()
+        self.maxRssiColor = self.graphColor.colorWithAlphaComponent_(0.8)
         self._last_ts = None
         self._last_display = None
         self._rssi_values = []
+        self._max_rssi = 0
         self._capture = None
         self._filtered_value_per_second = 1000.0
-
         return super(LaptimerView, self).initWithFrame_(frame)
 
     def drawRect_(self, rect):
@@ -71,16 +72,27 @@ class LaptimerView(NSView):
         f.origin.x = f.origin.y = 0.0
         self.backgroundColor.set()
         NSBezierPath.fillRect_(f)
+
         if self._rssi_values:
-            self.graphColor.set()
             hstep = f.size.width / len(self._rssi_values)
             vstep = f.size.height / 4096
+
+            self.maxRssiColor.set()
+            max_rssi_y = int(self._max_rssi * vstep)
+            path = NSBezierPath.bezierPath()
+            path.moveToPoint_((0, max_rssi_y))
+            path.lineToPoint_((f.size.width, max_rssi_y))
+            path.stroke()
+
             path = NSBezierPath.bezierPath()
             x = 0.0
             path.moveToPoint_((0, int(self._rssi_values[0] * vstep)))
             for v in self._rssi_values[1:]:
                 x += hstep
+                self._max_rssi = max(v, self._max_rssi)
                 path.lineToPoint_((x, int(v * vstep)))
+
+            self.graphColor.set()
             path.stroke()
             self.currentRSSI.setFloatValue_(v / 4096 * 3.3)
 
