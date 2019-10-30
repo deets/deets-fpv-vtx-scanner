@@ -4,6 +4,8 @@
 #include <driver/spi_master.h>
 #include <driver/adc.h>
 #include <freertos/semphr.h>
+#include <esp_adc_cal.h>
+
 
 class RTC6715 {
 
@@ -30,4 +32,7 @@ private:
 
   uint32_t _receiver_control_register_1;
   uint32_t _receiver_control_register_2;
+
+  esp_adc_cal_characteristics_t _adc_chars;
+
 };

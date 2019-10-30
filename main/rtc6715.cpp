@@ -50,7 +50,8 @@ RTC6715::RTC6715(adc1_channel_t adc_channel, int cs, int clk, int mosi)
   esp_err_t ret;
 
   adc1_config_width(ADC_WIDTH_12Bit);
-  adc1_config_channel_atten(_adc_channel, ADC_ATTEN_11db);
+  adc1_config_channel_atten(_adc_channel, ADC_ATTEN_6db);
+  esp_adc_cal_characterize(ADC_UNIT_1, ADC_ATTEN_6db, ADC_WIDTH_BIT_12, 1100, &_adc_chars);
 
   // setup spi
   spi_bus_config_t buscfg = {
