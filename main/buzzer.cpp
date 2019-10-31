@@ -40,6 +40,20 @@ void Buzzer::buzz(int ms, int repetitions)
 }
 
 
+void Buzzer::buzz(buzz_t b)
+{
+  switch(b)
+  {
+  case LAP:
+    buzz(100, 1);
+    break;
+  case RACE_OVER:
+    buzz(200, 3);
+    break;
+  }
+}
+
+
 void Buzzer::timer_task()
 {
   if(!_buzzer_repetitions)

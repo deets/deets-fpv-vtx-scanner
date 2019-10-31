@@ -140,6 +140,7 @@ void Storage::store()
   CHECK_AND_STORE(selected_channel);
   CHECK_AND_STORE(peak_detection_config.trigger_threshold_percent);
   CHECK_AND_STORE(peak_detection_config.laptime);
+  CHECK_AND_STORE(peak_detection_config.laps);
   CHECK_AND_STORE(use_buzzer);
   if(commit)
   {
@@ -157,5 +158,6 @@ void Storage::restore()
   RESTORE(selected_channel);
   RESTORE(peak_detection_config.trigger_threshold_percent);
   RESTORE(peak_detection_config.laptime);
+  RESTORE(peak_detection_config.laps);
   RESTORE(use_buzzer);
 }

@@ -1,10 +1,9 @@
 // Copyright: 2019, Diez B. Roggisch, Berlin, all rights reserved
 #pragma once
+#include "appstate.hh"
+#include "buzzer.hh"
 
-#include <stdint.h>
 #include <vector>
-
-using ts_t = int64_t;
 
 struct laptime_t {
   uint16_t count;
@@ -27,11 +26,13 @@ struct laptime_t {
 class LapTimeTracker {
 
 public:
+  LapTimeTracker(app_state_t&, Buzzer&);
   /**
    * Record a peak at the timestamp. Returns
    * true if this resulted in an actual laptime recorded.
    */
-  bool record(ts_t);
+  void record(ts_t);
+  bool race_over() const;
   /**
    * Query a concrete laptime for a given count.
    * Here count can be 0 to get the *last* laptime.
@@ -45,7 +46,7 @@ public:
    * The operator bool() of the return-value will be false
    * if it's not a valid laptime.
    */
-  laptime_t laptime(int count) const;
+  laptime_t laptime_at(int count) const;
   void reset();
 
 private:
@@ -53,5 +54,8 @@ private:
 
   std::vector<laptime_t> _laps;
   laptime_t _last_lap;
+
+  app_state_t& _app_state;
+  Buzzer& _buzzer;
 
 };

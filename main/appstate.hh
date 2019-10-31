@@ -1,8 +1,10 @@
 // Copyright: 2019, Diez B. Roggisch, Berlin, all rights reserved
 #pragma once
-#include "laptime_tracker.hh"
 
 #include <vector>
+#include <stdint.h>
+
+using ts_t = int64_t;
 
 enum app_mode_t
 {
@@ -23,10 +25,12 @@ struct peak_detection_t
 {
   int trigger_threshold_percent; // 1-100, percent
   ts_t laptime; // 1-n, seconds
+  int laps; // 0-n
 
   peak_detection_t()
     : trigger_threshold_percent(95)
     , laptime(5)
+    , laps(0)
   {}
 };
 

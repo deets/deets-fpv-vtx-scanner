@@ -1,28 +1,50 @@
 // Copyright: 2019, Diez B. Roggisch, Berlin, all rights reserved
 
 #include "laptime_tracker.hh"
+#include "ble.hh"
 
 #include <esp_log.h>
 
 #include <algorithm>
 
-bool LapTimeTracker::record(ts_t t)
+LapTimeTracker::LapTimeTracker(app_state_t& app_state, Buzzer& buzzer)
+  : _app_state(app_state)
+  , _buzzer(buzzer)
 {
-  bool res = false;
-  ESP_LOGI("lpt", "record peak %i", _laps.size());
-  if(_last_lap)
-  {
-    const auto laptime = t - _last_lap.time;
-    ESP_LOGI("lpt", "laptime %i", static_cast<int>(laptime));
-    _laps.push_back({static_cast<uint16_t>(_laps.size() + 1), laptime});
-    res = true;
-  }
-  _last_lap = { 1, t };
-  return res;
+
 }
 
 
-laptime_t LapTimeTracker::laptime(int count) const
+void LapTimeTracker::record(ts_t t)
+{
+  ESP_LOGI("lpt", "record peak %i", _laps.size());
+  if(_last_lap && !race_over())
+  {
+    const auto laptime = t - _last_lap.time;
+    _laps.push_back({static_cast<uint16_t>(_laps.size() + 1), laptime});
+    if(race_over())
+    {
+      _buzzer.buzz(RACE_OVER);
+    }
+    else
+    {
+      _buzzer.buzz(LAP);
+    }
+    ble_notify(NOTIFY_NEW_LAPTIME);
+    ESP_LOGI("lpt", "laptime %i", static_cast<int>(laptime));
+  }
+  _last_lap = { 1, t };
+}
+
+
+bool LapTimeTracker::race_over() const
+{
+  const auto laps = _app_state.peak_detection_config.laps;
+  return laps != 0 && _laps.size() >= laps;
+}
+
+
+laptime_t LapTimeTracker::laptime_at(int count) const
 {
   if(_laps.size())
   {

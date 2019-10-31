@@ -6,11 +6,18 @@
 #include <esp_timer.h>
 
 
+enum buzz_t
+{
+  LAP,
+  RACE_OVER
+};
+
 class Buzzer {
 
 public:
   Buzzer(app_state_t&, gpio_num_t pin);
   void buzz(int ms, int repetitions);
+  void buzz(buzz_t);
 
 private:
   void timer_task();

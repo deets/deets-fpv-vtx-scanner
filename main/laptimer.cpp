@@ -25,8 +25,6 @@ LapTimer::LapTimer(app_state_t& app_state, RTC6715& rtc, size_t display_width, L
     app_state.max_rssi_reading
     )
   , _lap_time_tracker(lpt)
-  , _buzzer(buzzer)
-
 {
   _task_q = xQueueCreate(20, sizeof(queue_message_t));
   _laptimer_task_handle = xTaskCreateStaticPinnedToCore(
@@ -41,6 +39,15 @@ LapTimer::LapTimer(app_state_t& app_state, RTC6715& rtc, size_t display_width, L
     );
   vTaskSuspend(_laptimer_task_handle);
   assert(_task_q);
+
+  auto h1 = new LowerUpperBoundSetting<decltype(app_state.peak_detection_config.laps)>(
+    "Laps",
+    app_state.peak_detection_config.laps,
+    0,
+    10,
+    1
+    );
+  _settings.push_back(h1);
 
   auto h2 = new LowerUpperBoundSetting<decltype(app_state.peak_detection_config.trigger_threshold_percent)>(
     "Trig. Thresh. %",
@@ -113,7 +120,7 @@ void LapTimer::display_laptimes(Display& display)
 {
   char large_line[256];
   auto y = DISPLAY_SPLIT + 1;
-  const auto current = _lap_time_tracker.laptime(0);
+  const auto current = _lap_time_tracker.laptime_at(0);
   std::vector<std::vector<char>> prev_laptimes;
   if(current)
   {
@@ -121,7 +128,7 @@ void LapTimer::display_laptimes(Display& display)
 
     for(int i=1; i < 5; ++i)
     {
-      const auto prev = _lap_time_tracker.laptime(-i);
+      const auto prev = _lap_time_tracker.laptime_at(-i);
       if(prev)
       {
         char buffer[256];
@@ -206,12 +213,7 @@ void LapTimer::process_queue()
       break;
     case PeakDetector::LAPTIME:
       ESP_LOGI("laptimer", "laptime!");
-      _buzzer.buzz(100, 1);
-      if(_lap_time_tracker.record(m.peak))
-      {
-        ble_notify(NOTIFY_NEW_LAPTIME);
-      }
-      break;
+      _lap_time_tracker.record(m.peak);
     case PeakDetector::COOLDOWN:
       ESP_LOGI("laptimer", "COOLDOWN");
       break;

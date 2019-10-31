@@ -61,9 +61,6 @@ void display_task(void*)
 {
   iobuttons_setup(xTaskGetCurrentTaskHandle());
 
-  LapTimeTracker lap_time_tracker;
-  BLE ble(app_state, lap_time_tracker);
-
   Display display;
 
   RTC6715 rtc(
@@ -75,6 +72,8 @@ void display_task(void*)
 
   Storage storage(app_state);
   Buzzer buzzer(app_state, BUZZER_PIN);
+  LapTimeTracker lap_time_tracker(app_state, buzzer);
+  BLE ble(app_state, lap_time_tracker);
 
   buzzer.buzz(100, 3);
 

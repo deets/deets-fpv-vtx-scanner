@@ -152,7 +152,7 @@ void BLE::packet_handler(uint8_t packet_type, uint16_t channel, uint8_t *packet,
                   }
                   if(_next_notification & NOTIFY_NEW_LAPTIME)
                   {
-                    const auto last_laptime = laptime_wire_t(_lap_time_tracker.laptime(0));
+                    const auto last_laptime = laptime_wire_t(_lap_time_tracker.laptime_at(0));
                     att_server_notify(
                       _con_handle,
                       LAPTIME_EVENT_VALUE_HANDLE,
@@ -210,7 +210,7 @@ uint16_t BLE::att_read_callback(hci_con_handle_t connection_handle, uint16_t att
       return att_read_callback_handle_blob((uint8_t*)_laptimer_data.data(), buffer_size, offset, buffer, buffer_size);
     }
     if (att_handle == LAPTIME_EVENT_VALUE_HANDLE) {
-      const auto last_laptime = laptime_wire_t(_lap_time_tracker.laptime(0));
+      const auto last_laptime = laptime_wire_t(_lap_time_tracker.laptime_at(0));
       return att_read_callback_handle_blob((uint8_t*)&last_laptime, buffer_size, offset, buffer, buffer_size);
     }
     return 0;

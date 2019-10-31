@@ -52,5 +52,5 @@ private:
 
   ts_t _diff;
   bool _show_diff;
-  Buzzer& _buzzer;
+
 };
