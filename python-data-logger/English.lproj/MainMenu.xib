@@ -716,7 +716,7 @@
                                                 </textField>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="cqf-4x-M0G">
                                                     <rect key="frame" x="9" y="591" width="71" height="17"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <textFieldCell key="cell" lineBreakMode="clipping" title="Samples/s:" id="cUy-2e-hED">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" red="1" green="1" blue="1" alpha="0.84705882352941175" colorSpace="custom" customColorSpace="sRGB"/>
@@ -725,7 +725,7 @@
                                                 </textField>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="QJM-Hb-oO3">
                                                     <rect key="frame" x="9" y="566" width="37" height="17"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <textFieldCell key="cell" lineBreakMode="clipping" title="RSSI:" id="zE5-ym-IAo">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" red="1" green="1" blue="1" alpha="0.84705882349999995" colorSpace="custom" customColorSpace="sRGB"/>
