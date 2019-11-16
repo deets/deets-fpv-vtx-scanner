@@ -1,3 +1,4 @@
 /build/
 sdkconfig.old
 /VTX Scanner/Dependencies/.build/
+/python-data-logger/DerivedData/

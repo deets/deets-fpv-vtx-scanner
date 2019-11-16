@@ -25,6 +25,7 @@ VTX_CURRENT_MODE = CBUUID.UUIDWithString_(u'903BB704-5ADC-48D3-B0D4-0628BDB35250
 VTX_LAPTIME_RSSI = CBUUID.UUIDWithString_(u'135BFFE1-E787-4A27-9402-D76493424B53')
 VTX_LAST_RSSI = CBUUID.UUIDWithString_(u'FBD47252-6210-4692-A247-1DB3007CF668')
 VTX_LAPTIME_EVENT = CBUUID.UUIDWithString_(u'C112478C-9801-481D-8A79-854D23FD9DF2')
+VTX_TIMESTAMP = CBUUID.UUIDWithString_(u'438351FA-60D1-424F-A08A-90EA69BE91D5')
 
 VALUE_ON_MODE_SWITCH = {
     Mode.LAPTIMER: (VTX_LAPTIME_RSSI, )
@@ -39,6 +40,7 @@ class VTXDelegate(NSObject):
         VTX_LAPTIME_RSSI,
         VTX_LAST_RSSI,
         VTX_LAPTIME_EVENT,
+        VTX_TIMESTAMP,
     ]
 
     def init(self):
@@ -131,6 +133,11 @@ class VTXDelegate(NSObject):
 
         libdispatch.dispatch_async(mq, forward)
 
+    def readTimestamp(self):
+        self.peripheral.readValueForCharacteristic_(
+            self._characteristics[VTX_TIMESTAMP],
+        )
+
     def currentMode_(self, characteristic):
         data = characteristic.value().bytes().tobytes()
         mode = struct.unpack("<I", data)[0]
@@ -153,11 +160,18 @@ class VTXDelegate(NSObject):
         count, laptime = struct.unpack("<Hq", data)
         laptime /= 1000_000 # to seconds
 
+    def timestamp_(self, characteristic):
+        data = characteristic.value().bytes()
+        timestamp, = struct.unpack("<q", data)
+        timestamp /= 1000_000 # to seconds
+        return ("timestamp", timestamp)
+
     TRANSFORM = {
         VTX_CURRENT_MODE: currentMode_,
         VTX_LAPTIME_RSSI: laptimeRssi_,
         VTX_LAST_RSSI: lastRssi_,
         VTX_LAPTIME_EVENT: laptime_,
+        VTX_TIMESTAMP: timestamp_,
     }
 
 def setup_bt_delegate():

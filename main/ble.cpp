@@ -32,6 +32,7 @@ namespace {
 #define LAPTIME_EVENT_VALUE_HANDLE ATT_CHARACTERISTIC_C112478C_9801_481D_8A79_854D23FD9DF2_01_VALUE_HANDLE
 #define LAPTIME_EVENT_CONFIGURATION_HANDLE ATT_CHARACTERISTIC_C112478C_9801_481D_8A79_854D23FD9DF2_01_CLIENT_CONFIGURATION_HANDLE
 
+#define TIMESTAMP_EVENT_VALUE_HANDLE ATT_CHARACTERISTIC_438351FA_60D1_424F_A08A_90EA69BE91D5_01_VALUE_HANDLE
 
 #define MESSAGE_OVERHEAD 3 // this is from the streamer example.
 
@@ -191,6 +192,8 @@ uint16_t BLE::att_read_callback(hci_con_handle_t connection_handle, uint16_t att
         return transfer_laptimer_data();
       case LAPTIME_EVENT_VALUE_HANDLE:
         return sizeof(laptime_wire_t);
+      case TIMESTAMP_EVENT_VALUE_HANDLE:
+        return sizeof(ts_t);
       }
     }
 
@@ -212,6 +215,10 @@ uint16_t BLE::att_read_callback(hci_con_handle_t connection_handle, uint16_t att
     if (att_handle == LAPTIME_EVENT_VALUE_HANDLE) {
       const auto last_laptime = laptime_wire_t(_lap_time_tracker.laptime_at(0));
       return att_read_callback_handle_blob((uint8_t*)&last_laptime, buffer_size, offset, buffer, buffer_size);
+    }
+    if (att_handle == TIMESTAMP_EVENT_VALUE_HANDLE) {
+      const auto now = esp_timer_get_time();
+      return att_read_callback_handle_blob((uint8_t*)&now, buffer_size, offset, buffer, buffer_size);
     }
     return 0;
 }

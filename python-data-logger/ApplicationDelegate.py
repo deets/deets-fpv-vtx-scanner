@@ -11,6 +11,7 @@ from Cocoa import (
     )
 
 from VTXScanner import setup_bt_delegate, Mode
+from TimeTracker import TimeTracker
 
 class ApplicationDelegate(NSObject):
 
@@ -34,6 +35,7 @@ class ApplicationDelegate(NSObject):
         self.colors = [NSColor.blackColor(), NSColor.redColor(), NSColor.greenColor()]
         self._allow_mode_change = False
         self.vtx_delegate = None
+        self._time_tracker = None
         return self
 
     def applicationDidFinishLaunching_(self, _):
@@ -51,6 +53,9 @@ class ApplicationDelegate(NSObject):
             self.laptimerView.updateRssiValues_,
             "laptime_rssi",
         )
+        self._time_tracker = TimeTracker.alloc().initWithVTXDelegate_(self.vtx_delegate)
+        self._time_tracker.start()
+
 
     @python_method
     @contextmanager
@@ -68,7 +73,7 @@ class ApplicationDelegate(NSObject):
             self.mode = mode
 
     def applicationWillTerminate_(self, sender):
-        pass
+        self._time_tracker.stop()
 
     def tabView_shouldSelectTabViewItem_(self, tabview, item):
         if self.vtx_delegate is not None:
