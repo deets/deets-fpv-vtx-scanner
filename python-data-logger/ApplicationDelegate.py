@@ -1,11 +1,14 @@
 from contextlib import contextmanager
-from objc import IBAction, IBOutlet, ivar, python_method
+from objc import IBOutlet, ivar, python_method
 
 from Foundation import (
     NSObject,
     NSLog,
     )
 
+from AppKit import (
+    NSApplication,
+    )
 from Cocoa import (
     NSColor,
     )
@@ -125,3 +128,6 @@ class ApplicationDelegate(NSObject):
         else:
             self.scanView.reset()
         self._bound_scanner = scanner
+
+    def windowWillClose_(self, _):
+        NSApplication.sharedApplication().terminate_(self)

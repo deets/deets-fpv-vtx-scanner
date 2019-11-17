@@ -15,11 +15,11 @@
         <customObject id="373" customClass="NSFontManager"/>
         <menu title="Main Menu" systemMenu="main" id="29" userLabel="Main Menu">
             <items>
-                <menuItem title="NewApplication" id="56">
+                <menuItem title="VTXDatalogger" id="56">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title="NewApplication" systemMenu="apple" id="57">
+                    <menu key="submenu" title="VTXDatalogger" systemMenu="apple" id="57">
                         <items>
-                            <menuItem title="About NewApplication" id="58">
+                            <menuItem title="About VTXDataLogger" id="58">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="orderFrontStandardAboutPanel:" target="-2" id="142"/>
@@ -28,12 +28,7 @@
                             <menuItem isSeparatorItem="YES" id="236"/>
                             <menuItem title="Preferences…" keyEquivalent="," id="129"/>
                             <menuItem isSeparatorItem="YES" id="143"/>
-                            <menuItem title="Services" id="131">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Services" systemMenu="services" id="130"/>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="144"/>
-                            <menuItem title="Hide NewApplication" keyEquivalent="h" id="134">
+                            <menuItem title="Hide VTXDataLogger" keyEquivalent="h" id="134">
                                 <connections>
                                     <action selector="hide:" target="-1" id="369"/>
                                 </connections>
@@ -651,7 +646,7 @@
             <point key="canvasLocation" x="140" y="154"/>
         </menu>
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="367">
-            <windowStyleMask key="styleMask" titled="YES" miniaturizable="YES" resizable="YES"/>
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="491" y="310" width="710" height="658"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
@@ -885,6 +880,9 @@
                     <constraint firstItem="jXg-lu-9d1" firstAttribute="leading" secondItem="368" secondAttribute="leading" id="dH1-V1-6OL"/>
                 </constraints>
             </view>
+            <connections>
+                <outlet property="delegate" destination="826" id="nQ0-E2-k5z"/>
+            </connections>
             <point key="canvasLocation" x="72" y="-495"/>
         </window>
         <customObject id="826" customClass="ApplicationDelegate">
