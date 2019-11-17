@@ -1,22 +1,23 @@
-import select
-import socket
-import sys
 import time
 import struct
-from enum import Enum, unique
+from enum import unique, IntEnum
 from collections import defaultdict
 
+import rx.subject
 import objc
 import libdispatch
-from PyObjCTools import AppHelper
 from Foundation import NSObject
 
 
-objc.loadBundle("CoreBluetooth", globals(),
-    bundle_path=objc.pathForFramework(u'/System/Library/Frameworks/IOBluetooth.framework/Versions/A/Frameworks/CoreBluetooth.framework'))
+objc.loadBundle(
+    "CoreBluetooth",
+    globals(),
+    bundle_path=objc.pathForFramework(u'/System/Library/Frameworks/IOBluetooth.framework/Versions/A/Frameworks/CoreBluetooth.framework')
+)
+
 
 @unique
-class Mode(Enum):
+class Mode(IntEnum):
     SPLASH_SCREEN, SCANNER, LAPTIMER, SETTINGS = range(4)
 
 
@@ -33,6 +34,84 @@ VALUE_ON_MODE_SWITCH = {
 
 CBCharacteristicWriteWithoutResponse = 1
 
+
+@unique
+class CBManagerState(IntEnum):
+    unknown = 0
+    resetting = 1
+    unsupported = 2
+    unauthorized = 3
+    poweredOff = 4
+    poweredOn = 5
+
+
+def execute_in_main_thread(callable):
+    mq = libdispatch.dispatch_get_main_queue()
+
+    def forward():
+        callable()
+
+    libdispatch.dispatch_async(mq, forward)
+
+
+class CBCentralManagerDelegate(NSObject):
+    """
+    Scans for VTX scanners and manages them
+    """
+
+    def init(self):
+        super().init()
+        self._manager = CBCentralManager.alloc().initWithDelegate_queue_options_(self, None, None)
+        # we seem to need to retain these because otherwise
+        # connecting doesn't work
+        self._discovered_peripherals = {}
+        self._connected_peripherals = {}
+        self.scanner_connected = rx.subject.Subject()
+        return self
+
+    def centralManagerDidUpdateState_(self, manager):
+        state = manager.state()
+        if state == CBManagerState.poweredOn:
+            manager.scanForPeripheralsWithServices_options_(
+                [VTX_SERVICE], None
+            )
+
+    def centralManager_didDiscoverPeripheral_advertisementData_RSSI_(self, manager, peripheral, data, rssi):
+        identifier = peripheral.identifier()
+        if identifier not in self._discovered_peripherals:
+            self._discovered_peripherals[identifier] = peripheral
+            manager.connectPeripheral_options_(peripheral, None)
+
+    def centralManager_didConnectPeripheral_(self, manager, peripheral):
+        vtx_delegate = VTXDelegate.alloc().initWithPeripheral_manager_(
+            peripheral, manager
+        )
+        self._connected_peripherals[peripheral.identifier()] = vtx_delegate
+        execute_in_main_thread(
+            lambda: self.scanner_connected.on_next(vtx_delegate)
+        )
+
+    def centralManager_didFailToConnectPeripheral_error_(
+            self, manager, peripheral, error,
+            ):
+        print("failed to connect")
+
+    def centralManager_didDisconnectPeripheral_error_(
+            self, manager, peripheral, error
+            ):
+        print("peripheral error, reconnecting")
+        manager.scanForPeripheralsWithServices_options_([VTX_SERVICE], None)
+
+    def __len__(self):
+        return len(self._connected_peripherals)
+
+    def __getitem__(self, index):
+        if isinstance(index, int):
+            return self._connected_peripherals[
+                list(self._connected_peripherals.keys())[index]
+            ]
+
+
 class VTXDelegate(NSObject):
 
     CHARACTERISTICS_TO_DISCOVER = [
@@ -43,22 +122,24 @@ class VTXDelegate(NSObject):
         VTX_TIMESTAMP,
     ]
 
-    def init(self):
-        self.manager = None
-        self.peripheral = None
+    def initWithPeripheral_manager_(self, peripheral, manager):
+        super().init()
+        self.manager = manager
+        self.peripheral = peripheral
         self.service = None
         self._mode = None
         self._characteristics = {}
-        self._listeners = defaultdict(list)
+
+        self.peripheral.setDelegate_(self)
+        self.peripheral.discoverServices_([VTX_SERVICE])
+        self.last_rssi_subject = rx.subject.Subject()
+        self.mode_subject = rx.subject.Subject()
+        self.laptime_rssi_subject = rx.subject.Subject()
         return self
 
-    def emit_(self, value):
-        message, args = value[0], value[1:]
-        for listener in self._listeners[message]:
-            listener(args)
-
-    def addListener_for_(self, listener, message):
-        self._listeners[message].append(listener)
+    @property
+    def name(self):
+        return self.peripheral.identifier()
 
     @property
     def mode(self):
@@ -83,25 +164,6 @@ class VTXDelegate(NSObject):
             CBCharacteristicWriteWithoutResponse,
         )
 
-    def centralManagerDidUpdateState_(self, manager):
-        self.manager = manager
-        manager.scanForPeripheralsWithServices_options_([VTX_SERVICE], None)
-
-    def centralManager_didDiscoverPeripheral_advertisementData_RSSI_(self, manager, peripheral, data, rssi):
-        self.peripheral = peripheral
-        manager.connectPeripheral_options_(peripheral, None)
-
-    def centralManager_didConnectPeripheral_(self, manager, peripheral):
-        self.peripheral.setDelegate_(self)
-        self.peripheral.discoverServices_([VTX_SERVICE])
-
-    def centralManager_didFailToConnectPeripheral_error_(self, manager, peripheral, error):
-        print("failed to connect")
-
-    def centralManager_didDisconnectPeripheral_error_(self, manager, peripheral, error):
-        print("peripheral error, reconnecting")
-        manager.scanForPeripheralsWithServices_options_([VTX_SERVICE], None)
-
     def peripheral_didDiscoverServices_(self, peripheral, services):
         self.service = self.peripheral.services()[0]
         self.peripheral.discoverCharacteristics_forService_(self.CHARACTERISTICS_TO_DISCOVER, self.service)
@@ -121,17 +183,8 @@ class VTXDelegate(NSObject):
         print("Receiving notifications for", characteristic)
 
     def peripheral_didUpdateValueForCharacteristic_error_(self, peripheral, characteristic, error):
-        # This is executed in a background thread. We need to
-        # forward it to the main thread
         value = self.TRANSFORM[characteristic.UUID()](self, characteristic)
         self._trigger_value_read()
-        mq = libdispatch.dispatch_get_main_queue()
-
-        def forward():
-            if value is not None:
-                self.emit_(value)
-
-        libdispatch.dispatch_async(mq, forward)
 
     def readTimestamp(self):
         self.peripheral.readValueForCharacteristic_(
@@ -142,18 +195,20 @@ class VTXDelegate(NSObject):
         data = characteristic.value().bytes().tobytes()
         mode = struct.unpack("<I", data)[0]
         self.mode = Mode(mode)
-        return ("mode", self.mode)
+        execute_in_main_thread(lambda: self.mode_subject.on_next(self.mode))
 
     def laptimeRssi_(self, characteristic):
         value = characteristic.value()
         now = time.monotonic()
-        return ("laptime_rssi", now, [v << 4 for v in value])
-
+        v = [v << 4 for v in value]
+        execute_in_main_thread(lambda: self.laptime_rssi_subject.on_next((now, v)))
 
     def lastRssi_(self, characteristic):
         data = characteristic.value().bytes().tobytes()
         channel, value = struct.unpack("<HH", data)
-        return ("last_rssi", channel, value)
+        execute_in_main_thread(
+            lambda: self.last_rssi_subject.on_next((channel, value))
+        )
 
     def laptime_(self, characteristic):
         data = characteristic.value().bytes().tobytes()
@@ -174,12 +229,6 @@ class VTXDelegate(NSObject):
         VTX_TIMESTAMP: timestamp_,
     }
 
-def setup_bt_delegate():
-    delegate = VTXDelegate.alloc().init()
-    manager = CBCentralManager.alloc()
-    manager.initWithDelegate_queue_options_(delegate, None, None)
-    return manager, delegate
 
-if __name__ == "__main__":
-    app = MyApp.sharedApplication()
-    AppHelper.runEventLoop()
+def setup_bt_delegate():
+    return CBCentralManagerDelegate.alloc().init()

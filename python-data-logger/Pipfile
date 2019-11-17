@@ -10,6 +10,7 @@ pyobjc = "*"
 py2app = "*"
 bokeh = "*"
 scipy = "*"
+rx = "*"
 
 [requires]
 python_version = "3.7"

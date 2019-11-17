@@ -38,3 +38,7 @@ class ScanView(NSView):
         if self.channelValues[channel] != value:
             self.channelValues[channel] = value
             self.setNeedsDisplay_(True)
+
+    def reset(self):
+        self.channelValues = [0] * self.CHANNELS
+        self.setNeedsDisplay_(True)
