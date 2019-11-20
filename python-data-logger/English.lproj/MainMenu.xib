@@ -721,7 +721,7 @@
                                     <rect key="frame" x="224" y="17" width="15" height="102"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
-                                <tableHeaderView key="headerView" id="G1T-bi-1vD">
+                                <tableHeaderView key="headerView" hidden="YES" id="G1T-bi-1vD">
                                     <rect key="frame" x="0.0" y="0.0" width="176" height="25"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableHeaderView>

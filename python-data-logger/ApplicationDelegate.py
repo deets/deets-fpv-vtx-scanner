@@ -17,7 +17,7 @@ from Cocoa import (
 # classes into the Objective C runtime, so later
 # on they are found when NIB files refer to them
 from VTXScanner import setup_bt_delegate, Mode
-from vtxdatalogger import ScannerListDetailView
+from vtxdatalogger import ScannerListDetailView, ScannerListRowView
 from TimeTracker import TimeTracker
 
 
@@ -92,6 +92,18 @@ class ApplicationDelegate(NSObject):
             else 0
 
     # NSTableViewDelegate
+    def tableView_rowViewForRow_(self, table_view, row):
+        print("tableView_rowViewForRow_")
+        row_view = table_view.makeViewWithIdentifier_owner_("scanner_view_row", self)
+        if row_view is None:
+            row_view = ScannerListRowView.alloc().initWithFrame_(((0, 0,), (0, 0)))
+            row_view.setIdentifier_("scanner_view_row")
+        return row_view
+
+    def tableView_didAddRowView_forRow_(self, table_view, view, row):
+        view.setBackgroundColor_(NSColor.redColor())
+        print("tableView_didAdd_forRow_", view, row)
+
     def tableView_viewForTableColumn_row_(self, table_view, column, row):
         identifier = column.identifier()
         if column and identifier == "scanner_name":
