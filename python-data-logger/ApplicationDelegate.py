@@ -13,7 +13,11 @@ from Cocoa import (
     NSColor,
     )
 
+# these imports are needed to hook the created
+# classes into the Objective C runtime, so later
+# on they are found when NIB files refer to them
 from VTXScanner import setup_bt_delegate, Mode
+from vtxdatalogger import ScannerListDetailView
 from TimeTracker import TimeTracker
 
 
@@ -92,9 +96,7 @@ class ApplicationDelegate(NSObject):
         identifier = column.identifier()
         if column and identifier == "scanner_name":
             cell = table_view.makeViewWithIdentifier_owner_(identifier, self)
-            tf = cell.textField()
-            name = self._bt_delegate[row].name
-            tf.setStringValue_(name)
+            cell.bindScanner_(self._bt_delegate[row])
             return cell
 
     def tableViewSelectionDidChange_(self, notification):
