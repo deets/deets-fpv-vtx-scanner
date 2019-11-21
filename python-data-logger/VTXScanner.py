@@ -73,18 +73,23 @@ class CBCentralManagerDelegate(NSObject):
 
     def centralManager_didDiscoverPeripheral_advertisementData_RSSI_(self, manager, peripheral, data, rssi):
         identifier = peripheral.identifier()
-        if identifier not in self._discovered_peripherals:
-            self._discovered_peripherals[identifier] = peripheral
-            manager.connectPeripheral_options_(peripheral, None)
+        self._discovered_peripherals[identifier] = peripheral
+        manager.connectPeripheral_options_(peripheral, None)
 
     def centralManager_didConnectPeripheral_(self, manager, peripheral):
-        vtx_delegate = VTXDelegate.alloc().initWithPeripheral_manager_(
-            peripheral, manager
-        )
-        self._connected_peripherals[peripheral.identifier()] = vtx_delegate
-        execute_in_main_thread(
-            lambda: self.scanner_connected.on_next(vtx_delegate)
-        )
+        id_ = peripheral.identifier()
+        if id_ not in self._connected_peripherals:
+            vtx_delegate = VTXDelegate.alloc().initWithPeripheral_manager_(
+                peripheral, manager
+            )
+            self._connected_peripherals[id_] = vtx_delegate
+            execute_in_main_thread(
+                lambda: self.scanner_connected.on_next(vtx_delegate)
+            )
+            print("centralManager_didConnectPeripheral_", peripheral)
+        else:
+            print("centralManager_didConnectPeripheral_ / reconnect", peripheral)
+            self._connected_peripherals[id_].reconnect()
 
     def centralManager_didFailToConnectPeripheral_error_(
             self, manager, peripheral, error,
@@ -94,6 +99,7 @@ class CBCentralManagerDelegate(NSObject):
     def centralManager_didDisconnectPeripheral_error_(
             self, manager, peripheral, error
             ):
+        self._connected_peripherals[peripheral.identifier()].disconnect()
         print("peripheral error, reconnecting")
         manager.scanForPeripheralsWithServices_options_([VTX_SERVICE], None)
 
@@ -125,11 +131,10 @@ class VTXDelegate(NSObject):
         self._mode = None
         self._characteristics = {}
 
-        self.peripheral.setDelegate_(self)
-        self.peripheral.discoverServices_([VTX_SERVICE])
         self.last_rssi_subject = rx.subject.Subject()
         self.mode_subject = rx.subject.Subject()
         self.laptime_rssi_subject = rx.subject.Subject()
+        self.reconnect()
         return self
 
     @property
@@ -158,6 +163,16 @@ class VTXDelegate(NSObject):
             self._characteristics[VTX_CURRENT_MODE],
             CBCharacteristicWriteWithoutResponse,
         )
+
+    def disconnect(self):
+        self._mode = Mode.DISCONNECTED
+        self.mode_subject.on_next(self.mode)
+
+    def reconnect(self):
+        print("reconnect")
+        self._mode = None
+        self.peripheral.setDelegate_(self)
+        self.peripheral.discoverServices_([VTX_SERVICE])
 
     def peripheral_didDiscoverServices_(self, peripheral, services):
         self.service = self.peripheral.services()[0]

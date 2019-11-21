@@ -24,6 +24,9 @@ MODE2COLOR = {
     Mode.SETTINGS: NSColor.colorWithRed_green_blue_alpha_(
         59 / 255, 57 / 255, 35 / 255, 1
     ),
+    Mode.DISCONNECTED: NSColor.colorWithRed_green_blue_alpha_(
+        255 / 255, 57 / 255, 35 / 255, 1
+    ),
 }
 
 
