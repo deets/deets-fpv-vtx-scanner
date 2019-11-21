@@ -17,8 +17,10 @@ from Cocoa import (
 # classes into the Objective C runtime, so later
 # on they are found when NIB files refer to them
 from VTXScanner import setup_bt_delegate, Mode
-from vtxdatalogger import ScannerListDetailView, ScannerListRowView
+from vtxdatalogger import ScannerListRowView, ScannerListDetailView
 from TimeTracker import TimeTracker
+
+NSTableViewSelectionHighlightStyleNone = -1
 
 
 class ApplicationDelegate(NSObject):
@@ -41,7 +43,6 @@ class ApplicationDelegate(NSObject):
 
     def init(self):
         self = super(ApplicationDelegate, self).init()
-        self.colors = [NSColor.blackColor(), NSColor.redColor(), NSColor.greenColor()]
         self._allow_mode_change = False
         self._bt_delegate = None
         self._time_tracker = None
@@ -53,6 +54,9 @@ class ApplicationDelegate(NSObject):
         NSLog("applicationDidFinishLaunching_")
         self._bt_delegate = setup_bt_delegate()
         self._bt_delegate.scanner_connected.subscribe(self._scanner_connected)
+        self.scannerListView.setSelectionHighlightStyle_(
+            NSTableViewSelectionHighlightStyleNone
+        )
         # self._time_tracker = TimeTracker.alloc().initWithVTXDelegate_(self.vtx_delegate)
         # self._time_tracker.start()
 
@@ -87,13 +91,11 @@ class ApplicationDelegate(NSObject):
 
     # NSTableViewDataSource
     def numberOfRowsInTableView_(self, table_view):
-        print("numberOfRowsInTableView_", table_view)
         return len(self._bt_delegate) if self._bt_delegate is not None \
             else 0
 
     # NSTableViewDelegate
     def tableView_rowViewForRow_(self, table_view, row):
-        print("tableView_rowViewForRow_")
         row_view = table_view.makeViewWithIdentifier_owner_("scanner_view_row", self)
         if row_view is None:
             row_view = ScannerListRowView.alloc().initWithFrame_(((0, 0,), (0, 0)))
@@ -101,8 +103,7 @@ class ApplicationDelegate(NSObject):
         return row_view
 
     def tableView_didAddRowView_forRow_(self, table_view, view, row):
-        view.setBackgroundColor_(NSColor.redColor())
-        print("tableView_didAdd_forRow_", view, row)
+        view.bindScanner_(self._bt_delegate[row])
 
     def tableView_viewForTableColumn_row_(self, table_view, column, row):
         identifier = column.identifier()
@@ -115,8 +116,19 @@ class ApplicationDelegate(NSObject):
         table_view = notification.object()
         selected_rows = list(table_view.selectedRowIndexes())
         assert len(selected_rows) <= 1
-        scanner = self._bt_delegate[selected_rows[0]] \
-            if len(selected_rows) == 1 else None
+
+        # deselect everything
+        for row, _ in enumerate(self._bt_delegate):
+            view = table_view.rowViewAtRow_makeIfNecessary_(row, False)
+            view.updateColor()
+
+        if len(selected_rows):
+            row = selected_rows[0]
+            scanner = self._bt_delegate[row]
+            view = table_view.rowViewAtRow_makeIfNecessary_(row, False)
+            view.updateColor()
+        else:
+            scanner = None
         self._bind_scanner(scanner)
 
     @python_method

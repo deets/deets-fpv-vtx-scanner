@@ -1,24 +1,19 @@
 import time
 import struct
 from enum import unique, IntEnum
-from collections import defaultdict
 
 import rx.subject
 import objc
 import libdispatch
 from Foundation import NSObject
 
+from vtxdatalogger.common import Mode
 
 objc.loadBundle(
     "CoreBluetooth",
     globals(),
     bundle_path=objc.pathForFramework(u'/System/Library/Frameworks/IOBluetooth.framework/Versions/A/Frameworks/CoreBluetooth.framework')
 )
-
-
-@unique
-class Mode(IntEnum):
-    SPLASH_SCREEN, SCANNER, LAPTIMER, SETTINGS = range(4)
 
 
 VTX_SERVICE = CBUUID.UUIDWithString_(u'D27E29B4-4DBD-4103-A8B6-09301EFDDD01')
