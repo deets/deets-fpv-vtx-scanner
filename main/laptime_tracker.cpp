@@ -15,6 +15,12 @@ LapTimeTracker::LapTimeTracker(app_state_t& app_state, Buzzer& buzzer)
 }
 
 
+bool LapTimeTracker::started() const
+{
+  return _last_lap;
+}
+
+
 void LapTimeTracker::record(ts_t t)
 {
   ESP_LOGI("lpt", "record peak %i", _laps.size());

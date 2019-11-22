@@ -146,7 +146,7 @@ void LapTimer::display_laptimes(Display& display)
   }
   else
   {
-    sprintf(large_line, "Waiting..");
+    sprintf(large_line, _lap_time_tracker.started() ? "Started" : "Waiting..");
   }
   display.font_render(
     NORMAL,
@@ -190,10 +190,14 @@ void LapTimer::input(input_t button)
 {
   switch(button)
   {
-  case input_t::RIGHT_BUTTON:
-    break;
   case input_t::LEFT_BUTTON:
     _lap_time_tracker.reset();
+    break;
+  case input_t::RIGHT_BUTTON:
+    {
+        ts_t now = esp_timer_get_time();
+        _lap_time_tracker.record(now);
+    }
     break;
   default:
     break;

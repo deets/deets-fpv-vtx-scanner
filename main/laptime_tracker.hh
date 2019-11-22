@@ -48,6 +48,7 @@ public:
    */
   laptime_t laptime_at(int count) const;
   void reset();
+  bool started() const;
 
 private:
   void trigger() const;
