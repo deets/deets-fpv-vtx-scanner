@@ -32,6 +32,9 @@ namespace {
 #define LAPTIME_EVENT_VALUE_HANDLE ATT_CHARACTERISTIC_C112478C_9801_481D_8A79_854D23FD9DF2_01_VALUE_HANDLE
 #define LAPTIME_EVENT_CONFIGURATION_HANDLE ATT_CHARACTERISTIC_C112478C_9801_481D_8A79_854D23FD9DF2_01_CLIENT_CONFIGURATION_HANDLE
 
+#define FLYBY_VALUE_HANDLE ATT_CHARACTERISTIC_6F1AD544_8B26_46DF_8A7B_314BCB7D1AC5_01_VALUE_HANDLE
+#define FLYBY_CONFIGURATION_HANDLE ATT_CHARACTERISTIC_6F1AD544_8B26_46DF_8A7B_314BCB7D1AC5_01_CLIENT_CONFIGURATION_HANDLE
+
 #define TIMESTAMP_EVENT_VALUE_HANDLE ATT_CHARACTERISTIC_438351FA_60D1_424F_A08A_90EA69BE91D5_01_VALUE_HANDLE
 
 #define MESSAGE_OVERHEAD 3 // this is from the streamer example.
@@ -151,6 +154,15 @@ void BLE::packet_handler(uint8_t packet_type, uint16_t channel, uint8_t *packet,
                       (uint8_t*)&_app_state.max_rssi_reading, sizeof(uint16_t)
                       );
                   }
+                  if(_next_notification & NOTIFY_FLYBY)
+                  {
+                    const auto last_flyby = _lap_time_tracker.last_flyby();
+                    att_server_notify(
+                      _con_handle,
+                      FLYBY_VALUE_HANDLE,
+                      (uint8_t*)&last_flyby, sizeof(ts_t)
+                      );
+                  }
                   if(_next_notification & NOTIFY_NEW_LAPTIME)
                   {
                     const auto last_laptime = laptime_wire_t(_lap_time_tracker.laptime_at(0));
@@ -194,6 +206,8 @@ uint16_t BLE::att_read_callback(hci_con_handle_t connection_handle, uint16_t att
         return sizeof(laptime_wire_t);
       case TIMESTAMP_EVENT_VALUE_HANDLE:
         return sizeof(ts_t);
+      case FLYBY_VALUE_HANDLE:
+        return sizeof(ts_t);
       }
     }
 
@@ -220,6 +234,10 @@ uint16_t BLE::att_read_callback(hci_con_handle_t connection_handle, uint16_t att
       const auto now = esp_timer_get_time();
       return att_read_callback_handle_blob((uint8_t*)&now, buffer_size, offset, buffer, buffer_size);
     }
+    if (att_handle == FLYBY_VALUE_HANDLE) {
+      const auto flyby = _lap_time_tracker.last_flyby();
+      return att_read_callback_handle_blob((uint8_t*)&flyby, buffer_size, offset, buffer, buffer_size);
+    }
     return 0;
 }
 
@@ -236,6 +254,7 @@ int BLE::att_write_callback(hci_con_handle_t connection_handle, uint16_t att_han
     case CURRENT_MODE_CLIENT_CONFIGURATION_HANDLE:
     case MAX_RSSI_CLIENT_CONFIGURATION_HANDLE:
     case LAPTIME_RSSI_CLIENT_CONFIGURATION_HANDLE:
+    case FLYBY_CONFIGURATION_HANDLE:
       _le_notification_enabled |= little_endian_read_16(buffer, 0) == GATT_CLIENT_CHARACTERISTICS_CONFIGURATION_NOTIFICATION;
       _con_handle = connection_handle;
       break;

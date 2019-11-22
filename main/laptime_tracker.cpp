@@ -21,6 +21,12 @@ bool LapTimeTracker::started() const
 }
 
 
+ts_t LapTimeTracker::last_flyby() const
+{
+  return _last_lap ? _last_lap.time : 0;
+}
+
+
 void LapTimeTracker::record(ts_t t)
 {
   ESP_LOGI("lpt", "record peak %i", _laps.size());
@@ -40,6 +46,7 @@ void LapTimeTracker::record(ts_t t)
     ESP_LOGI("lpt", "laptime %i", static_cast<int>(laptime));
   }
   _last_lap = { 1, t };
+  ble_notify(NOTIFY_FLYBY);
 }
 
 

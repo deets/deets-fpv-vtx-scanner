@@ -150,6 +150,11 @@ class ApplicationDelegate(NSObject):
                     self.laptimerView.updateRssiValues_
                 )
             )
+            self._rx_connections.append(
+                scanner.flyby_subject.subscribe(
+                    print
+                )
+            )
             self.modeChanged_(scanner.mode)
         else:
             self.scanView.reset()

@@ -49,6 +49,7 @@ public:
   laptime_t laptime_at(int count) const;
   void reset();
   bool started() const;
+  ts_t last_flyby() const;
 
 private:
   void trigger() const;

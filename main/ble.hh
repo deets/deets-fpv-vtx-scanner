@@ -14,7 +14,8 @@ enum characeristic_notify_t
   NOTIFY_CURRENT_MODE=1 << 2,
   NOTIFY_MAX_RSSI=1 << 3,
   NOTIFY_LAPTIME_RSSI_VALUE=1 << 4,
-  NOTIFY_NEW_LAPTIME=1 << 5
+  NOTIFY_NEW_LAPTIME=1 << 5,
+  NOTIFY_FLYBY=1 << 6
 };
 
 class BLE {
